@@ -6,7 +6,7 @@
  * Copyright (c) 2012-2013, Credit Suisse
  * All rights reserved.
  */
-package net.javamoney.extras;
+package net.java.javamoney.extras;
 
 import java.util.Map;
 
