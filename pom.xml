@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 	
 	<properties>
-	  <javamoney.version>1.0-SNAPSHOT</javamoney.version>
+	  <javamoney.version>0.5-SNAPSHOT</javamoney.version>
 	</properties>
 	
 	<build>
