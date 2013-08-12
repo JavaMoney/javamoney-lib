@@ -16,7 +16,7 @@
  * Contributors:
  *    Anatole Tresch - initial version.
  */
-package net.java.javamoney.extras;
+package org.javamoney.extras;
 
 import java.util.HashMap;
 import java.util.Map;

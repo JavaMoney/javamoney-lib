@@ -6,7 +6,7 @@
  * Copyright (c) 2012-2013, Credit Suisse
  * All rights reserved.
  */
-package net.java.javamoney.extras;
+package org.javamoney.extras;
 
 import javax.money.MonetaryException;
 
