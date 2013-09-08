@@ -8,6 +8,12 @@
 	<name>JMoney and Currency - Extras not part of JSR 354</name>
 	<packaging>jar</packaging>
 	
+	<parent>
+		<groupId>javax.money</groupId>
+		<artifactId>jsr354</artifactId>
+		<version>0.5-SNAPSHOT</version>
+	</parent>
+	
 	<properties>
 	  <javamoney.version>0.5-SNAPSHOT</javamoney.version>
 	</properties>
@@ -24,11 +30,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-	    <dependency>
-			<groupId>javax.money</groupId>
-			<artifactId>money-platform-ri</artifactId>
-			<version>${javamoney.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>javax.money</groupId>
 			<artifactId>money-api-convert</artifactId>
@@ -43,6 +44,16 @@
 			<groupId>javax.money</groupId>
 			<artifactId>money-api-ext</artifactId>
 			<version>${javamoney.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.money</groupId>
+			<artifactId>money-ri-platform</artifactId>
+			<version>${javamoney.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
