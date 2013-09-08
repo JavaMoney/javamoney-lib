@@ -89,13 +89,13 @@ public class MonetaryCalculator {
 	public void init(Collection<MonetaryAmount> amounts) {
 
 	}
-	
-	public void reset(){
-		
+
+	public void reset() {
+
 	}
-	
-	public void calculate(){
-		
+
+	public void calculate() {
+
 	}
-	
+
 }

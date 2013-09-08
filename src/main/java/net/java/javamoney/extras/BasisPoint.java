@@ -91,6 +91,7 @@ public final class BasisPoint implements MonetaryOperator {
 	 * 
 	 * @return the permil result of the amount, never {@code null}
 	 */
+	@Override
 	public MonetaryAmount apply(MonetaryAmount amount) {
 		return amount.multiply(basisPointValue);
 	}

@@ -1,20 +1,19 @@
 /*
- *  Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- * Contributors:
- *    Anatole Tresch - initial version.
+ * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * 
+ * Contributors: Anatole Tresch - initial version.
  */
 package net.java.javamoney.extras;
 
@@ -48,7 +47,8 @@ public class HashMapParameterObject extends HashMap<String, Object> implements
 		this.type = type;
 	}
 
-	protected HashMapParameterObject(String id, ParameterObjectType type, Map<String, Object> items) {
+	protected HashMapParameterObject(String id, ParameterObjectType type,
+			Map<String, Object> items) {
 		this(id, type);
 		type.validate(items);
 		this.putAll(items);
@@ -102,7 +102,8 @@ public class HashMapParameterObject extends HashMap<String, Object> implements
 
 		public Builder setParameterObjectType(ParameterObjectType type) {
 			if (type == null) {
-				throw new IllegalArgumentException("ParameterObjectType required.");
+				throw new IllegalArgumentException(
+						"ParameterObjectType required.");
 			}
 			this.type = type;
 			return this;

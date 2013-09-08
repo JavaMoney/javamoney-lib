@@ -20,6 +20,8 @@ package net.java.javamoney.extras;
 
 import java.util.Map;
 
+import org.javamoney.extras.ValidationException;
+
 /**
  * Defines a {@link ParameterObjectType} containing several results. Hereby the
  * different results are identified by arbitrary keys. Additionally each

@@ -7,17 +7,9 @@
 	<artifactId>money-extras</artifactId>
 	<name>Money and Currency - Extras not part of JSR 354</name>
 	<packaging>bundle</packaging>
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/JavaMoney/javamoney-extras.git
 	<properties>
-<<<<<<< HEAD
-	  <jdkVersion>1.7</jdkVersion>
-=======
 		<jdkVersion>1.7</jdkVersion>
->>>>>>> branch 'master' of https://github.com/JavaMoney/javamoney-extras.git
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
 		<javamoney.version>0.5-SNAPSHOT</javamoney.version>
@@ -68,14 +60,11 @@
 		</plugins>
 	</build>
 	<dependencies>
-<<<<<<< HEAD
-=======
 		<dependency>
 			<groupId>javax.money</groupId>
-			<artifactId>money-ri-platform</artifactId>
+			<artifactId>money-api</artifactId>
 			<version>${javamoney.version}</version>
 		</dependency>
->>>>>>> branch 'master' of https://github.com/JavaMoney/javamoney-extras.git
 		<dependency>
 			<groupId>javax.money</groupId>
 			<artifactId>money-api-convert</artifactId>

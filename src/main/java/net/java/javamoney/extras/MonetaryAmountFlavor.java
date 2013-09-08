@@ -18,11 +18,8 @@
 package net.java.javamoney.extras;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.money.MonetaryAmount;
 
 /**
  * This class models the type of a given {@link FlavoredMonetaryAmount} as
@@ -44,7 +41,8 @@ public final class MonetaryAmountFlavor implements Serializable,
 	/** The cache of types. */
 	private static final Map<String, MonetaryAmountFlavor> CACHED_INSTANCES = new ConcurrentHashMap<String, MonetaryAmountFlavor>();
 	/** Unknown amount type. */
-	public static final MonetaryAmountFlavor UNKNOWN = MonetaryAmountFlavor.of("<unknown>");
+	public static final MonetaryAmountFlavor UNKNOWN = MonetaryAmountFlavor
+			.of("<unknown>");
 
 	/**
 	 * Creates a new instance.
