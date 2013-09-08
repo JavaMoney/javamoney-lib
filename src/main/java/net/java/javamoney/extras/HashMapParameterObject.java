@@ -22,22 +22,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Defines a {@link MultiValue} containing T instances.
+ * Defines a {@link HashMapParameterObject} containing T instances.
  * 
- * @see CompoundValue
+ * @see ParameterObject
  * @author Anatole Tresch
  */
-public class MultiValue extends HashMap<String, Object> implements
-		CompoundValue {
+public class HashMapParameterObject extends HashMap<String, Object> implements
+		ParameterObject {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 5511830637352838197L;
 	private final String id;
-	private CompoundType type;
+	private ParameterObjectType type;
 
-	protected MultiValue(String id, CompoundType type) {
+	protected HashMapParameterObject(String id, ParameterObjectType type) {
 		if (id == null) {
 			throw new IllegalArgumentException("id can not bve null.");
 		}
@@ -48,13 +48,13 @@ public class MultiValue extends HashMap<String, Object> implements
 		this.type = type;
 	}
 
-	protected MultiValue(String id, CompoundType type, Map<String, Object> items) {
+	protected HashMapParameterObject(String id, ParameterObjectType type, Map<String, Object> items) {
 		this(id, type);
 		type.validate(items);
 		this.putAll(items);
 	}
 
-	public CompoundType getCompoundType() {
+	public ParameterObjectType getParameterObjectType() {
 		return this.type;
 	}
 
@@ -88,31 +88,31 @@ public class MultiValue extends HashMap<String, Object> implements
 	public static class Builder {
 
 		private String id;
-		private CompoundType type;
+		private ParameterObjectType type;
 		private Map<String, Object> items = new HashMap<String, Object>();
 
 		public Builder(String id) {
 			setId(id);
 		}
 
-		public Builder(String id, CompoundType type) {
+		public Builder(String id, ParameterObjectType type) {
 			setId(id);
-			setCompoundType(type);
+			setParameterObjectType(type);
 		}
 
-		public Builder setCompoundType(CompoundType type) {
+		public Builder setParameterObjectType(ParameterObjectType type) {
 			if (type == null) {
-				throw new IllegalArgumentException("Compound type required.");
+				throw new IllegalArgumentException("ParameterObjectType required.");
 			}
 			this.type = type;
 			return this;
 		}
 
-		public CompoundType getCompoundType() {
+		public ParameterObjectType getParameterObjectType() {
 			return this.type;
 		}
 
-		public Builder(CompoundValue baseItem) {
+		public Builder(ParameterObject baseItem) {
 			if (baseItem != null) {
 				setId(baseItem.getId());
 				this.items.putAll(baseItem);
@@ -160,8 +160,8 @@ public class MultiValue extends HashMap<String, Object> implements
 			this.items.clear();
 		}
 
-		public CompoundValue build() {
-			return new MultiValue(this.id, this.type, this.items);
+		public ParameterObject build() {
+			return new HashMapParameterObject(this.id, this.type, this.items);
 		}
 
 	}
