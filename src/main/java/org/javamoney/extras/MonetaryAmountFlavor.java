@@ -15,7 +15,7 @@
  * 
  * Contributors: Anatole Tresch - initial version.
  */
-package net.java.javamoney.extras;
+package org.javamoney.extras;
 
 import java.io.Serializable;
 import java.util.Map;

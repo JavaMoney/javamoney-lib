@@ -16,11 +16,10 @@
  * Contributors:
  *    Anatole Tresch - initial version.
  */
-package net.java.javamoney.extras;
+package org.javamoney.extras;
 
 import java.util.Map;
 
-import org.javamoney.extras.ValidationException;
 
 /**
  * Defines a {@link ParameterObjectType} containing several results. Hereby the

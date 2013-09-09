@@ -13,15 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package net.java.javamoney.extras.filter;
+package org.javamoney.extras.filter;
 
 import java.util.Set;
 
 import javax.money.MonetaryAmount;
 import javax.money.function.InstancesPredicate;
 
-import net.java.javamoney.extras.FlavoredMonetaryAmount;
-import net.java.javamoney.extras.MonetaryAmountFlavor;
+import org.javamoney.extras.FlavoredMonetaryAmount;
+import org.javamoney.extras.MonetaryAmountFlavor;
+
 
 public class MonetaryAmountFlavorPredicate extends
 		InstancesPredicate<MonetaryAmountFlavor> {

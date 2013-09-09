@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package net.java.javamoney.extras;
+package org.javamoney.extras;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
