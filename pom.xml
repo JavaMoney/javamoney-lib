@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.javamoney</groupId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<artifactId>money-extras</artifactId>
 	<name>Money and Currency - Extras not part of JSR 354</name>
 	<packaging>bundle</packaging>
@@ -12,7 +12,7 @@
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
-		<javamoney.version>0.5-SNAPSHOT</javamoney.version>
+		<javamoney.version>0.5</javamoney.version>
 	</properties>
 
 	<build>
