@@ -21,7 +21,6 @@ import java.text.NumberFormat;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
-import javax.money.Permil;
 
 /**
  * This class allows to extract the permil of a {@link MonetaryAmount} instance.
