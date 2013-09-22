@@ -1,4 +1,4 @@
-package net.java.javamoney.extras.filter;
+package org.javamoney.extras.functions;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,8 @@ import java.util.Set;
 import javax.money.MonetaryAmount;
 import javax.money.Predicate;
 
-import net.java.javamoney.extras.FlavoredMonetaryAmount;
+import org.javamoney.extras.FlavoredMonetaryAmount;
+
 
 final class MonetaryAmountFlavorPredicate<T extends MonetaryAmount> implements
 		Predicate<T> {

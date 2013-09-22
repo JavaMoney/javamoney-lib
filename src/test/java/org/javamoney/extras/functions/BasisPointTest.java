@@ -1,4 +1,4 @@
-package org.javamoney.extras;
+package org.javamoney.extras.functions;
 /*
  * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
@@ -22,8 +22,7 @@ import java.math.BigDecimal;
 
 import javax.money.Money;
 
-
-import org.javamoney.extras.BasisPoint;
+import org.javamoney.extras.functions.common.BasisPoint;
 import org.junit.Test;
 
 /**

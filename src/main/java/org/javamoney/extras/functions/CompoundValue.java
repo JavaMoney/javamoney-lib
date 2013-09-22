@@ -13,8 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.extras;
+package org.javamoney.extras.functions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,21 +29,63 @@ import java.util.Map;
  * 
  * @author Anatole Tresch
  */
-public interface CompoundValue extends Map<String,Object>{
+public final class CompoundValue {
 
-	/**
-	 * A {@link CompoundValue} may have an identifier that helps to identify,
-	 * what type of items object is returned.
-	 * 
-	 * @return the {@link CompoundValue}'s type, never null.
-	 */
-	public String getId();
+	private CompoundType type;
+	private Map<String, Object> args = new HashMap<String, Object>();
+
+	private CompoundValue(CompoundType type, Map<String, Object> args) {
+		if (type == null) {
+			throw new IllegalArgumentException("CompoundType required.");
+		}
+		if (args == null) {
+			throw new IllegalArgumentException("args required.");
+		}
+		type.validate(args);
+		this.type = type;
+		this.args = args;
+	}
 
 	/**
 	 * Get the compound type of this instance.
 	 * 
 	 * @return the compound type, never {@code null}.
 	 */
-	public CompoundType getCompoundType();
-	
+	public CompoundType getCompoundType() {
+		return this.type;
+	}
+
+	public <T> T get(String key, Class<T> type) {
+		return (T) this.args.get(key);
+	}
+
+	public static final class Builder {
+		private CompoundType type;
+		private Map<String, Object> args = new HashMap<String, Object>();
+
+		public Builder() {
+		}
+
+		public Builder(CompoundType type) {
+			withType(type);
+		}
+
+		public Builder withType(CompoundType type) {
+			if (type == null) {
+				throw new IllegalArgumentException("type required.");
+			}
+			this.type = type;
+			return this;
+		}
+
+		public Builder with(String key, Object value) {
+			this.args.put(key, value);
+			return this;
+		}
+
+		public CompoundValue build() {
+			return new CompoundValue(type, this.args);
+		}
+	}
+
 }

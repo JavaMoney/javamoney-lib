@@ -1,7 +1,8 @@
-package net.java.javamoney.extras.filter;
+package org.javamoney.extras.filter;
 
 import javax.money.MonetaryAmount;
 import javax.money.Predicate;
+
 
 public final class MonetaryFunctionsExtras {
 

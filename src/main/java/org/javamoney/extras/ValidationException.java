@@ -17,6 +17,8 @@ package org.javamoney.extras;
 
 import javax.money.MonetaryException;
 
+import org.javamoney.extras.functions.CompoundValue;
+
 /**
  * Exception that is thrown when a {@link CompoundValue} or a value in a
  * {@link CompoundValue} could not be validated successfully.

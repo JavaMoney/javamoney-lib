@@ -1,4 +1,4 @@
-package net.java.javamoney.extras;
+package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
