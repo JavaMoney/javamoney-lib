@@ -12,7 +12,7 @@
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
-		<javamoney.version>0.5-SNAPSHOT</javamoney.version>
+		<javamoney.version>0.6-SNAPSHOT</javamoney.version>
 	</properties>
 
 	<build>
@@ -62,7 +62,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.money</groupId>
-			<artifactId>money-api</artifactId>
+			<artifactId>money-api-platform</artifactId>
 			<version>${javamoney.version}</version>
 		</dependency>
 		<dependency>

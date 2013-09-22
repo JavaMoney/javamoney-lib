@@ -1,23 +1,42 @@
 package net.java.javamoney.extras.filter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.money.MonetaryAmount;
-import javax.money.function.InstancesPredicate;
+import javax.money.Predicate;
 
 import net.java.javamoney.extras.FlavoredMonetaryAmount;
-import net.java.javamoney.extras.MonetaryAmountFlavor;
 
-public class MonetaryAmountFlavorPredicate extends
-		InstancesPredicate<MonetaryAmountFlavor> {
+final class MonetaryAmountFlavorPredicate<T extends MonetaryAmount> implements
+		Predicate<T> {
 
-	protected boolean isPredicateTrue(MonetaryAmount value,
-			Set<MonetaryAmountFlavor> acceptedValues) {
-		if (value instanceof FlavoredMonetaryAmount) {
-			return acceptedValues.contains(((FlavoredMonetaryAmount) value)
-					.getAmountFlavor());
+	private Set<String> flavors = new HashSet<String>();
+
+	public MonetaryAmountFlavorPredicate(String... flavors) {
+		if (flavors != null) {
+			for (String flavor : flavors) {
+				this.flavors.add(flavor);
+			}
 		}
-		return false;
 	}
 
+	public MonetaryAmountFlavorPredicate(Iterable<String>... flavors) {
+		if (flavors != null) {
+			for (Iterable<String> flavorIter : flavors) {
+				for (String flavor : flavorIter) {
+					this.flavors.add(flavor);
+				}
+			}
+		}
+	}
+
+	@Override
+	public Boolean apply(T value) {
+		if (!(value instanceof FlavoredMonetaryAmount)) {
+			return Boolean.FALSE;
+		}
+		return this.flavors.contains(((FlavoredMonetaryAmount) value)
+				.getAmountFlavor());
+	}
 }

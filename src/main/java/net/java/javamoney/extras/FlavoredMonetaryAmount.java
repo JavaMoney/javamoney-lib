@@ -22,7 +22,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 /**
- * This class allows to attach an {@link MonetaryAmountFlavor} to the
+ * This class allows to attach an {@link String} to the
  * {@link MonetaryAmount} instance for identifying the type of amount during
  * prosecuted calculation steps.
  * 
@@ -30,11 +30,13 @@ import javax.money.MonetaryOperator;
  */
 public final class FlavoredMonetaryAmount implements MonetaryAmount {
 
+	private static final String UNKNOWN = "N/A";
+	
 	private MonetaryAmount baseAmount;
-	private MonetaryAmountFlavor amountType;
+	private String amountType;
 
 	public FlavoredMonetaryAmount(MonetaryAmount baseAmount,
-			MonetaryAmountFlavor amountType) {
+			String amountType) {
 		if (baseAmount == null) {
 			throw new IllegalArgumentException("baseAmount required.");
 		}
@@ -56,11 +58,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	/**
-	 * Get the underlying {@link MonetaryAmountFlavor}.
+	 * Get the underlying {@link String}.
 	 * 
 	 * @return the flavor of this amount, never {@code null}.
 	 */
-	public MonetaryAmountFlavor getAmountFlavor() {
+	public String getAmountFlavor() {
 		return this.amountType;
 	}
 
@@ -85,7 +87,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 			return ((FlavoredMonetaryAmount) baseAmount).abs();
 		}
 		return new FlavoredMonetaryAmount(this.baseAmount.abs(),
-				MonetaryAmountFlavor.UNKNOWN);
+				UNKNOWN);
 	}
 
 	/*
@@ -96,7 +98,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	@Override
 	public FlavoredMonetaryAmount add(MonetaryAmount augend) {
 		return add(augend,
-				MonetaryAmountFlavor.UNKNOWN);
+				UNKNOWN);
 	}
 
 	/**
@@ -104,11 +106,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param augend
 	 *            The augend
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount add(MonetaryAmount augend,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).add(augend, newFlavor);
 		}
@@ -121,11 +123,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param divisor
 	 *            The divisor
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount divide(Number divisor,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).divide(divisor,
 					newFlavor);
@@ -139,11 +141,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param divisor
 	 *            The divisor
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount[] divideAndRemainder(Number divisor,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount)
 					.divideAndRemainder(divisor, newFlavor);
@@ -163,11 +165,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param divisor
 	 *            The divisor
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount divideToIntegralValue(Number divisor,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount)
 					.divideToIntegralValue(divisor, newFlavor);
@@ -182,11 +184,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param multiplicand
 	 *            The multiplicand
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount multiply(Number multiplicand,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).multiply(multiplicand,
 					newFlavor);
@@ -199,11 +201,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	/**
 	 * @see #negate()
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount negate(
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).negate(newFlavor);
 		}
@@ -214,10 +216,10 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	/**
 	 * @see #plus()
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount plus(MonetaryAmountFlavor newFlavor) {
+	public FlavoredMonetaryAmount plus(String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).plus(newFlavor);
 		}
@@ -230,11 +232,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param subtrahend
 	 *            THe subtrahend
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount subtract(MonetaryAmount subtrahend,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).subtract(subtrahend,
 					newFlavor);
@@ -248,10 +250,10 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param n
 	 *            The power required
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount pow(int n, MonetaryAmountFlavor newFlavor) {
+	public FlavoredMonetaryAmount pow(int n, String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).pow(n, newFlavor);
 		}
@@ -262,10 +264,10 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	/**
 	 * @see #ulp()
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount ulp(MonetaryAmountFlavor newFlavor) {
+	public FlavoredMonetaryAmount ulp(String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).ulp(newFlavor);
 		}
@@ -278,11 +280,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param divisor
 	 *            The divisor
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount remainder(Number divisor,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).remainder(divisor,
 					newFlavor);
@@ -296,11 +298,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param n
 	 *            The power required
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount scaleByPowerOfTen(int n,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).scaleByPowerOfTen(n,
 					newFlavor);
@@ -339,11 +341,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param number
 	 *            The number
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount from(Number number,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount)
 					.from(number, newFlavor);
@@ -357,11 +359,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param operator
 	 *            The operator
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount with(MonetaryOperator operator,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).with(operator,
 					newFlavor);
@@ -381,16 +383,6 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public int intValue() {
-		return this.baseAmount.intValue();
-	}
-
-	@Override
-	public int intValueExact() {
-		return this.baseAmount.intValueExact();
-	}
-
-	@Override
 	public long longValue() {
 		return this.baseAmount.longValue();
 	}
@@ -401,28 +393,8 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public float floatValue() {
-		return this.baseAmount.floatValue();
-	}
-
-	@Override
 	public double doubleValue() {
 		return this.baseAmount.doubleValue();
-	}
-
-	@Override
-	public byte byteValue() {
-		return this.baseAmount.byteValue();
-	}
-
-	@Override
-	public short shortValue() {
-		return this.baseAmount.shortValue();
-	}
-
-	@Override
-	public short shortValueExact() {
-		return this.baseAmount.shortValueExact();
 	}
 
 	@Override
@@ -477,11 +449,11 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @param amount
 	 *            The amount
 	 * @param newFlavor
-	 *            the {@link MonetaryAmountFlavor} for the result instance.
+	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
 	public FlavoredMonetaryAmount from(CurrencyUnit currency, Number amount,
-			MonetaryAmountFlavor newFlavor) {
+			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).from(currency, amount,
 					newFlavor);
@@ -497,7 +469,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount divide(Number divisor) {
-		return divide(divisor, MonetaryAmountFlavor.UNKNOWN);
+		return divide(divisor, UNKNOWN);
 	}
 
 	/*
@@ -507,7 +479,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount[] divideAndRemainder(Number divisor) {
-		return divideAndRemainder(divisor, MonetaryAmountFlavor.UNKNOWN);
+		return divideAndRemainder(divisor, UNKNOWN);
 	}
 
 	/*
@@ -517,7 +489,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount divideToIntegralValue(Number divisor) {
-		return divideToIntegralValue(divisor, MonetaryAmountFlavor.UNKNOWN);
+		return divideToIntegralValue(divisor, UNKNOWN);
 	}
 
 	/*
@@ -527,7 +499,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount multiply(Number multiplicand) {
-		return multiply(multiplicand, MonetaryAmountFlavor.UNKNOWN);
+		return multiply(multiplicand, UNKNOWN);
 	}
 
 	/*
@@ -537,7 +509,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount negate() {
-		return negate(MonetaryAmountFlavor.UNKNOWN);
+		return negate(UNKNOWN);
 	}
 
 	/*
@@ -547,7 +519,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount plus() {
-		return plus(MonetaryAmountFlavor.UNKNOWN);
+		return plus(UNKNOWN);
 	}
 
 	/*
@@ -557,7 +529,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount subtract(MonetaryAmount subtrahend) {
-		return subtract(subtrahend, MonetaryAmountFlavor.UNKNOWN);
+		return subtract(subtrahend, UNKNOWN);
 	}
 
 	/*
@@ -567,7 +539,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount pow(int n) {
-		return pow(n, MonetaryAmountFlavor.UNKNOWN);
+		return pow(n, UNKNOWN);
 	}
 
 	/*
@@ -577,7 +549,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount ulp() {
-		return ulp(MonetaryAmountFlavor.UNKNOWN);
+		return ulp(UNKNOWN);
 	}
 
 	/*
@@ -587,7 +559,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount remainder(Number divisor) {
-		return remainder(divisor, MonetaryAmountFlavor.UNKNOWN);
+		return remainder(divisor, UNKNOWN);
 	}
 
 	/*
@@ -597,7 +569,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount scaleByPowerOfTen(int n) {
-		return scaleByPowerOfTen(n, MonetaryAmountFlavor.UNKNOWN);
+		return scaleByPowerOfTen(n, UNKNOWN);
 	}
 
 	/*
@@ -607,7 +579,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount from(Number amount) {
-		return from(amount, MonetaryAmountFlavor.UNKNOWN);
+		return from(amount, UNKNOWN);
 	}
 
 	/*
@@ -618,7 +590,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount from(CurrencyUnit currency, Number amount) {
-		return from(currency, amount, MonetaryAmountFlavor.UNKNOWN);
+		return from(currency, amount, UNKNOWN);
 	}
 
 	/*
@@ -628,7 +600,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 */
 	@Override
 	public FlavoredMonetaryAmount with(MonetaryOperator operator) {
-		return with(operator, MonetaryAmountFlavor.UNKNOWN);
+		return with(operator, UNKNOWN);
 	}
 
 	/*

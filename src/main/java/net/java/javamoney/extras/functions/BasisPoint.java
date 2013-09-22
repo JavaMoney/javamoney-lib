@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package net.java.javamoney.extras;
+package net.java.javamoney.extras.functions;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -21,7 +21,6 @@ import java.text.NumberFormat;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
-import javax.money.Permil;
 
 /**
  * This class allows to extract the permil of a {@link MonetaryAmount} instance.

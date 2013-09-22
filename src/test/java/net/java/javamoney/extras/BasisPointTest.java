@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 
 import javax.money.Money;
 
-import net.java.javamoney.extras.BasisPoint;
+import net.java.javamoney.extras.functions.BasisPoint;
 
 import org.junit.Test;
 
