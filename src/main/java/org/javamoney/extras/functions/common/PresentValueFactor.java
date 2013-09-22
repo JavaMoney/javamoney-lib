@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryFunction;
 
-
-
 /**
  * The formula for the future value factor is used to calculate the future value
  * of an amount per dollar of its present value. The future value factor is
@@ -19,8 +17,8 @@ import javax.money.MonetaryFunction;
  * individual wants $100 today, assuming that the individual can earn 5%
  * otherwise in one year.
  * 
- * @see http://www.financeformulas.net/Future-Value-Factor.html
- * @author Anatole
+ * @see http://www.financeformulas.net/Present_Value_Factor.html
+ * @author Anatole Tresch
  */
 public class PresentValueFactor implements MonetaryFunction<Rate, BigDecimal> {
 

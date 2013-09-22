@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
-
+import org.javamoney.extras.functions.CompoundFunction;
+import org.javamoney.extras.functions.CompoundType;
+import org.javamoney.extras.functions.CompoundValue;
 
 /**
  * The continuous compounding formula is used to determine the interest earned
@@ -35,11 +37,18 @@ import javax.money.MonetaryOperator;
  * @author Anatole
  * 
  */
-public class ContinuesCompundInterest implements MonetaryOperator {
+public class ContinuesCompundInterest implements MonetaryOperator,
+		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
 	private BigDecimal factor;
+
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+			.withIdForInput(ContinuesCompundInterest.class)
+			.withRequiredArg("periods", Integer.class)
+			.withRequiredArg("rate", Rate.class)
+			.withRequiredArg("amount", MonetaryAmount.class).build();
 
 	public ContinuesCompundInterest(Rate rate, int periods) {
 		this.rate = rate;
@@ -86,6 +95,28 @@ public class ContinuesCompundInterest implements MonetaryOperator {
 	@Override
 	public MonetaryAmount apply(MonetaryAmount value) {
 		return value.multiply(factor);
+	}
+
+	@Override
+	public CompoundType getInputTape() {
+		return INPUT_TYPE;
+	}
+
+	@Override
+	public Class<MonetaryAmount> getResultType() {
+		return MonetaryAmount.class;
+	}
+
+	@Override
+	public MonetaryAmount calculate(CompoundValue input) {
+		INPUT_TYPE.checkInput(input);
+		Rate rate = input.get("rate",  Rate.class);
+		int periods = input.get("periods", Integer.class);
+		MonetaryAmount amount = input.get("amount",  MonetaryAmount.class);
+		int power = rate.getRate().multiply(BigDecimal.valueOf(periods))
+				.intValue();
+		BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
+		return amount.multiply(f);
 	}
 
 }

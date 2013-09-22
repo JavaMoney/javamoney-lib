@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
-
+import org.javamoney.extras.functions.CompoundFunction;
+import org.javamoney.extras.functions.CompoundType;
+import org.javamoney.extras.functions.CompoundValue;
 
 /**
  * The future value of an annuity formula is used to calculate what the value at
@@ -26,10 +28,17 @@ import javax.money.MonetaryOperator;
  * @author Anatole
  * 
  */
-public class PresentValueOfAnnuity implements MonetaryOperator {
+public class PresentValueOfAnnuity implements MonetaryOperator,
+		CompoundFunction<MonetaryAmount> {
 
 	private Rate rate;
 	private int periods;
+
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+			.withIdForInput(PresentValueOfAnnuity.class)
+			.withRequiredArg("periods", Integer.class)
+			.withRequiredArg("amount", MonetaryAmount.class)
+			.withRequiredArg("rate", Rate.class).build();
 
 	public PresentValueOfAnnuity(Rate rate, int periods) {
 		if (rate == null) {
@@ -43,6 +52,26 @@ public class PresentValueOfAnnuity implements MonetaryOperator {
 	public MonetaryAmount apply(MonetaryAmount value) {
 		// Am * (((1 + r).pow(n))-1/rate)
 		return value.multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
+				.subtract(BigDecimal.ONE).divide(rate.getRate()));
+	}
+
+	@Override
+	public CompoundType getInputTape() {
+		return INPUT_TYPE;
+	}
+
+	@Override
+	public Class<MonetaryAmount> getResultType() {
+		return MonetaryAmount.class;
+	}
+
+	@Override
+	public MonetaryAmount calculate(CompoundValue input) {
+		INPUT_TYPE.checkInput(input);
+		Rate rate = input.get("rate", Rate.class);
+		int period = input.get("periods", Integer.class);
+		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
+		return amount.multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.getRate()));
 	}
 }

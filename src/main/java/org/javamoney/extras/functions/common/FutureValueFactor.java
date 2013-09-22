@@ -4,18 +4,32 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryFunction;
 
-
-
 /**
- * The formula for the present value factor is used to calculate the present
- * value per dollar that is received in the future. The present value factor
- * formula is based on the concept of time value of money. Time value of money
- * is the idea that an amount received today is worth more than if the same
- * amount was received at a future date. Any amount received today can be
- * invested to earn additional monies.
+ * The formula for the future value factor is used to calculate the future value
+ * of an amount per dollar of its present value. The future value factor is
+ * generally found on a table which is used to simplify calculations for amounts
+ * greater than one dollar (see example below). The future value factor formula
+ * is based on the concept of time value of money. The concept of time value of
+ * money is that an amount today is worth more than if that same nominal amount
+ * is received at a future date. Any amount received today can be invested and
+ * receive earnings, as opposed to waiting to receive the same amount with no
+ * earnings. An amount of $105 to be received a year from now may be okay if the
+ * individual wants $100 today, assuming that the individual can earn 5%
+ * otherwise in one year.
  * 
- * @see http://www.financeformulas.net/Present_Value_Factor.html
- * @author Anatole
+ * @see http://www.financeformulas.net/Future-Value-Factor.html
+ *      <p>
+ *      <img src=
+ *      "http://www.financeformulas.net/Formula%20Images/Future%20Value%20Factor%201.gif"
+ *      />
+ *      <p>
+ *      or...
+ * 
+ *      <pre>
+ * FVF = (1 * &lt;rate>).pow(&lt;periods>)
+ * </pre>
+ * 
+ * @author Anatole Tresch
  */
 public class FutureValueFactor implements MonetaryFunction<Rate, BigDecimal> {
 

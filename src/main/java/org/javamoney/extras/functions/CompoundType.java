@@ -48,7 +48,8 @@ public final class CompoundType implements Serializable {
 	private final Set<String> typeRequired;
 	private final String id;
 
-	private CompoundType(String id, @SuppressWarnings("rawtypes") Map<String, Class> typeDef,
+	private CompoundType(String id,
+			@SuppressWarnings("rawtypes") Map<String, Class> typeDef,
 			Set<String> typeRequired,
 			Predicate<Map<String, Object>> validationPredicate) {
 		if (id == null) {
@@ -105,7 +106,8 @@ public final class CompoundType implements Serializable {
 			}
 		}
 		// Check the fields type for all possible fields
-		for (@SuppressWarnings("rawtypes") Map.Entry<String, Class> entry : this.typeDef.entrySet()) {
+		for (@SuppressWarnings("rawtypes")
+		Map.Entry<String, Class> entry : this.typeDef.entrySet()) {
 			Object value = compundValueMap.get(entry.getKey());
 			if (value != null
 					&& !entry.getValue().isAssignableFrom(value.getClass())) {
@@ -177,6 +179,17 @@ public final class CompoundType implements Serializable {
 		public CompoundType build() {
 			return new CompoundType(id, typeDef, typeRequired,
 					validationPredicate);
+		}
+	}
+
+	public void checkInput(CompoundValue input) {
+		if (input == null) {
+			throw new IllegalArgumentException("Input missing, required: "
+					+ this);
+		}
+		if (!this.equals(input.getCompoundType())) {
+			throw new IllegalArgumentException("Invalid input, was " + input
+					+ ", required: " + this);
 		}
 	}
 }

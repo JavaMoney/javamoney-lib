@@ -2,41 +2,72 @@ package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryFunction;
 
+import org.javamoney.extras.functions.CompoundFunction;
+import org.javamoney.extras.functions.CompoundType;
+import org.javamoney.extras.functions.CompoundValue;
 
-public class DiscountFactor implements MonetaryOperator {
+/**
+ * 
+ * @author Anatole
+ * 
+ */
+public class DiscountFactor implements MonetaryFunction<Integer, BigDecimal>,
+		CompoundFunction<BigDecimal> {
 
-	private int periods;
 	private Rate rate;
-	private BigDecimal factor;
 
-	private DiscountFactor(Rate rate, int periods) {
-		this.periods = periods;
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+			.withIdForInput(DiscountFactor.class)
+			.withRequiredArg("periods", Integer.class)
+			.withRequiredArg("rate", Rate.class).build();
+
+	private DiscountFactor(Rate rate) {
 		if (rate == null) {
 			throw new IllegalArgumentException("rate required.");
 		}
 		this.rate = rate;
-		// (1-(1+r)^n)/1-(1+rate)
-		BigDecimal div = BigDecimal.ONE
-				.min(BigDecimal.ONE.add(rate.getRate()));
-		factor = BigDecimal.ONE.subtract(
-				BigDecimal.ONE.add(rate.getRate()).pow(periods)).divide(div);
-		factor = BigDecimal.ONE.add(factor);
 	}
 
-	public static DiscountFactor of(Rate rate, int periods) {
-		return new DiscountFactor(rate, periods);
+	public static DiscountFactor of(Rate rate) {
+		return new DiscountFactor(rate);
 	}
 
-	public BigDecimal getFactor() {
-		return factor;
+	public Rate getRate() {
+		return rate;
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.multiply(factor);
+	public BigDecimal apply(Integer periods) {
+		// (1-(1+r)^n)/1-(1+rate)
+		BigDecimal div = BigDecimal.ONE
+				.min(BigDecimal.ONE.add(rate.getRate()));
+		BigDecimal factor = BigDecimal.ONE.subtract(
+				BigDecimal.ONE.add(rate.getRate()).pow(periods)).divide(div);
+		return BigDecimal.ONE.add(factor);
+	}
+
+	@Override
+	public CompoundType getInputTape() {
+		return INPUT_TYPE;
+	}
+
+	@Override
+	public Class<BigDecimal> getResultType() {
+		return BigDecimal.class;
+	}
+
+	@Override
+	public BigDecimal calculate(CompoundValue input) {
+		INPUT_TYPE.checkInput(input);
+		Integer periods = input.get("periods", Integer.class);
+		Rate rate = input.get("rate", Rate.class);
+		BigDecimal div = BigDecimal.ONE
+				.min(BigDecimal.ONE.add(rate.getRate()));
+		BigDecimal factor = BigDecimal.ONE.subtract(
+				BigDecimal.ONE.add(rate.getRate()).pow(periods)).divide(div);
+		return BigDecimal.ONE.add(factor);
 	}
 
 }

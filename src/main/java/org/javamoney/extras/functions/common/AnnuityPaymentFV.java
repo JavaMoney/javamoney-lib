@@ -46,7 +46,7 @@ public class AnnuityPaymentFV implements MonetaryOperator,
 	private Rate rate;
 	private int periods;
 
-	private CompoundType INPUT_TYPE = new CompoundType.Builder()
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 			.withIdForInput(AnnuityPaymentFV.class)
 			.withRequiredArg("rate", Rate.class)
 			.withRequiredArg("periods", Integer.class)
@@ -82,10 +82,7 @@ public class AnnuityPaymentFV implements MonetaryOperator,
 
 	@Override
 	public MonetaryAmount calculate(CompoundValue input) {
-		if (input.getCompoundType().equals(INPUT_TYPE)) {
-			throw new IllegalArgumentException("Invalid input type, required: "
-					+ INPUT_TYPE + ", but was " + input);
-		}
+		INPUT_TYPE.checkInput(input);
 		int p = input.get("periods", Integer.class);
 		Rate r = input.get("rate", Rate.class);
 		MonetaryAmount amt = input.get("amount", MonetaryAmount.class);

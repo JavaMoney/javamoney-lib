@@ -56,7 +56,16 @@ public final class CompoundValue {
 	}
 
 	public <T> T get(String key, Class<T> type) {
-		return (T) this.args.get(key);
+		return get(key, type, null);
+	}
+
+	public <T> T get(String key, Class<T> type, T defaultValue) {
+		@SuppressWarnings("unchecked")
+		T t = (T) this.args.get(key);
+		if (t == null) {
+			return defaultValue;
+		}
+		return t;
 	}
 
 	public static final class Builder {

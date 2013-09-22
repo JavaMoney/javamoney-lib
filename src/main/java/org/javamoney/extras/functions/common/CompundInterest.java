@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
-
+import org.javamoney.extras.functions.CompoundFunction;
+import org.javamoney.extras.functions.CompoundType;
+import org.javamoney.extras.functions.CompoundValue;
 
 /**
  * The compound interest formula calculates the amount of interest earned on an
@@ -18,7 +20,9 @@ import javax.money.MonetaryOperator;
  * additional earnings plus simple interest would equal the total amount earned
  * from compound interest.
  * <p>
- * <img src="http://www.financeformulas.net/Formula%20Images/Compound%20Interest%201.gif" />
+ * <img src=
+ * "http://www.financeformulas.net/Formula%20Images/Compound%20Interest%201.gif"
+ * />
  * <p>
  * or...
  * <pre>
@@ -28,11 +32,18 @@ import javax.money.MonetaryOperator;
  * @see http://www.financeformulas.net/Compound_Interest.html
  * @author Anatole Tresch
  */
-public class CompundInterest implements MonetaryOperator {
+public class CompundInterest implements MonetaryOperator,
+		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
 	private BigDecimal factor;
+
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+			.withIdForInput(CompundInterest.class)
+			.withRequiredArg("periods", Integer.class)
+			.withRequiredArg("rate", Rate.class)
+			.withRequiredArg("amount", MonetaryAmount.class).build();
 
 	public CompundInterest(Rate rate, int periods) {
 		this.rate = rate;
@@ -78,6 +89,27 @@ public class CompundInterest implements MonetaryOperator {
 	@Override
 	public MonetaryAmount apply(MonetaryAmount value) {
 		return value.multiply(factor);
+	}
+
+	@Override
+	public CompoundType getInputTape() {
+		return INPUT_TYPE;
+	}
+
+	@Override
+	public Class<MonetaryAmount> getResultType() {
+		return MonetaryAmount.class;
+	}
+
+	@Override
+	public MonetaryAmount calculate(CompoundValue input) {
+		INPUT_TYPE.checkInput(input);
+		Rate rate = input.get("rate",  Rate.class);
+		int periods = input.get("periods", Integer.class);
+		BigDecimal f = BigDecimal.ONE.add(rate.getRate()).pow(periods).subtract(
+				BigDecimal.ONE);
+		MonetaryAmount amount = input.get("amount",  MonetaryAmount.class);
+		return amount.multiply(f);
 	}
 
 }

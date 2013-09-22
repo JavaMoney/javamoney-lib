@@ -5,13 +5,22 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
+import org.javamoney.extras.functions.CompoundFunction;
+import org.javamoney.extras.functions.CompoundType;
+import org.javamoney.extras.functions.CompoundValue;
 
-
-public class SimpleInterest implements MonetaryOperator {
+public class SimpleInterest implements MonetaryOperator,
+		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
 	private BigDecimal factor;
+
+	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+			.withIdForInput(SimpleInterest.class)
+			.withRequiredArg("periods", Integer.class)
+			.withRequiredArg("amount", MonetaryAmount.class)
+			.withRequiredArg("rate", Rate.class).build();
 
 	public SimpleInterest(Rate rate, int periods) {
 		this.rate = rate;
@@ -56,6 +65,27 @@ public class SimpleInterest implements MonetaryOperator {
 	@Override
 	public MonetaryAmount apply(MonetaryAmount value) {
 		return value.multiply(factor);
+	}
+
+	@Override
+	public CompoundType getInputTape() {
+		return INPUT_TYPE;
+	}
+
+	@Override
+	public Class<MonetaryAmount> getResultType() {
+		return MonetaryAmount.class;
+	}
+
+	@Override
+	public MonetaryAmount calculate(CompoundValue input) {
+		INPUT_TYPE.checkInput(input);
+		Rate rate = input.get("rate", Rate.class);
+		int period = input.get("periods", Integer.class);
+		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
+		BigDecimal factor = BigDecimal.ONE.add(rate.getRate().multiply(
+				BigDecimal.valueOf(periods)));
+		return amount.multiply(factor);
 	}
 
 }
