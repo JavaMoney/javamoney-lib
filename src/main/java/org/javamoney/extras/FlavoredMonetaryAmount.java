@@ -381,16 +381,6 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public int intValue() {
-		return this.baseAmount.intValue();
-	}
-
-	@Override
-	public int intValueExact() {
-		return this.baseAmount.intValueExact();
-	}
-
-	@Override
 	public long longValue() {
 		return this.baseAmount.longValue();
 	}
@@ -401,28 +391,8 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public float floatValue() {
-		return this.baseAmount.floatValue();
-	}
-
-	@Override
 	public double doubleValue() {
 		return this.baseAmount.doubleValue();
-	}
-
-	@Override
-	public byte byteValue() {
-		return this.baseAmount.byteValue();
-	}
-
-	@Override
-	public short shortValue() {
-		return this.baseAmount.shortValue();
-	}
-
-	@Override
-	public short shortValueExact() {
-		return this.baseAmount.shortValueExact();
 	}
 
 	@Override

@@ -18,22 +18,21 @@ package org.javamoney.extras.filter;
 import java.util.Set;
 
 import javax.money.MonetaryAmount;
-import javax.money.function.InstancesPredicate;
 
 import org.javamoney.extras.FlavoredMonetaryAmount;
 import org.javamoney.extras.MonetaryAmountFlavor;
 
 
-public class MonetaryAmountFlavorPredicate extends
-		InstancesPredicate<MonetaryAmountFlavor> {
-
-	protected boolean isPredicateTrue(MonetaryAmount value,
-			Set<MonetaryAmountFlavor> acceptedValues) {
-		if (value instanceof FlavoredMonetaryAmount) {
-			return acceptedValues.contains(((FlavoredMonetaryAmount) value)
-					.getAmountFlavor());
-		}
-		return false;
-	}
-
-}
+//public class MonetaryAmountFlavorPredicate extends
+//		InstancesPredicate<MonetaryAmountFlavor> {
+//
+//	protected boolean isPredicateTrue(MonetaryAmount value,
+//			Set<MonetaryAmountFlavor> acceptedValues) {
+//		if (value instanceof FlavoredMonetaryAmount) {
+//			return acceptedValues.contains(((FlavoredMonetaryAmount) value)
+//					.getAmountFlavor());
+//		}
+//		return false;
+//	}
+//
+//}

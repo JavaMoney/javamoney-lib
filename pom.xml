@@ -69,6 +69,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.money</groupId>
+			<artifactId>money-api-platform</artifactId>
+			<version>${javamoney.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.money</groupId>
 			<artifactId>money-api-convert</artifactId>
 			<version>${javamoney.version}</version>
 		</dependency>
