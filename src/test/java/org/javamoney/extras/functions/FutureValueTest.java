@@ -7,7 +7,7 @@ import java.math.RoundingMode;
 
 import javax.money.MonetaryOperator;
 import javax.money.Money;
-import javax.money.function.MoneyRoundings;
+import javax.money.function.MonetaryRoundings;
 
 import org.javamoney.extras.functions.common.FutureValue;
 import org.javamoney.extras.functions.common.Rate;
@@ -19,7 +19,7 @@ public class FutureValueTest {
 	public void test() {
 		FutureValue f = new FutureValue(new Rate(0.05), 1);
 		Money money = Money.of("CHF", 100);
-		MonetaryOperator rounding = MoneyRoundings.getRounding(2,
+		MonetaryOperator rounding = MonetaryRoundings.getRounding(2,
 				RoundingMode.HALF_EVEN);
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.apply(money)
 				.with(rounding));

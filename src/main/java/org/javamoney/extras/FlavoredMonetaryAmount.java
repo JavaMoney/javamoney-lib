@@ -344,13 +344,13 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount from(Number number,
+	public FlavoredMonetaryAmount with(Number number,
 			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount)
-					.from(number, newFlavor);
+					.with(number, newFlavor);
 		}
-		return new FlavoredMonetaryAmount(this.baseAmount.from(number),
+		return new FlavoredMonetaryAmount(this.baseAmount.with(number),
 				newFlavor);
 	}
 
@@ -452,14 +452,14 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount from(CurrencyUnit currency, Number amount,
+	public FlavoredMonetaryAmount with(CurrencyUnit currency, Number amount,
 			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
-			return ((FlavoredMonetaryAmount) baseAmount).from(currency, amount,
+			return ((FlavoredMonetaryAmount) baseAmount).with(currency, amount,
 					newFlavor);
 		}
 		return new FlavoredMonetaryAmount(
-				this.baseAmount.from(currency, amount), newFlavor);
+				this.baseAmount.with(currency, amount), newFlavor);
 	}
 
 	/*
@@ -578,8 +578,8 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @see javax.money.MonetaryAmount#from(java.lang.Number)
 	 */
 	@Override
-	public FlavoredMonetaryAmount from(Number amount) {
-		return from(amount, UNKNOWN);
+	public FlavoredMonetaryAmount with(Number amount) {
+		return with(amount, UNKNOWN);
 	}
 
 	/*
@@ -589,8 +589,8 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * java.lang.Number)
 	 */
 	@Override
-	public FlavoredMonetaryAmount from(CurrencyUnit currency, Number amount) {
-		return from(currency, amount, UNKNOWN);
+	public FlavoredMonetaryAmount with(CurrencyUnit currency, Number amount) {
+		return with(currency, amount, UNKNOWN);
 	}
 
 	/*
