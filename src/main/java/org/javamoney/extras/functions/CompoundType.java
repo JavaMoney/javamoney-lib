@@ -21,8 +21,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.money.Predicate;
 
+import org.javamoney.ext.Predicate;
 import org.javamoney.extras.ValidationException;
 
 /**
@@ -119,7 +119,7 @@ public final class CompoundType implements Serializable {
 			}
 		}
 		if (validationPredicate != null
-				&& !validationPredicate.apply(compundValueMap)) {
+				&& !validationPredicate.isPredicateTrue(compundValueMap)) {
 			throw new ValidationException("Validation predicate failed '"
 					+ validationPredicate + ".");
 		}

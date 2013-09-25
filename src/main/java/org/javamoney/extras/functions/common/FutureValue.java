@@ -3,7 +3,8 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
@@ -42,7 +43,7 @@ import org.javamoney.extras.functions.CompoundValue;
  * </pre>
  * @author Anatole Tresch
  */
-public class FutureValue implements MonetaryOperator,
+public class FutureValue implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
@@ -94,8 +95,8 @@ public class FutureValue implements MonetaryOperator,
 	 * the cash flow at period 0, which is upcounted for n periods.
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.multiply(factor);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).multiply(factor);
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class FutureValue implements MonetaryOperator,
 		int period = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
 		BigDecimal f = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
-		return amount.multiply(f);
+		return Money.from(amount).multiply(f);
 	}
 
 }

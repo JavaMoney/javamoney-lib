@@ -2,8 +2,9 @@ package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
+import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
@@ -40,17 +41,13 @@ import org.javamoney.extras.functions.CompoundValue;
  * @author Anatole Tresch
  * 
  */
-public class AnnuityPaymentFV implements MonetaryOperator,
-		CompoundFunction<MonetaryAmount> {
+public class AnnuityPaymentFV implements MonetaryAdjuster
+{
 
 	private Rate rate;
 	private int periods;
 
-	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
-			.withIdForInput(AnnuityPaymentFV.class)
-			.withRequiredArg("rate", Rate.class)
-			.withRequiredArg("periods", Integer.class)
-			.withRequiredArg("amount", MonetaryAmount.class).build();
+	private static final Function FUNCTION = new Function();
 
 	public AnnuityPaymentFV(Rate rate, int periods) {
 		if (rate == null) {
@@ -61,35 +58,46 @@ public class AnnuityPaymentFV implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
 		// FV(r) / (((1 + r).pow(n))-1)
-		FutureValue fv = new FutureValue(rate, periods);
-		return fv.apply(value).divide(
-				BigDecimal.ONE.add(rate.getRate()).pow(periods)
-						.subtract(BigDecimal.ONE)
-				);
+		return FUNCTION.calculate(rate, periods, amount);
 	}
 
-	@Override
-	public CompoundType getInputTape() {
-		return INPUT_TYPE;
-	}
+	private static final class Function implements
+			CompoundFunction<MonetaryAmount> {
 
-	@Override
-	public Class<MonetaryAmount> getResultType() {
-		return MonetaryAmount.class;
-	}
+		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+				.withIdForInput(AnnuityPaymentFV.class)
+				.withRequiredArg("rate", Rate.class)
+				.withRequiredArg("periods", Integer.class)
+				.withRequiredArg("amount", MonetaryAmount.class).build();
 
-	@Override
-	public MonetaryAmount calculate(CompoundValue input) {
-		INPUT_TYPE.checkInput(input);
-		int p = input.get("periods", Integer.class);
-		Rate r = input.get("rate", Rate.class);
-		MonetaryAmount amt = input.get("amount", MonetaryAmount.class);
-		FutureValue fv = new FutureValue(r, p);
-		return fv.apply(amt).divide(
-				BigDecimal.ONE.add(r.getRate()).pow(periods)
-						.subtract(BigDecimal.ONE)
-				);
+		@Override
+		public CompoundType getInputTape() {
+			return INPUT_TYPE;
+		}
+
+		@Override
+		public Class<MonetaryAmount> getResultType() {
+			return MonetaryAmount.class;
+		}
+
+		@Override
+		public MonetaryAmount calculate(CompoundValue input) {
+			INPUT_TYPE.checkInput(input);
+			int periods = input.get("periods", Integer.class);
+			Rate rate = input.get("rate", Rate.class);
+			MonetaryAmount amt = input.get("amount", MonetaryAmount.class);
+			return calculate(rate, periods, amt);
+		}
+
+		private MonetaryAmount calculate(Rate rate, int periods,
+				MonetaryAmount amt) {
+			FutureValue fv = new FutureValue(rate, periods);
+			return Money.from(fv.adjustInto(amt)).divide(
+					BigDecimal.ONE.add(rate.getRate()).pow(periods)
+							.subtract(BigDecimal.ONE)
+					);
+		}
 	}
 }

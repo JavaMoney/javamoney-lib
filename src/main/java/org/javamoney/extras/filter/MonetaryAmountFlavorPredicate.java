@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.money.MonetaryAmount;
-import javax.money.Predicate;
 
+import org.javamoney.ext.Predicate;
 import org.javamoney.extras.FlavoredMonetaryAmount;
 
 
@@ -33,7 +33,7 @@ final class MonetaryAmountFlavorPredicate<T extends MonetaryAmount> implements
 	}
 
 	@Override
-	public Boolean apply(T value) {
+	public boolean isPredicateTrue(T value) {
 		if (!(value instanceof FlavoredMonetaryAmount)) {
 			return Boolean.FALSE;
 		}

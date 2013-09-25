@@ -2,7 +2,9 @@ package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryFunction;
+import javax.money.MonetaryAdjuster;
+
+import org.javamoney.extras.functions.MonetaryFunction;
 
 /**
  * The formula for the future value factor is used to calculate the future value
@@ -44,7 +46,7 @@ public class FutureValueFactor implements MonetaryFunction<Rate, BigDecimal> {
 	}
 
 	@Override
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		if (rate == null) {
 			throw new IllegalArgumentException("rate required.");
 		}

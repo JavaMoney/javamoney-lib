@@ -3,13 +3,14 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
 import org.javamoney.extras.functions.CompoundValue;
 
-public class SimpleInterest implements MonetaryOperator,
+public class SimpleInterest implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
@@ -63,8 +64,8 @@ public class SimpleInterest implements MonetaryOperator,
 	 * the cash flow at period 0, which is upcounted for n periods.
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.multiply(factor);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).multiply(factor);
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class SimpleInterest implements MonetaryOperator,
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
 		BigDecimal factor = BigDecimal.ONE.add(rate.getRate().multiply(
 				BigDecimal.valueOf(periods)));
-		return amount.multiply(factor);
+		return Money.from(amount).multiply(factor);
 	}
 
 }

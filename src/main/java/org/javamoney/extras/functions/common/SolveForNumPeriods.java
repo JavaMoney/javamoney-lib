@@ -2,12 +2,14 @@ package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
+import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryFunction;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
 import org.javamoney.extras.functions.CompoundValue;
+import org.javamoney.extras.functions.MonetaryFunction;
 
 /**
  * The formula for solving for the number of periods shown at the top of this
@@ -27,19 +29,14 @@ import org.javamoney.extras.functions.CompoundValue;
  *      ://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
  * @author Anatole Tresch
  */
-public class SolveForNumPeriods implements MonetaryFunction<Rate, BigDecimal>,
-		CompoundFunction<BigDecimal> {
+public class SolveForNumPeriods implements MonetaryFunction<Rate, BigDecimal>
+{
 
 	private MonetaryAmount presentValue;
 	private MonetaryAmount futureValue;
 	private int periods;
 
-	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
-			.withIdForInput(SimpleInterest.class)
-			.withRequiredArg("periods", Integer.class)
-			.withRequiredArg("presentValue", MonetaryAmount.class)
-			.withRequiredArg("futureValue", MonetaryAmount.class)
-			.withRequiredArg("rate", Rate.class).build();
+	private static final Function FUNCTION = new Function();
 
 	public SolveForNumPeriods(MonetaryAmount presentValue,
 			MonetaryAmount futureValue, int periods) {
@@ -74,38 +71,53 @@ public class SolveForNumPeriods implements MonetaryFunction<Rate, BigDecimal>,
 		return periods;
 	}
 
-	@Override
-	public BigDecimal apply(Rate rate) {
-		MonetaryAmount pv = new PresentValue(rate, periods).apply(presentValue);
-		MonetaryAmount fv = new PresentValue(rate, periods).apply(futureValue);
-		BigDecimal count = BigDecimal.valueOf(Math.log(futureValue
-				.doubleValue() / presentValue.doubleValue()));
-		BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.getRate()
-				.doubleValue()));
-		return count.divide(divisor);
+	public BigDecimal calculate(Rate rate) {
+		MonetaryAmount pv = new PresentValue(rate, periods)
+				.adjustInto(presentValue);
+		MonetaryAmount fv = new PresentValue(rate, periods)
+				.adjustInto(futureValue);
+		return FUNCTION.calculate(rate, periods, pv, fv);
 	}
 
-	@Override
-	public CompoundType getInputTape() {
-		return INPUT_TYPE;
+	public static CompoundFunction<BigDecimal> getFunction() {
+		return FUNCTION;
 	}
 
-	@Override
-	public Class<BigDecimal> getResultType() {
-		return BigDecimal.class;
-	}
+	private static final class Function implements CompoundFunction<BigDecimal> {
 
-	@Override
-	public BigDecimal calculate(CompoundValue input) {
-		INPUT_TYPE.checkInput(input);
-		Rate rate = input.get("rate", Rate.class);
-		int period = input.get("periods", Integer.class);
-		MonetaryAmount pv = input.get("presentValue", MonetaryAmount.class);
-		MonetaryAmount fv = input.get("futureValue", MonetaryAmount.class);
-		BigDecimal count = BigDecimal.valueOf(Math.log(futureValue
-				.doubleValue() / presentValue.doubleValue()));
-		BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.getRate()
-				.doubleValue()));
-		return count.divide(divisor);
+		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
+				.withIdForInput(SimpleInterest.class)
+				.withRequiredArg("periods", Integer.class)
+				.withRequiredArg("presentValue", MonetaryAmount.class)
+				.withRequiredArg("futureValue", MonetaryAmount.class)
+				.withRequiredArg("rate", Rate.class).build();
+
+		@Override
+		public CompoundType getInputTape() {
+			return INPUT_TYPE;
+		}
+
+		@Override
+		public Class<BigDecimal> getResultType() {
+			return BigDecimal.class;
+		}
+
+		@Override
+		public BigDecimal calculate(CompoundValue input) {
+			INPUT_TYPE.checkInput(input);
+			Rate rate = input.get("rate", Rate.class);
+			int periods = input.get("periods", Integer.class);
+			MonetaryAmount pv = input.get("presentValue", MonetaryAmount.class);
+			MonetaryAmount fv = input.get("futureValue", MonetaryAmount.class);
+			return calculate(rate, periods, pv, fv);
+		}
+		
+		private BigDecimal calculate(Rate rate, int periods, MonetaryAmount presentValue, MonetaryAmount futureValue){
+			BigDecimal count = BigDecimal.valueOf(Math.log(Money.from(futureValue)
+					.doubleValue() / Money.from(presentValue).doubleValue()));
+			BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.getRate()
+					.doubleValue()));
+			return count.divide(divisor);
+		}
 	}
 }

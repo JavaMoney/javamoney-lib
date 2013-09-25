@@ -18,65 +18,66 @@ package org.javamoney.extras;
 import java.util.Collection;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryFunction;
+
+import org.javamoney.ext.Predicate;
 
 public class MonetaryCalculator {
 
-	public String addFilter(MonetaryFunction<MonetaryAmount, Boolean> filter) {
+	public String addFilter(Predicate<MonetaryAmount> filter) {
 		return filter.getClass().getSimpleName();
 	}
 
 	public String addFilter(String filterId,
-			MonetaryFunction<MonetaryAmount, Boolean> filter) {
+			Predicate<MonetaryAmount> filter) {
 		return filterId;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getFilter(
+	public <T extends Predicate<MonetaryAmount>> T getFilter(
 			String filterId) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T removeFilter(
+	public <T extends Predicate<MonetaryAmount>> T removeFilter(
 			String filterId) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getFilter(
+	public <T extends Predicate<MonetaryAmount>> T getFilter(
 			Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getFilter(
+	public <T extends Predicate<MonetaryAmount>> T getFilter(
 			String visitorId, Class<T> visitorType) {
 		return null;
 	}
 
 	public String addAmountVisitor(
-			MonetaryFunction<MonetaryAmount, Boolean> visitor) {
+			Predicate<MonetaryAmount> visitor) {
 		return visitor.getClass().getSimpleName();
 	}
 
 	public String addAmountVisitor(String visitorId,
-			MonetaryFunction<MonetaryAmount, Boolean> visitor) {
+			Predicate<MonetaryAmount> visitor) {
 		return visitorId;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getVisitor(
+	public <T extends Predicate<MonetaryAmount>> T getVisitor(
 			String visitorId) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getVisitor(
+	public <T extends Predicate<MonetaryAmount>> T getVisitor(
 			Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T getVisitor(
+	public <T extends Predicate<MonetaryAmount>> T getVisitor(
 			String visitorId, Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends MonetaryFunction<MonetaryAmount, Boolean>> T removeVisitor(
+	public <T extends Predicate<MonetaryAmount>> T removeVisitor(
 			String visitorId) {
 		return null;
 	}

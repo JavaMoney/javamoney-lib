@@ -3,7 +3,8 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
@@ -38,7 +39,7 @@ import org.javamoney.extras.functions.CompoundValue;
  * @author Anatole
  * 
  */
-public class FutureValueOfAnnuity implements MonetaryOperator,
+public class FutureValueOfAnnuity implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private Rate rate;
@@ -59,9 +60,9 @@ public class FutureValueOfAnnuity implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
 		// Am * (((1 + r).pow(n))-1/rate)
-		return value.multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
+		return Money.from(amount).multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.getRate()));
 	}
 
@@ -81,7 +82,7 @@ public class FutureValueOfAnnuity implements MonetaryOperator,
 		Rate rate = input.get("rate", Rate.class);
 		int period = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
-		return amount.multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
+		return Money.from(amount).multiply(BigDecimal.ONE.add(rate.getRate()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.getRate()));
 	}
 }

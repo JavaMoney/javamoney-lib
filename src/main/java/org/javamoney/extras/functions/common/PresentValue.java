@@ -3,13 +3,14 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
 import org.javamoney.extras.functions.CompoundValue;
 
-public class PresentValue implements MonetaryOperator,
+public class PresentValue implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
@@ -63,8 +64,8 @@ public class PresentValue implements MonetaryOperator,
 	 *         rate.
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.divide(divisor);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).divide(divisor);
 	}
 
 	@Override
@@ -84,6 +85,6 @@ public class PresentValue implements MonetaryOperator,
 		int period = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
 		BigDecimal divisor = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
-		return amount.divide(divisor);
+		return Money.from(amount).divide(divisor);
 	}
 }

@@ -2,7 +2,9 @@ package org.javamoney.extras.functions.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryFunction;
+import javax.money.MonetaryAdjuster;
+
+import org.javamoney.extras.functions.MonetaryFunction;
 
 
 
@@ -25,7 +27,7 @@ public class DoublingTimeCompounding implements MonetaryFunction<Rate, BigDecima
 	 * with continous compounding, given a rate.
 	 */
 	@Override
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.getRate());
 	}
 

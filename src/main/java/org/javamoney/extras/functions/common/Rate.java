@@ -3,9 +3,10 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
-public final class Rate implements MonetaryOperator {
+public final class Rate implements MonetaryAdjuster {
 
 	private BigDecimal rate;
 
@@ -73,8 +74,8 @@ public final class Rate implements MonetaryOperator {
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.multiply(rate);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).multiply(rate);
 	}
 
 }

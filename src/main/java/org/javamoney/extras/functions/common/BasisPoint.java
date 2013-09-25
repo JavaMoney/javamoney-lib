@@ -20,7 +20,8 @@ import java.math.MathContext;
 import java.text.NumberFormat;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
@@ -35,7 +36,7 @@ import org.javamoney.extras.functions.CompoundValue;
  * 
  * @see <a href="http://en.wikipedia.org/wiki/Per_mil">Wikipedia: Per mil</a>
  */
-public final class BasisPoint implements MonetaryOperator,
+public final class BasisPoint implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
@@ -101,8 +102,8 @@ public final class BasisPoint implements MonetaryOperator,
 	 * @return the permil result of the amount, never {@code null}
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount amount) {
-		return amount.multiply(basisPointValue);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).multiply(basisPointValue);
 	}
 
 	/*
@@ -164,7 +165,7 @@ public final class BasisPoint implements MonetaryOperator,
 
 	@Override
 	public MonetaryAmount calculate(CompoundValue input) {
-		return input.get("amount", MonetaryAmount.class).multiply(input.get("basisPoints", Number.class));
+		return Money.from(input.get("amount", MonetaryAmount.class)).multiply(input.get("basisPoints", Number.class));
 	}
 
 }

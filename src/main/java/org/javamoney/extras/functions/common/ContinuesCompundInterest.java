@@ -3,7 +3,8 @@ package org.javamoney.extras.functions.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import javax.money.MonetaryAdjuster;
+import javax.money.Money;
 
 import org.javamoney.extras.functions.CompoundFunction;
 import org.javamoney.extras.functions.CompoundType;
@@ -37,7 +38,7 @@ import org.javamoney.extras.functions.CompoundValue;
  * @author Anatole
  * 
  */
-public class ContinuesCompundInterest implements MonetaryOperator,
+public class ContinuesCompundInterest implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {
 
 	private int periods;
@@ -93,8 +94,8 @@ public class ContinuesCompundInterest implements MonetaryOperator,
 	 * and for n periods.
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		return value.multiply(factor);
+	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+		return Money.from(amount).multiply(factor);
 	}
 
 	@Override
@@ -116,7 +117,7 @@ public class ContinuesCompundInterest implements MonetaryOperator,
 		int power = rate.getRate().multiply(BigDecimal.valueOf(periods))
 				.intValue();
 		BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
-		return amount.multiply(f);
+		return Money.from(amount).multiply(f);
 	}
 
 }
