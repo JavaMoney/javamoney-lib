@@ -43,7 +43,7 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.CurrencyConverter;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
-import org.javamoney.loader.AbstractResource;
+import org.javamoney.util.loader.AbstractResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

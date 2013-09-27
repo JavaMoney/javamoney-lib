@@ -15,7 +15,6 @@
  */
 package org.javamoney.function;
 
-import org.javamoney.extras.Predicate;
 
 
 /**

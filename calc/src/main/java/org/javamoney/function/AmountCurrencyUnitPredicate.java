@@ -18,7 +18,6 @@ package org.javamoney.function;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.extras.Predicate;
 
 
 /**

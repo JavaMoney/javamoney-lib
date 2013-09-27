@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.money.MonetaryAmount;
 
-import org.javamoney.extras.Predicate;
 
 
 /**

@@ -1,4 +1,3 @@
-package org.javamoney.function;
 /*
  * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
@@ -14,6 +13,8 @@ package org.javamoney.function;
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+package org.javamoney.function;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +23,6 @@ import java.math.BigDecimal;
 
 import javax.money.Money;
 
-import org.javamoney.extras.functions.common.BasisPoint;
 import org.junit.Test;
 
 /**

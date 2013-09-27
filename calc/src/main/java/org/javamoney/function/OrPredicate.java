@@ -18,7 +18,6 @@ package org.javamoney.function;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.javamoney.extras.Predicate;
 
 
 

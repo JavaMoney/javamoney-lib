@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -12,10 +12,6 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- * 
- * 
- * Contributors: Anatole Tresch - initial version. Wernner Keil - extensions and
- * adaptions.
  */
 package org.javamoney.ext;
 

@@ -1,4 +1,3 @@
-package org.javamoney.function;
 /*
  * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
@@ -14,7 +13,7 @@ package org.javamoney.function;
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
+package org.javamoney.function;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -55,6 +54,15 @@ public final class MonetaryFunctions {
 		// Singleton constructor
 	}
 
+	public static Predicate<MonetaryAmount> withFlavors(String... flavors) {
+		return new MonetaryAmountFlavorPredicate<>(flavors);
+	}
+
+	public static Predicate<MonetaryAmount> withFlavors(
+			Iterable<String>... flavors) {
+		return new MonetaryAmountFlavorPredicate<>(flavors);
+	}
+
 	/**
 	 * Get {@link MathContext} for {@link Permil} instances.
 	 * 
@@ -85,7 +93,7 @@ public final class MonetaryFunctions {
 		}
 	}
 
-	/**
+/**
 	 * Factory method creating a new instance with the given {@code Number) percent value;
 	 * @param decimal the decimal value of the percent operator being created.
 	 * 

@@ -15,6 +15,6 @@
  */
 
 /**
- * Platform RI: Defines common services.
+ * Defines common services.
  */
 package org.javamoney.util;
