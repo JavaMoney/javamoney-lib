@@ -6,12 +6,10 @@ package org.javamoney.cdi.ext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 import org.javamoney.cdi.CDIContainer;
-import org.javamoney.ext.AbstractRegionProviderService;
-import org.javamoney.ext.spi.CurrencyUnitProviderSpi;
-import org.javamoney.ext.spi.RegionProviderSpi;
+import org.javamoney.regions.AbstractRegionProviderService;
+import org.javamoney.regions.spi.RegionProviderSpi;
 
 
 /**

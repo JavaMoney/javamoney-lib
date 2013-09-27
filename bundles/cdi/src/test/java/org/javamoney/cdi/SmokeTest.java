@@ -1,4 +1,3 @@
-package org.javamoney.cdi;
 /*
  * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
  * 
@@ -17,6 +16,8 @@ package org.javamoney.cdi;
  * 
  * Contributors: Anatole Tresch - initial version.
  */
+package org.javamoney.cdi;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -34,7 +35,7 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.MonetaryConversions;
-import org.javamoney.ext.MonetaryCurrencies;
+import org.javamoney.currencies.MonetaryCurrencies;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;

@@ -15,8 +15,8 @@ package org.javamoney.cdi.ext;
 import javax.money.CurrencyUnit;
 
 import org.javamoney.cdi.CDIContainer;
-import org.javamoney.ext.AbstractCurrencyUnitMapperService;
-import org.javamoney.ext.spi.CurrencyUnitMapperSpi;
+import org.javamoney.currencies.AbstractCurrencyUnitMapperService;
+import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
 
 
 /**
