@@ -4,23 +4,33 @@
 
 	<groupId>org.javamoney</groupId>
 	<version>0.3-SNAPSHOT</version>
-	<artifactId>money-extras</artifactId>
+	<artifactId>javamoney</artifactId>
 	<name>Money and Currency - Extras not part of JSR 354</name>
-	<packaging>bundle</packaging>
+	<packaging>pom</packaging>
 
 	<properties>
+		<javamoney.version>0.7-SNAPSHOT</javamoney.version>
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
-		<javamoney.version>0.7-SNAPSHOT</javamoney.version>
+		<slf4j.version>1.7.2</slf4j.version>
 	</properties>
 
-    <licenses>
-        <license>
-            <name>Apache License version 2.0</name>
-            <url>LICENSE.txt</url>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>Apache License version 2.0</name>
+			<url>LICENSE.txt</url>
+		</license>
+	</licenses>
+
+	<modules>
+		<module>common</module>
+		<module>calc</module>
+		<module>format</module>
+		<module>conversion</module>
+		<module>extensions</module>
+		<module>validity</module>
+	</modules>
 
 	<build>
 		<pluginManagement>
@@ -66,37 +76,59 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.ibm.icu</groupId>
+				<artifactId>icu4j</artifactId>
+				<version>51.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>javax.money</groupId>
-			<artifactId>money-api-platform</artifactId>
+			<artifactId>money-api</artifactId>
 			<version>${javamoney.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.money</groupId>
-			<artifactId>money-api-convert</artifactId>
+			<artifactId>money-ri</artifactId>
 			<version>${javamoney.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.money</groupId>
-			<artifactId>money-api-format</artifactId>
-			<version>${javamoney.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.money</groupId>
-			<artifactId>money-api-ext</artifactId>
-			<version>${javamoney.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.money</groupId>
-			<artifactId>money-ri-platform</artifactId>
-			<version>${javamoney.version}</version>
-		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>
