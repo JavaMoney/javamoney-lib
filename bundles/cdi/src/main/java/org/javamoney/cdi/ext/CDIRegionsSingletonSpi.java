@@ -23,15 +23,13 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
 
-
-
-import org.javamoney.ext.AbstractExtendedRegionDataService;
-import org.javamoney.ext.AbstractRegionProviderService;
-import org.javamoney.ext.AbstractRegionTreeProviderService;
-import org.javamoney.ext.Region;
-import org.javamoney.ext.RegionTreeNode;
-import org.javamoney.ext.RegionType;
-import org.javamoney.ext.spi.RegionsSingletonSpi;
+import org.javamoney.regions.AbstractExtendedRegionDataService;
+import org.javamoney.regions.AbstractRegionProviderService;
+import org.javamoney.regions.AbstractRegionTreeProviderService;
+import org.javamoney.regions.Region;
+import org.javamoney.regions.RegionTreeNode;
+import org.javamoney.regions.RegionType;
+import org.javamoney.regions.spi.RegionsSingletonSpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.javamoney</groupId>
 		<artifactId>javamoney</artifactId>
@@ -9,9 +9,42 @@
 	</parent>
 
 	<groupId>org.javamoney</groupId>
-	<artifactId>javamoney-impl</artifactId>
+	<artifactId>javamoney-bundles</artifactId>
 	<name>Money and Currency - JavaMoney calculations not part of JSR 354</name>
-	<packaging>bundle</packaging>
+	<packaging>pom</packaging>
 
+	<modules>
+		<module>cdi</module>
+		<module>java-se</module>
+		<module>java-ee</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>javamoney-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>javamoney-conversion</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>javamoney-format</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>javamoney-extensions</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>javamoney-validity</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 
 </project>

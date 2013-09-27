@@ -7,10 +7,9 @@ package org.javamoney.cdi.ext;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.javamoney.cdi.CDIContainer;
-import org.javamoney.ext.AbstractExtendedRegionDataService;
-import org.javamoney.ext.spi.ExtendedRegionDataProviderSpi;
+import org.javamoney.regions.AbstractExtendedRegionDataService;
+import org.javamoney.regions.spi.ExtendedRegionDataProviderSpi;
 
 
 /**

@@ -34,7 +34,7 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.MonetaryConversions;
-import org.javamoney.ext.MonetaryCurrencies;
+import org.javamoney.currencies.MonetaryCurrencies;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
