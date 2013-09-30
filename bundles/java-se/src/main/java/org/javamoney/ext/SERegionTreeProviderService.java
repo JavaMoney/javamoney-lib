@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
-import org.javamoney.ext.AbstractRegionProviderService;
-import org.javamoney.ext.AbstractRegionTreeProviderService;
-import org.javamoney.ext.spi.RegionProviderSpi;
-import org.javamoney.ext.spi.RegionTreeProviderSpi;
+import org.javamoney.regions.AbstractRegionTreeProviderService;
+import org.javamoney.regions.spi.RegionTreeProviderSpi;
 
 /**
  *

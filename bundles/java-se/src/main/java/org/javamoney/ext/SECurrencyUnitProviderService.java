@@ -23,8 +23,8 @@ import java.util.ServiceLoader;
 
 import javax.money.CurrencyUnit;
 
-import org.javamoney.ext.AbstractCurrencyUnitProviderService;
-import org.javamoney.ext.spi.CurrencyUnitProviderSpi;
+import org.javamoney.currencies.AbstractCurrencyUnitProviderService;
+import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
 
 /**
  * This class models the singleton defined by JSR 354 that provides accessors
@@ -33,7 +33,8 @@ import org.javamoney.ext.spi.CurrencyUnitProviderSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public class SECurrencyUnitProviderService extends AbstractCurrencyUnitProviderService {
+public class SECurrencyUnitProviderService extends
+		AbstractCurrencyUnitProviderService {
 
     @Override
     protected Iterable<CurrencyUnitProviderSpi> getCurrencyUnitProviderSpis() {

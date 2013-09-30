@@ -13,10 +13,11 @@
 package org.javamoney.ext;
 
 import java.util.ServiceLoader;
+
 import javax.money.CurrencyUnit;
 
-import org.javamoney.ext.AbstractCurrencyUnitMapperService;
-import org.javamoney.ext.spi.CurrencyUnitMapperSpi;
+import org.javamoney.currencies.AbstractCurrencyUnitMapperService;
+import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
 
 /**
  * This class models the singleton defined by JSR 354 that provides accessors

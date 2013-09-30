@@ -12,9 +12,7 @@ import java.util.Set;
 import javax.money.CurrencyUnit;
 import javax.money.UnknownCurrencyException;
 
-import org.javamoney.ext.SECurrencyUnitMapperService;
-import org.javamoney.ext.SECurrencyUnitProviderService;
-import org.javamoney.ext.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
 
 public class SEMonetaryCurrenciesSingletonSpi implements
 		MonetaryCurrenciesSingletonSpi {

@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
-
-import org.javamoney.ext.AbstractExtendedRegionDataService;
-import org.javamoney.ext.spi.ExtendedRegionDataProviderSpi;
+import org.javamoney.regions.AbstractExtendedRegionDataService;
+import org.javamoney.regions.spi.ExtendedRegionDataProviderSpi;
 
 /**
  *
