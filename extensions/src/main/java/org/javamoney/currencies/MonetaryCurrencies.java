@@ -17,14 +17,20 @@ package org.javamoney.currencies;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.money.CurrencyUnit;
+import javax.money.MoneyCurrency;
+import javax.money.UnknownCurrencyException;
 
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+
+import com.ibm.icu.util.Currency;
 
 /**
  * This is the service component for accessing Java Money Currencies, evaluating
@@ -205,7 +211,12 @@ public final class MonetaryCurrencies {
 		private static final String ERROR_MESSAGE = "No "
 				+ MonetaryCurrenciesSingletonSpi.class.getName()
 				+ " registered.";
+		private static final Set<String> ISO_NS_COLLECTION = new HashSet<String>();
 
+		static{
+			ISO_NS_COLLECTION.add(MoneyCurrency.ISO_NAMESPACE);
+		}
+		
 		/**
 		 * This method allows to evaluate, if the given currency namespace is
 		 * defined. {@code "ISO-4217"} should be defined in all environments
@@ -217,7 +228,7 @@ public final class MonetaryCurrencies {
 		 */
 		@Override
 		public boolean isNamespaceAvailable(String namespace) {
-			return false;
+			return ISO_NS_COLLECTION.contains(namespace);
 		}
 
 		/**
@@ -229,7 +240,7 @@ public final class MonetaryCurrencies {
 		 */
 		@Override
 		public Collection<String> getNamespaces() {
-			return Collections.emptySet();
+			return ISO_NS_COLLECTION;
 		}
 
 		/*-- Access of current currencies --*/
@@ -246,7 +257,7 @@ public final class MonetaryCurrencies {
 		 */
 		@Override
 		public boolean isAvailable(String code) {
-			return false;
+			return Currency.isAvailable(code, null, null);
 		}
 
 		/**
@@ -264,7 +275,7 @@ public final class MonetaryCurrencies {
 		 */
 		@Override
 		public CurrencyUnit get(String code) {
-			throw new IllegalArgumentException("Unknown currency: " + code);
+			return MoneyCurrency.of(code);
 		}
 
 		/**
@@ -320,6 +331,9 @@ public final class MonetaryCurrencies {
 		 */
 		@Override
 		public String getNamespace(String code) {
+			if(Currency.isAvailable(code, null, null)){
+				return MoneyCurrency.ISO_NAMESPACE;
+			}
 			throw new IllegalArgumentException("Unknown currency: " + code);
 		}
 
