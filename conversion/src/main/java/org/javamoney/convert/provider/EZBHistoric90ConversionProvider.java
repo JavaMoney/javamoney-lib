@@ -63,7 +63,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 		implements ConversionProvider {
 
 	/** Data feed for the last 90 days. */
-	private static final String LöOAD_URL =
+	private static final String LOAD_URL =
 			"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
 
 	private static final String BASE_CURRENCY_CODE = "EUR";
@@ -91,7 +91,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 	 * @throws MalformedURLException
 	 */
 	public EZBHistoric90ConversionProvider() throws MalformedURLException {
-		super("EZBHistoric90", new URL(LöOAD_URL),
+		super("EZBHistoric90", new URL(LOAD_URL),
 				"/java-money/defaults/EZB/eurofxref-hist-90d.xml");
 		saxParserFactory.setNamespaceAware(false);
 		saxParserFactory.setValidating(false);

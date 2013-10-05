@@ -13,5 +13,5 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  * 
- * Contributors: Anatole Tresch - initial version.
+ * Contributors: xx - initial version.
  */

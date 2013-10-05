@@ -4,13 +4,13 @@
 	
 	<parent>
 		<groupId>org.javamoney</groupId>
-		<artifactId>javamoney</artifactId>
+		<artifactId>javamoney-parent</artifactId>
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.javamoney</groupId>
 	<artifactId>javamoney-format</artifactId>
-	<name>Money and Currency - JavaMoney calculations not part of JSR 354</name>
+	<name>Money and Currency - JavaMoney format</name>
 	<packaging>bundle</packaging>
 
 

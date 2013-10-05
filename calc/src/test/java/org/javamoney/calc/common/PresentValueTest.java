@@ -39,7 +39,7 @@ public class PresentValueTest {
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.adjustInto(money)
 				.with(rounding));
 		f = new PresentValue(new Rate(0.05), 2);
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(90.70)),
+		assertEquals(Money.of("CHF", new BigDecimal("90.70")),
 				f.adjustInto(money).with(rounding));
 		f = new PresentValue(new Rate(0.05), 3);
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(86.38)),

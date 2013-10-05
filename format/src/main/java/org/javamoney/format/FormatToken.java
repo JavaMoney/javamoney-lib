@@ -33,6 +33,7 @@ import java.util.Locale;
  * immutable.
  * 
  * @author Anatole Tresch
+ * @deprecated use JSR interface FormatToken
  */
 public interface FormatToken<T> {
 

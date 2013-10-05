@@ -4,8 +4,8 @@
 
 	<groupId>org.javamoney</groupId>
 	<version>0.3-SNAPSHOT</version>
-	<artifactId>javamoney</artifactId>
-	<name>Money and Currency - Extras not part of JSR 354</name>
+	<artifactId>javamoney-parent</artifactId>
+	<name>Money and Currency - JavaMoney parent</name>
 	<packaging>pom</packaging>
 
 	<properties>

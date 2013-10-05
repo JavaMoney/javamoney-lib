@@ -4,11 +4,10 @@
 	
 	<parent>
 		<groupId>org.javamoney</groupId>
-		<artifactId>javamoney</artifactId>
+		<artifactId>javamoney-parent</artifactId>
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.javamoney</groupId>
 	<artifactId>javamoney-calc</artifactId>
 	<name>Money and Currency - JavaMoney calculations, functions and predicates</name>
 	<packaging>bundle</packaging>
