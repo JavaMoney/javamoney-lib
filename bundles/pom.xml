@@ -8,9 +8,8 @@
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.javamoney</groupId>
 	<artifactId>javamoney-bundles</artifactId>
-	<name>Money and Currency - JavaMoney calculations not part of JSR 354</name>
+	<name>Money and Currency - JavaMoney Bundles</name>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -47,4 +46,5 @@
 		</dependency>
 	</dependencies>
 
+	<groupId>org.javamoney.bundles</groupId>
 </project>
