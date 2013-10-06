@@ -5,3 +5,7 @@
 *.war
 *.ear
 /target
+/bundles/java-ee/.settings/org.eclipse.wst.common.component
+/bundles/java-ee/.settings/org.eclipse.wst.common.project.facet.core.xml
+/validity/.settings/org.eclipse.wst.common.project.facet.core.xml
+/validity/.settings/org.eclipse.wst.common.component

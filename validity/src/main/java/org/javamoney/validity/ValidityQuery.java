@@ -141,7 +141,7 @@ public class ValidityQuery<T> {
 	/**
 	 * Get the starting range, for which validities are queried.0
 	 * 
-	 * @return the from timestamp, or {@code null].
+	 * @return the from timestamp, or {@code null].
 	 */
 	public final Long getFrom() {
 		return from;
@@ -150,7 +150,7 @@ public class ValidityQuery<T> {
 	/**
 	 * Get the ending range, for which validities are queried.0
 	 * 
-	 * @return the to timestamp, or {@code null].
+	 * @return the to timestamp, or {@code null].
 	 */
 	public final Long getTo() {
 		return to;
