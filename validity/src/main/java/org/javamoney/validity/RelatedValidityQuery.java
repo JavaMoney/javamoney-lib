@@ -18,8 +18,7 @@ package org.javamoney.validity;
 import java.io.Serializable;
 import java.util.TimeZone;
 
-import org.javamoney.function.Predicate;
-
+import org.javamoney.calc.function.Predicate;
 import org.javamoney.validity.spi.ValidityProviderSpi;
 
 /**

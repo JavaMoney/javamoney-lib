@@ -9,10 +9,13 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<javamoney.version>0.7-SNAPSHOT</javamoney.version>
+		<jsr.version>0.7-SNAPSHOT</jsr.version>
+		
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<slf4j.version>1.7.2</slf4j.version>
 	</properties>
 
@@ -99,12 +102,12 @@
 		<dependency>
 			<groupId>javax.money</groupId>
 			<artifactId>money-api</artifactId>
-			<version>${javamoney.version}</version>
+			<version>${jsr.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.money</groupId>
 			<artifactId>money-ri</artifactId>
-			<version>${javamoney.version}</version>
+			<version>${jsr.version}</version>
 		</dependency>
 
 		<dependency>
