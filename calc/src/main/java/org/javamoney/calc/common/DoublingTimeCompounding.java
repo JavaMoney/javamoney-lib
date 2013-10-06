@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryAdjuster;
 
-import org.javamoney.function.MonetaryFunction;
+import org.javamoney.calc.Calculation;
 
 
 
@@ -35,7 +35,7 @@ import org.javamoney.function.MonetaryFunction;
  * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
  * @author Anatole Tresch
  */
-public class DoublingTimeCompounding implements MonetaryFunction<Rate, BigDecimal> {
+public class DoublingTimeCompounding implements Calculation<Rate, BigDecimal> {
 
 	/**
 	 * This function returnes the number of periods required to double an amount

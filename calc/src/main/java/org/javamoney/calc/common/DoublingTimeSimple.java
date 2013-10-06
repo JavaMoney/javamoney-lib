@@ -17,7 +17,7 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.function.MonetaryFunction;
+import org.javamoney.calc.Calculation;
 
 
 
@@ -32,7 +32,7 @@ import org.javamoney.function.MonetaryFunction;
  * @see http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
  * @author Anatole Tresch
  */
-public class DoublingTimeSimple implements MonetaryFunction<Rate, BigDecimal> {
+public class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
 
 	/**
 	 * This function returnes the number of periods required to double an amount

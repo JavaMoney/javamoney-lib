@@ -21,9 +21,9 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryAdjuster;
 import javax.money.Money;
 
-import org.javamoney.function.CompoundFunction;
-import org.javamoney.function.CompoundType;
-import org.javamoney.function.CompoundValue;
+import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundType;
+import org.javamoney.calc.function.CompoundValue;
 
 public class SimpleInterest implements MonetaryAdjuster,
 		CompoundFunction<MonetaryAmount> {

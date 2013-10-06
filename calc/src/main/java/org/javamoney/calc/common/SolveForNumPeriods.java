@@ -21,10 +21,10 @@ import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.Money;
 
-import org.javamoney.function.CompoundFunction;
-import org.javamoney.function.CompoundType;
-import org.javamoney.function.CompoundValue;
-import org.javamoney.function.MonetaryFunction;
+import org.javamoney.calc.Calculation;
+import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundType;
+import org.javamoney.calc.function.CompoundValue;
 
 /**
  * The formula for solving for the number of periods shown at the top of this
@@ -44,7 +44,7 @@ import org.javamoney.function.MonetaryFunction;
  *      ://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
  * @author Anatole Tresch
  */
-public class SolveForNumPeriods implements MonetaryFunction<Rate, BigDecimal>
+public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 {
 
 	private MonetaryAmount presentValue;

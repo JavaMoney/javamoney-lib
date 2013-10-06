@@ -21,7 +21,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 import javax.money.Money;
 
-import org.javamoney.function.Predicate;
+import org.javamoney.calc.function.Predicate;
 
 
 /**

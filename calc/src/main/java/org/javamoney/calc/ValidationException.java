@@ -17,7 +17,7 @@ package org.javamoney.calc;
 
 import javax.money.MonetaryException;
 
-import org.javamoney.function.CompoundValue;
+import org.javamoney.calc.function.CompoundValue;
 
 /**
  * Exception that is thrown when a {@link CompoundValue} or a value in a

@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryAdjuster;
 
-import org.javamoney.function.MonetaryFunction;
+import org.javamoney.calc.Calculation;
 
 /**
  * The formula for the future value factor is used to calculate the future value
@@ -48,7 +48,7 @@ import org.javamoney.function.MonetaryFunction;
  * 
  * @author Anatole Tresch
  */
-public class FutureValueFactor implements MonetaryFunction<Rate, BigDecimal> {
+public class FutureValueFactor implements Calculation<Rate, BigDecimal> {
 
 	private int periods;
 

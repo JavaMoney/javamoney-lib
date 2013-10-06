@@ -17,9 +17,9 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.function.CompoundFunction;
-import org.javamoney.function.CompoundType;
-import org.javamoney.function.CompoundValue;
+import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundType;
+import org.javamoney.calc.function.CompoundValue;
 
 /**
  * 
