@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.javamoney.function.Predicate;
+import org.javamoney.calc.function.Predicate;
 
 /**
  * Abstract base class for a {@link RegionTreeNode}.

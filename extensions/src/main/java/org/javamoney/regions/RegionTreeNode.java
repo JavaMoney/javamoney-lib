@@ -18,7 +18,7 @@ package org.javamoney.regions;
 import java.io.Serializable;
 import java.util.Collection;
 
-import org.javamoney.function.Predicate;
+import org.javamoney.calc.function.Predicate;
 
 
 /**

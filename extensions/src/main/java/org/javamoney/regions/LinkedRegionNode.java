@@ -15,7 +15,7 @@
  */
 package org.javamoney.regions;
 
-import org.javamoney.function.Predicate;
+import org.javamoney.calc.function.Predicate;
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionTreeNode;
 
