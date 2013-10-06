@@ -26,7 +26,7 @@ import javax.money.MonetaryAmount;
 import javax.money.Money;
 
 import org.javamoney.calc.function.Minimum;
-import org.javamoney.calc.function.MonetaryFunctions;
+import org.javamoney.calc.function.MonetaryCalculations;
 import org.junit.Test;
 
 public class MinimumTest {
@@ -41,24 +41,24 @@ public class MinimumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		m = Money.of("CHF", 0);
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryFunctions.minimum().calculate((Iterable) null);
+		MonetaryCalculations.minimum().calculate((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryFunctions.minimum().calculate(new HashSet());
+		MonetaryCalculations.minimum().calculate(new HashSet());
 	}
 
 	@Test
@@ -66,14 +66,14 @@ public class MinimumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		m = Money.of("CHF", 0);
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryFunctions.minimum().calculate(set));
+		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test

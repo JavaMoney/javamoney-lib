@@ -17,7 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.Money;
 
@@ -43,6 +42,7 @@ import org.javamoney.calc.function.CompoundValue;
  * @see http
  *      ://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 {

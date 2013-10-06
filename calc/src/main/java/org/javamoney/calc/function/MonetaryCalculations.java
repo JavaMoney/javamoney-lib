@@ -28,9 +28,10 @@ import javax.money.MonetaryAmount;
  * this class.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-public final class MonetaryFunctions {
-	/** defaulkt Math context used. */
+public final class MonetaryCalculations {
+	/** default Math context used. */
 	private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
 
 	/**
@@ -50,7 +51,7 @@ public final class MonetaryFunctions {
 	/**
 	 * Private singleton constructor.
 	 */
-	private MonetaryFunctions() {
+	private MonetaryCalculations() {
 		// Singleton constructor
 	}
 
@@ -58,6 +59,7 @@ public final class MonetaryFunctions {
 		return new MonetaryAmountFlavorPredicate<>(flavors);
 	}
 
+	@SafeVarargs
 	public static Predicate<MonetaryAmount> withFlavors(
 			Iterable<String>... flavors) {
 		return new MonetaryAmountFlavorPredicate<>(flavors);

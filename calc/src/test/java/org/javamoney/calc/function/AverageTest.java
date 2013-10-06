@@ -23,7 +23,7 @@ import java.util.List;
 import javax.money.Money;
 
 import org.javamoney.calc.function.Average;
-import org.javamoney.calc.function.MonetaryFunctions;
+import org.javamoney.calc.function.MonetaryCalculations;
 import org.junit.Test;
 
 public class AverageTest {
@@ -38,23 +38,23 @@ public class AverageTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.average().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().calculate(set));
 		set.add(m);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1.5), MonetaryFunctions.average().calculate(set));
+		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryFunctions.average().calculate((Iterable) null);
+		MonetaryCalculations.average().calculate((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryFunctions.average().calculate(new HashSet());
+		MonetaryCalculations.average().calculate(new HashSet());
 	}
 
 	@Test
@@ -62,12 +62,12 @@ public class AverageTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.average().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().calculate(set));
 		set.add(m);
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1.5), MonetaryFunctions.average().calculate(set));
+		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().calculate(set));
 	}
 
 	@Test

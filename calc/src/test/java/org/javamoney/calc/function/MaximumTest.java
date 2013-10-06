@@ -24,7 +24,7 @@ import java.util.List;
 import javax.money.Money;
 
 import org.javamoney.calc.function.Maximum;
-import org.javamoney.calc.function.MonetaryFunctions;
+import org.javamoney.calc.function.MonetaryCalculations;
 import org.junit.Test;
 
 public class MaximumTest {
@@ -39,24 +39,24 @@ public class MaximumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
 		 m = Money.of("CHF", -1);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryFunctions.maximum().calculate((Iterable) null);
+		MonetaryCalculations.maximum().calculate((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryFunctions.maximum().calculate(new HashSet());
+		MonetaryCalculations.maximum().calculate(new HashSet());
 	}
 
 
@@ -65,14 +65,14 @@ public class MaximumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
 		 m = Money.of("CHF", -1);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryFunctions.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test
