@@ -6,6 +6,12 @@
 	<name>Money and Currency - JavaMoney modules</name>
 	<packaging>pom</packaging>
 
+	<properties>
+		<!-- Dependency versions -->
+		<junit.version>4.8.2</junit.version>
+		<slf4j.version>1.6.1</slf4j.version>
+	</properties>
+
 	<licenses>
 		<license>
 			<name>Apache License version 2.0</name>
