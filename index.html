@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Javamoney-lib : JavaMoney financial library, evolved from JSR 354 development." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Javamoney-lib</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/JavaMoney/javamoney-lib">View on GitHub</a>
+
+          <h1 id="project_title">Javamoney-lib</h1>
+          <h2 id="project_tagline">JavaMoney financial library, evolved from JSR 354 development.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/JavaMoney/javamoney-lib/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/JavaMoney/javamoney-lib/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a name="welcome-to-the-javamoney-financial-library" class="anchor" href="#welcome-to-the-javamoney-financial-library"><span class="octicon octicon-link"></span></a>Welcome to the JavaMoney financial library.</h3>
+
+<p>JavaMoney is a financial library that is built upon JSR 354 (or compatible libraries). Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR development as a proof of concept:</p>
+
+<ul>
+<li>
+<strong>Currency Conversion</strong>, supporting multiple conversion data providers, direct and derived (chained) rates, current, as well as historic conversion. Also feed implementations from the European Central Bank (EZB) and the International Monetary Funds (IMF) were available, that support currency conversion back to 1995 for almost every ISO currency.</li>
+<li>
+<strong>Currency Services</strong>, provide a EE styled service, which allows querying currencies available and supports mapping between different currency naming schemes.</li>
+<li>
+<strong>Formatting</strong> provides an extendable formatting library that allows to define complex formatters, that can be configured in arbitrary ways using <code>LocalizationStyle</code> instances. Also available is a flexible Builder for creating arbitrary complex formatters and parsers based on an ordered set of arbitrary tokens.</li>
+<li>
+<strong>Region API</strong> provides a forest (a set of trees) of regions. This allows to model regional hierarchies in a more flexible and intuitive way, than adding all functionalities into <code>java.util.Locale</code>. By default the Unicode CLDR region tree, well as ISO countries defined by the 2- or 3-letter country code are available. Of course, the API is fully extendible, so customer related regions such as legal units, customer segments etc can be mapped easily to this API, also.</li>
+<li>
+<strong>Validity API</strong> This API provides a generic API for accessing historic validity information for arbitrary items, and for relationships between items. By default the API provides access to the historic relationship of currencies to countries using the Unicode CLDR data.</li>
+<li>
+<strong>common</strong> provides general functionality, such as an automatic data loader, which allows to update and locally cache arbitrary remote resources, and inform clients, if a new version of a resource was detected.</li>
+<li>
+<strong>calc</strong> finally provides a set of moentary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics. </li>
+<li>
+<strong>bundles</strong> finally provides the library in different flavors, targeting different execution environments:
+** <strong>se</strong> loading SPIs only using the JDK <code>ServiceLoader</code>.
+** <strong>se-cdi</strong> loading SPIs based on a Weld SE container.
+** <strong>ee</strong> loading SPIs based on CDI in a Java EE environment &gt;= EE6.</li>
+</ul><p>To use the library you simply have to add the Maven dependency to your project (tbd)</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.javamoney&lt;/groupId&gt;
+  &lt;artifactId&gt;javamoney-${environment}&lt;artifactId&gt;
+  &lt;versionId&gt;the current version&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>Different people have contributed to this project. During the development of JSR 354, <a href="https://github.com/atsticks" class="user-mention">@atsticks</a> and @wernerkeil founded this project and also were the main contributors. Nevertheless everybody is really welcome to help us, to make this library more feasible and add features.</p>
+
+<h3>
+<a name="javamoney-experimental" class="anchor" href="#javamoney-experimental"><span class="octicon octicon-link"></span></a>javamoney-experimental</h3>
+
+<p>The javamoney experimental module is for testing out new features before the go into the official javamoney library. This allows to gain experience and make components error prone and performant and enables to discuss the new features in a broader community.</p>
+
+<h3>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at http://tbd/pages or contact <a href="mailto:support@javamoney.org">support@javamoney.org</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Javamoney-lib maintained by <a href="https://github.com/JavaMoney">JavaMoney</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("org.javamoney");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
