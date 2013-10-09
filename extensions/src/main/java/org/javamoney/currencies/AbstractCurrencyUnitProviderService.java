@@ -25,10 +25,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.money.CurrencyUnit;
-import javax.money.UnknownCurrencyException;
 
 import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.moneta.UnknownCurrencyException;
 import org.javamoney.regions.RegionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

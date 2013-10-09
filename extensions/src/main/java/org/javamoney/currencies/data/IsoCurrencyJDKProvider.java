@@ -24,9 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
 
 import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
+import org.javamoney.moneta.MoneyCurrency;
 
 
 /**

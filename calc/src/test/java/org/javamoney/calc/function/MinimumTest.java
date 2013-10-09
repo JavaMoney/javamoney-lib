@@ -16,17 +16,12 @@
 package org.javamoney.calc.function;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.money.MonetaryAmount;
-import javax.money.Money;
-
-import org.javamoney.calc.function.Minimum;
-import org.javamoney.calc.function.MonetaryCalculations;
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 public class MinimumTest {

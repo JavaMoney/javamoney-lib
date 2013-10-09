@@ -18,12 +18,12 @@ package org.javamoney.calc.common;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.Money;
 
 import org.javamoney.calc.Calculation;
 import org.javamoney.calc.function.CompoundFunction;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
+import org.javamoney.moneta.Money;
 
 /**
  * The formula for solving for the number of periods shown at the top of this

@@ -17,13 +17,13 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAmount;
 import javax.money.MonetaryAdjuster;
-import javax.money.Money;
+import javax.money.MonetaryAmount;
 
 import org.javamoney.calc.function.CompoundFunction;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
+import org.javamoney.moneta.Money;
 
 /**
  * The future value of an annuity formula is used to calculate what the value at

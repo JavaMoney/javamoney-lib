@@ -13,8 +13,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>cdi</module>
 		<module>java-se</module>
+		<module>java-se-cdi</module>
 		<module>java-ee</module>
 	</modules>
 

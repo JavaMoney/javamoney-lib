@@ -19,9 +19,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.NumberFormat;
 
-import javax.money.MonetaryAmount;
 import javax.money.MonetaryAdjuster;
-import javax.money.Money;
+import javax.money.MonetaryAmount;
+
+import org.javamoney.moneta.Money;
 
 
 /**

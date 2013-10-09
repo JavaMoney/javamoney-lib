@@ -19,7 +19,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
 
 import org.javamoney.format.FormatToken;
 import org.javamoney.format.ItemFormat;
@@ -27,6 +26,7 @@ import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
 import org.javamoney.format.MonetaryFormats;
 import org.javamoney.format.ParseContext;
+import org.javamoney.moneta.MoneyCurrency;
 
 /**
  * {@link FormatToken} that adds a localizable {@link String}, read by key from

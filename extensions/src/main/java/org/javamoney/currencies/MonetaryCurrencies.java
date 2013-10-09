@@ -25,10 +25,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
-import javax.money.UnknownCurrencyException;
 
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.moneta.MoneyCurrency;
+import org.javamoney.moneta.UnknownCurrencyException;
 
 import com.ibm.icu.util.Currency;
 

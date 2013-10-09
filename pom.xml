@@ -94,12 +94,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.money</groupId>
-			<artifactId>money-api</artifactId>
+			<artifactId>jsr354-api</artifactId>
 			<version>${jsr.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.money</groupId>
-			<artifactId>money-ri</artifactId>
+			<groupId>org.javamoney</groupId>
+			<artifactId>jsr354-ri</artifactId>
 			<version>${jsr.version}</version>
 		</dependency>
 

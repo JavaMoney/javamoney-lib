@@ -20,7 +20,8 @@ import java.math.MathContext;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.Money;
+
+import org.javamoney.moneta.Money;
 
 /**
  * This interface defines access to the exchange conversion logic of JavaMoney.

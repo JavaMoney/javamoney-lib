@@ -37,12 +37,12 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
 
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.CurrencyConverter;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
+import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.util.loader.AbstractResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

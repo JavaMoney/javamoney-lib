@@ -19,9 +19,9 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.money.CurrencyUnit;
-import javax.money.UnknownCurrencyException;
 
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.moneta.UnknownCurrencyException;
 
 
 public class SEMonetaryCurrenciesSingletonSpi implements

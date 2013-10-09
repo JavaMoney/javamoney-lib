@@ -19,11 +19,8 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
-import javax.money.Money;
 
-import org.javamoney.convert.CurrencyConversion;
-import org.javamoney.convert.CurrencyConversionException;
-import org.javamoney.convert.ExchangeRate;
+import org.javamoney.moneta.Money;
 
 /**
  * Abstract base class used for implementing currency conversion.

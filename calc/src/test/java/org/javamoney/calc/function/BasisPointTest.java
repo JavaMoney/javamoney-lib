@@ -21,9 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 
-import javax.money.Money;
-
-import org.javamoney.calc.function.BasisPoint;
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**

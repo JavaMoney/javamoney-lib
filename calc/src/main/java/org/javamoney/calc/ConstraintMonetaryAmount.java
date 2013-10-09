@@ -16,9 +16,9 @@
 package org.javamoney.calc;
 
 import javax.money.MonetaryAmount;
-import javax.money.Money;
 
 import org.javamoney.calc.function.Predicate;
+import org.javamoney.moneta.Money;
 
 
 /**

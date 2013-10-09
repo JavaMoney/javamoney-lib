@@ -19,9 +19,9 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
-import javax.money.Money;
 
 import org.javamoney.calc.function.Predicate;
+import org.javamoney.moneta.Money;
 
 
 /**

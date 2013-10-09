@@ -27,12 +27,12 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
 
 import org.javamoney.data.icu4j.CLDRSupplementalData;
 import org.javamoney.data.icu4j.CLDRSupplementalData.Currency4Region;
 import org.javamoney.data.icu4j.CLDRSupplementalData.CurrencyRegionRecord;
 import org.javamoney.data.icu4j.ICURegionData;
+import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionType;
 import org.javamoney.regions.Regions;

@@ -19,11 +19,11 @@ import java.math.BigDecimal;
 
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
-import javax.money.Money;
 
 import org.javamoney.calc.function.CompoundFunction;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
+import org.javamoney.moneta.Money;
 
 /**
  * The annuity payment formula shown above is used to calculate the cash flows

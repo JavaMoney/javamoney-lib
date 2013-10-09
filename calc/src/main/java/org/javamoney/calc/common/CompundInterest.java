@@ -17,13 +17,13 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAmount;
 import javax.money.MonetaryAdjuster;
-import javax.money.Money;
+import javax.money.MonetaryAmount;
 
 import org.javamoney.calc.function.CompoundFunction;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
+import org.javamoney.moneta.Money;
 
 /**
  * The compound interest formula calculates the amount of interest earned on an

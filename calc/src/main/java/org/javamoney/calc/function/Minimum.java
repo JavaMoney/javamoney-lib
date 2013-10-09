@@ -16,11 +16,10 @@
 package org.javamoney.calc.function;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryAdjuster;
-import javax.money.Money;
+
+import org.javamoney.moneta.Money;
 
 /**
  * This class allows to calculate the minimum of some {@link MonetaryAmount}

@@ -21,11 +21,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import javax.money.MonetaryAdjuster;
-import javax.money.Money;
-import javax.money.function.MonetaryRoundings;
 
-import org.javamoney.calc.common.FutureValue;
-import org.javamoney.calc.common.Rate;
+import org.javamoney.moneta.Money;
+import org.javamoney.moneta.function.MonetaryRoundings;
 import org.junit.Ignore;
 import org.junit.Test;
 

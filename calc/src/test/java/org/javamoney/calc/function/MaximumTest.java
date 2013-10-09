@@ -21,10 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.money.Money;
-
-import org.javamoney.calc.function.Maximum;
-import org.javamoney.calc.function.MonetaryCalculations;
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 public class MaximumTest {

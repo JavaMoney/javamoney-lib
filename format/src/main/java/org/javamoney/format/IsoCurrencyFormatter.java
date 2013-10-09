@@ -21,12 +21,8 @@ import java.util.Currency;
 import java.util.Locale;
 
 import javax.money.CurrencyUnit;
-import javax.money.MoneyCurrency;
 
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.moneta.MoneyCurrency;
 
 public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 

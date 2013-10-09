@@ -22,16 +22,9 @@ import java.util.Locale;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.Money;
-import javax.money.MoneyCurrency;
 
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.MonetaryFormats;
 import org.javamoney.format.tokens.StringGrouper;
-
+import org.javamoney.moneta.Money;
 
 import com.ibm.icu.util.Currency;
 

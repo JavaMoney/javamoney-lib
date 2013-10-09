@@ -18,4 +18,5 @@
 		</dependency>
 	</dependencies>
 
+	<groupId>org.javamoney</groupId>
 </project>

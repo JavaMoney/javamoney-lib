@@ -16,10 +16,11 @@
 package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
 import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
-import javax.money.Money;
+
+import org.javamoney.moneta.Money;
 
 /**
  * This class allows to attach an {@link String} to the {@link MonetaryAmount}

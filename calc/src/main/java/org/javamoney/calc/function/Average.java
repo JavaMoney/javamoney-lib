@@ -19,7 +19,8 @@ import java.math.BigDecimal;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.Money;
+
+import org.javamoney.moneta.Money;
 
 /**
  * This class allows to calculate the average of some {@link MonetaryAmount}

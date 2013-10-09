@@ -18,7 +18,8 @@ package org.javamoney.calc.function;
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
-import javax.money.Money;
+
+import org.javamoney.moneta.Money;
 
 /**
  * This class allows to calculate the maximum of some {@link MonetaryAmount}
