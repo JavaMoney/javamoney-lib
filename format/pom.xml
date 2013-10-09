@@ -4,11 +4,10 @@
 	
 	<parent>
 		<groupId>org.javamoney</groupId>
-		<artifactId>javamoney</artifactId>
+		<artifactId>javamoney-lib</artifactId>
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.javamoney</groupId>
 	<artifactId>javamoney-format</artifactId>
 	<name>Money and Currency - JavaMoney format</name>
 	<packaging>bundle</packaging>
