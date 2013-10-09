@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>javamoney</artifactId>
-	<name>Money and Currency - JavaMoney modules</name>
+	<name>Money and Currency - JavaMoney libraries</name>
 	<packaging>pom</packaging>
 
 	<properties>
