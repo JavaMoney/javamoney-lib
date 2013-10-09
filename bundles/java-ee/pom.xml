@@ -18,5 +18,5 @@
 		</dependency>
 	</dependencies>
 
-	<groupId>org.javamoney</groupId>
+	<groupId>org.javamoney.bundles</groupId>
 </project>

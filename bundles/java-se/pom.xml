@@ -11,5 +11,5 @@
 	<description>Implementation of JSR 354 extended functionality, based on SE only mechanisms (ServiceLoader).</description>
 
 
-	<groupId>org.javamoney</groupId>
+	<groupId>org.javamoney.bundles</groupId>
 </project>
