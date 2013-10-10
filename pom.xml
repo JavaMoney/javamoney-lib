@@ -98,7 +98,7 @@
 			<version>${jsr.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney</groupId>
+			<groupId>org.javamoney.ri</groupId>
 			<artifactId>jsr354-ri</artifactId>
 			<version>${jsr.version}</version>
 		</dependency>
@@ -132,4 +132,5 @@
 		<groupId>org.javamoney</groupId>
 		<artifactId>javamoney-parent</artifactId>
 	</parent>
+	<groupId>org.javamoney.lib</groupId>
 </project>
