@@ -21,7 +21,7 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
-import javax.money.Subunit;
+import javax.money.SubUnit;
 
 import org.javamoney.moneta.Money;
 
@@ -198,15 +198,13 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 		return this.baseAmount.getAmountWhole();
 	}
 
-	@Override
-	public long getAmountFractionNumerator() {
-		return this.baseAmount.getAmountFractionNumerator();
-	}
-
-	@Override
-	public long getAmountFractionDenominator() {
-		return this.baseAmount.getAmountFractionDenominator();
-	}
+//	public long getAmountFractionNumerator() {
+//		return this.baseAmount.getAmountFractionNumerator();
+//	}
+//
+//	public long getAmountFractionDenominator() {
+//		return this.baseAmount.getAmountFractionDenominator();
+//	}
 
 	@Override
 	public <R> R query(MonetaryQuery<R> query) {
@@ -214,14 +212,12 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public List<Subunit> getSubunits() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SubUnit> getSubUnits() {
+		return this.baseAmount.getSubUnits();
 	}
 
 	@Override
 	public long get(CurrencyUnit unit) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.baseAmount.get(unit);
 	}
 }

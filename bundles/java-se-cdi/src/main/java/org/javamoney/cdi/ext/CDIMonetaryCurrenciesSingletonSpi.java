@@ -21,7 +21,7 @@ public class CDIMonetaryCurrenciesSingletonSpi implements
 	 * System property used to redefine the default namespace for
 	 * {@link CurrencyUnit} instances.
 	 */
-	private static final String DEFAULT_NAMESPACE_PROP = "javax.money.defaultCurrencyNamespace";
+	//private static final String DEFAULT_NAMESPACE_PROP = "javax.money.defaultCurrencyNamespace";
 	/**
 	 * The default namespace used.
 	 */

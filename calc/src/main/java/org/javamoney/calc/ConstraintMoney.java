@@ -21,7 +21,7 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
-import javax.money.Subunit;
+import javax.money.SubUnit;
 
 import org.javamoney.calc.function.Predicate;
 import org.javamoney.moneta.Money;
@@ -461,25 +461,21 @@ final class ConstraintMoney implements MonetaryAmount {
 		return this.amount.getAmountWhole();
 	}
 
-	@Override
-	public long getAmountFractionNumerator() {
-		return this.amount.getAmountFractionNumerator();
-	}
+//	public long getAmountFractionNumerator() {
+//		return this.amount.getAmountFractionNumerator();
+//	}
+//
+//	public long getAmountFractionDenominator() {
+//		return this.amount.getAmountFractionDenominator();
+//	}
 
 	@Override
-	public long getAmountFractionDenominator() {
-		return this.amount.getAmountFractionDenominator();
-	}
-
-	@Override
-	public List<Subunit> getSubunits() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SubUnit> getSubUnits() {
+		return this.amount.getSubUnits();
 	}
 
 	@Override
 	public long get(CurrencyUnit unit) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.amount.get(unit);
 	}
 }
