@@ -15,10 +15,13 @@
  */
 package org.javamoney.calc;
 
+import java.util.List;
+
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
+import javax.money.Subunit;
 
 import org.javamoney.moneta.Money;
 
@@ -28,6 +31,7 @@ import org.javamoney.moneta.Money;
  * steps.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public final class FlavoredMonetaryAmount implements MonetaryAmount {
 
@@ -207,5 +211,17 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	@Override
 	public <R> R query(MonetaryQuery<R> query) {
 		return this.baseAmount.query(query);
+	}
+
+	@Override
+	public List<Subunit> getSubunits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long get(CurrencyUnit unit) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

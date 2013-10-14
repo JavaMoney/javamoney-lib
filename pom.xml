@@ -128,7 +128,7 @@
 		</dependency>
 	</dependencies>
 	<parent>
-		<version>0.3-SNAPSHOT</version>
+		<version>0.3.1-SNAPSHOT</version>
 		<groupId>org.javamoney</groupId>
 		<artifactId>javamoney-parent</artifactId>
 	</parent>

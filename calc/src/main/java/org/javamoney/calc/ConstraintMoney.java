@@ -15,10 +15,13 @@
  */
 package org.javamoney.calc;
 
+import java.util.List;
+
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
+import javax.money.Subunit;
 
 import org.javamoney.calc.function.Predicate;
 import org.javamoney.moneta.Money;
@@ -40,6 +43,7 @@ import org.javamoney.moneta.Money;
  * {@link Predicate} used.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 final class ConstraintMoney implements MonetaryAmount {
 	/** The amount's predicate. */
@@ -465,5 +469,17 @@ final class ConstraintMoney implements MonetaryAmount {
 	@Override
 	public long getAmountFractionDenominator() {
 		return this.amount.getAmountFractionDenominator();
+	}
+
+	@Override
+	public List<Subunit> getSubunits() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long get(CurrencyUnit unit) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
