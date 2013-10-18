@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.javamoney</groupId>
-		<artifactId>javamoney</artifactId>
+		<artifactId>javamoney-lib</artifactId>
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 	
@@ -20,27 +20,27 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.javamoney.lib</groupId>
+			<groupId>org.javamoney</groupId>
 			<artifactId>javamoney-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney.lib</groupId>
+			<groupId>org.javamoney</groupId>
 			<artifactId>javamoney-conversion</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney.lib</groupId>
+			<groupId>org.javamoney</groupId>
 			<artifactId>javamoney-format</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney.lib</groupId>
+			<groupId>org.javamoney</groupId>
 			<artifactId>javamoney-extensions</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney.lib</groupId>
+			<groupId>org.javamoney</groupId>
 			<artifactId>javamoney-validity</artifactId>
 			<version>${project.version}</version>
 		</dependency>
