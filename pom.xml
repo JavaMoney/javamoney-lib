@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	<parent>
+		<version>0.3-SNAPSHOT</version>
+		<groupId>org.javamoney</groupId>
+		<artifactId>javamoney-parent</artifactId>
+	</parent>
 	<artifactId>javamoney-lib</artifactId>
+	<groupId>org.javamoney.lib</groupId>
 	<name>Money and Currency - JavaMoney libraries</name>
 	<packaging>pom</packaging>
 
@@ -26,6 +31,7 @@
 		<module>conversion</module>
 		<module>extensions</module>
 		<module>validity</module>
+		<module>bundles</module>
 	</modules>
 
 	<build>
@@ -127,10 +133,4 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
-	<parent>
-		<version>0.3-SNAPSHOT</version>
-		<groupId>org.javamoney</groupId>
-		<artifactId>javamoney-parent</artifactId>
-	</parent>
-	<groupId>org.javamoney.lib</groupId>
 </project>
