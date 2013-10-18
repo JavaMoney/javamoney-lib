@@ -212,11 +212,6 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	@Override
-	public List<SubUnit> getSubUnits() {
-		return this.baseAmount.getSubUnits();
-	}
-
-	@Override
 	public long get(CurrencyUnit unit) {
 		return this.baseAmount.get(unit);
 	}
