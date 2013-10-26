@@ -198,13 +198,15 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 		return this.baseAmount.getAmountWhole();
 	}
 
-//	public long getAmountFractionNumerator() {
-//		return this.baseAmount.getAmountFractionNumerator();
-//	}
-//
-//	public long getAmountFractionDenominator() {
-//		return this.baseAmount.getAmountFractionDenominator();
-//	}
+	@Override
+	public long getAmountFractionNumerator() {
+		return this.baseAmount.getAmountFractionNumerator();
+	}
+
+	@Override
+	public long getAmountFractionDenominator() {
+		return this.baseAmount.getAmountFractionDenominator();
+	}
 
 	@Override
 	public <R> R query(MonetaryQuery<R> query) {

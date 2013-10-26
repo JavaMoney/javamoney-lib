@@ -461,13 +461,15 @@ final class ConstraintMoney implements MonetaryAmount {
 		return this.amount.getAmountWhole();
 	}
 
-//	public long getAmountFractionNumerator() {
-//		return this.amount.getAmountFractionNumerator();
-//	}
-//
-//	public long getAmountFractionDenominator() {
-//		return this.amount.getAmountFractionDenominator();
-//	}
+	@Override
+	public long getAmountFractionNumerator() {
+		return this.amount.getAmountFractionNumerator();
+	}
+
+	@Override
+	public long getAmountFractionDenominator() {
+		return this.amount.getAmountFractionDenominator();
+	}
 
 	@Override
 	public long get(CurrencyUnit unit) {
