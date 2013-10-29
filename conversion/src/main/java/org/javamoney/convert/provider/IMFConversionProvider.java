@@ -265,10 +265,10 @@ public class IMFConversionProvider extends AbstractResource
 		builder.withTerm(term);
 		builder.withFactor(rate1.getFactor().multiply(rate2.getFactor()));
 		builder.withExchangeRateChain(rate1, rate2);
-		builder.withValidFromMillis(Math.max(rate1.getValidFromMillis(),
-				rate2.getValidFromMillis()));
-		builder.withValidToMillis(Math.min(rate1.getValidToMillis(),
-				rate2.getValidToMillis()));
+		builder.withValidFromMillis(Math.max(rate1.getValidFromTimestamp(),
+				rate2.getValidFromTimestamp()));
+		builder.withValidToMillis(Math.min(rate1.getValidToTimestamp(),
+				rate2.getValidToTimestamp()));
 		return builder.build();
 	}
 
@@ -315,7 +315,7 @@ public class IMFConversionProvider extends AbstractResource
 	@Override
 	public ExchangeRate getReversed(ExchangeRate rate) {
 		return getExchangeRate(rate.getTerm(), rate.getBase(),
-				rate.getValidFromMillis());
+				rate.getValidFromTimestamp());
 	}
 
 	@Override

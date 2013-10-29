@@ -257,7 +257,7 @@ public final class ExchangeRate implements Serializable,
 	 * @return The UTC timestamp of the rate, defining valid from, or
 	 *         {@code null}, if no starting validity constraint is set.
 	 */
-	public final Long getValidFromMillis() {
+	public final Long getValidFromTimestamp() {
 		return this.validFrom;
 	}
 
@@ -273,7 +273,7 @@ public final class ExchangeRate implements Serializable,
 	 * @return the duration of validity in milliseconds, or {@code null} if no
 	 *         ending validity constraint is set.
 	 */
-	public final Long getValidToMillis() {
+	public final Long getValidToTimestamp() {
 		return this.validTo;
 	}
 
@@ -296,10 +296,10 @@ public final class ExchangeRate implements Serializable,
 	}
 
 	/**
-	 * Method to easily check if the {@link #getValidFromMillis()} is not
+	 * Method to easily check if the {@link #getValidFromTimestamp()} is not
 	 * {@code null}.
 	 * 
-	 * @return {@code true} if {@link #getValidFromMillis()} is not {@code null}
+	 * @return {@code true} if {@link #getValidFromTimestamp()} is not {@code null}
 	 *         .
 	 */
 	public boolean isLowerBound() {
@@ -307,10 +307,10 @@ public final class ExchangeRate implements Serializable,
 	}
 
 	/**
-	 * Method to easily check if the {@link #getValidToMillis()} is not
+	 * Method to easily check if the {@link #getValidToTimestamp()} is not
 	 * {@code null}.
 	 * 
-	 * @return {@code true} if {@link #getValidToMillis()} is not {@code null}.
+	 * @return {@code true} if {@link #getValidToTimestamp()} is not {@code null}.
 	 */
 	public boolean isUpperBound() {
 		return validTo != null;
@@ -690,8 +690,8 @@ public final class ExchangeRate implements Serializable,
 			this.provider = rate.getProvider();
 			this.rateChain = rate.chain;
 			this.term = rate.getTerm();
-			this.validFrom = rate.getValidFromMillis();
-			this.validTo = rate.getValidToMillis();
+			this.validFrom = rate.getValidFromTimestamp();
+			this.validTo = rate.getValidToTimestamp();
 			return this;
 		}
 	}

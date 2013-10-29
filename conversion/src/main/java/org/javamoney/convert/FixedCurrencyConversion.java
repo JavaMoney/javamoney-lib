@@ -47,7 +47,7 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 
 	@Override
 	public Long getTargetTimestamp() {
-		return this.rate.getValidFromMillis();
+		return this.rate.getValidFromTimestamp();
 	}
 
 	@Override

@@ -321,7 +321,7 @@ public class EZBHistoricConversionProvider extends AbstractResource
 	@Override
 	public ExchangeRate getReversed(ExchangeRate rate) {
 		return getExchangeRate(rate.getTerm(), rate.getBase(),
-				rate.getValidFromMillis());
+				rate.getValidFromTimestamp());
 	}
 
 	@Override
