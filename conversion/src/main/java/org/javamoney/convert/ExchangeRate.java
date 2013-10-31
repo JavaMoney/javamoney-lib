@@ -146,7 +146,7 @@ public final class ExchangeRate implements Serializable,
 	 * Creates a new instance with a custom chain of exchange rate type, e.g. or
 	 * creating <i>derived</i> rates.
 	 * 
-	 * @param conversionType
+	 * @param exchangeRateType
 	 *            The conversion type, never {@code null}.
 	 * @param base
 	 *            the base {@link CurrencyUnit}
@@ -332,7 +332,7 @@ public final class ExchangeRate implements Serializable,
 	 * 
 	 * @return the chain of rates, in case of a derived rate, this may be
 	 *         several instances. For a direct exchange rate, this equals to
-	 *         <code>new ConversionRate[]{this}</code>.
+	 *         <code>new ExchangeRate[]{this}</code>.
 	 */
 	public final List<ExchangeRate> getExchangeRateChain() {
 		return Arrays.asList(this.chain);
