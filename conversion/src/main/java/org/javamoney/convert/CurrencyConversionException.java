@@ -41,10 +41,10 @@ public class CurrencyConversionException extends MonetaryException {
 	 * Constructs an <code>CurrencyConversionException</code> with the specified
 	 * detail message, timestamp, source and target currency.
 	 * 
-	 * @param source
+	 * @param base
 	 *            the source currency, may be null.
 	 * 
-	 * @param target
+	 * @param term
 	 *            the target currency, may be null.
 	 * 
 	 * @param message
@@ -63,10 +63,10 @@ public class CurrencyConversionException extends MonetaryException {
 	 * Constructs an <code>CurrencyConversionException</code> with the specified
 	 * source and target currency.
 	 * 
-	 * @param source
+	 * @param base
 	 *            the source currency, may be null.
 	 * 
-	 * @param target
+	 * @param term
 	 *            the target currency, may be null.
 	 */
 	public CurrencyConversionException(CurrencyUnit base,
@@ -86,9 +86,9 @@ public class CurrencyConversionException extends MonetaryException {
 	 * Note that the detail message associated with <code>cause</code> is
 	 * <i>not</i> automatically incorporated in this exception's detail message.
 	 * 
-	 * @param source
+	 * @param base
 	 *            the source currency, may be null.
-	 * @param target
+	 * @param term
 	 *            the target currency, may be null.
 	 * @param message
 	 *            the detail message (which is saved for later retrieval by the
@@ -101,7 +101,9 @@ public class CurrencyConversionException extends MonetaryException {
 	 */
 	public CurrencyConversionException(CurrencyUnit base,
 			CurrencyUnit term, Long timestamp, String message, Throwable cause) {
-		super(message, cause);
+        super("Cannot convert " + String.valueOf(base) + " into "
+            + String.valueOf(term) + (message != null ? ": " + message : ""),
+            cause);
 		this.base = base;
 		this.term = term;
 		this.timestamp = timestamp;
