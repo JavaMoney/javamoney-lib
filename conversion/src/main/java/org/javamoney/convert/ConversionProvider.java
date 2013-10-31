@@ -84,7 +84,7 @@ public interface ConversionProvider {
 			long timestamp);
 
 	/**
-	 * Get an {@link ConversionRate} for a given timestamp (including historic
+	 * Get an {@link ExchangeRate} for a given timestamp (including historic
 	 * rates).
 	 * <p>
 	 * Note that the UTC timestamp models the instance, when the queried rate
