@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.javamoney.bundles</groupId>
 		<artifactId>javamoney-bundles</artifactId>
-		<version>0.3</version>
+		<version>0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>javamoney-ee</artifactId>
 	<name>JavaMoney - CDI EE Bundle</name>
