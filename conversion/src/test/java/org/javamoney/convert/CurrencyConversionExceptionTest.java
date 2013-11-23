@@ -59,7 +59,7 @@ public class CurrencyConversionExceptionTest {
 		assertEquals(base, ex.getBase());
 		assertEquals(term, ex.getTerm());
 		assertEquals(Long.valueOf(100), ex.getTimestamp());
-		assertEquals("test", ex.getMessage());
+		assertEquals("Cannot convert CHF into EUR: test", ex.getMessage());
 	}
 
 
@@ -69,7 +69,7 @@ public class CurrencyConversionExceptionTest {
 		CurrencyUnit term = TestCurrency.of("EUR");
 		Exception cause = new Exception("cause");
 		CurrencyConversionException ex = new CurrencyConversionException(base, term, 100L, "test", cause);
-		assertEquals("CurrencyConversionException [base=CHF, term=EUR, timestamp=100]: test", ex.toString());
+		assertEquals("CurrencyConversionException [base=CHF, term=EUR, timestamp=100]: Cannot convert CHF into EUR: test", ex.toString());
 	}
 
 }

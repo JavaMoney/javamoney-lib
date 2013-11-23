@@ -40,6 +40,7 @@ import org.javamoney.format.MonetaryFormats;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.moneta.function.MonetaryRoundings;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,6 +78,7 @@ public class SmokeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testExchange() {
 		ConversionProvider prov = MonetaryConversions
 				.getConversionProvider(RATE_TYPE);
@@ -96,6 +98,7 @@ public class SmokeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testCurrencyConverter() {
 		MonetaryAdjuster rounding = MonetaryRoundings.getRounding(2,
 				RoundingMode.HALF_UP);
@@ -125,6 +128,7 @@ public class SmokeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testGettingParsers() {
 		// Using parsers
 		try {
@@ -140,6 +144,7 @@ public class SmokeTest {
 	}
 
 	@Test
+	@Ignore
 	public void testGettingFormatters() {
 		// Using formatters
 		CurrencyUnit currency = MonetaryCurrencies.get("CHF");

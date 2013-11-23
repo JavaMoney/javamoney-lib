@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<version>0.3-SNAPSHOT</version>
+		<version>0.3</version>
 		<groupId>org.javamoney</groupId>
 		<artifactId>javamoney-parent</artifactId>
 	</parent>
@@ -15,6 +15,7 @@
 		<!-- Dependency versions -->
 		<junit.version>4.8.2</junit.version>
 		<slf4j.version>1.6.1</slf4j.version>
+		<jsr354.version>0.7</jsr354.version>
 	</properties>
 
 	<licenses>
@@ -101,12 +102,12 @@
 		<dependency>
 			<groupId>javax.money</groupId>
 			<artifactId>jsr354-api</artifactId>
-			<version>${jsr.version}</version>
+			<version>${jsr354.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.javamoney.ri</groupId>
 			<artifactId>jsr354-ri</artifactId>
-			<version>${jsr.version}</version>
+			<version>${jsr354.version}</version>
 		</dependency>
 
 		<dependency>
