@@ -20,12 +20,12 @@ import javax.money.MonetaryAmount;
 import org.javamoney.calc.Calculation;
 
 /**
- * This interface defines a {@link MonetaryAdjuster}. It is hereby important to
+ * This interface defines a {@link MonetaryCalculation}. It is hereby important to
  * distinguish between <i>internal rounding</i> such as implied by the maximal
  * precision/scale of an amount, and <i>rounding</i> applied to a
  * {@link MonetaryAmount} or a calculation algorithm. Since different use cases
  * may require <i>rounding</i> done at very different stages and differently
- * within a complex financial calculation, {@link MonetaryAdjuster} is not
+ * within a complex financial calculation, {@link MonetaryCalculation} is not
  * directly attached to a monetary type, e.g. a {@link MonetaryAmount}.
  * <p>
  * Nevertheless the JSR's extensions provide a RoundingMonetaryAmount, which
@@ -36,11 +36,10 @@ import org.javamoney.calc.Calculation;
  * introduced by Java 8. Modeling it here allows the JSR to forward port
  * functional interfaces, though the JSR itself, is based on Java 7.
  * 
- * @version 0.9.1
+ * @version 0.9.2
  * @author Werner Keil
  * @author Anatole Tresch
  */
-// @FunctionalInterface for Java 9
 public interface MonetaryCalculation<T> extends Calculation<T, MonetaryAmount> {
 
 	/**
