@@ -20,13 +20,13 @@ import javax.money.MonetaryAdjuster;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
-import org.javamoney.calc.function.Predicate;
+import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
 
 
 /**
  * Platform RI: This class decorates an arbitrary {@link MonetaryAmount}
- * instance and ensure the given {@link Predicate} is always {@code true}.
+ * instance and ensure the given {@link MonetaryPredicate} is always {@code true}.
  * <p>
  * As required by the {@link MonetaryAmount} interface, this class is
  * <ul>
@@ -37,13 +37,13 @@ import org.javamoney.moneta.Money;
  * </ul>
  * 
  * As a consequence all this attributes must also be true for the
- * {@link Predicate} used.
+ * {@link MonetaryPredicate} used.
  * 
  * @author Anatole Tresch
  */
 final class ConstraintMoney implements MonetaryAmount {
 	/** The amount's predicate. */
-	private Predicate<MonetaryAmount> predicate;
+	private MonetaryPredicate<MonetaryAmount> predicate;
 	/** The underlying amount. */
 	private final Money amount;
 
@@ -56,14 +56,14 @@ final class ConstraintMoney implements MonetaryAmount {
 	 *             if the amount passed is negative.
 	 */
 	ConstraintMoney(Money amount,
-			Predicate<MonetaryAmount> predicate) {
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		if (amount == null) {
 			throw new IllegalArgumentException("Amount required.");
 		}
 		if (predicate == null) {
 			throw new IllegalArgumentException("predicate required.");
 		}
-		if (!predicate.isPredicateTrue(amount)) {
+		if (!predicate.test(amount)) {
 			throw new IllegalArgumentException("Constraint failed: "
 					+ predicate + " with " + amount);
 		}
@@ -79,7 +79,7 @@ final class ConstraintMoney implements MonetaryAmount {
 	 * @return
 	 */
 	private static ConstraintMoney of(Money amount,
-			Predicate<MonetaryAmount> predicate) {
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}
 

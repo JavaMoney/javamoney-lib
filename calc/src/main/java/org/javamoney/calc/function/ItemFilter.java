@@ -102,13 +102,13 @@ final class ItemFilter<T> {
 	 *         returned {@code true}.
 	 */
 	public Collection<T> apply(
-			final Predicate<T> predicate) {
+			final MonetaryPredicate<T> predicate) {
 		final List<T> result = new ArrayList<T>();
 		ItemVisitor visitor = new ItemVisitor(this.input);
-		visitor.apply(new Predicate<T>() {
+		visitor.apply(new MonetaryPredicate<T>() {
 			@Override
-			public boolean isPredicateTrue(T value) {
-				if (predicate.isPredicateTrue(value)) {
+			public boolean test(T value) {
+				if (predicate.test(value)) {
 					result.add(value);
 					return true;
 				}

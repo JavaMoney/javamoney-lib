@@ -24,7 +24,7 @@ import org.javamoney.calc.FlavoredMonetaryAmount;
 
 
 final class MonetaryAmountFlavorPredicate<T extends MonetaryAmount> implements
-		Predicate<T> {
+		MonetaryPredicate<T> {
 
 	private Set<String> flavors = new HashSet<String>();
 
@@ -47,7 +47,7 @@ final class MonetaryAmountFlavorPredicate<T extends MonetaryAmount> implements
 	}
 
 	@Override
-	public boolean isPredicateTrue(T value) {
+	public boolean test(T value) {
 		if (!(value instanceof FlavoredMonetaryAmount)) {
 			return Boolean.FALSE;
 		}

@@ -55,12 +55,12 @@ public final class MonetaryCalculations {
 		// Singleton constructor
 	}
 
-	public static Predicate<MonetaryAmount> withFlavors(String... flavors) {
+	public static MonetaryPredicate<MonetaryAmount> withFlavors(String... flavors) {
 		return new MonetaryAmountFlavorPredicate<>(flavors);
 	}
 
 	@SafeVarargs
-	public static Predicate<MonetaryAmount> withFlavors(
+	public static MonetaryPredicate<MonetaryAmount> withFlavors(
 			Iterable<String>... flavors) {
 		return new MonetaryAmountFlavorPredicate<>(flavors);
 	}

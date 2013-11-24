@@ -24,9 +24,9 @@ package org.javamoney.calc.function;
  * 
  * @author Anatole Tresch
  */
-final class NotPredicate<T> implements Predicate<T> {
+final class NotPredicate<T> implements MonetaryPredicate<T> {
 	/** The child predicates. */
-	private Predicate<? super T> predicate;
+	private MonetaryPredicate<? super T> predicate;
 
 	/**
 	 * Creates an NOT predicate.
@@ -34,7 +34,7 @@ final class NotPredicate<T> implements Predicate<T> {
 	 * @param predicate
 	 *            The predicate to be inversed.
 	 */
-	NotPredicate(Predicate<? super T> predicate) {
+	NotPredicate(MonetaryPredicate<? super T> predicate) {
 		if (predicate == null) {
 			throw new IllegalArgumentException("predicate required.");
 		}
@@ -47,8 +47,8 @@ final class NotPredicate<T> implements Predicate<T> {
 	 * @see javax.money.MonetaryFunction#apply(java.lang.Object)
 	 */
 	@Override
-	public boolean isPredicateTrue(T value) {
-		return !predicate.isPredicateTrue(value);
+	public boolean test(T value) {
+		return !predicate.test(value);
 	}
 
 }

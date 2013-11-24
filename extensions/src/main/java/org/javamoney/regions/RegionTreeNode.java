@@ -18,7 +18,7 @@ package org.javamoney.regions;
 import java.io.Serializable;
 import java.util.Collection;
 
-import org.javamoney.calc.function.Predicate;
+import org.javamoney.calc.function.MonetaryPredicate;
 
 
 /**
@@ -81,7 +81,7 @@ public interface RegionTreeNode {
 	 *            parent, if any.
 	 * @return the region found, or {@code null}.
 	 */
-	public RegionTreeNode selectParent(Predicate<Region> predicate);
+	public RegionTreeNode selectParent(MonetaryPredicate<Region> predicate);
 
 	/**
 	 * Select a collection of regions selected by the given filter.
@@ -90,7 +90,7 @@ public interface RegionTreeNode {
 	 *            the region selector, {@code null} will return all regions.
 	 * @return the regions selected.
 	 */
-	public Collection<RegionTreeNode> select(Predicate<Region> predicate);
+	public Collection<RegionTreeNode> select(MonetaryPredicate<Region> predicate);
 
 	/**
 	 * Access a {@link Region} using the region path, which allows access of a

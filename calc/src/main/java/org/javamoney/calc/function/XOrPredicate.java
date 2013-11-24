@@ -28,9 +28,9 @@ import java.util.List;
  * 
  * @author Anatole Tresch
  */
-final class XOrPredicate<T> implements Predicate<T> {
+final class XOrPredicate<T> implements MonetaryPredicate<T> {
 	/** The child predicates. */
-	private List<Predicate<? super T>> predicates = new ArrayList<Predicate<? super T>>();
+	private List<MonetaryPredicate<? super T>> predicates = new ArrayList<MonetaryPredicate<? super T>>();
 
 	/**
 	 * Creates an XOR predicate.
@@ -39,10 +39,10 @@ final class XOrPredicate<T> implements Predicate<T> {
 	 *            The child predicates.
 	 */
 	@SafeVarargs
-	XOrPredicate(Iterable<? extends Predicate<? super T>>... predicates) {
+	XOrPredicate(Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
 		if (predicates != null) {
-			for (Iterable<? extends Predicate<? super T>> iterable : predicates) {
-				for (Predicate<? super T> predicate : iterable) {
+			for (Iterable<? extends MonetaryPredicate<? super T>> iterable : predicates) {
+				for (MonetaryPredicate<? super T> predicate : iterable) {
 					this.predicates.add(predicate);
 				}
 			}
@@ -55,10 +55,10 @@ final class XOrPredicate<T> implements Predicate<T> {
 	 * @see javax.money.MonetaryFunction#apply(java.lang.Object)
 	 */
 	@Override
-	public boolean isPredicateTrue(T value) {
+	public boolean test(T value) {
 		boolean state = false;
-		for (Predicate<? super T> predicate : predicates) {
-			if (predicate.isPredicateTrue(value)) {
+		for (MonetaryPredicate<? super T> predicate : predicates) {
+			if (predicate.test(value)) {
 				if (!state) {
 					state = true;
 				}

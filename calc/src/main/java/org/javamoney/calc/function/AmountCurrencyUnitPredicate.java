@@ -40,12 +40,12 @@ import javax.money.MonetaryAmount;
  *            the input values to
  */
 class AmountCurrencyUnitPredicate<T extends MonetaryAmount> implements
-		Predicate<T> {
+		MonetaryPredicate<T> {
 
-	private Predicate<CurrencyUnit> currencyPredicate;
+	private MonetaryPredicate<CurrencyUnit> currencyPredicate;
 
 	public AmountCurrencyUnitPredicate(
-			Predicate<CurrencyUnit> currencyPredicate) {
+			MonetaryPredicate<CurrencyUnit> currencyPredicate) {
 		if (currencyPredicate == null) {
 			throw new IllegalArgumentException("currencyPredicate required.");
 		}
@@ -53,8 +53,8 @@ class AmountCurrencyUnitPredicate<T extends MonetaryAmount> implements
 	}
 
 	@Override
-	public boolean isPredicateTrue(MonetaryAmount value) {
-		return currencyPredicate.isPredicateTrue(value.getCurrency());
+	public boolean test(MonetaryAmount value) {
+		return currencyPredicate.test(value.getCurrency());
 	}
 
 	/*

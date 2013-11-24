@@ -30,11 +30,11 @@ package org.javamoney.calc;
  * introduced by Java 8. Modeling it here allows the JSR to forward port
  * functional interfaces, though the JSR itself, is based on Java 7.
  * 
- * @version 0.9.1
+ * @version 0.9.2
  * @author Werner Keil
  * @author Anatole Tresch
  */
-// @FunctionalInterface for Java 9
+// @FunctionalInterface for Java 8/9
 public interface Calculation<T, R> {
 
 	public R calculate(T input);

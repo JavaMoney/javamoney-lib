@@ -23,61 +23,61 @@ import javax.money.MonetaryAmount;
 
 public class MonetaryCalculator {
 
-	public String addFilter(Predicate<MonetaryAmount> filter) {
+	public String addFilter(MonetaryPredicate<MonetaryAmount> filter) {
 		return filter.getClass().getSimpleName();
 	}
 
 	public String addFilter(String filterId,
-			Predicate<MonetaryAmount> filter) {
+			MonetaryPredicate<MonetaryAmount> filter) {
 		return filterId;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getFilter(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getFilter(
 			String filterId) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T removeFilter(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T removeFilter(
 			String filterId) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getFilter(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getFilter(
 			Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getFilter(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getFilter(
 			String visitorId, Class<T> visitorType) {
 		return null;
 	}
 
 	public String addAmountVisitor(
-			Predicate<MonetaryAmount> visitor) {
+			MonetaryPredicate<MonetaryAmount> visitor) {
 		return visitor.getClass().getSimpleName();
 	}
 
 	public String addAmountVisitor(String visitorId,
-			Predicate<MonetaryAmount> visitor) {
+			MonetaryPredicate<MonetaryAmount> visitor) {
 		return visitorId;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getVisitor(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getVisitor(
 			String visitorId) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getVisitor(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getVisitor(
 			Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T getVisitor(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T getVisitor(
 			String visitorId, Class<T> visitorType) {
 		return null;
 	}
 
-	public <T extends Predicate<MonetaryAmount>> T removeVisitor(
+	public <T extends MonetaryPredicate<MonetaryAmount>> T removeVisitor(
 			String visitorId) {
 		return null;
 	}

@@ -15,7 +15,7 @@
  */
 package org.javamoney.regions;
 
-import org.javamoney.calc.function.Predicate;
+import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionTreeNode;
 
@@ -49,5 +49,5 @@ public interface LinkedRegionNode extends RegionTreeNode {
 	 * @see #getLinkedPath()
 	 * @return the filter used, or {@code null}.
 	 */
-	public Predicate<Region> getLinkedFilter();
+	public MonetaryPredicate<Region> getLinkedFilter();
 }

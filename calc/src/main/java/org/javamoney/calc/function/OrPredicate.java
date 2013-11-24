@@ -27,9 +27,9 @@ import java.util.List;
  * 
  * @author Anatole Tresch
  */
-final class OrPredicate<T> implements Predicate<T> {
+final class OrPredicate<T> implements MonetaryPredicate<T> {
 	/** The child predicates. */
-	private List<Predicate<? super T>> predicates = new ArrayList<Predicate<? super T>>();
+	private List<MonetaryPredicate<? super T>> predicates = new ArrayList<MonetaryPredicate<? super T>>();
 
 	/**
 	 * Creates an OR predicate.
@@ -38,9 +38,9 @@ final class OrPredicate<T> implements Predicate<T> {
 	 *            The child predicates.
 	 */
 	@SafeVarargs
-	OrPredicate(Iterable<? extends Predicate<? super T>>... predicates) {
-		for (Iterable<? extends Predicate<? super T>> iterable : predicates) {
-			for (Predicate<? super T> predicate : iterable) {
+	OrPredicate(Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
+		for (Iterable<? extends MonetaryPredicate<? super T>> iterable : predicates) {
+			for (MonetaryPredicate<? super T> predicate : iterable) {
 				this.predicates.add(predicate);
 			}
 		}
@@ -52,9 +52,9 @@ final class OrPredicate<T> implements Predicate<T> {
 	 * @see javax.money.MonetaryFunction#apply(java.lang.Object)
 	 */
 	@Override
-	public boolean isPredicateTrue(T value) {
-		for (Predicate<? super T> predicate : predicates) {
-			if (predicate.isPredicateTrue(value)) {
+	public boolean test(T value) {
+		for (MonetaryPredicate<? super T> predicate : predicates) {
+			if (predicate.test(value)) {
 				return Boolean.TRUE;
 			}
 		}

@@ -34,7 +34,7 @@ import javax.money.MonetaryAmount;
  *            the input values to
  */
 class IncludedPredicate<T> implements
-		Predicate<T> {
+		MonetaryPredicate<T> {
 
 	private Set<T> acceptedValues = new HashSet<T>();
 
@@ -54,7 +54,7 @@ class IncludedPredicate<T> implements
 	}
 
 	@Override
-	public boolean isPredicateTrue(T value) {
+	public boolean test(T value) {
 		return acceptedValues.contains(value);
 	}
 

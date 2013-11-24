@@ -46,12 +46,12 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to true, if every predicate return
+	 * @return a {@link MonetaryPredicate} evaluating to true, if every predicate return
 	 *         true, or no predicates are passed, never {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> and(
-			Iterable<? extends Predicate<? super T>>... predicates) {
+	public static <T> MonetaryPredicate<T> and(
+			Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
 		return new AndPredicate<>(predicates);
 	}
 
@@ -61,13 +61,13 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to {@code true}, if every
+	 * @return a {@link MonetaryPredicate} evaluating to {@code true}, if every
 	 *         predicate return {@code true}, or no predicates are passed, never
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> and(
-			Predicate<? super T>... predicates) {
+	public static <T> MonetaryPredicate<T> and(
+			MonetaryPredicate<? super T>... predicates) {
 		return new AndPredicate<>(Arrays.asList(predicates));
 	}
 
@@ -77,13 +77,13 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to {@code true}, if at least one
+	 * @return a {@link MonetaryPredicate} evaluating to {@code true}, if at least one
 	 *         predicate return {@code true}, or no predicates are passed, never
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> or(
-			Iterable<? extends Predicate<? super T>>... predicates) {
+	public static <T> MonetaryPredicate<T> or(
+			Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
 		return new OrPredicate<>(predicates);
 	}
 
@@ -93,13 +93,13 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to {@code true}, if at least one
+	 * @return a {@link MonetaryPredicate} evaluating to {@code true}, if at least one
 	 *         predicate return {@code true}, or no predicates are passed, never
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> or(
-			Predicate<? super T>... predicates) {
+	public static <T> MonetaryPredicate<T> or(
+			MonetaryPredicate<? super T>... predicates) {
 		return new OrPredicate<>(Arrays.asList(predicates));
 	}
 
@@ -109,13 +109,13 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to {@code true}, if exact one
+	 * @return a {@link MonetaryPredicate} evaluating to {@code true}, if exact one
 	 *         predicate return {@code true}, or no predicates are passed, never
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> xor(
-			Iterable<? extends Predicate<? super T>>... predicates) {
+	public static <T> MonetaryPredicate<T> xor(
+			Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
 		return new OrPredicate<>(predicates);
 	}
 
@@ -125,13 +125,13 @@ public final class MonetaryPredicates {
 	 * 
 	 * @param predicates
 	 *            The predicates to evaluate.
-	 * @return a {@link Predicate} evaluating to {@code true}, if exact one
+	 * @return a {@link MonetaryPredicate} evaluating to {@code true}, if exact one
 	 *         predicate return {@code true}, or no predicates are passed, never
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> xor(
-			Predicate<? super T>... predicates) {
+	public static <T> MonetaryPredicate<T> xor(
+			MonetaryPredicate<? super T>... predicates) {
 		return new OrPredicate<>(Arrays.asList(predicates));
 	}
 
@@ -145,7 +145,7 @@ public final class MonetaryPredicates {
 	 * @throws IllegalArgumentException
 	 *             , if predicate is {@code null}.
 	 */
-	public static <T> Predicate<T> not(Predicate<? super T> predicate) {
+	public static <T> MonetaryPredicate<T> not(MonetaryPredicate<? super T> predicate) {
 		return new NotPredicate<>(predicate);
 	}
 
@@ -159,7 +159,7 @@ public final class MonetaryPredicates {
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> include(Iterable<? extends T>... values) {
+	public static <T> MonetaryPredicate<T> include(Iterable<? extends T>... values) {
 		return new IncludedPredicate<>(values);
 	}
 
@@ -173,7 +173,7 @@ public final class MonetaryPredicates {
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> include(T... values) {
+	public static <T> MonetaryPredicate<T> include(T... values) {
 		return new IncludedPredicate<>(Arrays.asList(values));
 	}
 
@@ -188,7 +188,7 @@ public final class MonetaryPredicates {
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> exclude(Iterable<? extends T>... values) {
+	public static <T> MonetaryPredicate<T> exclude(Iterable<? extends T>... values) {
 		return new NotPredicate<>(new IncludedPredicate<>(values));
 	}
 
@@ -203,7 +203,7 @@ public final class MonetaryPredicates {
 	 *         {@code null}.
 	 */
 	@SafeVarargs
-	public static <T> Predicate<T> exclude(T... values) {
+	public static <T> MonetaryPredicate<T> exclude(T... values) {
 		return new NotPredicate<>(new IncludedPredicate<>(Arrays.asList(values)));
 	}
 
@@ -219,8 +219,8 @@ public final class MonetaryPredicates {
 	 * @return the evaluating predicate based on the values passed, never
 	 *         {@code null}.
 	 */
-	public static <T> Predicate<T> min(int min,
-			Predicate<? super T> predicate) {
+	public static <T> MonetaryPredicate<T> min(int min,
+			MonetaryPredicate<? super T> predicate) {
 		return new MinCountPredicate<>(min, predicate);
 	}
 
@@ -236,14 +236,14 @@ public final class MonetaryPredicates {
 	 * @return the evaluating predicate based on the values passed, never
 	 *         {@code null}.
 	 */
-	public static <T> Predicate<T> max(int max,
-			Predicate<? super T> predicate) {
+	public static <T> MonetaryPredicate<T> max(int max,
+			MonetaryPredicate<? super T> predicate) {
 		return new MaxCountPredicate<>(max, predicate);
 	}
 
 	/**
 	 * This method allows to select all instances within some {@link Iterable}
-	 * instances using an arbitrary {@link Predicate}.
+	 * instances using an arbitrary {@link MonetaryPredicate}.
 	 * 
 	 * @param predicate
 	 *            The selecting predicate.
@@ -252,14 +252,14 @@ public final class MonetaryPredicates {
 	 * @return The items that match the predicate.
 	 */
 	@SafeVarargs
-	public static <T> Collection<T> select(Predicate<T> predicate,
+	public static <T> Collection<T> select(MonetaryPredicate<T> predicate,
 			Iterable<T>... items) {
 		return new ItemFilter<>(items).apply(predicate);
 	}
 
 	/**
 	 * This method allows to select all instances within some {@link Iterable}
-	 * instances using an arbitrary {@link Predicate}.
+	 * instances using an arbitrary {@link MonetaryPredicate}.
 	 * 
 	 * @param predicate
 	 *            The selecting predicate.
@@ -268,14 +268,14 @@ public final class MonetaryPredicates {
 	 * @return The items that match the predicate.
 	 */
 	@SafeVarargs
-	public static <T> Collection<T> select(Predicate<T> predicate,
+	public static <T> Collection<T> select(MonetaryPredicate<T> predicate,
 			T... items) {
 		return new ItemFilter<>(items).apply(predicate);
 	}
 
 	/**
 	 * This method allows to count (visit) all instances within some
-	 * {@link Iterable} instances that match an arbitrary {@link Predicate}.
+	 * {@link Iterable} instances that match an arbitrary {@link MonetaryPredicate}.
 	 * 
 	 * @param predicate
 	 *            The counting predicate.
@@ -284,14 +284,14 @@ public final class MonetaryPredicates {
 	 * @return The items that match the predicate.
 	 */
 	@SafeVarargs
-	public static <T> int count(Predicate<T> predicate,
+	public static <T> int count(MonetaryPredicate<T> predicate,
 			Iterable<T>... items) {
 		return new ItemVisitor<>(items).apply(predicate);
 	}
 
 	/**
 	 * This method allows to count (visit) all instances within some
-	 * {@link Iterable} instances that match an arbitrary {@link Predicate}.
+	 * {@link Iterable} instances that match an arbitrary {@link MonetaryPredicate}.
 	 * 
 	 * @param predicate
 	 *            The counting predicate.
@@ -300,7 +300,7 @@ public final class MonetaryPredicates {
 	 * @return The items that match the predicate.
 	 */
 	@SafeVarargs
-	public static <T> int count(Predicate<T> predicate,
+	public static <T> int count(MonetaryPredicate<T> predicate,
 			T... items) {
 		return new ItemVisitor<>(items).apply(predicate);
 	}
@@ -310,12 +310,12 @@ public final class MonetaryPredicates {
 	 * predicating its {@link CurrencyUnit}.
 	 * 
 	 * @param currencyPredicate
-	 *            The {@link CurrencyUnit} {@link Predicate} instance, not {@code null}.
-	 * @return The according {@link Predicate} for {@link MonetaryAmount}.
+	 *            The {@link CurrencyUnit} {@link MonetaryPredicate} instance, not {@code null}.
+	 * @return The according {@link MonetaryPredicate} for {@link MonetaryAmount}.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Predicate<? extends MonetaryAmount> createAmountPredicate(
-			Predicate<? extends CurrencyUnit> currencyPredicate) {
+	public static MonetaryPredicate<? extends MonetaryAmount> createAmountPredicate(
+			MonetaryPredicate<? extends CurrencyUnit> currencyPredicate) {
 		return new AmountCurrencyUnitPredicate(currencyPredicate);
 	}
 

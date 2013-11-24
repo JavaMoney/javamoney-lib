@@ -18,7 +18,7 @@ package org.javamoney.validity;
 import java.io.Serializable;
 import java.util.TimeZone;
 
-import org.javamoney.calc.function.Predicate;
+import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.validity.spi.ValidityProviderSpi;
 
 /**
@@ -41,7 +41,7 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 	/** The base item. */
 	private Class<R> relatedToType;
 	/** Get the predicate to filter the validity items to be returned. */
-	private Predicate<R> relatedToPredicate;
+	private MonetaryPredicate<R> relatedToPredicate;
 
 	/**
 	 * Constructor.
@@ -65,7 +65,7 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 			Class<T> itemType,
 			T item, String validityProviderId, Long from, Long to,
 			String targetTimezoneId, Class<R> relatedToType,
-			Predicate<R> relatedToPredicate) {
+			MonetaryPredicate<R> relatedToPredicate) {
 		super(validityType, itemType, item, validityProviderId, from, from,
 				targetTimezoneId);
 		if (relatedToType == null) {
@@ -82,7 +82,7 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 	 * 
 	 * @return the item The item for which the validity information is queried.
 	 */
-	public final Predicate<R> getRelatedToPredicate() {
+	public final MonetaryPredicate<R> getRelatedToPredicate() {
 		return relatedToPredicate;
 	}
 
@@ -130,7 +130,7 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 		/** The base item. */
 		protected Class<R> relatedToType;
 		/** Get the predicate to filter the validity items to be returned. */
-		protected Predicate<R> relatedToPredicate;
+		protected MonetaryPredicate<R> relatedToPredicate;
 
 		/**
 		 * Constructor.
@@ -200,7 +200,7 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 		 * @return the Builder, for chaining.
 		 */
 		public Builder<T, R> withRelatedToPredicate(
-				Predicate<R> relatedToPredicate) {
+				MonetaryPredicate<R> relatedToPredicate) {
 			this.relatedToPredicate = relatedToPredicate;
 			return this;
 		}

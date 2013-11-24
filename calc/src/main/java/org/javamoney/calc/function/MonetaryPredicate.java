@@ -15,25 +15,25 @@
  */
 package org.javamoney.calc.function;
 
-import java.io.Serializable;
-
-import javax.money.MonetaryAdjuster;
-
 /**
  * This interface models a predicate, which just evaluates to {@code true} or
  * {@code false}, for an arbitrary item. Predicates are used in different areas
- * on the API.
+ * of the API.
+ * <p>
+ * This interface is modeled after <code>java.util.function.Predicate</code> from Java 8 on. 
+ * It is meant to extend it and could be fully replaced by this functional interface in a later version of JavaMoney.
  * <p>
  * Instances of this interface are required to be immutable, thread-safe and
  * {@link Serializable}.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  * 
  * @param <T>
  *            The item type targeting
  */
-public interface Predicate<T>{
+public interface MonetaryPredicate<T> { // extends java.util.function.Predicate<T> for Java 8/9
 	
-	public boolean isPredicateTrue(T item);
+	public boolean test(T item);
 
 }

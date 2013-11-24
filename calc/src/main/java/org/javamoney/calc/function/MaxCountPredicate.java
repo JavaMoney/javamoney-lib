@@ -30,13 +30,13 @@ import javax.money.MonetaryAmount;
  * 
  * @author Anatole Tresch
  */
-class MaxCountPredicate<T> implements Predicate<T> {
+class MaxCountPredicate<T> implements MonetaryPredicate<T> {
 	/** The minimal number of items that must match, or null. */
 	private int max;
 	/** The current number of items that matched the predicate. */
 	private int currentNum;
 
-	private Predicate<? super T> predicate;
+	private MonetaryPredicate<? super T> predicate;
 
 	/**
 	 * Set the minimal number of items that are required to match the predicate
@@ -48,7 +48,7 @@ class MaxCountPredicate<T> implements Predicate<T> {
 	 * @return this, for chaining.
 	 */
 	MaxCountPredicate(int max,
-			Predicate<? super T> predicate) {
+			MonetaryPredicate<? super T> predicate) {
 		this.max = max;
 		this.predicate = predicate;
 	}
@@ -78,8 +78,8 @@ class MaxCountPredicate<T> implements Predicate<T> {
 	}
 
 	@Override
-	public boolean isPredicateTrue(T value) {
-		if (predicate != null && predicate.isPredicateTrue(value)) {
+	public boolean test(T value) {
+		if (predicate != null && predicate.test(value)) {
 			currentNum++;
 			if (checkMaxFailed()) {
 				return false;

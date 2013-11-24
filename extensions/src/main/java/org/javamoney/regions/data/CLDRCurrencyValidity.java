@@ -260,7 +260,7 @@ public class CLDRCurrencyValidity implements RelatedValidityProviderSpi {
 				if (region == null) {
 					continue;
 				}
-				if (query.getRelatedToPredicate().isPredicateTrue(
+				if (query.getRelatedToPredicate().test(
 						(R) region)) {
 					filtered.add(currency4Region);
 				}

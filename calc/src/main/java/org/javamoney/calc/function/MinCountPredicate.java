@@ -30,13 +30,13 @@ import javax.money.MonetaryAmount;
  * 
  * @author Anatole Tresch
  */
-class MinCountPredicate<T> implements Predicate<T> {
+class MinCountPredicate<T> implements MonetaryPredicate<T> {
 	/** The minimal number of items that must match, or null. */
 	private Integer min;
 	/** The current number of items that matched the predicate. */
 	private int currentNum;
 
-	private Predicate<? super T> predicate;
+	private MonetaryPredicate<? super T> predicate;
 
 	/**
 	 * Set the minimal number of items that are required to match the predicate
@@ -47,7 +47,7 @@ class MinCountPredicate<T> implements Predicate<T> {
 	 *            The minimal number, or {@code null} to remove the condition.
 	 * @return this, for chaining.
 	 */
-	MinCountPredicate(int min, Predicate<? super T> predicate) {
+	MinCountPredicate(int min, MonetaryPredicate<? super T> predicate) {
 		this.predicate = predicate;
 	}
 
@@ -76,8 +76,8 @@ class MinCountPredicate<T> implements Predicate<T> {
 	}
 
 	@Override
-	public boolean isPredicateTrue(T value) {
-		if (predicate != null && predicate.isPredicateTrue(value)) {
+	public boolean test(T value) {
+		if (predicate != null && predicate.test(value)) {
 			currentNum++;
 			if (checkMinFailed()) {
 				return false;

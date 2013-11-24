@@ -108,10 +108,10 @@ final class ItemVisitor<T> {
 	 * @return the sum of calls to the given predicate that evaluated to
 	 *         {@code true}.
 	 */
-	public Integer apply(Predicate<T> predicate) {
+	public Integer apply(MonetaryPredicate<T> predicate) {
 		int visited = 0;
 		for (T amt : this.input) {
-			if (predicate.isPredicateTrue(amt)) {
+			if (predicate.test(amt)) {
 				visited++;
 			}
 		}

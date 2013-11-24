@@ -40,7 +40,7 @@ public final class CompoundType implements Serializable {
 	 */
 	private static final long serialVersionUID = 4831291549617485148L;
 
-	private final Predicate<Map<String, Object>> validationPredicate;
+	private final MonetaryPredicate<Map<String, Object>> validationPredicate;
 	@SuppressWarnings("rawtypes")
 	private final Map<String, Class> typeDef;
 	private final Set<String> typeRequired;
@@ -49,7 +49,7 @@ public final class CompoundType implements Serializable {
 	private CompoundType(String id,
 			@SuppressWarnings("rawtypes") Map<String, Class> typeDef,
 			Set<String> typeRequired,
-			Predicate<Map<String, Object>> validationPredicate) {
+			MonetaryPredicate<Map<String, Object>> validationPredicate) {
 		if (id == null) {
 			throw new IllegalArgumentException("id required.");
 		}
@@ -117,7 +117,7 @@ public final class CompoundType implements Serializable {
 			}
 		}
 		if (validationPredicate != null
-				&& !validationPredicate.isPredicateTrue(compundValueMap)) {
+				&& !validationPredicate.test(compundValueMap)) {
 			throw new ValidationException("Validation predicate failed '"
 					+ validationPredicate + ".");
 		}
@@ -128,7 +128,7 @@ public final class CompoundType implements Serializable {
 		private Map<String, Class> typeDef = new HashMap<String, Class>();
 		private Set<String> typeRequired = new HashSet<String>();
 		private String id;
-		private Predicate<Map<String, Object>> validationPredicate;
+		private MonetaryPredicate<Map<String, Object>> validationPredicate;
 
 		public Builder() {
 		}
@@ -158,7 +158,7 @@ public final class CompoundType implements Serializable {
 		}
 
 		public Builder withValidationPredicate(
-				Predicate<Map<String, Object>> predicate) {
+				MonetaryPredicate<Map<String, Object>> predicate) {
 			this.validationPredicate = predicate;
 			return this;
 		}

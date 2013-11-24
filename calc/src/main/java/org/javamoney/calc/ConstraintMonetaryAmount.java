@@ -17,7 +17,7 @@ package org.javamoney.calc;
 
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.Predicate;
+import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
 
 
@@ -63,18 +63,18 @@ public final class ConstraintMonetaryAmount {
 	 *         ensured on all operations.
 	 */
 	public static MonetaryAmount constraintAmount(MonetaryAmount amount,
-			Predicate<MonetaryAmount> predicate) {
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(Money.from(amount), predicate);
 	}
 
 	/**
-	 * Predicate used for unsigned amounts.
+	 * MonetaryPredicate used for unsigned amounts.
 	 * 
 	 * @author Anatole Tresch
 	 */
 	private static final class UnsignedPredicate implements
-			Predicate<MonetaryAmount> {
-		public boolean isPredicateTrue(MonetaryAmount amount) {
+			MonetaryPredicate<MonetaryAmount> {
+		public boolean test(MonetaryAmount amount) {
 			return Money.from(amount).signum() >= 0;
 		}
 	}
