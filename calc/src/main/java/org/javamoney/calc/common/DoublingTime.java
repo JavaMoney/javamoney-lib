@@ -46,7 +46,7 @@ public class DoublingTime implements Calculation<Rate, BigDecimal> {
 	 * with continous compounding, given a rate.
 	 */
 	@Override
-	public BigDecimal calculate(Rate rate) {
+	public BigDecimal apply(Rate rate) {
 		return BigDecimal.valueOf(Math.log(2.0d)).divide(
 				BigDecimal.valueOf(Math.log(1.0d)).add(rate.getRate()));
 	}

@@ -86,7 +86,7 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 		return periods;
 	}
 
-	public BigDecimal calculate(Rate rate) {
+	public BigDecimal apply(Rate rate) {
 		MonetaryAmount pv = new PresentValue(rate, periods)
 				.adjustInto(presentValue);
 		MonetaryAmount fv = new PresentValue(rate, periods)

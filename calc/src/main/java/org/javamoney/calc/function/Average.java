@@ -53,7 +53,7 @@ final class Average implements
 	 *            currency.
 	 * @return the average.
 	 */
-	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
+	public MonetaryAmount apply(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}

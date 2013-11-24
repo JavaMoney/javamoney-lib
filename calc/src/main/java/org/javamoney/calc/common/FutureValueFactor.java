@@ -61,7 +61,7 @@ public class FutureValueFactor implements Calculation<Rate, BigDecimal> {
 	}
 
 	@Override
-	public BigDecimal calculate(Rate rate) {
+	public BigDecimal apply(Rate rate) {
 		if (rate == null) {
 			throw new IllegalArgumentException("rate required.");
 		}

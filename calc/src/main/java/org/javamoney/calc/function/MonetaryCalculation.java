@@ -36,7 +36,7 @@ import org.javamoney.calc.Calculation;
  * introduced by Java 8. Modeling it here allows the JSR to forward port
  * functional interfaces, though the JSR itself, is based on Java 7.
  * 
- * @version 0.9.2
+ * @version 0.9.3
  * @author Werner Keil
  * @author Anatole Tresch
  */
@@ -48,6 +48,6 @@ public interface MonetaryCalculation<T> extends Calculation<T, MonetaryAmount> {
 	 * @param amount
 	 * @return
 	 */
-	public MonetaryAmount calculate(T amount);
+	public MonetaryAmount apply(T amount);
 
 }

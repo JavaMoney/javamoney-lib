@@ -46,7 +46,7 @@ final class Total implements
 	 *            currency.
 	 * @return the total sum.
 	 */
-	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
+	public MonetaryAmount apply(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}

@@ -39,7 +39,7 @@ public class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
 	 * with continous compounding, given a rate.
 	 */
 	@Override
-	public BigDecimal calculate(Rate rate) {
+	public BigDecimal apply(Rate rate) {
 		return BigDecimal.ONE.divide(rate.getRate());
 	}
 

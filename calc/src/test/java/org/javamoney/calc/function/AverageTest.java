@@ -36,23 +36,23 @@ public class AverageTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().apply(set));
 		set.add(m);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().apply(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().calculate(set));
+		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().apply(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryCalculations.average().calculate((Iterable) null);
+		MonetaryCalculations.average().apply((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryCalculations.average().calculate(new HashSet());
+		MonetaryCalculations.average().apply(new HashSet());
 	}
 
 	@Test
@@ -60,12 +60,12 @@ public class AverageTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().calculate(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.average().apply(set));
 		set.add(m);
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().calculate(set));
+		assertEquals(Money.of("CHF", 1.5), MonetaryCalculations.average().apply(set));
 	}
 
 	@Test
