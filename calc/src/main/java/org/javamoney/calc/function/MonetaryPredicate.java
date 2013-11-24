@@ -16,11 +16,11 @@
 package org.javamoney.calc.function;
 
 /**
- * This interface models a predicate, which just evaluates to {@code true} or
+ * This interface models a monetary predicate, which just evaluates to {@code true} or
  * {@code false}, for an arbitrary item. Predicates are used in different areas
  * of the API.
  * <p>
- * This interface is modeled after <code>java.util.function.Predicate</code> from Java 8 on. 
+ * This interface is modeled after {@link java.util.function.Predicate} from Java 8 on. 
  * It is meant to extend it and could be fully replaced by this functional interface in a later version of JavaMoney.
  * <p>
  * Instances of this interface are required to be immutable, thread-safe and
