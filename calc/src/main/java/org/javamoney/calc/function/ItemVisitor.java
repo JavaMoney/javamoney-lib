@@ -28,8 +28,9 @@ import javax.money.MonetaryAmount;
  * selection of arbitrary predicates.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-final class ItemVisitor<T> {
+final class ItemVisitor<T> implements MonetaryFunction<MonetaryPredicate<T>, Integer> {
 	/** The input instances to be filtered. */
 	private Collection<T> input = new ArrayList<T>();
 

@@ -70,7 +70,7 @@ public class SimpleInterest implements MonetaryOperator,
 	 * 
 	 * @return the rate of return.
 	 */
-	public Rate get() {
+	public Rate getRate() {
 		return rate;
 	}
 

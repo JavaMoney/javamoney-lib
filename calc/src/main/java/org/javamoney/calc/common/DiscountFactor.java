@@ -43,7 +43,7 @@ public class DiscountFactor {
 		return new DiscountFactor(rate);
 	}
 
-	public Rate get() {
+	public Rate getRate() {
 		return rate;
 	}
 

@@ -17,8 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryOperator;
-
 import org.javamoney.calc.Calculation;
 
 
@@ -38,12 +36,13 @@ import org.javamoney.calc.Calculation;
  * 
  * @see http://www.financeformulas.net/Doubling_Time.html
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public class DoublingTime implements Calculation<Rate, BigDecimal> {
 
 	/**
-	 * This function returnes the number of periods required to double an amount
-	 * with continous compounding, given a rate.
+	 * This function returns the number of periods required to double an amount
+	 * with continuous compounding, given a rate.
 	 */
 	@Override
 	public BigDecimal calculate(Rate rate) {

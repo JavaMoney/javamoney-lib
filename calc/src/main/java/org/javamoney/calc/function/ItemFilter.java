@@ -29,7 +29,7 @@ import javax.money.MonetaryAmount;
  * 
  * @author Anatole Tresch
  */
-final class ItemFilter<T> {
+final class ItemFilter<T> implements MonetaryFunction<MonetaryPredicate<T>, Collection<T>> {
 
 	/** The input {@link MonetaryAmount} instances to be filtered. */
 	private Collection<T> input = new ArrayList<T>();
