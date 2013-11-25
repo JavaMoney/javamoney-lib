@@ -26,6 +26,7 @@ import org.javamoney.moneta.Money;
  * Abstract base class used for implementing currency conversion.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 
