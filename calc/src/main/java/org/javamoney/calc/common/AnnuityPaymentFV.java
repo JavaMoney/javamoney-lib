@@ -17,10 +17,10 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
@@ -54,9 +54,10 @@ import org.javamoney.moneta.Money;
  * 
  * @see http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
  * @author Anatole Tresch
+ * @author Werner Keil
  * 
  */
-public class AnnuityPaymentFV implements MonetaryAdjuster
+public class AnnuityPaymentFV implements MonetaryOperator
 {
 
 	private Rate rate;
@@ -73,13 +74,13 @@ public class AnnuityPaymentFV implements MonetaryAdjuster
 	}
 
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		// FV(r) / (((1 + r).pow(n))-1)
 		return FUNCTION.calculate(rate, periods, amount);
 	}
 
 	private static final class Function implements
-			CompoundFunction<MonetaryAmount> {
+			CompoundCalculation<MonetaryAmount> {
 
 		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 				.withIdForInput(AnnuityPaymentFV.class)
@@ -109,8 +110,8 @@ public class AnnuityPaymentFV implements MonetaryAdjuster
 		private MonetaryAmount calculate(Rate rate, int periods,
 				MonetaryAmount amt) {
 			FutureValue fv = new FutureValue(rate, periods);
-			return Money.from(fv.adjustInto(amt)).divide(
-					BigDecimal.ONE.add(rate.getRate()).pow(periods)
+			return Money.from(fv.apply(amt)).divide(
+					BigDecimal.ONE.add(rate.get()).pow(periods)
 							.subtract(BigDecimal.ONE)
 					);
 		}

@@ -17,8 +17,12 @@ package org.javamoney.calc.function;
 
 
 
-
-public interface ComplexFunction extends CompoundFunction<CompoundValue>{
+/**
+ * 
+ * @author Werner
+ * @deprecated unused?
+ */
+public interface ComplexFunction extends CompoundCalculation<CompoundValue>{
 
 	public CompoundType getResultTape();
 	

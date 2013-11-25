@@ -61,7 +61,7 @@ public class DefaultCurrencyConverter implements CurrencyConverter {
 			throw new CurrencyConversionException(amount.getCurrency(), target,
 					null, "No rate available.");
 		}
-		return (T) new FixedCurrencyConversion(rate).adjustInto(amount);
+		return (T) new FixedCurrencyConversion(rate).apply(amount);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class DefaultCurrencyConverter implements CurrencyConverter {
 			throw new CurrencyConversionException(amount.getCurrency(), target,
 					null, "No rate available.");
 		}
-		return (T) new FixedCurrencyConversion(rate).adjustInto(amount);
+		return (T) new FixedCurrencyConversion(rate).apply(amount);
 	}
 
 	@Override

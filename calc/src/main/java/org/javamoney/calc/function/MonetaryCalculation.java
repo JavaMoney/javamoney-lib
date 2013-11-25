@@ -48,6 +48,6 @@ public interface MonetaryCalculation<T> extends Calculation<T, MonetaryAmount> {
 	 * @param amount
 	 * @return
 	 */
-	public MonetaryAmount apply(T amount);
+	public MonetaryAmount calculate(T amount);
 
 }

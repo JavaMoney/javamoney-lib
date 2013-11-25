@@ -134,7 +134,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 		builder.withBase(base);
 		builder.withTerm(term);
 		ExchangeRate sourceRate = null;
-		ExchangeRate targetRate = null;
+		ExchangeRate target = null;
 		if (timestamp == null) {
 			return null;
 		} else {
@@ -152,13 +152,13 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 			cal.set(Calendar.MILLISECOND, 0);
 			Long targetTS = Long.valueOf(cal.getTimeInMillis());
 			builder.withValidFromMillis(targetTS);
-			Map<String, ExchangeRate> targetRates = this.historicRates
+			Map<String, ExchangeRate> targets = this.historicRates
 					.get(targetTS);
-			if (targetRates == null) {
+			if (targets == null) {
 				return null;
 			}
-			sourceRate = targetRates.get(base.getCurrencyCode());
-			targetRate = targetRates.get(term.getCurrencyCode());
+			sourceRate = targets.get(base.getCurrencyCode());
+			target = targets.get(term.getCurrencyCode());
 		}
 		if (BASE_CURRENCY_CODE.equals(base.getCurrencyCode())
 				&& BASE_CURRENCY_CODE.equals(term.getCurrencyCode())) {
@@ -170,7 +170,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 			}
 			return reverse(sourceRate);
 		} else if (BASE_CURRENCY_CODE.equals(base.getCurrencyCode())) {
-			return targetRate;
+			return target;
 		} else {
 			// Get Conversion base as derived rate: base -> EUR -> term
 			ExchangeRate rate1 = getExchangeRateInternal(base,
@@ -187,9 +187,9 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 			}
 			return null;
 			// sourceRate = reverse(sourceRate);
-			// builder.setExchangeRateChain(sourceRate, targetRate);
+			// builder.setExchangeRateChain(sourceRate, target);
 			// builder.setSourceLeadingFactor(sourceRate.getFactor().doubleValue()
-			// * targetRate.getFactor().doubleValue());
+			// * target.getFactor().doubleValue());
 			// return builder.build();
 		}
 	}

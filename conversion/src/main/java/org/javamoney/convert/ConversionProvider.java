@@ -16,7 +16,7 @@
 package org.javamoney.convert;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 
 /**
  * This interface defines access to the exchange conversion logic of JavaMoney.
@@ -141,7 +141,7 @@ public interface ConversionProvider {
 
 	/**
 	 * Access a {@link CurrencyConverter} that can be applied as a
-	 * {@link MonetaryAdjuster} to an amount.
+	 * {@link MonetaryOperator} to an amount.
 	 * 
 	 * @return a new instance of a corresponding {@link CurrencyConverter},
 	 *         never {@code null}.

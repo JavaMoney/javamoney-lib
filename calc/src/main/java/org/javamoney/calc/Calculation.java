@@ -25,20 +25,13 @@ package org.javamoney.calc;
  * Nevertheless extensions provide a MonetaryCalculation, which
  * wraps a {@link MonetaryAmount} and adds implicit rounding.
  * 
- * <p>
- * It is considered to be used as a {@link java.util.function.Function} as
- * introduced by Java 8. Modeling it here allows the JSR to forward port
- * functional interfaces, though the JSR itself, is based on Java 7.
- * <p>
- * From Java 8 on It is meant to extend {@link java.util.function.Function} 
- * and could be fully replaced by this interface in a later version of JavaMoney.
- * 
- * @version 0.9.3
+ * @version 0.9.4
  * @author Werner Keil
  * @author Anatole Tresch
  */
-public interface Calculation<T, R> {  // extends java.util.function.Function<T, R> for Java 8/9
+//@FunctionalInterface for Java 9
+public interface Calculation<T, R> {
 
-	public R apply(T input);
+	public R calculate(T input);
 
 }

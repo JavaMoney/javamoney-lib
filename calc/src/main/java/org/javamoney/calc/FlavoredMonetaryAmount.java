@@ -16,7 +16,7 @@
 package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
@@ -109,14 +109,14 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	}
 
 	/**
-	 * @see #with(MonetaryAdjuster)
+	 * @see #with(MonetaryOperator)
 	 * @param operator
 	 *            The operator
 	 * @param newFlavor
 	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount with(MonetaryAdjuster operator,
+	public FlavoredMonetaryAmount with(MonetaryOperator operator,
 			String newFlavor) {
 		if (this.baseAmount.getClass().equals(getClass())) {
 			return ((FlavoredMonetaryAmount) baseAmount).with(operator,
@@ -132,7 +132,7 @@ public final class FlavoredMonetaryAmount implements MonetaryAmount {
 	 * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
 	 */
 	@Override
-	public FlavoredMonetaryAmount with(MonetaryAdjuster operator) {
+	public FlavoredMonetaryAmount with(MonetaryOperator operator) {
 		return with(operator, UNKNOWN);
 	}
 

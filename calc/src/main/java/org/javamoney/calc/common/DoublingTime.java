@@ -17,7 +17,7 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 
 import org.javamoney.calc.Calculation;
 
@@ -46,9 +46,9 @@ public class DoublingTime implements Calculation<Rate, BigDecimal> {
 	 * with continous compounding, given a rate.
 	 */
 	@Override
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		return BigDecimal.valueOf(Math.log(2.0d)).divide(
-				BigDecimal.valueOf(Math.log(1.0d)).add(rate.getRate()));
+				BigDecimal.valueOf(Math.log(1.0d)).add(rate.get()));
 	}
 
 }

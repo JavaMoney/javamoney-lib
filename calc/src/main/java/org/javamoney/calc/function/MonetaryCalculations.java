@@ -18,7 +18,7 @@ package org.javamoney.calc.function;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 /**
@@ -101,7 +101,7 @@ public final class MonetaryCalculations {
 	 * 
 	 * @return a new  {@code Percent} operator
 	 */
-	public static MonetaryAdjuster percent(Number number) {
+	public static MonetaryOperator percent(Number number) {
 		return percent(getBigDecimal(number, DEFAULT_MATH_CONTEXT));
 	}
 

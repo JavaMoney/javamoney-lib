@@ -17,10 +17,10 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
@@ -47,9 +47,10 @@ import org.javamoney.moneta.Money;
  * </ptr>
  * @see http://www.financeformulas.net/Compound_Interest.html
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-public class CompundInterest implements MonetaryAdjuster,
-		CompoundFunction<MonetaryAmount> {
+public class CompundInterest implements MonetaryOperator,
+		CompoundCalculation<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
@@ -64,7 +65,7 @@ public class CompundInterest implements MonetaryAdjuster,
 	public CompundInterest(Rate rate, int periods) {
 		this.rate = rate;
 		this.periods = periods;
-		factor = BigDecimal.ONE.add(rate.getRate()).pow(periods).subtract(
+		factor = BigDecimal.ONE.add(rate.get()).pow(periods).subtract(
 				BigDecimal.ONE);
 	}
 
@@ -93,7 +94,7 @@ public class CompundInterest implements MonetaryAdjuster,
 	 * 
 	 * @return the rate of return.
 	 */
-	public Rate getRate() {
+	public Rate get() {
 		return rate;
 	}
 
@@ -103,7 +104,7 @@ public class CompundInterest implements MonetaryAdjuster,
 	 * n periods.
 	 */
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).multiply(factor);
 	}
 
@@ -122,7 +123,7 @@ public class CompundInterest implements MonetaryAdjuster,
 		INPUT_TYPE.checkInput(input);
 		Rate rate = input.get("rate",  Rate.class);
 		int periods = input.get("periods", Integer.class);
-		BigDecimal f = BigDecimal.ONE.add(rate.getRate()).pow(periods).subtract(
+		BigDecimal f = BigDecimal.ONE.add(rate.get()).pow(periods).subtract(
 				BigDecimal.ONE);
 		MonetaryAmount amount = input.get("amount",  MonetaryAmount.class);
 		return Money.from(amount).multiply(f);

@@ -45,7 +45,7 @@ final class Maximum implements
 	 *            currency.
 	 * @return the maximum.
 	 */
-	public MonetaryAmount apply(Iterable<? extends MonetaryAmount> amounts) {
+	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}

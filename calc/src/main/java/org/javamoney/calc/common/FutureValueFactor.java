@@ -17,7 +17,7 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 
 import org.javamoney.calc.Calculation;
 
@@ -61,13 +61,13 @@ public class FutureValueFactor implements Calculation<Rate, BigDecimal> {
 	}
 
 	@Override
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		if (rate == null) {
 			throw new IllegalArgumentException("rate required.");
 		}
 		// 1/((1+r)^n)
 		return BigDecimal.ONE.divide(
-				BigDecimal.ONE.add(rate.getRate()).pow(periods));
+				BigDecimal.ONE.add(rate.get()).pow(periods));
 	}
 
 }

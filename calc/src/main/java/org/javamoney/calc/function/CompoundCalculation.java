@@ -15,8 +15,10 @@
  */
 package org.javamoney.calc.function;
 
+import org.javamoney.calc.Calculation;
 
-public interface CompoundFunction<T> {
+
+public interface CompoundCalculation<T> extends Calculation<CompoundValue, T> {
 
 	public CompoundType getInputTape();
 

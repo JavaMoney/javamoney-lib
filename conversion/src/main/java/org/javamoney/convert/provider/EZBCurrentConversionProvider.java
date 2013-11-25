@@ -134,13 +134,13 @@ public class EZBCurrentConversionProvider extends AbstractResource
 		builder.withBase(base);
 		builder.withTerm(term);
 		ExchangeRate sourceRate = null;
-		ExchangeRate targetRate = null;
+		ExchangeRate target = null;
 		if (timestamp == null) {
 			if (currentRates.isEmpty()) {
 				return null;
 			}
 			sourceRate = currentRates.get(base.getCurrencyCode());
-			targetRate = currentRates.get(term.getCurrencyCode());
+			target = currentRates.get(term.getCurrencyCode());
 			if (BASE_CURRENCY_CODE.equals(base.getCurrencyCode())
 					&& BASE_CURRENCY_CODE.equals(term.getCurrencyCode())) {
 				builder.withFactor(BigDecimal.ONE);
@@ -151,7 +151,7 @@ public class EZBCurrentConversionProvider extends AbstractResource
 				}
 				return reverse(sourceRate);
 			} else if (BASE_CURRENCY_CODE.equals(base.getCurrencyCode())) {
-				return targetRate;
+				return target;
 			} else {
 				// Get Conversion base as derived rate: base -> EUR -> term
 				ExchangeRate rate1 = getExchangeRateInternal(base,
@@ -167,9 +167,9 @@ public class EZBCurrentConversionProvider extends AbstractResource
 					return builder.build();
 				}
 				// sourceRate = reverse(sourceRate);
-				// builder.setExchangeRateChain(sourceRate, targetRate);
+				// builder.setExchangeRateChain(sourceRate, target);
 				// builder.setSourceLeadingFactor(sourceRate.getFactor().doubleValue()
-				// * targetRate.getFactor().doubleValue());
+				// * target.getFactor().doubleValue());
 				// return builder.build();
 			}
 		}

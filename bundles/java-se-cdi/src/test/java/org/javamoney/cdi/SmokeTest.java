@@ -25,7 +25,7 @@ import java.math.RoundingMode;
 import java.util.Locale;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.convert.ConversionProvider;
@@ -100,7 +100,7 @@ public class SmokeTest {
 	@Test
 	@Ignore
 	public void testCurrencyConverter() {
-		MonetaryAdjuster rounding = MonetaryRoundings.getRounding(2,
+		MonetaryOperator rounding = MonetaryRoundings.getRounding(2,
 				RoundingMode.HALF_UP);
 
 		MonetaryAmount srcCHF = Money.of(MoneyCurrency.of("CHF"), 100.15);
@@ -118,13 +118,13 @@ public class SmokeTest {
 				.getConverter().convert(srcEUR, MoneyCurrency.of("CHF"));
 		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
 				.getConverter().convert(tgt, MoneyCurrency.of("EUR"));
-		assertEquals(srcEUR.with(rounding), rounding.adjustInto(tgt3));
+		assertEquals(srcEUR.with(rounding), rounding.apply(tgt3));
 		tgt = MonetaryConversions.getConversionProvider(RATE_TYPE)
 				.getConverter().convert(srcCHF, MoneyCurrency.of("USD"));
 		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
 				.getConverter().convert(tgt, MoneyCurrency.of("CHF"));
 		assertEquals(srcCHF, tgt3);
-		assertEquals(srcCHF.with(rounding), rounding.adjustInto(tgt3));
+		assertEquals(srcCHF.with(rounding), rounding.apply(tgt3));
 	}
 
 	@Test

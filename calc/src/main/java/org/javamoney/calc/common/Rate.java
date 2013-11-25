@@ -17,12 +17,12 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
 
-public final class Rate implements MonetaryAdjuster {
+public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> for Java 8/9
 
 	private BigDecimal rate;
 
@@ -75,7 +75,7 @@ public final class Rate implements MonetaryAdjuster {
 		return true;
 	}
 
-	public BigDecimal getRate() {
+	public BigDecimal get() {
 		return this.rate;
 	}
 
@@ -90,7 +90,7 @@ public final class Rate implements MonetaryAdjuster {
 	}
 
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).multiply(rate);
 	}
 

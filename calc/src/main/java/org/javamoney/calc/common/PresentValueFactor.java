@@ -48,12 +48,12 @@ public class PresentValueFactor implements Calculation<Rate, BigDecimal> {
 	}
 
 	@Override
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		if (rate == null) {
 			throw new IllegalArgumentException("rate required.");
 		}
 		// (1+r)^n
-		return BigDecimal.ONE.add(rate.getRate()).pow(periods);
+		return BigDecimal.ONE.add(rate.get()).pow(periods);
 	}
 
 }

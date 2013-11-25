@@ -17,10 +17,10 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
@@ -51,10 +51,11 @@ import org.javamoney.moneta.Money;
  * </pre>
  * 
  * @author Anatole
+ * @author Werner
  * 
  */
-public class ContinuesCompundInterest implements MonetaryAdjuster,
-		CompoundFunction<MonetaryAmount> {
+public class ContinuesCompundInterest implements MonetaryOperator,
+		CompoundCalculation<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
@@ -69,7 +70,7 @@ public class ContinuesCompundInterest implements MonetaryAdjuster,
 	public ContinuesCompundInterest(Rate rate, int periods) {
 		this.rate = rate;
 		this.periods = periods;
-		int power = rate.getRate().multiply(BigDecimal.valueOf(periods))
+		int power = rate.get().multiply(BigDecimal.valueOf(periods))
 				.intValue();
 		factor = BigDecimal.valueOf(Math.E).pow(power);
 	}
@@ -99,7 +100,7 @@ public class ContinuesCompundInterest implements MonetaryAdjuster,
 	 * 
 	 * @return the rate of return.
 	 */
-	public Rate getRate() {
+	public Rate get() {
 		return rate;
 	}
 
@@ -109,7 +110,7 @@ public class ContinuesCompundInterest implements MonetaryAdjuster,
 	 * and for n periods.
 	 */
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).multiply(factor);
 	}
 
@@ -129,7 +130,7 @@ public class ContinuesCompundInterest implements MonetaryAdjuster,
 		Rate rate = input.get("rate",  Rate.class);
 		int periods = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount",  MonetaryAmount.class);
-		int power = rate.getRate().multiply(BigDecimal.valueOf(periods))
+		int power = rate.get().multiply(BigDecimal.valueOf(periods))
 				.intValue();
 		BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
 		return Money.from(amount).multiply(f);

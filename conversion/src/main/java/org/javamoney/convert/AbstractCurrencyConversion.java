@@ -17,7 +17,7 @@ package org.javamoney.convert;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
@@ -30,7 +30,7 @@ import org.javamoney.moneta.Money;
 public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 
 	/**
-	 * Get the exchange rate type that this {@link MonetaryAdjuster} instance is
+	 * Get the exchange rate type that this {@link MonetaryOperator} instance is
 	 * using for conversion.
 	 * 
 	 * @see #apply(MonetaryAmount)
@@ -52,7 +52,7 @@ public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 	 * @throws CurrencyConversionException
 	 *             if conversion failed, or the required data is not available.
 	 */
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		ExchangeRate rate = getExchangeRate(amount);
 		if (rate == null || !amount.getCurrency().equals(rate.getBase())) {
 			throw new CurrencyConversionException(amount.getCurrency(),

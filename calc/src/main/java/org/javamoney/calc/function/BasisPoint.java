@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.NumberFormat;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.Money;
@@ -34,8 +34,8 @@ import org.javamoney.moneta.Money;
  * 
  * @see <a href="http://en.wikipedia.org/wiki/Per_mil">Wikipedia: Per mil</a>
  */
-public final class BasisPoint implements MonetaryAdjuster,
-		CompoundFunction<MonetaryAmount> {
+public final class BasisPoint implements MonetaryOperator,
+		CompoundCalculation<MonetaryAmount> {
 
 	private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
 	private static final BigDecimal ONE_TENTHOUSAND = new BigDecimal(10000,
@@ -100,7 +100,7 @@ public final class BasisPoint implements MonetaryAdjuster,
 	 * @return the permil result of the amount, never {@code null}
 	 */
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).multiply(basisPointValue);
 	}
 

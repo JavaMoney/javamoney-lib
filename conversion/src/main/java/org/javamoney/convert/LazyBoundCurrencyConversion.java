@@ -79,7 +79,7 @@ public class LazyBoundCurrencyConversion extends AbstractCurrencyConversion
 	 * 
 	 * @return the exchange rate type of this conversion instance, never null.
 	 */
-	public ExchangeRateType getRateType() {
+	public ExchangeRateType getType() {
 		return this.rateProvider.getExchangeRateType();
 	}
 

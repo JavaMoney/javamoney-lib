@@ -18,10 +18,10 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
@@ -58,9 +58,10 @@ import org.javamoney.moneta.Money;
  * FV(&lt;amount>)  = &lt;amount> * ((1 + &lt;rate>).pow(&lt;periods>))
  * </pre>
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-public class FutureValue implements MonetaryAdjuster,
-		CompoundFunction<MonetaryAmount> {
+public class FutureValue implements MonetaryOperator,
+		CompoundCalculation<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
@@ -75,7 +76,7 @@ public class FutureValue implements MonetaryAdjuster,
 	public FutureValue(Rate rate, int periods) {
 		this.rate = rate;
 		this.periods = periods;
-		factor = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
+		factor = (BigDecimal.ONE.add(rate.get())).pow(periods);
 	}
 
 	/**
@@ -102,7 +103,7 @@ public class FutureValue implements MonetaryAdjuster,
 	 * 
 	 * @return the rate of return.
 	 */
-	public Rate getRate() {
+	public Rate get() {
 		return rate;
 	}
 
@@ -111,7 +112,7 @@ public class FutureValue implements MonetaryAdjuster,
 	 * the cash flow at period 0, which is upcounted for n periods.
 	 */
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).multiply(factor);
 	}
 
@@ -131,7 +132,7 @@ public class FutureValue implements MonetaryAdjuster,
 		Rate rate = input.get("rate", Rate.class);
 		int period = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
-		BigDecimal f = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
+		BigDecimal f = (BigDecimal.ONE.add(rate.get())).pow(periods);
 		return Money.from(amount).multiply(f);
 	}
 

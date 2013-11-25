@@ -51,7 +51,7 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	}
 
 	@Override
-	public ExchangeRateType getRateType() {
+	public ExchangeRateType getType() {
 		return this.rate.getExchangeRateType();
 	}
 
@@ -81,7 +81,7 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	}
 
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		ExchangeRate rate = getExchangeRate(amount);
 		Money money = Money.from(amount);
 		return Money.of(rate.getTerm(), money.asType(BigDecimal.class)

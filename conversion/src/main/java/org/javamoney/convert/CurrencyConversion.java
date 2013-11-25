@@ -16,7 +16,7 @@
 package org.javamoney.convert;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 
 import org.javamoney.convert.spi.MonetaryConversionsSingletonSpi;
 
@@ -36,7 +36,7 @@ import org.javamoney.convert.spi.MonetaryConversionsSingletonSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public interface CurrencyConversion extends MonetaryAdjuster {
+public interface CurrencyConversion extends MonetaryOperator {
 
 	/**
 	 * Access the terminating {@link CurrencyUnit} of this conversion instance.
@@ -58,6 +58,6 @@ public interface CurrencyConversion extends MonetaryAdjuster {
 	 * @return the exchange rate type of this conversion instance, never
 	 *         {@code null}.
 	 */
-	public ExchangeRateType getRateType();
+	public ExchangeRateType getType();
 
 }

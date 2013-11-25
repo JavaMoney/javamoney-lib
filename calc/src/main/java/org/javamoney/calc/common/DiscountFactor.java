@@ -17,7 +17,7 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 
@@ -43,25 +43,25 @@ public class DiscountFactor {
 		return new DiscountFactor(rate);
 	}
 
-	public Rate getRate() {
+	public Rate get() {
 		return rate;
 	}
 
 	public BigDecimal calculate(Integer periods) {
 		// (1-(1+r)^n)/1-(1+rate)
 		BigDecimal div = BigDecimal.ONE
-				.min(BigDecimal.ONE.add(rate.getRate()));
+				.min(BigDecimal.ONE.add(rate.get()));
 		BigDecimal factor = BigDecimal.ONE.subtract(
-				BigDecimal.ONE.add(rate.getRate()).pow(periods)).divide(div);
+				BigDecimal.ONE.add(rate.get()).pow(periods)).divide(div);
 		return BigDecimal.ONE.add(factor);
 	}
 
-	public static CompoundFunction<BigDecimal> getFunction() {
+	public static CompoundCalculation<BigDecimal> getFunction() {
 		return FUNCTION;
 	}
 
 	private static final class Function implements
-			CompoundFunction<BigDecimal> {
+			CompoundCalculation<BigDecimal> {
 		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 				.withIdForInput(DiscountFactor.class)
 				.withRequiredArg("periods", Integer.class)
@@ -83,9 +83,9 @@ public class DiscountFactor {
 			Integer periods = input.get("periods", Integer.class);
 			Rate rate = input.get("rate", Rate.class);
 			BigDecimal div = BigDecimal.ONE
-					.min(BigDecimal.ONE.add(rate.getRate()));
+					.min(BigDecimal.ONE.add(rate.get()));
 			BigDecimal factor = BigDecimal.ONE.subtract(
-					BigDecimal.ONE.add(rate.getRate()).pow(periods))
+					BigDecimal.ONE.add(rate.get()).pow(periods))
 					.divide(div);
 			return BigDecimal.ONE.add(factor);
 		}

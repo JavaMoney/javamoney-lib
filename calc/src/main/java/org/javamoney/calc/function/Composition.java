@@ -19,34 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 
-public class Composition implements MonetaryAdjuster {
+public class Composition implements MonetaryOperator {
 
-	private List<MonetaryAdjuster> functions = new ArrayList<>();
+	private List<MonetaryOperator> functions = new ArrayList<>();
 
 	@SafeVarargs
-	public Composition(Iterable<MonetaryAdjuster>... operations) {
+	public Composition(Iterable<MonetaryOperator>... operations) {
 		if (operations != null) {
-			for (Iterable<MonetaryAdjuster> iterable : operations) {
-				for (MonetaryAdjuster monetaryOperator : iterable) {
+			for (Iterable<MonetaryOperator> iterable : operations) {
+				for (MonetaryOperator monetaryOperator : iterable) {
 					functions.add(monetaryOperator);
 				}
 			}
 		}
 	}
 
-	public Composition(MonetaryAdjuster... operations) {
-		for (MonetaryAdjuster monetaryOperator : operations) {
+	public Composition(MonetaryOperator... operations) {
+		for (MonetaryOperator monetaryOperator : operations) {
 			functions.add(monetaryOperator);
 		}
 	}
 
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount value) {
+	public MonetaryAmount apply(MonetaryAmount value) {
 		MonetaryAmount amount = value;
-		for (MonetaryAdjuster op : functions) {
-			amount = op.adjustInto(amount);
+		for (MonetaryOperator op : functions) {
+			amount = op.apply(amount);
 		}
 		return amount;
 	}

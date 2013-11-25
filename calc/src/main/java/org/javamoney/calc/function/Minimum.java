@@ -45,7 +45,7 @@ final class Minimum implements
 	 *            currency.
 	 * @return the minimum.
 	 */
-	public MonetaryAmount apply(Iterable<? extends MonetaryAmount> amounts) {
+	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}

@@ -36,24 +36,24 @@ public class MaximumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
 		 m = Money.of("CHF", -1);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryCalculations.maximum().apply((Iterable) null);
+		MonetaryCalculations.maximum().calculate((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryCalculations.maximum().apply(new HashSet());
+		MonetaryCalculations.maximum().calculate(new HashSet());
 	}
 
 
@@ -62,14 +62,14 @@ public class MaximumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
 		 m = Money.of("CHF", -1);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().apply(set));
+		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test

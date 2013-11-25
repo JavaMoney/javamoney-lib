@@ -17,16 +17,16 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
 
-public class PresentValue implements MonetaryAdjuster,
-		CompoundFunction<MonetaryAmount> {
+public class PresentValue implements MonetaryOperator,
+		CompoundCalculation<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
@@ -41,7 +41,7 @@ public class PresentValue implements MonetaryAdjuster,
 	public PresentValue(Rate rate, int periods) {
 		this.rate = rate;
 		this.periods = periods;
-		divisor = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
+		divisor = (BigDecimal.ONE.add(rate.get())).pow(periods);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PresentValue implements MonetaryAdjuster,
 	 * 
 	 * @return the rate of return.
 	 */
-	public Rate getRate() {
+	public Rate get() {
 		return rate;
 	}
 
@@ -79,7 +79,7 @@ public class PresentValue implements MonetaryAdjuster,
 	 *         rate.
 	 */
 	@Override
-	public MonetaryAmount adjustInto(MonetaryAmount amount) {
+	public MonetaryAmount apply(MonetaryAmount amount) {
 		return Money.from(amount).divide(divisor);
 	}
 
@@ -99,7 +99,7 @@ public class PresentValue implements MonetaryAdjuster,
 		Rate rate = input.get("rate", Rate.class);
 		int period = input.get("periods", Integer.class);
 		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
-		BigDecimal divisor = (BigDecimal.ONE.add(rate.getRate())).pow(periods);
+		BigDecimal divisor = (BigDecimal.ONE.add(rate.get())).pow(periods);
 		return Money.from(amount).divide(divisor);
 	}
 }

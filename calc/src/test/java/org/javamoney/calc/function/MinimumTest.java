@@ -36,24 +36,24 @@ public class MinimumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		m = Money.of("CHF", 0);
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase1() {
-		MonetaryCalculations.minimum().apply((Iterable) null);
+		MonetaryCalculations.minimum().calculate((Iterable) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFromIterableOfMonetaryAmount_BadCase2() {
-		MonetaryCalculations.minimum().apply(new HashSet());
+		MonetaryCalculations.minimum().calculate(new HashSet());
 	}
 
 	@Test
@@ -61,14 +61,14 @@ public class MinimumTest {
 		Money m = Money.of("CHF", 1);
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
 		m = Money.of("CHF", 3);
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
 		m = Money.of("CHF", 0);
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().apply(set));
+		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.calc.Calculation;
-import org.javamoney.calc.function.CompoundFunction;
+import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
@@ -86,19 +86,19 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 		return periods;
 	}
 
-	public BigDecimal apply(Rate rate) {
+	public BigDecimal calculate(Rate rate) {
 		MonetaryAmount pv = new PresentValue(rate, periods)
-				.adjustInto(presentValue);
+				.apply(presentValue);
 		MonetaryAmount fv = new PresentValue(rate, periods)
-				.adjustInto(futureValue);
+				.apply(futureValue);
 		return FUNCTION.calculate(rate, periods, pv, fv);
 	}
 
-	public static CompoundFunction<BigDecimal> getFunction() {
+	public static CompoundCalculation<BigDecimal> getFunction() {
 		return FUNCTION;
 	}
 
-	private static final class Function implements CompoundFunction<BigDecimal> {
+	private static final class Function implements CompoundCalculation<BigDecimal> {
 
 		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 				.withIdForInput(SimpleInterest.class)
@@ -130,7 +130,7 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 		private BigDecimal calculate(Rate rate, int periods, MonetaryAmount presentValue, MonetaryAmount futureValue){
 			BigDecimal count = BigDecimal.valueOf(Math.log(Money.from(futureValue)
 					.doubleValue() / Money.from(presentValue).doubleValue()));
-			BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.getRate()
+			BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.get()
 					.doubleValue()));
 			return count.divide(divisor);
 		}

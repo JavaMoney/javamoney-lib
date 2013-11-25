@@ -16,7 +16,7 @@
 package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryAdjuster;
+import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
@@ -282,7 +282,7 @@ final class ConstraintMoney implements MonetaryAmount {
 	 * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
 	 */
 	@Override
-	public ConstraintMoney with(MonetaryAdjuster adjuster) {
+	public ConstraintMoney with(MonetaryOperator adjuster) {
 		return of(this.amount.with(adjuster), predicate);
 	}
 
