@@ -186,7 +186,7 @@ public class IMFConversionProvider extends AbstractResource
 					}
 					ExchangeRate rate = new ExchangeRate.Builder()
 							.withExchangeRateType(RATE_TYPE)
-							.withBase(currency).withTerm(
+							.setBase(currency).setTerm(
 									SDR).withFactor(values[i])
 							.withProvider("http://www.imf.org/")
 							.withValidFromMillis(fromTS)
@@ -200,7 +200,7 @@ public class IMFConversionProvider extends AbstractResource
 					}
 					ExchangeRate rate = new ExchangeRate.Builder()
 							.withExchangeRateType(RATE_TYPE)
-							.withBase(SDR).withTerm(
+							.setBase(SDR).setTerm(
 									currency).withFactor(values[i])
 							.withProvider("http://www.imf.org/")
 							.withValidFromMillis(fromTS)
@@ -261,10 +261,10 @@ public class IMFConversionProvider extends AbstractResource
 		ExchangeRate.Builder builder = new ExchangeRate.Builder();
 		builder.withProvider("http://www.imf.org/");
 		builder.withExchangeRateType(RATE_TYPE);
-		builder.withBase(base);
-		builder.withTerm(term);
+		builder.setBase(base);
+		builder.setTerm(term);
 		builder.withFactor(rate1.getFactor().multiply(rate2.getFactor()));
-		builder.withExchangeRateChain(rate1, rate2);
+		builder.setExchangeRateChain(rate1, rate2);
 		builder.withValidFromMillis(Math.max(rate1.getValidFromMillis(),
 				rate2.getValidFromMillis()));
 		builder.withValidToMillis(Math.min(rate1.getValidToMillis(),

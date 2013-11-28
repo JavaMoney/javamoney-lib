@@ -70,13 +70,13 @@ public class CurrencyToken extends
 			ItemFormat<CurrencyUnit> cf1 = MonetaryFormats
 					.getItemFormat(
 							CurrencyUnit.class,
-							new LocalizationStyle.Builder(style).withAttribute(
+							new LocalizationStyle.Builder(style).setAttribute(
 									"renderField", "displayName").build());
 			return cf1.format(unit, locale);
 		case SYMBOL:
 			ItemFormat<CurrencyUnit> cf2 = MonetaryFormats.getItemFormat(
 					CurrencyUnit.class, new LocalizationStyle.Builder(style)
-							.withAttribute("renderField", "symbol").build());
+							.setAttribute("renderField", "symbol").build());
 			return cf2.format(unit, locale);
 		default:
 		case CODE:

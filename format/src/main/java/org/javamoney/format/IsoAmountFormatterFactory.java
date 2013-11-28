@@ -78,7 +78,7 @@ public class IsoAmountFormatterFactory implements
 		}
 		LocalizationStyle currencyStyle = new LocalizationStyle.Builder(
 				CurrencyUnit.class,
-				renderedFieldValue).withAttribute("currencyRendering",
+				renderedFieldValue).setAttribute("currencyRendering",
 				renderedFieldValue).build();
 		return new IsoAmountFormatter(style, currencyStyle);
 	}

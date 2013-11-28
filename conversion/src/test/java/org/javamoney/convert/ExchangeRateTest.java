@@ -36,7 +36,7 @@ public class ExchangeRateTest {
 		CurrencyUnit term = TestCurrency.of("EUR");
 		ExchangeRate rate = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(term).withFactor(1.5)
+				.setBase(base).setTerm(term).withFactor(1.5)
 				.withProvider("myProvider").build();
 		assertEquals(base, rate.getBase());
 		assertEquals(term, rate.getTerm());
@@ -53,7 +53,7 @@ public class ExchangeRateTest {
 		CurrencyUnit term = TestCurrency.of("EUR");
 		ExchangeRate rate = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(term).withFactor(1.5)
+				.setBase(base).setTerm(term).withFactor(1.5)
 				.withProvider("myProvider").withValidFromMillis(10L)
 				.withValidToMillis(100L).build();
 		assertEquals(base, rate.getBase());
@@ -74,18 +74,18 @@ public class ExchangeRateTest {
 		CurrencyUnit term = TestCurrency.of("USD");
 		ExchangeRate rate1 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(baseTerm).withFactor(0.8)
+				.setBase(base).setTerm(baseTerm).withFactor(0.8)
 				.withProvider("myProvider").build();
 		ExchangeRate rate2 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(baseTerm).withTerm(term).withFactor(1.4)
+				.setBase(baseTerm).setTerm(term).withFactor(1.4)
 				.withProvider("myProvider").build();
 
 		// derived rate
 		ExchangeRate rate = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(term).withFactor(0.8 * 1.4)
-				.withExchangeRateChain(rate1, rate2)
+				.setBase(base).setTerm(term).withFactor(0.8 * 1.4)
+				.setExchangeRateChain(rate1, rate2)
 				.withProvider("myProvider").build();
 
 		assertEquals(base, rate.getBase());
@@ -106,18 +106,18 @@ public class ExchangeRateTest {
 		CurrencyUnit term = TestCurrency.of("USD");
 		ExchangeRate rate1 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(baseTerm).withFactor(0.8)
+				.setBase(base).setTerm(baseTerm).withFactor(0.8)
 				.withProvider("myProvider").build();
 		ExchangeRate rate2 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(baseTerm).withTerm(term).withFactor(1.4)
+				.setBase(baseTerm).setTerm(term).withFactor(1.4)
 				.withProvider("myProvider").build();
 
 		// derived rate
 		ExchangeRate rate = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(term).withFactor(0.8 * 1.4)
-				.withExchangeRateChain(rate1, rate2).withValidFromMillis(10L)
+				.setBase(base).setTerm(term).withFactor(0.8 * 1.4)
+				.setExchangeRateChain(rate1, rate2).withValidFromMillis(10L)
 				.withValidToMillis(100L)
 				.withProvider("myProvider").build();
 		assertEquals(base, rate.getBase());
@@ -138,18 +138,18 @@ public class ExchangeRateTest {
 		CurrencyUnit term = TestCurrency.of("USD");
 		ExchangeRate rate1 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(baseTerm).withFactor(0.8)
+				.setBase(base).setTerm(baseTerm).withFactor(0.8)
 				.withProvider("myProvider").build();
 		ExchangeRate rate2 = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(baseTerm).withTerm(term).withFactor(1.4)
+				.setBase(baseTerm).setTerm(term).withFactor(1.4)
 				.withProvider("myProvider").build();
 
 		// derived rate
 		ExchangeRate rate = new ExchangeRate.Builder()
 				.withExchangeRateType(ExchangeRateType.of("test"))
-				.withBase(base).withTerm(term).withFactor(0.8 * 1.4)
-				.withExchangeRateChain(rate1, rate2).withValidFromMillis(10L)
+				.setBase(base).setTerm(term).withFactor(0.8 * 1.4)
+				.setExchangeRateChain(rate1, rate2).withValidFromMillis(10L)
 				.withValidToMillis(100L)
 				.withProvider("myProvider").build();
 		assertEquals(

@@ -557,7 +557,7 @@ public final class ExchangeRate implements Serializable,
 		 *            to base (source) {@link CurrencyUnit} to be applied
 		 * @return the builder instance
 		 */
-		public Builder withBase(CurrencyUnit base) {
+		public Builder setBase(CurrencyUnit base) {
 			this.base = base;
 			return this;
 		}
@@ -569,7 +569,7 @@ public final class ExchangeRate implements Serializable,
 		 *            to terminating {@link CurrencyUnit} to be applied
 		 * @return the builder instance
 		 */
-		public Builder withTerm(CurrencyUnit term) {
+		public Builder setTerm(CurrencyUnit term) {
 			this.term = term;
 			return this;
 		}
@@ -607,7 +607,7 @@ public final class ExchangeRate implements Serializable,
 		 *            the {@link ExchangeRate} chain to be applied
 		 * @return the builder instance
 		 */
-		public Builder withExchangeRateChain(ExchangeRate... exchangeRates) {
+		public Builder setExchangeRateChain(ExchangeRate... exchangeRates) {
 			if (exchangeRates != null) {
 				this.rateChain = exchangeRates.clone();
 			} else {
@@ -682,7 +682,7 @@ public final class ExchangeRate implements Serializable,
 		 *            the base rate
 		 * @return the Builder, for chaining.
 		 */
-		public Builder withExchangeRate(ExchangeRate rate) {
+		public Builder setExchangeRate(ExchangeRate rate) {
 			this.base = rate.getBase();
 			this.term = rate.getTerm();
 			this.exchangeRateType = rate.getExchangeRateType();

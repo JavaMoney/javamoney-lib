@@ -131,8 +131,8 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 		ExchangeRate.Builder builder = new ExchangeRate.Builder();
 		builder.withProvider("European Central Bank");
 		builder.withExchangeRateType(RATE_TYPE);
-		builder.withBase(base);
-		builder.withTerm(term);
+		builder.setBase(base);
+		builder.setTerm(term);
 		ExchangeRate sourceRate = null;
 		ExchangeRate target = null;
 		if (timestamp == null) {
@@ -182,7 +182,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 			if (rate1 != null || rate2 != null) {
 				builder.withFactor(rate1.getFactor()
 						.multiply(rate2.getFactor()));
-				builder.withExchangeRateChain(rate1, rate2);
+				builder.setExchangeRateChain(rate1, rate2);
 				return builder.build();
 			}
 			return null;
@@ -198,8 +198,8 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 		if (rate == null) {
 			throw new IllegalArgumentException("Rate null is not reversable.");
 		}
-		return new ExchangeRate.Builder().withExchangeRate(rate)
-				.withBase(rate.getTerm()).withTerm(rate.getBase())
+		return new ExchangeRate.Builder().setExchangeRate(rate)
+				.setBase(rate.getTerm()).setTerm(rate.getBase())
 				.withFactor(BigDecimal.ONE.divide(rate.getFactor(),
 						MathContext.DECIMAL64)).build();
 	}
@@ -289,8 +289,8 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 	 */
 	void addRate(CurrencyUnit term, Long timestamp, BigDecimal rate) {
 		ExchangeRate.Builder builder = new ExchangeRate.Builder();
-		builder.withBase(BASE_CURRENCY);
-		builder.withTerm(term);
+		builder.setBase(BASE_CURRENCY);
+		builder.setTerm(term);
 		builder.withValidFromMillis(timestamp);
 		builder.withProvider("European Central Bank");
 		builder.withFactor(rate);

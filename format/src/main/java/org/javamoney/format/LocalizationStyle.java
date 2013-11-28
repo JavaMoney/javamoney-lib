@@ -448,20 +448,20 @@ public final class LocalizationStyle implements Serializable {
 			return this;
 		}
 
-		/**
-		 * Sets the given styleId.
-		 * 
-		 * @param styleId
-		 *            The instance's styleId, not {@code null}.
-		 * @return The Builder instance for chaining.
-		 */
-		public <T> Builder withId(String id) {
-			if (id == null) {
-				throw new IllegalArgumentException("id required.");
-			}
-			this.id = id;
-			return this;
-		}
+//		/**
+//		 * Sets the given styleId.
+//		 * 
+//		 * @param styleId
+//		 *            The instance's styleId, not {@code null}.
+//		 * @return The Builder instance for chaining.
+//		 */
+//		public <T> Builder withId(String id) {
+//			if (id == null) {
+//				throw new IllegalArgumentException("id required.");
+//			}
+//			this.id = id;
+//			return this;
+//		}
 
 		/**
 		 * Get the style's identifier, not {@code null}.
@@ -492,7 +492,7 @@ public final class LocalizationStyle implements Serializable {
 		 *            The target value, not {@code null}.
 		 * @return The Builder instance for chaining.
 		 */
-		public Builder withAttribute(String key, Object value) {
+		public Builder setAttribute(String key, Object value) {
 			attributes.put(key, value);
 			return this;
 		}
@@ -508,7 +508,7 @@ public final class LocalizationStyle implements Serializable {
 		 *            The target value, not {@code null}.
 		 * @return The Builder instance for chaining.
 		 */
-		public <T> Builder withAttribute(Class<T> key, T value) {
+		public <T> Builder setAttribute(Class<T> key, T value) {
 			attributes.put(key.getName(), value);
 			return this;
 		}
@@ -523,7 +523,7 @@ public final class LocalizationStyle implements Serializable {
 		 *            The attribute value
 		 * @return The Builder instance for chaining.
 		 */
-		public <T> Builder withAttribute(Object value) {
+		public <T> Builder setAttribute(Object value) {
 			attributes.put(value.getClass().getName(), value);
 			return this;
 		}
