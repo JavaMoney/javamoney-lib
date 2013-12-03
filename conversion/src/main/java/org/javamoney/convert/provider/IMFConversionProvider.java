@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implements a {@link ConversionProvider} that loads the IMF conversion data.
- * In most cases this provider will provide chaind rates, since IMF always is
+ * In most cases this provider will provide chained rates, since IMF always is
  * converting from/to the IMF <i>SDR</i> currency unit.
  * 
  * @author Anatole Tresch
@@ -67,7 +67,7 @@ public class IMFConversionProvider extends AbstractResource
 			.of(IMF_STR);
 
 	private static final MoneyCurrency SDR = new MoneyCurrency.Builder()
-			.withDefaultFractionDigits(3).withCurrencyCode("SDR").withNumericCode(-1)
+			.setDefaultFractionDigits(3).setCurrencyCode("SDR").setNumericCode(-1)
 			.build(true);
 
 	private Map<CurrencyUnit, List<ExchangeRate>> currencyToSdr = new HashMap<CurrencyUnit, List<ExchangeRate>>();
