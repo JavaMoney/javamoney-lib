@@ -31,6 +31,7 @@ import com.ibm.icu.util.TimeZone;
  * {@link com.ibm.icu.util.Region}.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  * 
  */
 public class IcuRegion implements Region, Displayable {
@@ -38,8 +39,8 @@ public class IcuRegion implements Region, Displayable {
 	private com.ibm.icu.util.Region icuRegion;
 	private RegionType regionType;
 	private Locale countryLocale;
-	private static final List<Class> REGION_DATATYPES = Arrays
-			.asList(new Class[] { IcuRegion.class });
+//	private static final List<Class> REGION_DATATYPES = Arrays
+//			.asList(new Class[] { IcuRegion.class });
 
 	public IcuRegion(com.ibm.icu.util.Region icuRegion, RegionType regionType) {
 		if (icuRegion == null) {
@@ -81,6 +82,10 @@ public class IcuRegion implements Region, Displayable {
 		return name;
 	}
 
+	public String getDisplayName() {
+		return getDisplayName(countryLocale);
+	}
+	
 	public com.ibm.icu.util.Region getIcuRegion() {
 		return this.icuRegion;
 	}
