@@ -22,6 +22,7 @@ import javax.money.MonetaryQuery;
 
 import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.function.CurrencySupplier;
 
 
 /**
@@ -40,8 +41,9 @@ import org.javamoney.moneta.Money;
  * {@link MonetaryPredicate} used.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-final class ConstraintMoney implements MonetaryAmount {
+final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	/** The amount's predicate. */
 	private MonetaryPredicate<MonetaryAmount> predicate;
 	/** The underlying amount. */

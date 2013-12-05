@@ -21,6 +21,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.function.CurrencySupplier;
 
 /**
  * This class allows to attach an {@link String} to the {@link MonetaryAmount}
@@ -28,8 +29,9 @@ import org.javamoney.moneta.Money;
  * steps.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-public final class FlavoredMonetaryAmount implements MonetaryAmount {
+public final class FlavoredMonetaryAmount implements MonetaryAmount, CurrencySupplier {
 
 	private static final String UNKNOWN = "N/A";
 
