@@ -16,9 +16,9 @@
 package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
-import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
 import org.javamoney.calc.function.MonetaryPredicate;
@@ -43,11 +43,11 @@ import org.javamoney.moneta.Money;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
+final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, CurrencySupplierMonetaryAmount<?> {
 	/** The amount's predicate. */
 	private MonetaryPredicate<MonetaryAmount> predicate;
 	/** The underlying amount. */
-	private final Money amount;
+	private final MonetaryAmount<?> amount;
 
 	/**
 	 * Creates a new wrapper instance.
@@ -57,7 +57,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * @throws IllegalArgumentException
 	 *             if the amount passed is negative.
 	 */
-	ConstraintMoney(Money amount,
+	ConstraintMoney(MonetaryAmount<?> amount,
 			MonetaryPredicate<MonetaryAmount> predicate) {
 		if (amount == null) {
 			throw new IllegalArgumentException("Amount required.");
@@ -80,7 +80,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * @param amount
 	 * @return
 	 */
-	private static ConstraintMoney of(Money amount,
+	private static ConstraintMoney of(MonetaryAmount<?> amount,
 			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}
@@ -109,7 +109,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * 
 	 * @see javax.money.MonetaryAmount#add(javax.money.MonetaryAmount)
 	 */
-	public ConstraintMoney add(Money augend) {
+	public ConstraintMoney add(MonetaryAmount<?> augend) {
 		return of(this.amount.add(augend), predicate);
 	}
 
@@ -187,14 +187,14 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 		return of(this.amount.pow(n), predicate);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#ulp()
-	 */
-	public ConstraintMoney ulp() {
-		return of(this.amount.ulp(), predicate);
-	}
+//	/*
+//	 * (non-Javadoc)
+//	 * 
+//	 * @see javax.money.MonetaryAmount#ulp()
+//	 */
+//	public ConstraintMoney ulp() {
+//		return of(this.amount.ulp(), predicate);
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -265,7 +265,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * @see javax.money.MonetaryAmount#from(java.lang.Number)
 	 */
 	public ConstraintMoney with(Number amount) {
-		return of(this.amount.with(amount), predicate);
+		return of(this.amount.with(this.amount.getCurrency(), amount), predicate);
 	}
 
 	/*
@@ -306,53 +306,6 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 		return this.amount.getPrecision();
 	}
 
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see javax.money.MonetaryAmount#intValue()
-	// */
-	// @Override
-	// public int intValue() {
-	// return this.amount.intValue();
-	// }
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see javax.money.MonetaryAmount#intValueExact()
-	// */
-	// @Override
-	// public int intValueExact() {
-	// return this.amount.intValueExact();
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#longValue()
-	 */
-	public long longValue() {
-		return this.amount.longValue();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#longValueExact()
-	 */
-	public long longValueExact() {
-		return this.amount.longValueExact();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#doubleValue()
-	 */
-	public double doubleValue() {
-		return this.amount.doubleValue();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -367,7 +320,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * 
 	 * @see javax.money.MonetaryAmount#isLessThan(javax.money.MonetaryAmount)
 	 */
-	public boolean isLessThan(Money amount) {
+	public boolean isLessThan(MonetaryAmount<?> amount) {
 		return this.amount.isLessThan(amount);
 	}
 
@@ -378,7 +331,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * javax.money.MonetaryAmount#isLessThanOrEqualTo(javax.money.MonetaryAmount
 	 * )
 	 */
-	public boolean isLessThanOrEqualTo(Money amount) {
+	public boolean isLessThanOrEqualTo(MonetaryAmount<?> amount) {
 		return this.amount.isLessThanOrEqualTo(amount);
 	}
 
@@ -387,7 +340,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * 
 	 * @see javax.money.MonetaryAmount#isGreaterThan(javax.money.MonetaryAmount)
 	 */
-	public boolean isGreaterThan(MonetaryAmount amount) {
+	public boolean isGreaterThan(MonetaryAmount<?> amount) {
 		return this.amount.isGreaterThan(amount);
 	}
 
@@ -398,7 +351,7 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * javax.money.MonetaryAmount#isGreaterThanOrEqualTo(javax.money.MonetaryAmount
 	 * )
 	 */
-	public boolean isGreaterThanOrEqualTo(MonetaryAmount amount) {
+	public boolean isGreaterThanOrEqualTo(MonetaryAmount<?> amount) {
 		return this.amount.isGreaterThanOrEqualTo(amount);
 	}
 
@@ -407,191 +360,108 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	 * 
 	 * @see javax.money.MonetaryAmount#isEqualTo(javax.money.MonetaryAmount)
 	 */
-	public boolean isEqualTo(MonetaryAmount amount) {
+	public boolean isEqualTo(MonetaryAmount<?> amount) {
 		return this.amount.isEqualTo(amount);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#isNotEqualTo(javax.money.MonetaryAmount)
-	 */
-	public boolean isNotEqualTo(MonetaryAmount amount) {
-		return this.amount.isNotEqualTo(amount);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#asType(java.lang.Class)
-	 */
-	public <T> T asType(Class<T> type) {
-		return this.amount.asType(type);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#getNumberType()
-	 */
-	public Class<?> getNumberType() {
-		return this.amount.getNumberType();
-	}
-
-	/**
-	 * This method allows to access the internal base amount, which can be used
-	 * for normal calculations, that also may be negative.
-	 * 
-	 * @return the base {@link MonetaryAmount} instance.
-	 */
-	public MonetaryAmount toSignedAmount() {
-		return this.amount;
-	}
-
-	@Override
-	public <R> R query(MonetaryQuery<R> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public long getAmountWhole() {
-		return this.amount.getAmountWhole();
-	}
-
-	@Override
-	public long getAmountFractionNumerator() {
-		return this.amount.getAmountFractionNumerator();
-	}
-
-	@Override
-	public long getAmountFractionDenominator() {
-		return this.amount.getAmountFractionDenominator();
 	}
 
 	@Override
 	public MonetaryContext getMonetaryContext() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.amount.getMonetaryContext();
 	}
 
 	@Override
-	public Number getNumber(Class type) {
-		// TODO Auto-generated method stub
-		return null;
+	public Number getNumber() {
+		return this.amount.getNumber();
 	}
 
 	@Override
-	public Number getNumberExact(Class type) {
-		// TODO Auto-generated method stub
-		return null;
+	public <N extends Number> N getNumber(Class<N> type) {
+		return this.amount.getNumber(type);
 	}
 
 	@Override
-	public MonetaryAmount with(CurrencyUnit unit) {
-		// TODO Auto-generated method stub
-		return null;
+	public <N extends Number> N getNumberExact(Class<N> type) {
+		return this.amount.getNumberExact(type);
 	}
 
 	@Override
-	public MonetaryAmount with(CurrencyUnit unit, long amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public <R> R query(MonetaryQuery<R> query) {
+		return query.queryFrom(this);
 	}
 
 	@Override
-	public MonetaryAmount with(CurrencyUnit unit, double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney with(CurrencyUnit unit) {
+		return new ConstraintMoney(amount.with(unit), predicate);
 	}
 
 	@Override
-	public boolean isLessThan(MonetaryAmount amt) {
-		// TODO Auto-generated method stub
-		return false;
+	public ConstraintMoney with(CurrencyUnit unit, long amount) {
+		return new ConstraintMoney(amount.with(unit, amount), predicate);
 	}
 
 	@Override
-	public boolean isLessThanOrEqualTo(MonetaryAmount amt) {
-		// TODO Auto-generated method stub
-		return false;
+	public ConstraintMoney with(CurrencyUnit unit, double amount) {
+		return new ConstraintMoney(amount.with(unit, amount), predicate);
 	}
 
 	@Override
-	public MonetaryAmount add(MonetaryAmount amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney subtract(MonetaryAmount<?> amount) {
+		return new ConstraintMoney(amount.subtract(amount), predicate);
 	}
 
 	@Override
-	public MonetaryAmount subtract(MonetaryAmount amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney multiply(long multiplicand) {
+		return new ConstraintMoney(amount.multiply(multiplicand), predicate);
 	}
 
 	@Override
-	public MonetaryAmount multiply(long multiplicand) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney multiply(double multiplicand) {
+		return new ConstraintMoney(amount.multiply(multiplicand), predicate);
 	}
 
 	@Override
-	public MonetaryAmount multiply(double multiplicand) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney divide(long divisor) {
+		return new ConstraintMoney(amount.divide(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount divide(long amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney divide(double divisor) {
+		return new ConstraintMoney(amount.divide(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount divide(double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney remainder(long divisor) {
+		return new ConstraintMoney(amount.remainder(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount remainder(long amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney remainder(double divisor) {
+		return new ConstraintMoney(amount.remainder(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount remainder(double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney[] divideAndRemainder(long divisor) {
+		return new ConstraintMoney(amount.divideAndRemainder(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount[] divideAndRemainder(long amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney[] divideAndRemainder(double divisor) {
+		return new ConstraintMoney(amount.divideAndRemainder(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount[] divideAndRemainder(double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney divideToIntegralValue(long divisor) {
+		return new ConstraintMoney(amount.divideToIntegralValue(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount divideToIntegralValue(long divisor) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney divideToIntegralValue(double divisor) {
+		return new ConstraintMoney(amount.divideToIntegralValue(divisor), predicate);
 	}
 
 	@Override
-	public MonetaryAmount divideToIntegralValue(double divisor) {
-		// TODO Auto-generated method stub
-		return null;
+	public ConstraintMoney stripTrailingZeros() {
+		return new ConstraintMoney(amount.stripTrailingZeros(), predicate);
 	}
 
-	@Override
-	public MonetaryAmount stripTrailingZeros() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

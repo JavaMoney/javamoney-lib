@@ -39,7 +39,7 @@ public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 	 *         is not supported (will lead to a
 	 *         {@link CurrencyConversionException}.
 	 */
-	protected abstract ExchangeRate getExchangeRate(MonetaryAmount amount);
+	protected abstract ExchangeRate getExchangeRate(MonetaryAmount<?> amount);
 
 	/**
 	 * Method that converts the source {@link MonetaryAmount} to an
@@ -53,14 +53,14 @@ public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 	 * @throws CurrencyConversionException
 	 *             if conversion failed, or the required data is not available.
 	 */
-	public MonetaryAmount apply(MonetaryAmount amount) {
+	public <T extends MonetaryAmount<T>> T apply(T amount) {
 		ExchangeRate rate = getExchangeRate(amount);
 		if (rate == null || !amount.getCurrency().equals(rate.getBase())) {
 			throw new CurrencyConversionException(amount.getCurrency(),
 					rate == null ? null : rate.getTerm(), null);
 		}
-		return Money.of(rate.getTerm(), Money.from(amount).multiply(rate.getFactor())
-				.asType(BigDecimal.class));
+		return amount.with(rate.getTerm(), amount.multiply(rate.getFactor())
+				.getNumber(BigDecimal.class));
 	}
 
 	/*

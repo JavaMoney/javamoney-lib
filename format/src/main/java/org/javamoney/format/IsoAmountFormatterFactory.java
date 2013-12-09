@@ -32,13 +32,13 @@ import org.slf4j.LoggerFactory;
 
 @Singleton
 public class IsoAmountFormatterFactory implements
-		ItemFormatFactorySpi<MonetaryAmount> {
+		ItemFormatFactorySpi<MonetaryAmount<?>> {
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(IsoAmountFormatterFactory.class);
 
 	@Override
-	public Class<MonetaryAmount> getTargetClass() {
+	public Class getTargetClass() {
 		return MonetaryAmount.class;
 	}
 
@@ -66,7 +66,7 @@ public class IsoAmountFormatterFactory implements
 	}
 
 	@Override
-	public ItemFormat<MonetaryAmount> getItemFormat(LocalizationStyle style)
+	public ItemFormat<MonetaryAmount<?>> getItemFormat(LocalizationStyle style)
 			throws ItemFormatException {
 		String renderedFieldValue = null;
 		if (style != null) {

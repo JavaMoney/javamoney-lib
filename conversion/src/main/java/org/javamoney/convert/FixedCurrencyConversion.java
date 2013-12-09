@@ -81,10 +81,9 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount amount) {
+	public <T extends MonetaryAmount<T>> T apply(T amount) {
 		ExchangeRate rate = getExchangeRate(amount);
-		Money money = Money.from(amount);
-		return Money.of(rate.getTerm(), money.asType(BigDecimal.class)
-				.multiply(rate.getFactor(), MathContext.DECIMAL64));
+		return amount.with(rate.getTerm(), amount.getNumber(BigDecimal.class)
+				.multiply(rate.getFactor()));
 	}
 }

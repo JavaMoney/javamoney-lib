@@ -43,14 +43,14 @@ import com.ibm.icu.util.Currency;
  * @author Werner Keil
  * @version 0.9.1
  */
-public final class MonetaryCurrencies {
+public final class MonetaryCurrencyMapper {
 
 	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = loadMonetaryCurrenciesSpi();
 
 	/**
 	 * Singleton constructor.
 	 */
-	private MonetaryCurrencies() {
+	private MonetaryCurrencyMapper() {
 	}
 
 	/**

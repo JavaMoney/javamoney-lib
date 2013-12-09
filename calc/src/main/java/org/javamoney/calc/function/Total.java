@@ -29,7 +29,7 @@ import org.javamoney.moneta.Money;
  * @author Anatole Tresch
  */
 final class Total implements
-		MonetaryCalculation<Iterable<? extends MonetaryAmount>> {
+		MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> {
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
@@ -46,17 +46,17 @@ final class Total implements
 	 *            currency.
 	 * @return the total sum.
 	 */
-	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
+	public MonetaryAmount<?> calculate(Iterable<? extends MonetaryAmount<?>> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}
 		CurrencyUnit unit = null;
 		BigDecimal result = null;
-		for (MonetaryAmount amount : amounts) {
+		for (MonetaryAmount<?> amount : amounts) {
 			if (result == null) {
-				result = Money.from(amount).asType(BigDecimal.class);
+				result = amount.getNumber(BigDecimal.class);
 			} else {
-				result = result.add(Money.from(amount).asType(BigDecimal.class));
+				result = result.add(amount.getNumber(BigDecimal.class));
 			}
 		}
 		if (result == null) {

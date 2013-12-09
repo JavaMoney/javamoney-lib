@@ -20,10 +20,11 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
+import javax.money.function.MonetaryRoundings;
 
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryRoundings;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -34,8 +35,10 @@ public class FutureValueTest {
 	public void test() {
 		FutureValue f = new FutureValue(new Rate(0.05), 1);
 		Money money = Money.of("CHF", 100);
-		MonetaryOperator rounding = MonetaryRoundings.getRounding(2,
-				RoundingMode.HALF_EVEN);
+		MonetaryOperator rounding = MonetaryRoundings
+				.getRounding(new MonetaryContext.Builder().setPrecision(2)
+						.setAttribute(
+								RoundingMode.HALF_EVEN).build());
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.apply(money)
 				.with(rounding));
 		f = new FutureValue(new Rate(0.05), 2);

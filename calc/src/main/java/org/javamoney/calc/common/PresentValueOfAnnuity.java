@@ -46,7 +46,7 @@ import org.javamoney.moneta.Money;
  * 
  */
 public class PresentValueOfAnnuity implements MonetaryOperator,
-		CompoundCalculation<MonetaryAmount> {
+		CompoundCalculation<MonetaryAmount<?>> {
 
 	private Rate rate;
 	private int periods;
@@ -66,9 +66,9 @@ public class PresentValueOfAnnuity implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount amount) {
+	public <T extends MonetaryAmount<T>> T apply(T amount){
 		// Am * (((1 + r).pow(n))-1/rate)
-		return Money.from(amount).multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
+		return amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.get()));
 	}
 
@@ -78,7 +78,7 @@ public class PresentValueOfAnnuity implements MonetaryOperator,
 	}
 
 	@Override
-	public Class<MonetaryAmount> getResultType() {
+	public Class getResultType() {
 		return MonetaryAmount.class;
 	}
 

@@ -26,7 +26,6 @@ import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
 import org.javamoney.format.MonetaryFormats;
 import org.javamoney.format.ParseContext;
-import org.javamoney.moneta.MoneyCurrency;
 
 /**
  * {@link FormatToken} that adds a localizable {@link String}, read by key from
@@ -65,7 +64,7 @@ public class CurrencyToken extends
 			org.javamoney.format.LocalizationStyle style) {
 		switch (displayType) {
 		case NUMERIC_CODE:
-			return String.valueOf(MoneyCurrency.from(unit).getNumericCode());
+			return String.valueOf(unit.getNumericCode());
 		case NAME:
 			ItemFormat<CurrencyUnit> cf1 = MonetaryFormats
 					.getItemFormat(

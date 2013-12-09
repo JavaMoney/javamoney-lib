@@ -74,13 +74,13 @@ public class AnnuityPaymentFV implements MonetaryOperator
 	}
 
 	@Override
-	public MonetaryAmount apply(MonetaryAmount amount) {
+	public <T extends MonetaryAmount<T>> T apply(T amount){
 		// FV(r) / (((1 + r).pow(n))-1)
-		return FUNCTION.calculate(rate, periods, amount);
+		return (T)FUNCTION.calculate(rate, periods, amount);
 	}
 
 	private static final class Function implements
-			CompoundCalculation<MonetaryAmount> {
+			CompoundCalculation<MonetaryAmount<?>> {
 
 		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 				.withIdForInput(AnnuityPaymentFV.class)
@@ -94,26 +94,27 @@ public class AnnuityPaymentFV implements MonetaryOperator
 		}
 
 		@Override
-		public Class<MonetaryAmount> getResultType() {
+		public Class getResultType() {
 			return MonetaryAmount.class;
 		}
 
 		@Override
-		public MonetaryAmount calculate(CompoundValue input) {
+		public MonetaryAmount<?> calculate(CompoundValue input) {
 			INPUT_TYPE.checkInput(input);
 			int periods = input.get("periods", Integer.class);
 			Rate rate = input.get("rate", Rate.class);
-			MonetaryAmount amt = input.get("amount", MonetaryAmount.class);
+			MonetaryAmount<?> amt = input.get("amount", MonetaryAmount.class);
 			return calculate(rate, periods, amt);
 		}
 
 		private MonetaryAmount calculate(Rate rate, int periods,
 				MonetaryAmount amt) {
 			FutureValue fv = new FutureValue(rate, periods);
-			return Money.from(fv.apply(amt)).divide(
+			return fv.apply(amt).divide(
 					BigDecimal.ONE.add(rate.get()).pow(periods)
 							.subtract(BigDecimal.ONE)
 					);
 		}
 	}
+
 }

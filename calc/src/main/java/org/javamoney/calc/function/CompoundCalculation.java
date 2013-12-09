@@ -15,6 +15,8 @@
  */
 package org.javamoney.calc.function;
 
+import javax.money.MonetaryAmount;
+
 import org.javamoney.calc.Calculation;
 
 

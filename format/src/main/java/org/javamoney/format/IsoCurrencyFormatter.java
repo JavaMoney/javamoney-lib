@@ -21,8 +21,7 @@ import java.util.Currency;
 import java.util.Locale;
 
 import javax.money.CurrencyUnit;
-
-import org.javamoney.moneta.MoneyCurrency;
+import javax.money.MonetaryCurrencies;
 
 public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 
@@ -94,10 +93,10 @@ public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 		case CODE:
 			return currency.getCurrencyCode();
 		case NUMERICCODE:
-			return String.valueOf(MoneyCurrency.from(currency).getNumericCode());
+			return String.valueOf(currency.getNumericCode());
 		}
 		// check for iso currencies
-		if (MoneyCurrency.isJavaCurrency(currency.getCurrencyCode())) {
+		if (MonetaryCurrencies.isJavaCurrency(currency.getCurrencyCode())) {
 			Currency isoCurrency = Currency.getInstance(currency.getCurrencyCode());
 			switch (renderedField) {
 			case SYMBOL:
@@ -125,7 +124,7 @@ public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 		for (ParsedField f : parsedFields) {
 			switch (f) {
 			case CODE:
-				return MoneyCurrency.of(text.toString());
+				return MonetaryCurrencies.getCurrency(text.toString());
 			}
 		}
 		throw new ItemParseException("Currency not parseable: " + text);

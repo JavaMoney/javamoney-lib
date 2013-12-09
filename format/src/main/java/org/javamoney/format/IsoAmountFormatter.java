@@ -28,7 +28,7 @@ import org.javamoney.moneta.Money;
 
 import com.ibm.icu.util.Currency;
 
-public class IsoAmountFormatter implements ItemFormat<MonetaryAmount> {
+public class IsoAmountFormatter implements ItemFormat<MonetaryAmount<?>> {
 
 	private LocalizationStyle style;
 	private LocalizationStyle currencyStyle;
@@ -39,7 +39,7 @@ public class IsoAmountFormatter implements ItemFormat<MonetaryAmount> {
 	}
 
 	@Override
-	public Class<MonetaryAmount> getTargetClass() {
+	public Class getTargetClass() {
 		return MonetaryAmount.class;
 	}
 
@@ -102,7 +102,7 @@ public class IsoAmountFormatter implements ItemFormat<MonetaryAmount> {
 			syms.setCurrencySymbol("");
 			df.setDecimalFormatSymbols(syms);
 			String numberString = null;
-			Number number = Money.from(item).asType(Number.class);
+			Number number = item.getNumber();
 			Boolean grouping = null;
 			if (style != null) {
 				grouping = style.getAttribute("grouping", Boolean.class);

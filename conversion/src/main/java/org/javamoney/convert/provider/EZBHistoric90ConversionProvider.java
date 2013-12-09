@@ -33,6 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryCurrencies;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -40,7 +41,6 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.CurrencyConverter;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
-import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.util.loader.AbstractResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,8 +68,8 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 
 	private static final String BASE_CURRENCY_CODE = "EUR";
 	/** Base currency of the loaded rates is always EUR. */
-	public static final CurrencyUnit BASE_CURRENCY = MoneyCurrency
-			.of(BASE_CURRENCY_CODE);
+	public static final CurrencyUnit BASE_CURRENCY = MonetaryCurrencies
+			.getCurrency(BASE_CURRENCY_CODE);
 	/** The logger used. */
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(EZBHistoric90ConversionProvider.class);
@@ -174,9 +174,9 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 		} else {
 			// Get Conversion base as derived rate: base -> EUR -> term
 			ExchangeRate rate1 = getExchangeRateInternal(base,
-					MoneyCurrency.of(BASE_CURRENCY_CODE), timestamp);
+					MonetaryCurrencies.getCurrency(BASE_CURRENCY_CODE), timestamp);
 			ExchangeRate rate2 = getExchangeRateInternal(
-					MoneyCurrency.of(BASE_CURRENCY_CODE),
+					MonetaryCurrencies.getCurrency(BASE_CURRENCY_CODE),
 					term,
 					timestamp);
 			if (rate1 != null || rate2 != null) {
@@ -259,7 +259,7 @@ public class EZBHistoric90ConversionProvider extends AbstractResource
 						timestamp = Long.valueOf(date.getTime());
 					} else if (attributes.getValue("currency") != null) {
 						// read data <Cube currency="USD" rate="1.3349"/>
-						CurrencyUnit tgtCurrency = MoneyCurrency.of(attributes
+						CurrencyUnit tgtCurrency = MonetaryCurrencies.getCurrency(attributes
 								.getValue("currency"));
 						addRate(tgtCurrency, timestamp,
 								BigDecimal.valueOf(Double

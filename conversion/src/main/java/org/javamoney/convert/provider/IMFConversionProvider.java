@@ -37,12 +37,12 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryCurrencies;
 
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.CurrencyConverter;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
-import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.util.loader.AbstractResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,9 +66,10 @@ public class IMFConversionProvider extends AbstractResource
 	private static final ExchangeRateType RATE_TYPE = ExchangeRateType
 			.of(IMF_STR);
 
-	private static final MoneyCurrency SDR = new MoneyCurrency.Builder()
-			.setDefaultFractionDigits(3).setCurrencyCode("SDR").setNumericCode(-1)
-			.build(true);
+	private static final CurrencyUnit SDR = MonetaryCurrencies
+			.getCurrency("SDR");
+	// .setDefaultFractionDigits(3).setCurrencyCode("SDR").setNumericCode(-1)
+	// .build(true);
 
 	private Map<CurrencyUnit, List<ExchangeRate>> currencyToSdr = new HashMap<CurrencyUnit, List<ExchangeRate>>();
 
@@ -79,27 +80,42 @@ public class IMFConversionProvider extends AbstractResource
 	static {
 		for (Currency currency : Currency.getAvailableCurrencies()) {
 			currenciesByName.put(currency.getDisplayName(Locale.ENGLISH),
-					MoneyCurrency.of(currency));
+					MonetaryCurrencies.getCurrency(currency.getCurrencyCode()));
 		}
 		// Additional IMF differing codes:
 		// TODO i18n?
-		currenciesByName.put("U.K. Pound Sterling", MoneyCurrency.of("GBP"));
-		currenciesByName.put("U.S. Dollar", MoneyCurrency.of("USD"));
-		currenciesByName.put("Bahrain Dinar", MoneyCurrency.of("BHD"));
-		currenciesByName.put("Botswana Pula", MoneyCurrency.of("BWP"));
-		currenciesByName.put("Czech Koruna", MoneyCurrency.of("CZK"));
-		currenciesByName.put("Icelandic Krona", MoneyCurrency.of("ISK"));
-		currenciesByName.put("Korean Won", MoneyCurrency.of("KRW"));
-		currenciesByName.put("Rial Omani", MoneyCurrency.of("OMR"));
-		currenciesByName.put("Nuevo Sol", MoneyCurrency.of("PEN"));
-		currenciesByName.put("Qatar Riyal", MoneyCurrency.of("QAR"));
-		currenciesByName.put("Saudi Arabian Riyal", MoneyCurrency.of("SAR"));
-		currenciesByName.put("Sri Lanka Rupee", MoneyCurrency.of("LKR"));
+		currenciesByName.put("U.K. Pound Sterling",
+				MonetaryCurrencies.getCurrency("GBP"));
+		currenciesByName.put("U.S. Dollar",
+				MonetaryCurrencies.getCurrency("USD"));
+		currenciesByName.put("Bahrain Dinar",
+				MonetaryCurrencies.getCurrency("BHD"));
+		currenciesByName.put("Botswana Pula",
+				MonetaryCurrencies.getCurrency("BWP"));
+		currenciesByName.put("Czech Koruna",
+				MonetaryCurrencies.getCurrency("CZK"));
+		currenciesByName.put("Icelandic Krona",
+				MonetaryCurrencies.getCurrency("ISK"));
+		currenciesByName.put("Korean Won",
+				MonetaryCurrencies.getCurrency("KRW"));
+		currenciesByName.put("Rial Omani",
+				MonetaryCurrencies.getCurrency("OMR"));
+		currenciesByName
+				.put("Nuevo Sol", MonetaryCurrencies.getCurrency("PEN"));
+		currenciesByName.put("Qatar Riyal",
+				MonetaryCurrencies.getCurrency("QAR"));
+		currenciesByName.put("Saudi Arabian Riyal",
+				MonetaryCurrencies.getCurrency("SAR"));
+		currenciesByName.put("Sri Lanka Rupee",
+				MonetaryCurrencies.getCurrency("LKR"));
 		currenciesByName.put("Trinidad And Tobago Dollar",
-				MoneyCurrency.of("TTD"));
-		currenciesByName.put("U.A.E. Dirham", MoneyCurrency.of("AED"));
-		currenciesByName.put("Peso Uruguayo", MoneyCurrency.of("UYU"));
-		currenciesByName.put("Bolivar Fuerte", MoneyCurrency.of("VEF"));
+				MonetaryCurrencies.getCurrency("TTD"));
+		currenciesByName.put("U.A.E. Dirham",
+				MonetaryCurrencies.getCurrency("AED"));
+		currenciesByName.put("Peso Uruguayo",
+				MonetaryCurrencies.getCurrency("UYU"));
+		currenciesByName.put("Bolivar Fuerte",
+				MonetaryCurrencies.getCurrency("VEF"));
 	}
 
 	private CurrencyConverter currencyConverter = new DefaultCurrencyConverter(
