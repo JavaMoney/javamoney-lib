@@ -16,13 +16,13 @@
 package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
 import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.CurrencySupplier;
 
 
 /**
@@ -467,5 +467,131 @@ final class ConstraintMoney implements MonetaryAmount, CurrencySupplier {
 	@Override
 	public long getAmountFractionDenominator() {
 		return this.amount.getAmountFractionDenominator();
+	}
+
+	@Override
+	public MonetaryContext getMonetaryContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Number getNumber(Class type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Number getNumberExact(Class type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount with(CurrencyUnit unit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount with(CurrencyUnit unit, long amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount with(CurrencyUnit unit, double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isLessThan(MonetaryAmount amt) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isLessThanOrEqualTo(MonetaryAmount amt) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public MonetaryAmount add(MonetaryAmount amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount subtract(MonetaryAmount amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount multiply(long multiplicand) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount multiply(double multiplicand) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount divide(long amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount divide(double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount remainder(long amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount remainder(double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount[] divideAndRemainder(long amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount[] divideAndRemainder(double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount divideToIntegralValue(long divisor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount divideToIntegralValue(double divisor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MonetaryAmount stripTrailingZeros() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

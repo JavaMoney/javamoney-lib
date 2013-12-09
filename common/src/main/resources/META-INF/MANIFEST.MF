@@ -1,0 +1,28 @@
+Manifest-Version: 1
+Bnd-LastModified: 1386553842743
+Build-Jdk: 1.7.0_40
+Built-By: Werner
+Bundle-Description: JavaMoney Parent POM
+Bundle-DocURL: http://javamoney.org
+Bundle-License: LICENSE.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Money and Currency - JavaMoney common parts
+Bundle-SymbolicName: org.javamoney.lib.javamoney-common
+Bundle-Vendor: JavaMoney
+Bundle-Version: 0.4.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.javamoney.moneta.impl;uses:="org.javamoney.moneta,ja
+ vax.money.spi,javax.money";version="0.4.0.SNAPSHOT",org.javamoney.monet
+ a;uses:="javax.money,javax.money.function";version="0.4.0.SNAPSHOT",org
+ .javamoney.util.loader;uses:="org.javamoney.util,org.slf4j,org.xml.sax,
+ javax.xml.parsers,org.w3c.dom";version="0.4.0.SNAPSHOT",org.javamoney.d
+ ata.icu4j;uses:="org.w3c.dom,org.javamoney.util.loader,com.ibm.icu.util
+ ";version="0.4.0.SNAPSHOT",org.javamoney.moneta.format;uses:="javax.mon
+ ey,javax.money.format,javax.money.spi";version="0.4.0.SNAPSHOT",org.jav
+ amoney.moneta.function;uses:="javax.money,javax.money.function";version
+ ="0.4.0.SNAPSHOT",org.javamoney.util;uses:="javax.money";version="0.4.0
+ .SNAPSHOT"
+Import-Package: com.ibm.icu.util,javax.money,javax.money.format,javax.mo
+ ney.function,javax.money.spi,javax.xml.parsers,org.slf4j;version="[1.6,
+ 2)",org.w3c.dom,org.xml.sax
+Tool: Bnd-1.43.0

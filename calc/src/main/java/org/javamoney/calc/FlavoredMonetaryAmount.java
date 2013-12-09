@@ -21,7 +21,6 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.CurrencySupplier;
 
 /**
  * This class allows to attach an {@link String} to the {@link MonetaryAmount}
