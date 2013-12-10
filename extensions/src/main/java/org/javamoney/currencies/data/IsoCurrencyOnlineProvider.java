@@ -27,11 +27,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
+import javax.money.spi.CurrencyProviderSpi;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
-import org.javamoney.moneta.MoneyCurrency;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
 import org.javamoney.util.Displayable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * Online implementation of a {@link CurrencyUnitProviderSpi} that provides the
+ * Online implementation of a {@link CurrencyUnitNamespaceSpi} that provides the
  * ISO 4217 currencies available from the JDK {@link Currency} class.
  * 
  * @author Anatole Tresch
@@ -49,7 +49,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *      Maintenance Agency</a>
  */
 @Singleton
-public class IsoCurrencyOnlineProvider implements CurrencyUnitProviderSpi {
+public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(IsoCurrencyOnlineProvider.class);
@@ -267,35 +267,6 @@ public class IsoCurrencyOnlineProvider implements CurrencyUnitProviderSpi {
 		}
 	}
 
-	@Override
-	public CurrencyUnit get(String code) {
-		return this.currencies.get(code);
-	}
-
-	// @Override
-	// public Collection<CurrencyUnit> getCurrencies(Locale locale) {
-	// if (locale != null) {
-	// List<CurrencyUnit> result = new ArrayList<CurrencyUnit>();
-	// for (CurrencyUnit currency : currencies.values()) {
-	// if (locale.equals(((ISOCurrency) currency).country)) {
-	// result.add(currency);
-	// }
-	// }
-	// return result;
-	// }
-	// return null;
-	// }
-
-	@Override
-	public Collection<CurrencyUnit> getAll() {
-		return Collections.unmodifiableCollection(this.currencies.values());
-	}
-
-	@Override
-	public boolean isAvailable(String code) {
-		return this.currencies.containsKey(code);
-	}
-
 	private final class CurrencyLoader extends Thread {
 
 		public CurrencyLoader() {
@@ -319,7 +290,24 @@ public class IsoCurrencyOnlineProvider implements CurrencyUnitProviderSpi {
 	}
 
 	@Override
-	public String getNamespace() {
-		return MoneyCurrency.ISO_NAMESPACE;
+	public CurrencyUnit getCurrencyUnit(String currencyCode) {
+		return this.currencies.get(currencyCode);
 	}
+
+	@Override
+	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
+		return null;
+	}
+
+	@Override
+	public CurrencyUnit getCurrencyUnit(Locale locale) {
+		return null;
+	}
+
+	@Override
+	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -19,8 +19,8 @@ import java.util.ServiceLoader;
 
 import javax.money.CurrencyUnit;
 
-import org.javamoney.currencies.AbstractCurrencyUnitProviderService;
-import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
+import org.javamoney.currencies.CurrencyUnitProviderService;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
 
 
 /**
@@ -30,11 +30,11 @@ import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public class SECurrencyUnitProviderService extends AbstractCurrencyUnitProviderService {
+public class SECurrencyUnitProviderService extends CurrencyUnitProviderService {
 
     @Override
-    protected Iterable<CurrencyUnitProviderSpi> getCurrencyUnitProviderSpis() {
-        return ServiceLoader.load(CurrencyUnitProviderSpi.class);
+    protected Iterable<CurrencyUnitNamespaceSpi> getCurrencyUnitProviderSpis() {
+        return ServiceLoader.load(CurrencyUnitNamespaceSpi.class);
     }
 
 }

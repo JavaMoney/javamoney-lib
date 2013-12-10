@@ -32,7 +32,7 @@ import javax.money.MonetaryQuery;
  * @author Werner Keil
  */
 public final class FlavoredMonetaryAmount implements
-		MonetaryAmount<FlavoredMonetaryAmount>, CurrencySupplier {
+		MonetaryAmount<FlavoredMonetaryAmount> {
 
 	private static final String UNKNOWN = "N/A";
 

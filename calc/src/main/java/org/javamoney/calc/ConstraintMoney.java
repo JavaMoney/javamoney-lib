@@ -1,17 +1,17 @@
 /*
- *  Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package org.javamoney.calc;
 
@@ -24,10 +24,10 @@ import javax.money.MonetaryQuery;
 import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
 
-
 /**
  * Platform RI: This class decorates an arbitrary {@link MonetaryAmount}
- * instance and ensure the given {@link MonetaryPredicate} is always {@code true}.
+ * instance and ensure the given {@link MonetaryPredicate} is always
+ * {@code true}.
  * <p>
  * As required by the {@link MonetaryAmount} interface, this class is
  * <ul>
@@ -43,9 +43,10 @@ import org.javamoney.moneta.Money;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, CurrencySupplierMonetaryAmount<?> {
+final class ConstraintMoney implements
+		MonetaryAmount<ConstraintMoney> {
 	/** The amount's predicate. */
-	private MonetaryPredicate<MonetaryAmount> predicate;
+	private MonetaryPredicate<MonetaryAmount<?>> predicate;
 	/** The underlying amount. */
 	private final MonetaryAmount<?> amount;
 
@@ -58,7 +59,7 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 	 *             if the amount passed is negative.
 	 */
 	ConstraintMoney(MonetaryAmount<?> amount,
-			MonetaryPredicate<MonetaryAmount> predicate) {
+			MonetaryPredicate<MonetaryAmount<?>> predicate) {
 		if (amount == null) {
 			throw new IllegalArgumentException("Amount required.");
 		}
@@ -81,7 +82,7 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 	 * @return
 	 */
 	private static ConstraintMoney of(MonetaryAmount<?> amount,
-			MonetaryPredicate<MonetaryAmount> predicate) {
+			MonetaryPredicate<MonetaryAmount<?>> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}
 
@@ -127,10 +128,11 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 	 * 
 	 * @see javax.money.MonetaryAmount#divideAndRemainder(java.lang.Number)
 	 */
+	@SuppressWarnings("unchecked")
 	public ConstraintMoney[] divideAndRemainder(Number divisor) {
-		MonetaryAmount[] res = this.amount.divideAndRemainder(divisor);
-		return new ConstraintMoney[] { of(Money.from(res[0]), predicate),
-				of(Money.from(res[1]), predicate) };
+		MonetaryAmount<?>[] res = this.amount.divideAndRemainder(divisor);
+		return new ConstraintMoney[] { of(res[0], predicate),
+				of(res[1], predicate) };
 	}
 
 	/*
@@ -187,14 +189,14 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 		return of(this.amount.pow(n), predicate);
 	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see javax.money.MonetaryAmount#ulp()
-//	 */
-//	public ConstraintMoney ulp() {
-//		return of(this.amount.ulp(), predicate);
-//	}
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see javax.money.MonetaryAmount#ulp()
+	// */
+	// public ConstraintMoney ulp() {
+	// return of(this.amount.ulp(), predicate);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -265,7 +267,8 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 	 * @see javax.money.MonetaryAmount#from(java.lang.Number)
 	 */
 	public ConstraintMoney with(Number amount) {
-		return of(this.amount.with(this.amount.getCurrency(), amount), predicate);
+		return of(this.amount.with(this.amount.getCurrency(), amount),
+				predicate);
 	}
 
 	/*
@@ -396,27 +399,32 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 
 	@Override
 	public ConstraintMoney with(CurrencyUnit unit, long amount) {
-		return new ConstraintMoney(amount.with(unit, amount), predicate);
+		return new ConstraintMoney(this.amount.with(unit, amount),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney with(CurrencyUnit unit, double amount) {
-		return new ConstraintMoney(amount.with(unit, amount), predicate);
+		return new ConstraintMoney(this.amount.with(unit, amount),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney subtract(MonetaryAmount<?> amount) {
-		return new ConstraintMoney(amount.subtract(amount), predicate);
+		return new ConstraintMoney(this.amount.subtract(amount),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney multiply(long multiplicand) {
-		return new ConstraintMoney(amount.multiply(multiplicand), predicate);
+		return new ConstraintMoney(amount.multiply(multiplicand),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney multiply(double multiplicand) {
-		return new ConstraintMoney(amount.multiply(multiplicand), predicate);
+		return new ConstraintMoney(amount.multiply(multiplicand),
+				predicate);
 	}
 
 	@Override
@@ -439,29 +447,42 @@ final class ConstraintMoney implements MonetaryAmount<ConstraintMoney>, Currency
 		return new ConstraintMoney(amount.remainder(divisor), predicate);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(long divisor) {
-		return new ConstraintMoney(amount.divideAndRemainder(divisor), predicate);
+		MonetaryAmount<?>[] result = this.amount.divideAndRemainder(divisor);
+		return new ConstraintMoney[] {
+				new ConstraintMoney(result[0], predicate),
+				new ConstraintMoney(result[1], predicate) };
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(double divisor) {
-		return new ConstraintMoney(amount.divideAndRemainder(divisor), predicate);
+		MonetaryAmount<?>[] result = this.amount.divideAndRemainder(divisor);
+		return new ConstraintMoney[] {
+				new ConstraintMoney(result[0], predicate),
+				new ConstraintMoney(result[1], predicate) };
 	}
 
 	@Override
 	public ConstraintMoney divideToIntegralValue(long divisor) {
-		return new ConstraintMoney(amount.divideToIntegralValue(divisor), predicate);
+		return new ConstraintMoney(
+				amount.divideToIntegralValue(divisor),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney divideToIntegralValue(double divisor) {
-		return new ConstraintMoney(amount.divideToIntegralValue(divisor), predicate);
+		return new ConstraintMoney(
+				amount.divideToIntegralValue(divisor),
+				predicate);
 	}
 
 	@Override
 	public ConstraintMoney stripTrailingZeros() {
-		return new ConstraintMoney(amount.stripTrailingZeros(), predicate);
+		return new ConstraintMoney(amount.stripTrailingZeros(),
+				predicate);
 	}
 
 }

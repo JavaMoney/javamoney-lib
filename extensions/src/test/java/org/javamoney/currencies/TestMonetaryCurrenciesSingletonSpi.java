@@ -21,78 +21,78 @@ import javax.money.CurrencyUnit;
 
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
 
-/**
- * Empty pseudo implementation for testing only.
- * 
- * @author Anatole Tresch
- * 
- */
-public class TestMonetaryCurrenciesSingletonSpi implements
-		MonetaryCurrenciesSingletonSpi {
-
-
-	@Override
-	public boolean isAvailable(String currencyCode) {
-		return TestCurrency.of(currencyCode) != null;
-	}
-
-	@Override
-	public CurrencyUnit get(String currencyCode) {
-		CurrencyUnit unit = TestCurrency.of(currencyCode);
-		if (unit != null) {
-			return unit;
-		}
-		throw new IllegalArgumentException(currencyCode);
-	}
-
-	@Override
-	public boolean isNamespaceAvailable(String namespace) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
-	}
-
-	@Override
-	public Collection<String> getNamespaces() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
-	}
-
-
-	@Override
-	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
-			long timestamp) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public Collection<CurrencyUnit> getAll(String namespace) {
-		return TestCurrency.getAllMatching(namespace);
-	}
-
-	@Override
-	public String getNamespace(String code) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-}
+///**
+// * Empty pseudo implementation for testing only.
+// * 
+// * @author Anatole Tresch
+// * 
+// */
+//public class TestMonetaryCurrenciesSingletonSpi implements
+//		MonetaryCurrenciesSingletonSpi {
+//
+//
+//	@Override
+//	public boolean isAvailable(String currencyCode) {
+//		return TestCurrency.of(currencyCode) != null;
+//	}
+//
+//	@Override
+//	public CurrencyUnit get(String currencyCode) {
+//		CurrencyUnit unit = TestCurrency.of(currencyCode);
+//		if (unit != null) {
+//			return unit;
+//		}
+//		throw new IllegalArgumentException(currencyCode);
+//	}
+//
+//	@Override
+//	public boolean isNamespaceAvailable(String namespace) {
+//		throw new UnsupportedOperationException("Not supported yet."); // To
+//																		// change
+//																		// body
+//																		// of
+//																		// generated
+//																		// methods,
+//																		// choose
+//																		// Tools
+//																		// |
+//																		// Templates.
+//	}
+//
+//	@Override
+//	public Collection<String> getNamespaces() {
+//		throw new UnsupportedOperationException("Not supported yet."); // To
+//																		// change
+//																		// body
+//																		// of
+//																		// generated
+//																		// methods,
+//																		// choose
+//																		// Tools
+//																		// |
+//																		// Templates.
+//	}
+//
+//
+//	@Override
+//	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace) {
+//		throw new UnsupportedOperationException("Not supported yet.");
+//	}
+//
+//	@Override
+//	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
+//			long timestamp) {
+//		throw new UnsupportedOperationException("Not supported yet.");
+//	}
+//
+//	@Override
+//	public Collection<CurrencyUnit> getAll(String namespace) {
+//		return TestCurrency.getAllMatching(namespace);
+//	}
+//
+//	@Override
+//	public String getNamespace(String code) {
+//		throw new UnsupportedOperationException("Not supported yet.");
+//	}
+//
+//}

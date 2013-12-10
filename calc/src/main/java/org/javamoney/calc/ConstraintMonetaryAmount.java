@@ -40,7 +40,7 @@ import org.javamoney.moneta.Money;
 public final class ConstraintMonetaryAmount {
 
 	/** The shared unsigned predicate. */
-	private static final UnsignedPredicate UNSIGED_PREDICATE = new UnsignedPredicate();
+	private static final UnsignedPredicate UNSIGNED_PREDICATE = new UnsignedPredicate();
 
 	/**
 	 * Creates an unsigned {@link MonetaryAmount} based on the given
@@ -49,8 +49,8 @@ public final class ConstraintMonetaryAmount {
 	 * @param amount
 	 * @return an ansigned instance, that can never be negative.
 	 */
-	public static MonetaryAmount unsignedAmount(MonetaryAmount amount) {
-		return new ConstraintMoney(Money.from(amount), UNSIGED_PREDICATE);
+	public static MonetaryAmount<?> unsignedAmount(MonetaryAmount<?> amount) {
+		return new ConstraintMoney(amount, UNSIGNED_PREDICATE);
 	}
 
 	/**
@@ -62,9 +62,9 @@ public final class ConstraintMonetaryAmount {
 	 * @return a predicated instance, that ensures the given predicate is always
 	 *         ensured on all operations.
 	 */
-	public static MonetaryAmount constraintAmount(MonetaryAmount amount,
-			MonetaryPredicate<MonetaryAmount> predicate) {
-		return new ConstraintMoney(Money.from(amount), predicate);
+	public static MonetaryAmount<?> constraintAmount(MonetaryAmount<?> amount,
+			MonetaryPredicate<MonetaryAmount<?>> predicate) {
+		return new ConstraintMoney(amount, predicate);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public final class ConstraintMonetaryAmount {
 	 * @author Anatole Tresch
 	 */
 	private static final class UnsignedPredicate implements
-			MonetaryPredicate<MonetaryAmount> {
+			MonetaryPredicate<MonetaryAmount<?>> {
 		public boolean test(MonetaryAmount amount) {
 			return Money.from(amount).signum() >= 0;
 		}

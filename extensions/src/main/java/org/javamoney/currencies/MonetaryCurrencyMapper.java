@@ -15,20 +15,19 @@
  */
 package org.javamoney.currencies;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryCurrencies;
+import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
-import org.javamoney.moneta.MoneyCurrency;
-import org.javamoney.moneta.UnknownCurrencyException;
 
 import com.ibm.icu.util.Currency;
 
@@ -45,7 +44,7 @@ import com.ibm.icu.util.Currency;
  */
 public final class MonetaryCurrencyMapper {
 
-	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = loadMonetaryCurrenciesSpi();
+	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = Bootstrap.getService(MonetaryCurrenciesSingletonSpi.class, new DefaultMonetaryCurrenciesSpi());
 
 	/**
 	 * Singleton constructor.
@@ -53,38 +52,6 @@ public final class MonetaryCurrencyMapper {
 	private MonetaryCurrencyMapper() {
 	}
 
-	/**
-	 * Method that loads the {@link MonetaryConversionsSpi} on class loading.
-	 * 
-	 * @return the instance or be registered into the shared variable.
-	 */
-	private static MonetaryCurrenciesSingletonSpi loadMonetaryCurrenciesSpi() {
-		try {
-			// try loading directly from ServiceLoader
-			Iterator<MonetaryCurrenciesSingletonSpi> instances = ServiceLoader
-					.load(
-							MonetaryCurrenciesSingletonSpi.class).iterator();
-			MonetaryCurrenciesSingletonSpi spiLoaded = null;
-			if (instances.hasNext()) {
-				spiLoaded = instances.next();
-				if (instances.hasNext()) {
-					throw new IllegalStateException(
-							"Ambigous reference to spi (only "
-									+ "one can be registered: "
-									+ MonetaryCurrenciesSingletonSpi.class
-											.getName());
-				}
-				return spiLoaded;
-			}
-		} catch (Throwable e) {
-			Logger.getLogger(MonetaryCurrenciesSingletonSpi.class.getName())
-					.log(
-							Level.INFO,
-							"No MonetaryConversionSpi registered, using  default.",
-							e);
-		}
-		return new DefaultMonetaryCurrenciesSpi();
-	}
 
 	/**
 	 * This method allows to evaluate, if the given currency namespace is
@@ -108,21 +75,6 @@ public final class MonetaryCurrencyMapper {
 		return CURRENCIES_SPI.getNamespaces();
 	}
 
-	/*-- Access of current currencies --*/
-	/**
-	 * Checks if a currency is defined using its namespace and code. This is a
-	 * convenience method for {@link #getCurrency(String, String)}, where as
-	 * namespace the default namespace is assumed.
-	 * 
-	 * @see #getDefaultNamespace()
-	 * @param code
-	 *            The code that, together with the namespace identifies the
-	 *            currency.
-	 * @return {@code true}, if the currency is defined.
-	 */
-	public static boolean isAvailable(String code) {
-		return CURRENCIES_SPI.isAvailable(code);
-	}
 
 	/**
 	 * Evaluates the currency namespace of a currency code.
@@ -134,21 +86,22 @@ public final class MonetaryCurrencyMapper {
 	 *            currency.
 	 * @return {@code true}, if the currency is defined.
 	 */
-	public static String getNamespace(String code) {
-		return CURRENCIES_SPI.getNamespace(code);
+	public static Collection<String> getNamespaces(String code) {
+		return CURRENCIES_SPI.getNamespaces(code);
 	}
-
+	
 	/**
-	 * Access a currency using its code.
+	 * Evaluates the currency namespace of a currency code.
 	 * 
+	 * @param namespace
+	 *            The currency namespace, e.g. 'ISO-4217'.
 	 * @param code
-	 *            The code that identifies the currency.
-	 * @return The {@link CurrencyUnit} found, never {@code null}.
-	 * @throws UnknownCurrencyException
-	 *             if the required {@link CurrencyUnit} is not defined.
+	 *            The code that, together with the namespace identifies the
+	 *            currency.
+	 * @return {@code true}, if the currency is defined.
 	 */
-	public static CurrencyUnit get(String code) {
-		return CURRENCIES_SPI.get(code);
+	public static Collection<String> getNamespaces(CurrencyUnit currencyUnit) {
+		return CURRENCIES_SPI.getNamespaces(currencyUnit);
 	}
 
 	/**
@@ -162,8 +115,8 @@ public final class MonetaryCurrencyMapper {
 	 * @throws UnknownCurrencyException
 	 *             if the required namespace is not defined.
 	 */
-	public static Collection<CurrencyUnit> getAll(String namespace) {
-		return CURRENCIES_SPI.getAll(namespace);
+	public static Collection<CurrencyUnit> getCurrencies(String namespace) {
+		return CURRENCIES_SPI.getCurrencies(namespace);
 	}
 
 	/**
@@ -214,7 +167,7 @@ public final class MonetaryCurrencyMapper {
 		private static final Set<String> ISO_NS_COLLECTION = new HashSet<String>();
 
 		static{
-			ISO_NS_COLLECTION.add(MoneyCurrency.ISO_NAMESPACE);
+			ISO_NS_COLLECTION.add("ISO-4217");
 		}
 		
 		/**
@@ -241,41 +194,6 @@ public final class MonetaryCurrencyMapper {
 		@Override
 		public Collection<String> getNamespaces() {
 			return ISO_NS_COLLECTION;
-		}
-
-		/*-- Access of current currencies --*/
-		/**
-		 * Checks if a currency is defined using its namespace and code. This is
-		 * a convenience method for {@link #getCurrency(String, String)}, where
-		 * as namespace the default namespace is assumed.
-		 * 
-		 * @see #getDefaultNamespace()
-		 * @param code
-		 *            The code that, together with the namespace identifies the
-		 *            currency.
-		 * @return {@code true}, if the currency is defined.
-		 */
-		@Override
-		public boolean isAvailable(String code) {
-			return Currency.isAvailable(code, null, null);
-		}
-
-		/**
-		 * Access a currency using its code. This is a convenience method for
-		 * {@link #getCurrency(String, String)}, where as namespace the default
-		 * namespace is assumed.
-		 * 
-		 * @see #getDefaultNamespace()
-		 * @param code
-		 *            The code that, together with the namespace identifies the
-		 *            currency.
-		 * @return The currency found, never {@code null}.
-		 * @throws UnknownCurrencyException
-		 *             if the required currency is not defined.
-		 */
-		@Override
-		public CurrencyUnit get(String code) {
-			return MoneyCurrency.of(code);
 		}
 
 		/**
@@ -318,8 +236,12 @@ public final class MonetaryCurrencyMapper {
 		 * .String)
 		 */
 		@Override
-		public Collection<CurrencyUnit> getAll(String namespace) {
-			return Collections.emptySet();
+		public Collection<CurrencyUnit> getCurrencies(String namespace) {
+			List<CurrencyUnit> result = new ArrayList<>();
+			for(Currency currency:Currency.getAvailableCurrencies()){
+				result.add(MonetaryCurrencies.getCurrency(currency.getCurrencyCode()));
+			}
+			return result;
 		}
 
 		/*
@@ -330,11 +252,26 @@ public final class MonetaryCurrencyMapper {
 		 * .lang.String)
 		 */
 		@Override
-		public String getNamespace(String code) {
+		public Set<String> getNamespaces(String code) {
 			if(Currency.isAvailable(code, null, null)){
-				return MoneyCurrency.ISO_NAMESPACE;
+				return ISO_NS_COLLECTION;
 			}
-			throw new IllegalArgumentException("Unknown currency: " + code);
+			return Collections.emptySet();
+		}
+		
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * javax.money.ext.spi.MonetaryCurrenciesSingletonSpi#getNamespace(java
+		 * .lang.String)
+		 */
+		@Override
+		public Set<String> getNamespaces(CurrencyUnit code) {
+			if(Currency.isAvailable(code.getCurrencyCode(), null, null)){
+				return ISO_NS_COLLECTION;
+			}
+			return Collections.emptySet();
 		}
 
 	}

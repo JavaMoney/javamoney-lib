@@ -19,7 +19,7 @@ import java.util.ServiceLoader;
 
 import javax.money.CurrencyUnit;
 
-import org.javamoney.currencies.AbstractCurrencyUnitMapperService;
+import org.javamoney.currencies.CurrencyUnitMapperService;
 import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
 
 
@@ -30,7 +30,7 @@ import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public class SECurrencyUnitMapperService extends AbstractCurrencyUnitMapperService {
+public class SECurrencyUnitMapperService extends CurrencyUnitMapperService {
 
     @Override
     protected Iterable<CurrencyUnitMapperSpi> getCurrencyUnitMapperSpis() {
