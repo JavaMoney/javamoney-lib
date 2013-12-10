@@ -23,7 +23,7 @@ import javax.money.CurrencyUnit;
  * This interface must be implemented and registered using the
  * {@code ServiceLoader}. It implements the functionality provided by the
  * {@code MonetaryCurrencies} singleton and is responsible for loading and
- * managing of {@link CurrencyUnitProviderSpi} and {@link CurrencyUnitMapperSpi}
+ * managing of {@link CurrencyUnitNamespaceSpi} and {@link CurrencyUnitMapperSpi}
  * instances and delegating according calls to the appropriate providers.
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
@@ -52,30 +52,6 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 * @return the array of currently defined namespace.
 	 */
 	public Collection<String> getNamespaces();
-
-	/**
-	 * Checks if a {@link CurrencyUnit} is defined using its namespace and code.
-	 * 
-	 * @param code
-	 *            The code that identifies the {@link CurrencyUnit}.
-	 * @return true, if the currency is defined.
-	 */
-	public boolean isAvailable(String code);
-
-	/**
-	 * Access a currency using its code. This is a convenience method for
-	 * {@link #getCurrency(String, String)}, where as namespace the default
-	 * namespace is assumed.
-	 * 
-	 * @see #getDefaultNamespace()
-	 * @param code
-	 *            The code that, together with the namespace identifies the
-	 *            currency.
-	 * @return The currency found, never {@code null}.
-	 * @throws UnknownCurrencyException
-	 *             if the required currency is not defined.
-	 */
-	public CurrencyUnit get(String code);
 
 	/**
 	 * This method maps the given {@link CurrencyUnit} to another
@@ -117,18 +93,24 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 * @throws UnknownCurrencyException
 	 *             if the required namespace is not defined.
 	 */
-	public Collection<CurrencyUnit> getAll(String namespace);
+	public Collection<CurrencyUnit> getCurrencies(String namespace);
 
 	/**
 	 * Evaluates the currency namespace of a currency code.
 	 * 
-	 * @param namespace
-	 *            The currency namespace, e.g. 'ISO-4217'.
 	 * @param code
-	 *            The code that, together with the namespace identifies the
-	 *            currency.
+	 *            The currency code.
 	 * @return {@code true}, if the currency is defined.
 	 */
-	public String getNamespace(String code);
+	public Collection<String> getNamespaces(String code);
+	
+	/**
+	 * Evaluates the currency namespace of a currency code.
+	 * 
+	 * @param code
+	 *            The currency code.
+	 * @return {@code true}, if the currency is defined.
+	 */
+	public Collection<String> getNamespaces(CurrencyUnit currency);
 
 }

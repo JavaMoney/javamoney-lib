@@ -20,6 +20,7 @@ import java.util.ServiceLoader;
 import java.util.Set;
 
 import javax.money.CurrencyUnit;
+import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
 import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
@@ -33,31 +34,11 @@ import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public abstract class AbstractCurrencyUnitMapperService {
-	/** Loaded currency mappers. */
-	private Set<CurrencyUnitMapperSpi> mappers = new HashSet<CurrencyUnitMapperSpi>();
-
-	/**
-	 * COnstructor, also loading the registered spi's.
-	 */
-	public AbstractCurrencyUnitMapperService() {
-		reload();
-	}
-
-	/**
-	 * This method reloads the providers available from the
-	 * {@link ServiceLoader}. This adds providers that were not yet visible
-	 * before.
-	 */
-	@SuppressWarnings("unchecked")
-	public void reload() {
-		for (CurrencyUnitMapperSpi currencyMappingSPI : getCurrencyUnitMapperSpis()) {
-			mappers.add(currencyMappingSPI);
-		}
-	}
+public class CurrencyUnitMapperService {
 
 	public CurrencyUnit map(String targetNamespace, CurrencyUnit unit) {
-		for (CurrencyUnitMapperSpi prov : mappers) {
+		for (CurrencyUnitMapperSpi prov : Bootstrap
+				.getServices(CurrencyUnitMapperSpi.class)) {
 			CurrencyUnit mappedUnit = prov.map(unit, targetNamespace, null);
 			if (mappedUnit != null) {
 				return mappedUnit;
@@ -66,12 +47,13 @@ public abstract class AbstractCurrencyUnitMapperService {
 		return null;
 	}
 
-
-	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace, Long timestamp) {
+	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
+			Long timestamp) {
 		if (timestamp == null) {
 			return map(targetNamespace, currencyUnit);
 		}
-		for (CurrencyUnitMapperSpi prov : mappers) {
+		for (CurrencyUnitMapperSpi prov : Bootstrap
+				.getServices(CurrencyUnitMapperSpi.class)) {
 			CurrencyUnit mappedUnit = prov.map(currencyUnit, targetNamespace,
 					timestamp);
 			if (mappedUnit != null) {
@@ -80,7 +62,5 @@ public abstract class AbstractCurrencyUnitMapperService {
 		}
 		return null;
 	}
-
-	protected abstract Iterable<CurrencyUnitMapperSpi> getCurrencyUnitMapperSpis();
 
 }

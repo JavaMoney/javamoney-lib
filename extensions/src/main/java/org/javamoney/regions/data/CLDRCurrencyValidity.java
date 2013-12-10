@@ -27,12 +27,12 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryCurrencies;
 
 import org.javamoney.data.icu4j.CLDRSupplementalData;
 import org.javamoney.data.icu4j.CLDRSupplementalData.Currency4Region;
 import org.javamoney.data.icu4j.CLDRSupplementalData.CurrencyRegionRecord;
 import org.javamoney.data.icu4j.ICURegionData;
-import org.javamoney.moneta.MoneyCurrency;
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionType;
 import org.javamoney.regions.Regions;
@@ -215,7 +215,7 @@ public class CLDRCurrencyValidity implements RelatedValidityProviderSpi {
 								.getRegionType()
 								.name());
 						RelatedValidityInfo<T, R> vi = new RelatedValidityInfo<T, R>(
-								(T) MoneyCurrency.of(data.getCurrencyCode()),
+								(T) MonetaryCurrencies.getCurrency(data.getCurrencyCode()),
 								(R) Regions.getRegion(regionType,
 										data.getRegionCode()),
 								query.getValidityType(),

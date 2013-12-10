@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import javax.money.bootstrap.Bootstrap;
+
 import org.javamoney.regions.AbstractRegionProviderService;
 import org.javamoney.regions.spi.RegionProviderSpi;
 
@@ -35,8 +37,7 @@ public class SERegionProviderService extends AbstractRegionProviderService {
     protected Iterable<RegionProviderSpi> getRegionProviderSpis() {
         if(regionProviderSpis==null){
             List<RegionProviderSpi> load = new ArrayList<RegionProviderSpi>();
-            ServiceLoader<RegionProviderSpi> services = ServiceLoader.load(RegionProviderSpi.class);
-            for (RegionProviderSpi regionProviderSpi : services) {
+            for (RegionProviderSpi regionProviderSpi : Bootstrap.getServices(RegionProviderSpi.class)) {
                 load.add(regionProviderSpi);
             }
             this.regionProviderSpis = load;

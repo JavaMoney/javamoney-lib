@@ -18,16 +18,13 @@ package org.javamoney.currencies.spi;
 import java.util.ServiceLoader;
 
 import javax.money.CurrencyUnit;
+import javax.money.bootstrap.Bootstrap;
 
 /**
- * This class models the component defined by JSR 354 that provides mappings for
- * {@link CurrencyUnit} instances. It is used by the
- * {@link MonetaryCurrenciesSingletonSpi} implementation.<br/>
- * It is the responsibility of the registered
- * {@link MonetaryCurrenciesSingletonSpi} to load the and manage the instances
- * of {@link CurrencyUnitMapperSpi}. Depending on the runtime environment,
- * implementations may be loaded using the {@link ServiceLoader}. But also
- * alternate mechanisms are possible, e.g. CDI.
+ * This class models mappings for {@link CurrencyUnit} instances. It is used by
+ * the {@link MonetaryCurrenciesSingletonSpi} implementation.<br/>
+ * It is the responsibility of the {@link Bootstrap} loader to load the and
+ * manage the instances of {@link CurrencyUnitMapperSpi}. 
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
  * in a EE context.
@@ -50,4 +47,5 @@ public interface CurrencyUnitMapperSpi {
 	 */
 	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
 			Long timestamp);
+
 }

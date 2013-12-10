@@ -96,7 +96,7 @@ public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 			return String.valueOf(currency.getNumericCode());
 		}
 		// check for iso currencies
-		if (MonetaryCurrencies.isJavaCurrency(currency.getCurrencyCode())) {
+		if (isJavaCurrency(currency.getCurrencyCode())) {
 			Currency isoCurrency = Currency.getInstance(currency.getCurrencyCode());
 			switch (renderedField) {
 			case SYMBOL:
@@ -107,6 +107,15 @@ public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 		}
 		// Overall fallback, return code...
 		return currency.getCurrencyCode();
+	}
+
+	private boolean isJavaCurrency(String currencyCode) {
+		try {
+			Currency.getInstance(currencyCode);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override

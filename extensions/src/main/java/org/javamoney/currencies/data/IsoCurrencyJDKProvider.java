@@ -18,65 +18,59 @@ package org.javamoney.currencies.data;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryCurrencies;
+import javax.money.spi.CurrencyProviderSpi;
 
-import org.javamoney.currencies.spi.CurrencyUnitProviderSpi;
-import org.javamoney.moneta.MoneyCurrency;
-
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
 
 /**
- * Basic implementation of a {@link CurrencyUnitProviderSpi} that provides the
+ * Basic implementation of a {@link CurrencyUnitNamespaceSpi} that provides the
  * ISO 4217 currencies available from the JDK {@link Currency} class.
  * 
  * @author Anatole Tresch
  * @author Werner Keil
  */
 @Singleton
-public class IsoCurrencyJDKProvider implements CurrencyUnitProviderSpi {
+public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 
-    private final Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<String, CurrencyUnit>();
+	private final Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<String, CurrencyUnit>();
 
-    
-    
-    public IsoCurrencyJDKProvider() {
-	Set<Currency> jdkCurrencies = Currency.getAvailableCurrencies();
-	for (Currency jdkCurrency : jdkCurrencies) {
-	    CurrencyUnit currency = MoneyCurrency.of(jdkCurrency);
-	    this.currencies.put(currency.getCurrencyCode(), currency);
+	public IsoCurrencyJDKProvider() {
+		Set<Currency> jdkCurrencies = Currency.getAvailableCurrencies();
+		for (Currency jdkCurrency : jdkCurrencies) {
+			CurrencyUnit currency = MonetaryCurrencies.getCurrency(jdkCurrency
+					.getCurrencyCode());
+			this.currencies.put(currency.getCurrencyCode(), currency);
+		}
 	}
-    }
 
-    public String getNamespace() {
-    	return MoneyCurrency.ISO_NAMESPACE;
-    }
+	@Override
+	public CurrencyUnit getCurrencyUnit(String currencyCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    public CurrencyUnit get(String code) {
-    	return this.currencies.get(code);
-    }
+	@Override
+	public CurrencyUnit getCurrencyUnit(Locale locale) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-//    public Collection<CurrencyUnit> getCurrencies(Locale locale) {
-//	if (locale != null && locale.getCountry().length() == 2) {
-//	    Currency currency = Currency.getInstance(locale);
-//	    if (currency != null) {
-//		List<CurrencyUnit> result = new ArrayList<CurrencyUnit>();
-//		result.add(this.currencies.get(currency.getCurrencyCode()));
-//		return result;
-//	    }
-//	}
-//	return null;
-//    }
+	@Override
+	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
+		return null;
+	}
 
-    public Collection<CurrencyUnit> getAll() {
-    	return Collections.unmodifiableCollection(this.currencies.values());
-    }
-
-    public boolean isAvailable(String code) {
-    	return this.currencies.containsKey(code);
-    }
+	@Override
+	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
+		return null;
+	}
 
 }
