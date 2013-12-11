@@ -43,6 +43,7 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.CurrencyConverter;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
+import org.javamoney.util.BuildableCurrencyUnit;
 import org.javamoney.util.loader.AbstractResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,10 +67,9 @@ public class IMFConversionProvider extends AbstractResource
 	private static final ExchangeRateType RATE_TYPE = ExchangeRateType
 			.of(IMF_STR);
 
-	private static final CurrencyUnit SDR = MonetaryCurrencies
-			.getCurrency("SDR");
-	// .setDefaultFractionDigits(3).setCurrencyCode("SDR").setNumericCode(-1)
-	// .build(true);
+	private static final CurrencyUnit SDR = new BuildableCurrencyUnit.Builder(
+			"SDR").setDefaultFractionDigits(3)
+			.build(true);
 
 	private Map<CurrencyUnit, List<ExchangeRate>> currencyToSdr = new HashMap<CurrencyUnit, List<ExchangeRate>>();
 

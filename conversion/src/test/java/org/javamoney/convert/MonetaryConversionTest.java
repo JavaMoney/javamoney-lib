@@ -23,36 +23,36 @@ import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.MonetaryConversions;
 import org.javamoney.convert.TestMonetaryConversionSpi.DummyConversionProvider;
+import org.javamoney.convert.provider.CompoundConversionProvider;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore("all tests fail here!")
 public class MonetaryConversionTest {
 
 	@Test
 	public void testGetConversionProvider() {
 		ConversionProvider prov = MonetaryConversions
-				.getConversionProvider(ExchangeRateType.of("test"));
+				.getConversionProvider(ExchangeRateType.of("EZB"));
 		assertTrue(prov != null);
-		assertEquals(DummyConversionProvider.class, prov.getClass());
+		assertEquals(CompoundConversionProvider.class, prov.getClass());
 	}
 
 	@Test
 	public void testGetSupportedExchangeRateTypes() {
-		ExchangeRateType.of("test");
 		Collection<ExchangeRateType> types = MonetaryConversions
 			.getSupportedExchangeRateTypes();
 		assertNotNull(types);
 		assertTrue(types.size() >= 1);
-		assertTrue(types.contains(ExchangeRateType.of("test")));
+		assertTrue(types.contains(ExchangeRateType.of("IMF")));
+		assertTrue(types.contains(ExchangeRateType.of("EZB")));
 	}
 
 	@Test
 	public void testIsSupportedExchangeRateType() {
 		assertTrue(MonetaryConversions
-				.isSupportedExchangeRateType(ExchangeRateType.of("test")));
+				.isSupportedExchangeRateType(ExchangeRateType.of("IMF")));
 		assertFalse(MonetaryConversions
-				.isSupportedExchangeRateType(ExchangeRateType.of("test2")));
+				.isSupportedExchangeRateType(ExchangeRateType.of("foo")));
 	}
 
 }

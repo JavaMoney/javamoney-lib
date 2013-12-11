@@ -34,7 +34,7 @@ public class PresentValueTest {
 		PresentValue f = new PresentValue(new Rate(0.05), 1);
 		Money money = Money.of("CHF", 100);
 		MonetaryOperator rounding = MonetaryRoundings
-				.getRounding(new MonetaryContext.Builder().setPrecision(2)
+				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
 						.setAttribute(
 								RoundingMode.HALF_EVEN).build());
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.apply(money)

@@ -57,7 +57,7 @@ public class SERegionsSingletonSpi implements RegionsSingletonSpi {
 	/**
 	 * Loaded region providers.
 	 */
-	private AbstractExtendedRegionDataService regionDataService = new SEExtendedRegionDataService();
+	private AbstractExtendedRegionDataService regionDataService = new ExtendedRegionDataService();
 
 	@Override
 	public Region getRegion(RegionType type, int numericId) {

@@ -1,0 +1,3 @@
+org.javamoney.convert.provider.EZBCurrentConversionProvider
+org.javamoney.convert.provider.EZBHistoricConversionProvider
+org.javamoney.convert.provider.IMFConversionProvider

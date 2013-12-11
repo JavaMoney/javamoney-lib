@@ -17,10 +17,9 @@ package org.javamoney.convert;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.ServiceLoader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.convert.spi.MonetaryConversionsSingletonSpi;
 
@@ -53,43 +52,13 @@ public final class MonetaryConversions {
 	 * The SPI currently active, use {@link ServiceLoader} to register an
 	 * alternate implementation.
 	 */
-	private static final MonetaryConversionsSingletonSpi MONETARY_CONVERSION_SPI = loadMonetaryConversionSpi();
+	private static final MonetaryConversionsSingletonSpi MONETARY_CONVERSION_SPI = Bootstrap
+			.getService(MonetaryConversionsSingletonSpi.class);
 
 	/**
 	 * Private singleton constructor.
 	 */
 	private MonetaryConversions() {
-	}
-
-	/**
-	 * Method that loads the {@link MonetaryConversionsSpi} on class loading.
-	 * 
-	 * @return the instance ot be registered into the shared variable.
-	 */
-	private static MonetaryConversionsSingletonSpi loadMonetaryConversionSpi() {
-		try {
-			// try loading directly from ServiceLoader
-			Iterator<MonetaryConversionsSingletonSpi> instances = ServiceLoader
-					.load(
-							MonetaryConversionsSingletonSpi.class).iterator();
-			MonetaryConversionsSingletonSpi spiLoaded = null;
-			if (instances.hasNext()) {
-				spiLoaded = instances.next();
-				if (instances.hasNext()) {
-					throw new IllegalStateException(
-							"Ambigous reference to spi (only "
-									+ "one can be registered: "
-									+ MonetaryConversionsSingletonSpi.class
-											.getName());
-				}
-				return spiLoaded;
-			}
-		} catch (Throwable e) {
-			Logger.getLogger(MonetaryConversions.class.getName()).log(
-					Level.WARNING,
-					"No MonetaryConversionSpi registered, using  default.", e);
-		}
-		return new DefaultMonetaryConversionsSpi();
 	}
 
 	/**

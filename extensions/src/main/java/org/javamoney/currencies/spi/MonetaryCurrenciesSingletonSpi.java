@@ -16,6 +16,7 @@
 package org.javamoney.currencies.spi;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.money.CurrencyUnit;
 
@@ -51,7 +52,7 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 * 
 	 * @return the array of currently defined namespace.
 	 */
-	public Collection<String> getNamespaces();
+	public Set<String> getNamespaces();
 
 	/**
 	 * This method maps the given {@link CurrencyUnit} to another
@@ -93,7 +94,7 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 * @throws UnknownCurrencyException
 	 *             if the required namespace is not defined.
 	 */
-	public Collection<CurrencyUnit> getCurrencies(String namespace);
+	public Set<CurrencyUnit> getCurrencies(String namespace);
 
 	/**
 	 * Evaluates the currency namespace of a currency code.
@@ -102,7 +103,7 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 *            The currency code.
 	 * @return {@code true}, if the currency is defined.
 	 */
-	public Collection<String> getNamespaces(String code);
+	public Set<String> getNamespaces(String code);
 	
 	/**
 	 * Evaluates the currency namespace of a currency code.
@@ -111,6 +112,6 @@ public interface MonetaryCurrenciesSingletonSpi {
 	 *            The currency code.
 	 * @return {@code true}, if the currency is defined.
 	 */
-	public Collection<String> getNamespaces(CurrencyUnit currency);
+	public Set<String> getNamespaces(CurrencyUnit currency);
 
 }

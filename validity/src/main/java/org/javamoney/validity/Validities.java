@@ -23,9 +23,13 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.money.bootstrap.Bootstrap;
+
 import org.javamoney.validity.spi.RelatedValidityProviderSpi;
 import org.javamoney.validity.spi.ValiditiesSingletonSpi;
 import org.javamoney.validity.spi.ValidityProviderSpi;
+
+import com.ibm.icu.util.Region;
 
 /**
  * This is the service component for accessing {@link ValidityInfo} and
@@ -43,7 +47,7 @@ public final class Validities {
 	/**
 	 * The spi registered, to which this singleton delegstes all calls.
 	 */
-	private static final ValiditiesSingletonSpi VALIDITIES_SPI = loadValiditiesSpi();
+	private static final ValiditiesSingletonSpi VALIDITIES_SPI = Bootstrap.getService(ValiditiesSingletonSpi.class);
 
 	/**
 	 * Singleton constructor.
