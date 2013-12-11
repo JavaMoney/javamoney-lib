@@ -40,11 +40,12 @@ import com.ibm.icu.util.Currency;
  * 
  * @author Anatole Tresch
  * @author Werner Keil
- * @version 0.9.1
+ * @version 0.9.2
  */
 public final class MonetaryCurrencyMapper {
 
-	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = Bootstrap.getService(MonetaryCurrenciesSingletonSpi.class, new DefaultMonetaryCurrenciesSpi());
+	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = Bootstrap.getServiceProvider()
+			.getService(MonetaryCurrenciesSingletonSpi.class, new DefaultMonetaryCurrenciesSpi());
 
 	/**
 	 * Singleton constructor.

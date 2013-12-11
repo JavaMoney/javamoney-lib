@@ -15,10 +15,6 @@
  */
 package org.javamoney.currencies;
 
-import java.util.HashSet;
-import java.util.ServiceLoader;
-import java.util.Set;
-
 import javax.money.CurrencyUnit;
 import javax.money.bootstrap.Bootstrap;
 
@@ -37,7 +33,7 @@ import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
 public class CurrencyUnitMapperService {
 
 	public CurrencyUnit map(String targetNamespace, CurrencyUnit unit) {
-		for (CurrencyUnitMapperSpi prov : Bootstrap
+		for (CurrencyUnitMapperSpi prov : Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitMapperSpi.class)) {
 			CurrencyUnit mappedUnit = prov.map(unit, targetNamespace, null);
 			if (mappedUnit != null) {
@@ -52,7 +48,7 @@ public class CurrencyUnitMapperService {
 		if (timestamp == null) {
 			return map(targetNamespace, currencyUnit);
 		}
-		for (CurrencyUnitMapperSpi prov : Bootstrap
+		for (CurrencyUnitMapperSpi prov : Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitMapperSpi.class)) {
 			CurrencyUnit mappedUnit = prov.map(currencyUnit, targetNamespace,
 					timestamp);

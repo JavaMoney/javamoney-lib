@@ -50,7 +50,7 @@ public class CurrencyUnitProviderService {
 	 */
 	public Collection<CurrencyUnit> getCurrencies(String namespace) {
 		Set<CurrencyUnit> result = new HashSet<CurrencyUnit>();
-		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap
+		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitNamespaceSpi.class);
 		if (provList == null) {
 			return null;
@@ -71,7 +71,7 @@ public class CurrencyUnitProviderService {
 	 */
 	public Set<String> getNamespaces() {
 		Set<String> result = new HashSet<String>();
-		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap
+		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitNamespaceSpi.class);
 		if (provList == null) {
 			return null;
@@ -83,7 +83,7 @@ public class CurrencyUnitProviderService {
 	}
 
 	public boolean isNamespaceAvailable(String namespace) {
-		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap
+		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitNamespaceSpi.class);
 		if (provList == null) {
 			return false;
@@ -98,7 +98,7 @@ public class CurrencyUnitProviderService {
 
 	public Set<String> getNamespaces(String code) {
 		Set<String> result = new HashSet<>();
-		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap
+		Collection<CurrencyUnitNamespaceSpi> provList = Bootstrap.getServiceProvider()
 				.getServices(CurrencyUnitNamespaceSpi.class);
 		if (provList == null) {
 			return result;
