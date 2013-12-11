@@ -17,32 +17,31 @@ package org.javamoney.regions.serv;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
-
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.regions.AbstractRegionProviderService;
 import org.javamoney.regions.spi.RegionProviderSpi;
 
-
 /**
- *
+ * 
  * @author Anatole
+ * @author Werner
  */
 public class SERegionProviderService extends AbstractRegionProviderService {
 
-    private List<RegionProviderSpi> regionProviderSpis;
-    
-    @Override
-    protected Iterable<RegionProviderSpi> getRegionProviderSpis() {
-        if(regionProviderSpis==null){
-            List<RegionProviderSpi> load = new ArrayList<RegionProviderSpi>();
-            for (RegionProviderSpi regionProviderSpi : Bootstrap.getServices(RegionProviderSpi.class)) {
-                load.add(regionProviderSpi);
-            }
-            this.regionProviderSpis = load;
-        }
-        return regionProviderSpis;
-    }
-    
+	private List<RegionProviderSpi> regionProviderSpis;
+
+	@Override
+	protected Iterable<RegionProviderSpi> getRegionProviderSpis() {
+		if (regionProviderSpis == null) {
+			List<RegionProviderSpi> load = new ArrayList<RegionProviderSpi>();
+			for (RegionProviderSpi regionProviderSpi : Bootstrap
+					.getServices(RegionProviderSpi.class)) {
+				load.add(regionProviderSpi);
+			}
+			this.regionProviderSpis = load;
+		}
+		return regionProviderSpis;
+	}
+
 }

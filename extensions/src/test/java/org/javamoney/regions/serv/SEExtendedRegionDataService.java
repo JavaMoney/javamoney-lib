@@ -17,7 +17,6 @@ package org.javamoney.regions.serv;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 import javax.money.bootstrap.Bootstrap;
 
@@ -27,6 +26,7 @@ import org.javamoney.regions.spi.ExtendedRegionDataProviderSpi;
 /**
  * 
  * @author Anatole
+ * @author Werner
  */
 public class SEExtendedRegionDataService extends
 		AbstractExtendedRegionDataService {
@@ -34,14 +34,15 @@ public class SEExtendedRegionDataService extends
 	private List<ExtendedRegionDataProviderSpi> regionDataProviderSpis;
 
 	@Override
-    protected Iterable<ExtendedRegionDataProviderSpi> getExtendedRegionDataProviderSpis() {
-        if(regionDataProviderSpis==null){
-            List<ExtendedRegionDataProviderSpi> load = new ArrayList<ExtendedRegionDataProviderSpi>();
-            for (ExtendedRegionDataProviderSpi regionDataProviderSpi: Bootstrap.getServices(ExtendedRegionDataProviderSpi.class)) {
-                load.add(regionDataProviderSpi );
-            }
-            this.regionDataProviderSpis = load;
-        }
-        return regionDataProviderSpis;
-    }
+	protected Iterable<ExtendedRegionDataProviderSpi> getExtendedRegionDataProviderSpis() {
+		if (regionDataProviderSpis == null) {
+			List<ExtendedRegionDataProviderSpi> load = new ArrayList<ExtendedRegionDataProviderSpi>();
+			for (ExtendedRegionDataProviderSpi regionDataProviderSpi : Bootstrap
+					.getServices(ExtendedRegionDataProviderSpi.class)) {
+				load.add(regionDataProviderSpi);
+			}
+			this.regionDataProviderSpis = load;
+		}
+		return regionDataProviderSpis;
+	}
 }
