@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.money.bootstrap.Bootstrap;
+
 import org.javamoney.regions.spi.RegionsSingletonSpi;
 
 /**
@@ -40,7 +42,7 @@ public final class Regions {
 	 * The spi currently active, use {@link ServiceLoader} to register an
 	 * implementation.
 	 */
-	private static final RegionsSingletonSpi REGION_SPI = loadMonetaryRegionSpi();
+	private static final RegionsSingletonSpi REGION_SPI = Bootstrap.getService(RegionsSingletonSpi.class);
 
 	/**
 	 * Private singleton constructor.
@@ -162,34 +164,6 @@ public final class Regions {
 		return REGION_SPI.getRegionTree(treeId);
 	}
 
-	/**
-	 * Method that loads the {@link MonetaryConversionSpi} on class loading.
-	 * 
-	 * @return the instance ot be registered into the shared variable.
-	 */
-	private static RegionsSingletonSpi loadMonetaryRegionSpi() {
-		try {
-			// try loading directly from ServiceLoader
-			Iterator<RegionsSingletonSpi> instances = ServiceLoader.load(
-					RegionsSingletonSpi.class).iterator();
-			RegionsSingletonSpi spiLoaded = null;
-			if (instances.hasNext()) {
-				spiLoaded = instances.next();
-				if (instances.hasNext()) {
-					throw new IllegalStateException(
-							"Ambigous reference to spi (only "
-									+ "one can be registered: "
-									+ RegionsSingletonSpi.class.getName());
-				}
-				return spiLoaded;
-			}
-		} catch (Throwable e) {
-			Logger.getLogger(RegionsSingletonSpi.class.getName()).log(
-					Level.INFO,
-					"No MonetaryRegionSpi registered, using  default.", e);
-		}
-		return new DefaultMonetaryRegionsSpi();
-	}
 
 	/**
 	 * This class represents the default implementation of

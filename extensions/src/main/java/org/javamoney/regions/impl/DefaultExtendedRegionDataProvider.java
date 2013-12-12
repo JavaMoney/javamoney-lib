@@ -13,16 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.regions;
+package org.javamoney.regions.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.regions.Region;
 import org.javamoney.regions.spi.ExtendedRegionDataProviderSpi;
-import org.javamoney.regions.spi.RegionProviderSpi;
 import org.javamoney.regions.spi.RegionsSingletonSpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +36,12 @@ import org.slf4j.LoggerFactory;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public abstract class AbstractExtendedRegionDataService {
-	/** The logger used. */
-	private static final Logger LOG = LoggerFactory
-			.getLogger(AbstractExtendedRegionDataService.class);
+public class DefaultExtendedRegionDataProvider implements ExtendedRegionDataProviderSpi{
 
 	public Collection<Class> getExtendedRegionDataTypes(Region region) {
 		Set<Class> dataTypes = new HashSet<Class>();
-		for (ExtendedRegionDataProviderSpi prov : getExtendedRegionDataProviderSpis()) {
+		for (ExtendedRegionDataProviderSpi prov : Bootstrap
+				.getServices(ExtendedRegionDataProviderSpi.class)) {
 			dataTypes.addAll(prov.getExtendedRegionDataTypes(region));
 		}
 		return dataTypes;
@@ -55,7 +53,8 @@ public abstract class AbstractExtendedRegionDataService {
 	 * @see javax.money.ext.Region#getRegionData(java.lang.Class)
 	 */
 	public <T> T getExtendedRegionData(Region region, Class<T> type) {
-		for (ExtendedRegionDataProviderSpi prov : getExtendedRegionDataProviderSpis()) {
+		for (ExtendedRegionDataProviderSpi prov : Bootstrap
+				.getServices(ExtendedRegionDataProviderSpi.class)) {
 			if (prov.getExtendedRegionDataTypes(region).contains(type)) {
 				T data = (T) prov.getExtendedRegionData(region, type);
 				if (data != null) {
@@ -67,12 +66,4 @@ public abstract class AbstractExtendedRegionDataService {
 				+ ", use one of " + getExtendedRegionDataTypes(region));
 	}
 
-	/**
-	 * Method to return all {@link RegionProviderSpi} instances. This allows to
-	 * use different loading mechanisms, depending on the target runtime
-	 * environment.
-	 * 
-	 * @return the {@link RegionProviderSpi} instances loaded.
-	 */
-	protected abstract Iterable<ExtendedRegionDataProviderSpi> getExtendedRegionDataProviderSpis();
 }

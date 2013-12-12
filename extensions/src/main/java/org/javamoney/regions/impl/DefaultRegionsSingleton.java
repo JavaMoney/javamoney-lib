@@ -13,19 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.regions;
+package org.javamoney.regions.impl;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
+import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.regions.Region;
+import org.javamoney.regions.RegionTreeNode;
 import org.javamoney.regions.RegionType;
 import org.javamoney.regions.spi.RegionProviderSpi;
+import org.javamoney.regions.spi.RegionTreeProviderSpi;
 import org.javamoney.regions.spi.RegionsSingletonSpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,53 +40,12 @@ import org.slf4j.LoggerFactory;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public abstract class AbstractRegionProviderService {
+public abstract class DefaultRegionsSingleton implements RegionsSingletonSpi{
 	/** The logger used. */
 	private static final Logger LOG = LoggerFactory
-			.getLogger(AbstractRegionProviderService.class);
+			.getLogger(DefaultRegionsSingleton.class);
 
-	/**
-	 * Access all regions for a given {@link RegionType}.
-	 * 
-	 * @param type
-	 *            The region type, not null.
-	 * @return the regions found, never null.
-	 */
-	private Collection<Region> getAll(RegionType type) {
-		Set<Region> result = new HashSet<Region>();
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
-			Collection<Region> regions = prov.getRegions(type);
-			if (regions == null || regions.isEmpty()) {
-				LOG.warn("Provider did not provide any regions: "
-						+ prov.getClass().getName());
-			} else {
-				result.addAll(regions);
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Access all regions.
-	 * 
-	 * @return the regions found, never null.
-	 */
-	private Collection<Region> getAll() {
-		Set<Region> result = new HashSet<Region>();
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
-			Collection<RegionType> types = prov.getRegionTypes();
-			for (RegionType t : types) {
-				Collection<Region> regions = prov.getRegions(t);
-				if (regions == null || regions.isEmpty()) {
-					LOG.warn("Provider did not provide any regions: "
-							+ prov.getClass().getName());
-				} else {
-					result.addAll(regions);
-				}
-			}
-		}
-		return result;
-	}
+	
 
 	/**
 	 * Access a {@link Region} by {@link RegionType} and its numeric id.
@@ -98,8 +58,9 @@ public abstract class AbstractRegionProviderService {
 	 * @throws IllegalArgumentException
 	 *             , if no such region could be found.
 	 */
+	@Override
 	public Region getRegion(RegionType type, int numericId) {
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
 			Region reg = prov.getRegion(type, numericId);
 			if (reg != null) {
 				return reg;
@@ -120,8 +81,9 @@ public abstract class AbstractRegionProviderService {
 	 * @throws IllegalArgumentException
 	 *             , if no such region could be found.
 	 */
+	@Override
 	public Region getRegion(RegionType type, String code) {
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
 			Region reg = prov.getRegion(type, code);
 			if (reg != null) {
 				return reg;
@@ -138,9 +100,10 @@ public abstract class AbstractRegionProviderService {
 	 * @return the {@link RegionType} instances defined by the registered
 	 *         {@link RegionProviderSpi} instances.
 	 */
+	@Override
 	public Set<RegionType> getRegionTypes() {
 		Set<RegionType> result = new HashSet<RegionType>();
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
 			Collection<RegionType> regionTypes = prov.getRegionTypes();
 			if (regionTypes == null || regionTypes.isEmpty()) {
 				LOG.warn("Provider did not provide any regions: "
@@ -159,9 +122,10 @@ public abstract class AbstractRegionProviderService {
 	 *            the region's type
 	 * @return all {@link Region} instances with the given type.
 	 */
+	@Override
 	public Collection<Region> getRegions(RegionType type) {
 		Set<Region> result = new HashSet<Region>();
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
 			Collection<Region> regions = prov.getRegions(type);
 			if (regions == null || regions.isEmpty()) {
 				LOG.warn("Provider did not provide any regions: "
@@ -180,8 +144,9 @@ public abstract class AbstractRegionProviderService {
 	 *            The locale
 	 * @return the region found, or {@code null}
 	 */
+	@Override
 	public Region getRegion(Locale locale) {
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
 			Region region = prov.getRegion(locale);
 			if (region != null) {
 				return region;
@@ -189,26 +154,55 @@ public abstract class AbstractRegionProviderService {
 		}
 		return null;
 	}
-
+	
 	/**
-	 * Access all registered {@link RegionProviderSpi} instances.
+	 * Access a set of Region instances that are defined to be graph root
+	 * regions, which are identifiable entry points into the region graph.
 	 * 
-	 * @return all registered {@link RegionProviderSpi} instances.
+	 * @return the root graph {@link Region}s defined by this spi, not null.
 	 */
-	public Map<Class, RegionProviderSpi> getRegisteredRegionProviderSpis() {
-		Map<Class, RegionProviderSpi> regionProviders = new HashMap<Class, RegionProviderSpi>();
-		for (RegionProviderSpi prov : getRegionProviderSpis()) {
-			regionProviders.put(prov.getClass(), prov);
+	@Override
+	public RegionTreeNode getRegionTree(String treeId) {
+		for (RegionTreeProviderSpi prov : Bootstrap.getServices(RegionTreeProviderSpi.class)) {
+			try {
+				if (treeId.equals(prov.getTreeId())) {
+					RegionTreeNode node = prov.getRegionTree();
+					if (node == null) {
+						LOG.error("Error accessing RegionTree: " + treeId
+								+ " from " + prov.getClass().getName()
+								+ ": provider returned null.");
+						return null;
+					}
+					return node;
+				}
+			} catch (Exception e) {
+				LOG.error("Error initializing RegionTreeProviderSpi: "
+						+ prov.getClass().getName(), e);
+			}
 		}
-		return regionProviders;
+		return null;
 	}
 
 	/**
-	 * Method to return all {@link RegionProviderSpi} instances. This allows to
-	 * use different loading mechanisms, depending on the target runtime
-	 * environment.
+	 * Access all regions.
 	 * 
-	 * @return the {@link RegionProviderSpi} instances loaded.
+	 * @return the regions found, never null.
 	 */
-	protected abstract Iterable<RegionProviderSpi> getRegionProviderSpis();
+	private Collection<Region> getAllRegions() {
+		Set<Region> result = new HashSet<Region>();
+		for (RegionProviderSpi prov : Bootstrap.getServices(RegionProviderSpi.class)) {
+			Collection<RegionType> types = prov.getRegionTypes();
+			for (RegionType t : types) {
+				Collection<Region> regions = prov.getRegions(t);
+				if (regions == null || regions.isEmpty()) {
+					LOG.warn("Provider did not provide any regions: "
+							+ prov.getClass().getName());
+				} else {
+					result.addAll(regions);
+				}
+			}
+		}
+		return result;
+	}
+
 }

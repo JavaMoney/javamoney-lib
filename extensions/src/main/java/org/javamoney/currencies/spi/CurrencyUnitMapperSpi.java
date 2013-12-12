@@ -22,7 +22,7 @@ import javax.money.bootstrap.Bootstrap;
 
 /**
  * This class models mappings for {@link CurrencyUnit} instances. It is used by
- * the {@link MonetaryCurrenciesSingletonSpi} implementation.<br/>
+ * the {@link CurrencyMappingsSingletonSpi} implementation.<br/>
  * It is the responsibility of the {@link Bootstrap} loader to load the and
  * manage the instances of {@link CurrencyUnitMapperSpi}. 
  * <p>

@@ -28,10 +28,10 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 import javax.money.spi.CurrencyProviderSpi;
 
-import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
 
 /**
- * Basic implementation of a {@link CurrencyUnitNamespaceSpi} that provides the
+ * Basic implementation of a {@link CurrencyUnitNamespaceProviderSpi} that provides the
  * ISO 4217 currencies available from the JDK {@link Currency} class.
  * 
  * @author Anatole Tresch

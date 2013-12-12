@@ -20,7 +20,7 @@ import java.util.Set;
 import javax.money.CurrencyUnit;
 import javax.money.bootstrap.Bootstrap;
 
-import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
 import org.javamoney.util.UnknownCurrencyException;
 
 /**
@@ -29,15 +29,15 @@ import org.javamoney.util.UnknownCurrencyException;
  * and/or namespaces.
  * <p>
  * This class is thread-safe. However it delegates all calls to the registered
- * {@link MonetaryCurrenciesSingletonSpi} SPI.
+ * {@link CurrencyMappingsSingletonSpi} SPI.
  * 
  * @author Anatole Tresch
  * @author Werner Keil
  */
 public final class CurrencyMappings {
 
-	private static final MonetaryCurrenciesSingletonSpi CURRENCIES_SPI = Bootstrap
-			.getService(MonetaryCurrenciesSingletonSpi.class);
+	private static final CurrencyMappingsSingletonSpi CURRENCIES_SPI = Bootstrap
+			.getService(CurrencyMappingsSingletonSpi.class);
 
 	/**
 	 * Singleton constructor.

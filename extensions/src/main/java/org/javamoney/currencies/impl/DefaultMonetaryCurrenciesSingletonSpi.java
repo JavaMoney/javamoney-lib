@@ -9,20 +9,20 @@ import javax.money.MonetaryCurrencies;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
-import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
-import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
+import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
 
 import com.ibm.icu.util.Currency;
 
 /**
- * Default implementation of {@link MonetaryCurrenciesSingletonSpi}, active
- * if no instance of {@link MonetaryCurrenciesSingletonSpi} was registered
+ * Default implementation of {@link CurrencyMappingsSingletonSpi}, active
+ * if no instance of {@link CurrencyMappingsSingletonSpi} was registered
  * using the {@link ServiceLoader}.
  * 
  * @author Anatole Tresch
  */
 public final class DefaultMonetaryCurrenciesSingletonSpi implements
-		MonetaryCurrenciesSingletonSpi {
+		CurrencyMappingsSingletonSpi {
 	
 	/**
 	 * This method allows to evaluate, if the given currency namespace is
@@ -35,7 +35,7 @@ public final class DefaultMonetaryCurrenciesSingletonSpi implements
 	 */
 	@Override
 	public boolean isNamespaceAvailable(String namespace) {
-		for(CurrencyUnitNamespaceSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceSpi.class)){
+		for(CurrencyUnitNamespaceProviderSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
 			if(spi.isNamespaceAvailable(namespace)){
 				return true;
 			}
@@ -53,7 +53,7 @@ public final class DefaultMonetaryCurrenciesSingletonSpi implements
 	@Override
 	public Set<String> getNamespaces() {
 		Set<String> ns = new HashSet<>();
-		for(CurrencyUnitNamespaceSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceSpi.class)){
+		for(CurrencyUnitNamespaceProviderSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
 			ns.addAll(spi.getNamespaces());
 		}
 		return ns;
@@ -113,8 +113,8 @@ public final class DefaultMonetaryCurrenciesSingletonSpi implements
 	@Override
 	public Set<CurrencyUnit> getCurrencies(String namespace) {
 		Set<CurrencyUnit> result = new HashSet<>();
-		for(Currency currency:Currency.getAvailableCurrencies()){
-			result.add(MonetaryCurrencies.getCurrency(currency.getCurrencyCode()));
+		for(CurrencyUnitNamespaceProviderSpi spi:Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
+			result.addAll(spi.getCurrencies(namespace));
 		}
 		return result;
 	}
@@ -129,7 +129,7 @@ public final class DefaultMonetaryCurrenciesSingletonSpi implements
 	@Override
 	public Set<String> getNamespaces(String code) {
 		Set<String> ns = new HashSet<>();
-		for(CurrencyUnitNamespaceSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceSpi.class)){
+		for(CurrencyUnitNamespaceProviderSpi spi: Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
 			ns.addAll(spi.getNamespaces(code));
 		}
 		return ns;

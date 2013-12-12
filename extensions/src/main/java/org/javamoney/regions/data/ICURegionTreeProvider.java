@@ -19,13 +19,13 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
-import org.javamoney.regions.BuildableRegionNode;
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionTreeNode;
 import org.javamoney.regions.RegionType;
-import org.javamoney.regions.BuildableRegionNode.Builder;
+import org.javamoney.regions.spi.BuildableRegionNode;
 import org.javamoney.regions.spi.RegionProviderSpi;
 import org.javamoney.regions.spi.RegionTreeProviderSpi;
+import org.javamoney.regions.spi.BuildableRegionNode.Builder;
 
 
 /**

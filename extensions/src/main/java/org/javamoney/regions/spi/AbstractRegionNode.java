@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.regions;
+package org.javamoney.regions.spi;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.javamoney.calc.function.MonetaryPredicate;
+import org.javamoney.regions.Region;
+import org.javamoney.regions.RegionTreeNode;
 
 /**
  * Abstract base class for a {@link RegionTreeNode}.

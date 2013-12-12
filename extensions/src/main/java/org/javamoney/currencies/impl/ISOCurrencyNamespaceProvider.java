@@ -11,20 +11,20 @@ import java.util.Set;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 
-import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
-import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
+import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
 
-import com.ibm.icu.util.Currency;
+import java.util.Currency;
 
 /**
- * Default implementation of {@link MonetaryCurrenciesSingletonSpi}, active
- * if no instance of {@link MonetaryCurrenciesSingletonSpi} was registered
+ * Default implementation of {@link CurrencyMappingsSingletonSpi}, active
+ * if no instance of {@link CurrencyMappingsSingletonSpi} was registered
  * using the {@link ServiceLoader}.
  * 
  * @author Anatole Tresch
  */
 public final class ISOCurrencyNamespaceProvider implements
-		CurrencyUnitNamespaceSpi {
+		CurrencyUnitNamespaceProviderSpi {
 	
 	private static final String ISO_NS = "ISO-4217";
 	
@@ -89,8 +89,13 @@ public final class ISOCurrencyNamespaceProvider implements
 	 */
 	@Override
 	public Set<String> getNamespaces(String code) {
-		if(Currency.isAvailable(code, null, null)){
-			return NAMESPACES;
+		try{
+			if(Currency.getInstance(code)!=null){
+				return NAMESPACES;
+			}
+		}
+		catch(Exception e){
+			// ignore
 		}
 		return Collections.emptySet();
 	}

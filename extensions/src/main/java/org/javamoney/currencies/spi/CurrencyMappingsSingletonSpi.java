@@ -24,7 +24,7 @@ import javax.money.CurrencyUnit;
  * This interface must be implemented and registered using the
  * {@code ServiceLoader}. It implements the functionality provided by the
  * {@code MonetaryCurrencies} singleton and is responsible for loading and
- * managing of {@link CurrencyUnitNamespaceSpi} and {@link CurrencyUnitMapperSpi}
+ * managing of {@link CurrencyUnitNamespaceProviderSpi} and {@link CurrencyUnitMapperSpi}
  * instances and delegating according calls to the appropriate providers.
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
@@ -32,9 +32,8 @@ import javax.money.CurrencyUnit;
  * 
  * @author Anatole Tresch
  */
-public interface MonetaryCurrenciesSingletonSpi {
+public interface CurrencyMappingsSingletonSpi {
 
-	/*-- Access of current currencies --*/
 	/**
 	 * This method allows to evaluate, if the given currency namespace is
 	 * defined. {@code "ISO-4217"} should be defined in all environments

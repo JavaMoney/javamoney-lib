@@ -1,0 +1,3 @@
+org.javamoney.regions.data.ICURegionTreeProvider
+org.javamoney.regions.data.ISORegionTreeProvider
+org.javamoney.regions.data.ISO3RegionTreeProvider

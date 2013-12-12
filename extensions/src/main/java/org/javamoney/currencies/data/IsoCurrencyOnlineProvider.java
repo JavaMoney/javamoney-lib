@@ -31,7 +31,7 @@ import javax.money.spi.CurrencyProviderSpi;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.javamoney.currencies.spi.CurrencyUnitNamespaceSpi;
+import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
 import org.javamoney.util.Displayable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * Online implementation of a {@link CurrencyUnitNamespaceSpi} that provides the
+ * Online implementation of a {@link CurrencyUnitNamespaceProviderSpi} that provides the
  * ISO 4217 currencies available from the JDK {@link Currency} class.
  * 
  * @author Anatole Tresch

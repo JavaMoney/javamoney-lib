@@ -25,18 +25,18 @@ import javax.money.bootstrap.Bootstrap;
  * This class models namespaces that allow to group currencies. Examples for
  * namespaces for different organization units, countries or technical systems.<br/>
  * It is the responsibility of the registered {@link Bootstrap} to load the and
- * manage the instances of {@link CurrencyUnitNamespaceSpi}.
+ * manage the instances of {@link CurrencyUnitNamespaceProviderSpi}.
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
  * in a EE context.
  * 
  * @author Anatole Tresch
  */
-public interface CurrencyUnitNamespaceSpi {
+public interface CurrencyUnitNamespaceProviderSpi {
 
 	/**
 	 * Access the namespaces this provider defines. An instance of
-	 * {@link CurrencyUnitNamespaceSpi} may define multiple namespaces containing
+	 * {@link CurrencyUnitNamespaceProviderSpi} may define multiple namespaces containing
 	 * {@link CurrencyUnit}. Nevertheless multiple implementations of
 	 * Additionally a {@link CurrencyUnit} may be part of multiple namespaces,
 	 * if they do not conflict related to their currency code or numericCode (if

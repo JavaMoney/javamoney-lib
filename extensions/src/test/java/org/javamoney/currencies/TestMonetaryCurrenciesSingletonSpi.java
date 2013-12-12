@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import javax.money.CurrencyUnit;
 
-import org.javamoney.currencies.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
 
 ///**
 // * Empty pseudo implementation for testing only.
