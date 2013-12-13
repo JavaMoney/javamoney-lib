@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
 
+import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 
@@ -23,7 +24,8 @@ import java.util.Currency;
  * 
  * @author Anatole Tresch
  */
-public final class ISOCurrencyNamespaceProvider implements
+@Singleton
+public class ISOCurrencyNamespaceProvider implements
 		CurrencyUnitNamespaceProviderSpi {
 	
 	private static final String ISO_NS = "ISO-4217";

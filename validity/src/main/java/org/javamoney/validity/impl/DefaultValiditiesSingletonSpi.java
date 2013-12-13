@@ -25,6 +25,7 @@ import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Singleton;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.validity.RelatedValidityInfo;
@@ -45,6 +46,7 @@ import org.javamoney.validity.spi.ValidityProviderSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
+@Singleton
 public class DefaultValiditiesSingletonSpi implements ValiditiesSingletonSpi {
 	/** Loaded validity providers. */
 	private final Map<String, ValidityProviderSpi> validityProviders = new ConcurrentHashMap<String, ValidityProviderSpi>();

@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Singleton;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.regions.Region;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Anatole Tresch
  * @author Werner Keil
  */
+@Singleton
 public class DefaultExtendedRegionDataProvider implements ExtendedRegionDataProviderSpi{
 
 	public Collection<Class> getExtendedRegionDataTypes(Region region) {

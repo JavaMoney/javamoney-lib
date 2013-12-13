@@ -22,11 +22,11 @@ import java.util.ServiceLoader;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.MonetaryFormats;
+import org.javamoney.format.TokenizableFormats;
 
 /**
  * This SPI must be registered using the {@code ServiceLoader} to be used as
- * delegate for the {@link MonetaryFormats} singleton. It is responsible for
+ * delegate for the {@link TokenizableFormats} singleton. It is responsible for
  * loading and managing of the {@link ItemFormatFactorySpi} instances. Hereby
  * the {@link ItemFormatFactorySpi} instances can be loaded from the
  * {@link ServiceLoader} or by other mechanisms, e.g. CDI.

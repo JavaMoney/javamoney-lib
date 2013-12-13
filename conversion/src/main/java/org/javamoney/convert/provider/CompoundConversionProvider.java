@@ -23,6 +23,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 
 import org.javamoney.convert.ConversionProvider;
@@ -36,6 +37,7 @@ import org.javamoney.convert.ExchangeRateType;
  * 
  * @author Anatole Tresch
  */
+@Singleton
 public class CompoundConversionProvider implements
 		ConversionProvider {
 	/** The exchange rate type this instance is providing. */

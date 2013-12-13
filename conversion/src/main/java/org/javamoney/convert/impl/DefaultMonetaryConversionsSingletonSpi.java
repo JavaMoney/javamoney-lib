@@ -20,9 +20,9 @@ package org.javamoney.convert.impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Singleton;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.convert.ConversionProvider;
@@ -30,7 +30,7 @@ import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.provider.CompoundConversionProvider;
 import org.javamoney.convert.spi.MonetaryConversionsSingletonSpi;
 
-
+@Singleton
 public class DefaultMonetaryConversionsSingletonSpi implements
 		MonetaryConversionsSingletonSpi {
 

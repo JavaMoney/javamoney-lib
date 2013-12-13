@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
 
+import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 import javax.money.bootstrap.Bootstrap;
@@ -21,7 +22,8 @@ import com.ibm.icu.util.Currency;
  * 
  * @author Anatole Tresch
  */
-public final class DefaultMonetaryCurrenciesSingletonSpi implements
+@Singleton
+public class DefaultMonetaryCurrenciesSingletonSpi implements
 		CurrencyMappingsSingletonSpi {
 	
 	/**

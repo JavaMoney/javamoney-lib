@@ -24,7 +24,7 @@ import org.javamoney.format.FormatToken;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.MonetaryFormats;
+import org.javamoney.format.TokenizableFormats;
 import org.javamoney.format.ParseContext;
 
 /**
@@ -66,14 +66,14 @@ public class CurrencyToken extends
 		case NUMERIC_CODE:
 			return String.valueOf(unit.getNumericCode());
 		case NAME:
-			ItemFormat<CurrencyUnit> cf1 = MonetaryFormats
+			ItemFormat<CurrencyUnit> cf1 = TokenizableFormats
 					.getItemFormat(
 							CurrencyUnit.class,
 							new LocalizationStyle.Builder(style).setAttribute(
 									"renderField", "displayName").build());
 			return cf1.format(unit, locale);
 		case SYMBOL:
-			ItemFormat<CurrencyUnit> cf2 = MonetaryFormats.getItemFormat(
+			ItemFormat<CurrencyUnit> cf2 = TokenizableFormats.getItemFormat(
 					CurrencyUnit.class, new LocalizationStyle.Builder(style)
 							.setAttribute("renderField", "symbol").build());
 			return cf2.format(unit, locale);

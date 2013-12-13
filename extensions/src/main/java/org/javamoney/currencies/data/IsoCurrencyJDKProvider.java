@@ -40,27 +40,34 @@ import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
 @Singleton
 public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 
-	private final Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<String, CurrencyUnit>();
+	private Map<String, CurrencyUnit> currencies;
 
-	public IsoCurrencyJDKProvider() {
-		Set<Currency> jdkCurrencies = Currency.getAvailableCurrencies();
-		for (Currency jdkCurrency : jdkCurrencies) {
-			CurrencyUnit currency = MonetaryCurrencies.getCurrency(jdkCurrency
-					.getCurrencyCode());
-			this.currencies.put(currency.getCurrencyCode(), currency);
+	private void init(){
+		if(currencies==null){
+			currencies = new ConcurrentHashMap<String, CurrencyUnit>();
+			Set<Currency> jdkCurrencies = Currency.getAvailableCurrencies();
+			for (Currency jdkCurrency : jdkCurrencies) {
+				CurrencyUnit currency = MonetaryCurrencies.getCurrency(jdkCurrency
+						.getCurrencyCode());
+				this.currencies.put(currency.getCurrencyCode(), currency);
+			}
 		}
 	}
 
 	@Override
 	public CurrencyUnit getCurrencyUnit(String currencyCode) {
-		// TODO Auto-generated method stub
-		return null;
+		init();
+		return this.currencies.get(currencyCode);
 	}
 
 	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return this.currencies.get(Currency.getInstance(locale).getCurrencyCode());
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 
 }

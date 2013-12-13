@@ -5,9 +5,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 import javax.money.spi.CurrencyProviderSpi;
 
+@Singleton
 public class ConfigurableCurrencyUnitProvider implements CurrencyProviderSpi {
 
 	private static Map<String, CurrencyUnit> currencyUnits = new ConcurrentHashMap<>();

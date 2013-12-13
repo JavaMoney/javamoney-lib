@@ -25,12 +25,12 @@ import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.MonetaryFormats;
+import org.javamoney.format.TokenizableFormats;
 import org.javamoney.format.spi.MonetaryFormatsSingletonSpi;
 
 /**
- * Tests class registered into {@link MonetaryFormats} to test
- * {@link MonetaryFormats}.
+ * Tests class registered into {@link TokenizableFormats} to test
+ * {@link TokenizableFormats}.
  * 
  * @author Anatole Tresch
  * 

@@ -73,6 +73,9 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 
 	public void loadCurrencies() {
 		try (InputStream in = getClass().getResourceAsStream(PROP_FILE)) {
+			if(in==null){
+				return;
+			}
 			prop.load(in);
 			final String urlAddress = prop.getProperty(getClass()
 					.getSimpleName() + ".currencies");
@@ -87,6 +90,9 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 
 	public void loadCountries() {
 		try (InputStream in = getClass().getResourceAsStream(PROP_FILE)) {
+			if(in==null){
+				return;
+			}
 			prop.load(in);
 			final String urlAddress = prop.getProperty(getClass()
 					.getSimpleName() + ".countries");

@@ -29,7 +29,7 @@ import org.javamoney.format.spi.MonetaryFormatsSingletonSpi;
  * This interface provides access to the formatting logic of JavaMoney. *
  * <p>
  * {@link ItemFormat} instances are not required to be thread-safe. Basically
- * when accessing an {@link ItemFormat} from the {@link MonetaryFormats}
+ * when accessing an {@link ItemFormat} from the {@link TokenizableFormats}
  * singleton a new instance should be created on each access.<br/>
  * This class itself is thread-safe, delegating its calls to the
  * {@link MonetaryFormatsSingletonSpi} registered using the
@@ -37,14 +37,14 @@ import org.javamoney.format.spi.MonetaryFormatsSingletonSpi;
  * 
  * @author Anatole Tresch
  */
-public final class MonetaryFormats {
+public final class TokenizableFormats {
 	/** SPI implementation loaded loaded from ServiceLodaer. */
 	private static MonetaryFormatsSingletonSpi monetaryFormatSpi = loadMonetaryFormatSpi();
 
 	/**
 	 * Singleton constructor.
 	 */
-	private MonetaryFormats() {
+	private TokenizableFormats() {
 	}
 
 	/**
@@ -70,7 +70,7 @@ public final class MonetaryFormats {
 				return spi;
 			}
 		} catch (Exception e) {
-			Logger.getLogger(MonetaryFormats.class.getName()).log(Level.INFO,
+			Logger.getLogger(TokenizableFormats.class.getName()).log(Level.INFO,
 					"No MonetaryFormatSpi found, using  default.", e);
 		}
 		return new DefaultMonetaryFormatsSpi();
@@ -89,7 +89,7 @@ public final class MonetaryFormats {
 		Collection<String> styleIDs = monetaryFormatSpi
 				.getSupportedStyleIds(targetType);
 		if (styleIDs == null) {
-			Logger.getLogger(MonetaryFormats.class.getName()).log(
+			Logger.getLogger(TokenizableFormats.class.getName()).log(
 					Level.WARNING,
 					"MonetaryFormatSpi.getSupportedStyleIds returned null for "
 							+ targetType);

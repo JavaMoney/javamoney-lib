@@ -20,11 +20,13 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.inject.Singleton;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionTreeNode;
 import org.javamoney.regions.RegionType;
+import org.javamoney.regions.spi.ExtendedRegionDataProviderSpi;
 import org.javamoney.regions.spi.RegionProviderSpi;
 import org.javamoney.regions.spi.RegionTreeProviderSpi;
 import org.javamoney.regions.spi.RegionsSingletonSpi;
@@ -40,7 +42,8 @@ import org.slf4j.LoggerFactory;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public abstract class DefaultRegionsSingleton implements RegionsSingletonSpi{
+@Singleton
+public class DefaultRegionsSingleton implements RegionsSingletonSpi{
 	/** The logger used. */
 	private static final Logger LOG = LoggerFactory
 			.getLogger(DefaultRegionsSingleton.class);
@@ -200,6 +203,39 @@ public abstract class DefaultRegionsSingleton implements RegionsSingletonSpi{
 				} else {
 					result.addAll(regions);
 				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Collection<Class> getExtendedRegionDataTypes(Region region) {
+		Set<Class> result = new HashSet<>();
+		for(ExtendedRegionDataProviderSpi spi: Bootstrap.getServices(ExtendedRegionDataProviderSpi.class)){
+			result.addAll(spi.getExtendedRegionDataTypes(region));
+		}
+		return result;
+	}
+
+	@Override
+	public <T> T getExtendedRegionData(Region region, Class<T> type) {
+		for(ExtendedRegionDataProviderSpi spi: Bootstrap.getServices(ExtendedRegionDataProviderSpi.class)){
+			if(spi.getExtendedRegionDataTypes(region).contains(type)){
+				return spi.getExtendedRegionData(region, type);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Set<String> getRegionTreeIds() {
+		Set<String> result = new HashSet<>();
+		for (RegionTreeProviderSpi prov : Bootstrap.getServices(RegionTreeProviderSpi.class)) {
+			try {
+				result.add(prov.getTreeId());
+			} catch (Exception e) {
+				LOG.error("Error accessing RegionTreeProviderSpi: "
+						+ prov.getClass().getName(), e);
 			}
 		}
 		return result;

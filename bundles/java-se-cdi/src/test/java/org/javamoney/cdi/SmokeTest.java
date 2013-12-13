@@ -22,16 +22,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.util.Locale;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryAmounts;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryOperator;
 import javax.money.function.MonetaryRoundings;
 
-import org.javamoney.cdi.bootstrap.CDIMoneyBootstrap;
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
@@ -39,9 +40,11 @@ import org.javamoney.convert.MonetaryConversions;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.MonetaryFormats;
+
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
+
 import org.javamoney.moneta.Money;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -54,11 +57,6 @@ public class SmokeTest {
 	private static final ExchangeRateType RATE_TYPE = ExchangeRateType
 			.of("EZB");
 
-	@BeforeClass
-	public static void init(){
-		CDIMoneyBootstrap.init();
-	}
-	
 	@Test
 	public void testCreateAmounts() {
 		// Creating one
@@ -85,7 +83,6 @@ public class SmokeTest {
 	}
 
 	@Test
-	@Ignore
 	public void testExchange() {
 		ConversionProvider prov = MonetaryConversions
 				.getConversionProvider(RATE_TYPE);
@@ -109,7 +106,6 @@ public class SmokeTest {
 	}
 
 	@Test
-	@Ignore
 	public void testCurrencyConverter() {
 		MonetaryOperator rounding = MonetaryRoundings
 				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
@@ -147,33 +143,17 @@ public class SmokeTest {
 	}
 
 	@Test
-	@Ignore
-	public void testGettingParsers() {
+	public void testAmountFormatRoundTrip() throws ParseException {
 		// Using parsers
-		try {
-			ItemFormat<CurrencyUnit> parser = MonetaryFormats.getItemFormat(
-					CurrencyUnit.class,
-					LocalizationStyle.of(CurrencyUnit.class, "ID"));
-			CurrencyUnit cur = parser.parse("CHF", Locale.ENGLISH);
-			assertNotNull(cur);
-			assertEquals("CHF", cur.getCurrencyCode());
-		} catch (ItemParseException e) {
-			logger.debug("Error", e);
-		}
-	}
-
-	@Test
-	@Ignore
-	public void testGettingFormatters() {
-		// Using formatters
-		CurrencyUnit currency = MonetaryCurrencies.getCurrency("CHF");
-		Money amount = Money.of(currency, 1.0d);
-		ItemFormat<MonetaryAmount> formatter = MonetaryFormats.getItemFormat(
-				MonetaryAmount.class,
-				LocalizationStyle.of(MonetaryAmount.class, "CODE"));
-		System.out.println("Formatted amount: "
-				+ formatter.format(amount, Locale.GERMANY));
-		assertEquals(1.0d, amount.getNumber().doubleValue(), 0);
+		MonetaryAmountFormat format = MonetaryFormats
+				.getAmountFormat(Locale.GERMANY);
+		assertNotNull(format);
+		MonetaryAmount amount = MonetaryAmounts.getAmount("CHF", 10.50);
+		String formatted = format.format(amount);
+		assertNotNull(formatted);
+		MonetaryAmount parsed = format.parse(formatted);
+		assertNotNull(parsed);
+		assertEquals(amount, parsed);
 	}
 
 	@Test

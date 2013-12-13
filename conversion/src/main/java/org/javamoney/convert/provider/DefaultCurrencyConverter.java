@@ -17,6 +17,7 @@
  */
 package org.javamoney.convert.provider;
 
+import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
@@ -37,6 +38,7 @@ import org.javamoney.convert.LazyBoundCurrencyConversion;
  * @author Anatole Tresch
  * @author Werner Keil
  */
+@Singleton
 public class DefaultCurrencyConverter implements CurrencyConverter {
 
 	private final ConversionProvider rateProvider;

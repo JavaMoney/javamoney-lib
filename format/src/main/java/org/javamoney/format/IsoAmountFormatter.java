@@ -83,7 +83,7 @@ public class IsoAmountFormatter implements ItemFormat<MonetaryAmount<?>> {
 
 		if (Currency.getInstance(currencyUnit.getCurrencyCode())!=null) {
 			String currencyString = "";
-			ItemFormat<CurrencyUnit> cf = MonetaryFormats.getItemFormat(
+			ItemFormat<CurrencyUnit> cf = TokenizableFormats.getItemFormat(
 					CurrencyUnit.class, currencyStyle);
 			// TODO fix grouping for Cores, Lakhs and similar, possibly define
 			// an extension SPI that may be loaded for

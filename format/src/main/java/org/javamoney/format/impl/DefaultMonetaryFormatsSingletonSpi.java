@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Singleton;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.format.ItemFormat;
@@ -39,6 +40,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Anatole Tresch
  */
+@Singleton
 public class DefaultMonetaryFormatsSingletonSpi implements
 		MonetaryFormatsSingletonSpi {
 

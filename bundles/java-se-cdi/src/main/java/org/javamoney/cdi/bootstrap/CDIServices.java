@@ -56,4 +56,9 @@ public class CDIServices implements ServiceProvider {
 		return instances;
 	}
 
+	@Override
+	public int getPriority() {
+		return 10;
+	}
+
 }
