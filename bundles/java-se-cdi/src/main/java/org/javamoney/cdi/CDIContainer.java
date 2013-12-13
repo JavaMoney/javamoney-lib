@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.enterprise.inject.Instance;
 import javax.inject.Named;
 
+import org.javamoney.cdi.bootstrap.CDIMoneyBootstrap;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
@@ -58,6 +59,8 @@ public final class CDIContainer {
 
 	public static synchronized void start() {
 		if (weld == null) {
+			System.out.println("*** Initializing Money Bootdstrap...");
+			CDIMoneyBootstrap.init();
 			System.out.println("*** Starting CDIContainer ...");
 			weld = new Weld();
 			weldContainer = weld.initialize();

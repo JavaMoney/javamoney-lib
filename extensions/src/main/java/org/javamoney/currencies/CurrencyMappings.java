@@ -18,10 +18,10 @@ package org.javamoney.currencies;
 import java.util.Set;
 
 import javax.money.CurrencyUnit;
+import javax.money.UnknownCurrencyException;
 import javax.money.bootstrap.Bootstrap;
 
 import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
-import org.javamoney.util.UnknownCurrencyException;
 
 /**
  * This is the service component for mapping of {@link CurrencyUnit} to grtoups

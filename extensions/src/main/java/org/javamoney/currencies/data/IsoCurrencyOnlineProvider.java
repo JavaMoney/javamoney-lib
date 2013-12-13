@@ -295,18 +295,7 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 	}
 
 	@Override
-	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
-		return null;
-	}
-
-	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
-		return null;
-	}
-
-	@Override
-	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

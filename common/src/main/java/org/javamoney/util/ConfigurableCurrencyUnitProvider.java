@@ -19,18 +19,8 @@ public class ConfigurableCurrencyUnitProvider implements CurrencyProviderSpi {
 	}
 
 	@Override
-	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
-		return null;
-	}
-
-	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
 		return currencyUnitsByLocale.get(locale);
-	}
-
-	@Override
-	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
-		return null;
 	}
 
 	public static CurrencyUnit registerCurrencyUnit(CurrencyUnit currencyUnit) {

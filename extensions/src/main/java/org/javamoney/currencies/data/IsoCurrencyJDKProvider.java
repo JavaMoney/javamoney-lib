@@ -63,14 +63,4 @@ public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 		return null;
 	}
 
-	@Override
-	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
-		return null;
-	}
-
-	@Override
-	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
-		return null;
-	}
-
 }
