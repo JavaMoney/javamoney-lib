@@ -25,21 +25,23 @@ import java.math.RoundingMode;
 import java.util.Locale;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryContext;
+import javax.money.MonetaryCurrencies;
+import javax.money.MonetaryOperator;
+import javax.money.function.MonetaryRoundings;
 
+import org.javamoney.cdi.bootstrap.CDIMoneyBootstrap;
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.MonetaryConversions;
-import org.javamoney.currencies.MonetaryCurrencies;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
 import org.javamoney.format.MonetaryFormats;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.MoneyCurrency;
-import org.javamoney.moneta.function.MonetaryRoundings;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -52,17 +54,22 @@ public class SmokeTest {
 	private static final ExchangeRateType RATE_TYPE = ExchangeRateType
 			.of("EZB");
 
+	@BeforeClass
+	public static void init(){
+		CDIMoneyBootstrap.init();
+	}
+	
 	@Test
 	public void testCreateAmounts() {
 		// Creating one
-		CurrencyUnit currency = MonetaryCurrencies.get("CHF");
+		CurrencyUnit currency = MonetaryCurrencies.getCurrency("CHF");
 		Money amount1 = Money.of(currency, 1.0d);
 		Money amount2 = Money.of(currency, 1.0d);
 		Money amount3 = amount1.add(amount2);
 		logger.debug(amount1 + " + " + amount2 + " = " + amount3);
-		assertEquals(1.0d, amount1.doubleValue(), 0);
-		assertEquals(1.0d, amount2.doubleValue(), 0);
-		assertEquals(2.0d, amount3.doubleValue(), 0);
+		assertEquals(1.0d, amount1.getNumber().doubleValue(), 0);
+		assertEquals(1.0d, amount2.getNumber().doubleValue(), 0);
+		assertEquals(2.0d, amount3.getNumber().doubleValue(), 0);
 	}
 
 	@Test
@@ -72,9 +79,9 @@ public class SmokeTest {
 		Money amount2 = Money.of("CHF", 1.0d);
 		Money amount3 = amount1.add(amount2);
 		logger.debug(amount1 + " + " + amount2 + " = " + amount3);
-		assertEquals(1.0d, amount1.doubleValue(), 0);
-		assertEquals(1.0d, amount2.doubleValue(), 0);
-		assertEquals(2.0d, amount3.doubleValue(), 0);
+		assertEquals(1.0d, amount1.getNumber().doubleValue(), 0);
+		assertEquals(1.0d, amount2.getNumber().doubleValue(), 0);
+		assertEquals(2.0d, amount3.getNumber().doubleValue(), 0);
 	}
 
 	@Test
@@ -83,14 +90,18 @@ public class SmokeTest {
 		ConversionProvider prov = MonetaryConversions
 				.getConversionProvider(RATE_TYPE);
 		assertNotNull(prov);
-		ExchangeRate rate1 = prov.getExchangeRate(MoneyCurrency.of("CHF"),
-				MoneyCurrency.of("EUR"));
-		ExchangeRate rate2 = prov.getExchangeRate(MoneyCurrency.of("EUR"),
-				MoneyCurrency.of("CHF"));
-		ExchangeRate rate3 = prov.getExchangeRate(MoneyCurrency.of("CHF"),
-				MoneyCurrency.of("USD"));
-		ExchangeRate rate4 = prov.getExchangeRate(MoneyCurrency.of("USD"),
-				MoneyCurrency.of("CHF"));
+		ExchangeRate rate1 = prov.getExchangeRate(
+				MonetaryCurrencies.getCurrency("CHF"),
+				MonetaryCurrencies.getCurrency("EUR"));
+		ExchangeRate rate2 = prov.getExchangeRate(
+				MonetaryCurrencies.getCurrency("EUR"),
+				MonetaryCurrencies.getCurrency("CHF"));
+		ExchangeRate rate3 = prov.getExchangeRate(
+				MonetaryCurrencies.getCurrency("CHF"),
+				MonetaryCurrencies.getCurrency("USD"));
+		ExchangeRate rate4 = prov.getExchangeRate(
+				MonetaryCurrencies.getCurrency("USD"),
+				MonetaryCurrencies.getCurrency("CHF"));
 		System.out.println(rate1);
 		System.out.println(rate2);
 		System.out.println(rate3);
@@ -100,29 +111,37 @@ public class SmokeTest {
 	@Test
 	@Ignore
 	public void testCurrencyConverter() {
-		MonetaryOperator rounding = MonetaryRoundings.getRounding(2,
-				RoundingMode.HALF_UP);
+		MonetaryOperator rounding = MonetaryRoundings
+				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
+						.setAttribute(RoundingMode.HALF_UP).build());
 
-		MonetaryAmount srcCHF = Money.of(MoneyCurrency.of("CHF"), 100.15);
-		MonetaryAmount srcUSD = Money.of(MoneyCurrency.of("USD"), 100.15);
-		MonetaryAmount srcEUR = Money.of(MoneyCurrency.of("EUR"), 100.15);
+		MonetaryAmount srcCHF = Money.of(MonetaryCurrencies.getCurrency("CHF"),
+				100.15);
+		MonetaryAmount srcUSD = Money.of(MonetaryCurrencies.getCurrency("USD"),
+				100.15);
+		MonetaryAmount srcEUR = Money.of(MonetaryCurrencies.getCurrency("EUR"),
+				100.15);
 
 		MonetaryAmount tgt = MonetaryConversions
 				.getConversionProvider(RATE_TYPE).getConverter()
-				.convert(srcCHF, MoneyCurrency.of("EUR"));
+				.convert(srcCHF, MonetaryCurrencies.getCurrency("EUR"));
 		MonetaryAmount tgt3 = MonetaryConversions
 				.getConversionProvider(RATE_TYPE).getConverter()
-				.convert(tgt, MoneyCurrency.of("CHF"));
+				.convert(tgt, MonetaryCurrencies.getCurrency("CHF"));
 		assertEquals(srcCHF.with(rounding), tgt3.with(rounding));
 		tgt = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter().convert(srcEUR, MoneyCurrency.of("CHF"));
+				.getConverter()
+				.convert(srcEUR, MonetaryCurrencies.getCurrency("CHF"));
 		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter().convert(tgt, MoneyCurrency.of("EUR"));
+				.getConverter()
+				.convert(tgt, MonetaryCurrencies.getCurrency("EUR"));
 		assertEquals(srcEUR.with(rounding), rounding.apply(tgt3));
 		tgt = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter().convert(srcCHF, MoneyCurrency.of("USD"));
+				.getConverter()
+				.convert(srcCHF, MonetaryCurrencies.getCurrency("USD"));
 		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter().convert(tgt, MoneyCurrency.of("CHF"));
+				.getConverter()
+				.convert(tgt, MonetaryCurrencies.getCurrency("CHF"));
 		assertEquals(srcCHF, tgt3);
 		assertEquals(srcCHF.with(rounding), rounding.apply(tgt3));
 	}
@@ -147,20 +166,20 @@ public class SmokeTest {
 	@Ignore
 	public void testGettingFormatters() {
 		// Using formatters
-		CurrencyUnit currency = MonetaryCurrencies.get("CHF");
+		CurrencyUnit currency = MonetaryCurrencies.getCurrency("CHF");
 		Money amount = Money.of(currency, 1.0d);
 		ItemFormat<MonetaryAmount> formatter = MonetaryFormats.getItemFormat(
 				MonetaryAmount.class,
 				LocalizationStyle.of(MonetaryAmount.class, "CODE"));
 		System.out.println("Formatted amount: "
 				+ formatter.format(amount, Locale.GERMANY));
-		assertEquals(1.0d, amount.doubleValue(), 0);
+		assertEquals(1.0d, amount.getNumber().doubleValue(), 0);
 	}
 
 	@Test
 	public void testCurrencyAccess() {
 		// Creating one
-		CurrencyUnit currency = MonetaryCurrencies.get("INR");
+		CurrencyUnit currency = MonetaryCurrencies.getCurrency("INR");
 		assertNotNull(currency);
 	}
 }

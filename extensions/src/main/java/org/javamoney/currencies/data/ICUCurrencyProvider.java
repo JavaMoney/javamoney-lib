@@ -59,21 +59,10 @@ public class ICUCurrencyProvider implements CurrencyProviderSpi {
 	}
 
 	@Override
-	public CurrencyUnit getCurrencyUnit(String currencyCode, long timestamp) {
-		return null;
-	}
-
-	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
 		return null;
 	}
 
-	@Override
-	public CurrencyUnit getCurrencyUnit(Locale locale, long timestamp) {
-		return null;
-	}
-
-	
 	
 	private final class ICUCurrency implements CurrencyUnit, Displayable {
 		private com.ibm.icu.util.Currency currency;
