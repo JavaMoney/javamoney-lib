@@ -148,7 +148,7 @@ public class SmokeTest {
 		MonetaryAmountFormat format = MonetaryFormats
 				.getAmountFormat(Locale.GERMANY);
 		assertNotNull(format);
-		MonetaryAmount amount = MonetaryAmounts.getAmount("CHF", 10.50);
+		MonetaryAmount amount = MonetaryAmounts.getDefaultAmountFactory().getAmount("CHF", 10.50);
 		String formatted = format.format(amount);
 		assertNotNull(formatted);
 		MonetaryAmount parsed = format.parse(formatted);
