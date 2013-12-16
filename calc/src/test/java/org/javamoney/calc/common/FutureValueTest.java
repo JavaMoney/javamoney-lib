@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
-import javax.money.function.MonetaryRoundings;
+import javax.money.MonetaryRoundings;
 
 import org.javamoney.moneta.Money;
 import org.junit.Ignore;

@@ -31,7 +31,7 @@ import javax.money.MonetaryAmounts;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryOperator;
-import javax.money.function.MonetaryRoundings;
+import javax.money.MonetaryRoundings;
 
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
