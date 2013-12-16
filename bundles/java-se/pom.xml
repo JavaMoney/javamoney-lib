@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.javamoney.bundles</groupId>
+		<artifactId>javamoney-bundles</artifactId>
+		<version>0.4-SNAPSHOT</version>
+	</parent>
+	<artifactId>javamoney-se</artifactId>
+	<name>JavaMoney - SE Standalone Bundle (ServiceLoader)</name>
+	<description>Implementation of JSR 354 extended functionality, based on SE java.util.ServiceLoader.</description>
+	<packaging>pom</packaging>
+</project>
