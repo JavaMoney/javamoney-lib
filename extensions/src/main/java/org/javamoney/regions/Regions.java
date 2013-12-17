@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.regions.spi.RegionsSingletonSpi;
 

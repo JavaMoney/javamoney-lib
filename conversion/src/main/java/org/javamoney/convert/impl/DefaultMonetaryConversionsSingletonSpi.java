@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRateType;

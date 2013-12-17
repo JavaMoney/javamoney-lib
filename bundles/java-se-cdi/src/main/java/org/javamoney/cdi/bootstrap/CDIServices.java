@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.inject.Instance;
-import javax.money.bootstrap.ServiceProvider;
+import javax.money.spi.ServiceProvider;
 
 import org.javamoney.cdi.CDIContainer;
 import org.slf4j.LoggerFactory;

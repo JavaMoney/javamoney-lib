@@ -452,12 +452,6 @@ public final class FlavoredMonetaryAmount implements
 	}
 
 	@Override
-	public FlavoredMonetaryAmount pow(int power) {
-		return new FlavoredMonetaryAmount(this.baseAmount.pow(power),
-				null);
-	}
-
-	@Override
 	public FlavoredMonetaryAmount stripTrailingZeros() {
 		return new FlavoredMonetaryAmount(this.baseAmount.stripTrailingZeros(),
 				amountType);

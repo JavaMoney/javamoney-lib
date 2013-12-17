@@ -18,7 +18,7 @@ package org.javamoney.currencies.spi;
 import java.util.ServiceLoader;
 
 import javax.money.CurrencyUnit;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 /**
  * This class models mappings for {@link CurrencyUnit} instances. It is used by

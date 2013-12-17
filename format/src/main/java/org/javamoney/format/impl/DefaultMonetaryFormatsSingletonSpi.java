@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;

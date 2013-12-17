@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ServiceLoader;
 
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.convert.spi.MonetaryConversionsSingletonSpi;
 

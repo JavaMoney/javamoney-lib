@@ -19,7 +19,7 @@ import java.util.Set;
 
 import javax.money.CurrencyUnit;
 import javax.money.UnknownCurrencyException;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
 

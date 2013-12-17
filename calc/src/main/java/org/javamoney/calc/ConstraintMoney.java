@@ -180,15 +180,6 @@ final class ConstraintMoney implements
 		return of(this.amount.subtract(subtrahend), predicate);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#pow(int)
-	 */
-	public ConstraintMoney pow(int n) {
-		return of(this.amount.pow(n), predicate);
-	}
-
 	// /*
 	// * (non-Javadoc)
 	// *

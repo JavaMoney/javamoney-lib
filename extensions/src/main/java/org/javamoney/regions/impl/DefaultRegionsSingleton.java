@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.inject.Singleton;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionTreeNode;

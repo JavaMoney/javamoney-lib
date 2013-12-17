@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.money.CurrencyUnit;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 /**
  * This class models namespaces that allow to group currencies. Examples for

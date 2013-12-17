@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
-import javax.money.bootstrap.Bootstrap;
+import javax.money.spi.Bootstrap;
 
 import org.javamoney.currencies.spi.CurrencyUnitMapperSpi;
 import org.javamoney.currencies.spi.CurrencyUnitNamespaceProviderSpi;
