@@ -119,7 +119,7 @@ public class ICURegionData {
 	public ICURegion getRegion(RegionType type, int numericId) {
 		for (ICURegion region : regions.values()) {
 			if (region.getRegionType().equals(type)
-					&& region.getNumericRegionCode() == numericId) {
+					&& region.getNumericCode() == numericId) {
 				return region;
 			}
 		}

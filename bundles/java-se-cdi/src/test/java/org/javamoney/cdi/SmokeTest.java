@@ -32,20 +32,14 @@ import javax.money.MonetaryContext;
 import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRoundings;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 
 import org.javamoney.convert.ConversionProvider;
 import org.javamoney.convert.ExchangeRate;
 import org.javamoney.convert.ExchangeRateType;
 import org.javamoney.convert.MonetaryConversions;
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
-
-import javax.money.format.MonetaryAmountFormat;
-import javax.money.format.MonetaryFormats;
-
 import org.javamoney.moneta.Money;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,7 +142,8 @@ public class SmokeTest {
 		MonetaryAmountFormat format = MonetaryFormats
 				.getAmountFormat(Locale.GERMANY);
 		assertNotNull(format);
-		MonetaryAmount amount = MonetaryAmounts.getDefaultAmountFactory().getAmount("CHF", 10.50);
+		MonetaryAmount amount = MonetaryAmounts.getDefaultAmountFactory()
+				.withCurrency("CHF").with(10.50).create();
 		String formatted = format.format(amount);
 		assertNotNull(formatted);
 		MonetaryAmount parsed = format.parse(formatted);
