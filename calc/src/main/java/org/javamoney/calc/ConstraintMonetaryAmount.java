@@ -49,7 +49,7 @@ public final class ConstraintMonetaryAmount {
 	 * @param amount
 	 * @return an ansigned instance, that can never be negative.
 	 */
-	public static MonetaryAmount<?> unsignedAmount(MonetaryAmount<?> amount) {
+	public static MonetaryAmount unsignedAmount(MonetaryAmount amount) {
 		return new ConstraintMoney(amount, UNSIGNED_PREDICATE);
 	}
 
@@ -62,8 +62,8 @@ public final class ConstraintMonetaryAmount {
 	 * @return a predicated instance, that ensures the given predicate is always
 	 *         ensured on all operations.
 	 */
-	public static MonetaryAmount<?> constraintAmount(MonetaryAmount<?> amount,
-			MonetaryPredicate<MonetaryAmount<?>> predicate) {
+	public static MonetaryAmount constraintAmount(MonetaryAmount amount,
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}
 
@@ -73,7 +73,7 @@ public final class ConstraintMonetaryAmount {
 	 * @author Anatole Tresch
 	 */
 	private static final class UnsignedPredicate implements
-			MonetaryPredicate<MonetaryAmount<?>> {
+			MonetaryPredicate<MonetaryAmount> {
 		public boolean test(MonetaryAmount amount) {
 			return Money.from(amount).signum() >= 0;
 		}

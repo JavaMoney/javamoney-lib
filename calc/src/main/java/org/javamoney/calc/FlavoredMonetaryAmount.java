@@ -19,6 +19,7 @@ import java.util.Objects;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
@@ -32,19 +33,19 @@ import javax.money.MonetaryQuery;
  * @author Werner Keil
  */
 public final class FlavoredMonetaryAmount implements
-		MonetaryAmount<FlavoredMonetaryAmount> {
+		MonetaryAmount {
 
 	private static final String UNKNOWN = "N/A";
 
-	private MonetaryAmount<?> baseAmount;
+	private MonetaryAmount baseAmount;
 	private String amountType = UNKNOWN;
 
-	public FlavoredMonetaryAmount(MonetaryAmount<?> baseAmount) {
+	public FlavoredMonetaryAmount(MonetaryAmount baseAmount) {
 		Objects.requireNonNull(baseAmount, "baseAmount required.");
 		this.baseAmount = baseAmount;
 	}
 	
-	public FlavoredMonetaryAmount(MonetaryAmount<?> baseAmount,
+	public FlavoredMonetaryAmount(MonetaryAmount baseAmount,
 			String amountType) {
 		Objects.requireNonNull(baseAmount, "baseAmount required.");
 		this.baseAmount = baseAmount;
@@ -59,7 +60,7 @@ public final class FlavoredMonetaryAmount implements
 	 * 
 	 * @return the base amount, never {@code null}.
 	 */
-	public MonetaryAmount<?> getBaseAmount() {
+	public MonetaryAmount getBaseAmount() {
 		return this.baseAmount;
 	}
 
@@ -109,10 +110,9 @@ public final class FlavoredMonetaryAmount implements
 			return ((FlavoredMonetaryAmount) baseAmount)
 					.with(number, newFlavor);
 		}
-		return new FlavoredMonetaryAmount(this.baseAmount.with(
-				this.baseAmount.getCurrency(),
-				number),
-				newFlavor);
+		return new FlavoredMonetaryAmount(this.baseAmount.getFactory().with(
+				this.baseAmount.getCurrency()).with(
+				number).create(), newFlavor);
 	}
 
 	/**
@@ -243,52 +243,30 @@ public final class FlavoredMonetaryAmount implements
 		return (N) this.baseAmount.getNumberExact(type);
 	}
 
-	@Override
-	public FlavoredMonetaryAmount with(CurrencyUnit unit) {
-		return new FlavoredMonetaryAmount(this.baseAmount.with(unit),
-				null);
-	}
+	
 
 	@Override
-	public FlavoredMonetaryAmount with(CurrencyUnit unit, long amount) {
-		return new FlavoredMonetaryAmount(this.baseAmount.with(unit, amount),
-				null);
-	}
-
-	@Override
-	public FlavoredMonetaryAmount with(CurrencyUnit unit, double amount) {
-		return new FlavoredMonetaryAmount(this.baseAmount.with(unit, amount),
-				null);
-	}
-
-	@Override
-	public FlavoredMonetaryAmount with(CurrencyUnit unit, Number amount) {
-		return new FlavoredMonetaryAmount(this.baseAmount.with(unit, amount),
-				null);
-	}
-
-	@Override
-	public boolean isGreaterThan(MonetaryAmount<?> amount) {
+	public boolean isGreaterThan(MonetaryAmount amount) {
 		return this.baseAmount.isGreaterThan(amount);
 	}
 
 	@Override
-	public boolean isGreaterThanOrEqualTo(MonetaryAmount<?> amt) {
+	public boolean isGreaterThanOrEqualTo(MonetaryAmount amt) {
 		return this.baseAmount.isGreaterThanOrEqualTo(amt);
 	}
 
 	@Override
-	public boolean isLessThan(MonetaryAmount<?> amt) {
+	public boolean isLessThan(MonetaryAmount amt) {
 		return this.baseAmount.isLessThan(amt);
 	}
 
 	@Override
-	public boolean isLessThanOrEqualTo(MonetaryAmount<?> amt) {
+	public boolean isLessThanOrEqualTo(MonetaryAmount amt) {
 		return this.baseAmount.isLessThanOrEqualTo(amt);
 	}
 
 	@Override
-	public boolean isEqualTo(MonetaryAmount<?> amount) {
+	public boolean isEqualTo(MonetaryAmount amount) {
 		return this.baseAmount.isEqualTo(amount);
 	}
 
@@ -323,13 +301,13 @@ public final class FlavoredMonetaryAmount implements
 	}
 
 	@Override
-	public FlavoredMonetaryAmount add(MonetaryAmount<?> amount) {
+	public FlavoredMonetaryAmount add(MonetaryAmount amount) {
 		return new FlavoredMonetaryAmount(this.baseAmount.add(amount),
 				null);
 	}
 
 	@Override
-	public FlavoredMonetaryAmount subtract(MonetaryAmount<?> amount) {
+	public FlavoredMonetaryAmount subtract(MonetaryAmount amount) {
 		return new FlavoredMonetaryAmount(this.baseAmount.subtract(amount),
 				null);
 	}
@@ -455,5 +433,11 @@ public final class FlavoredMonetaryAmount implements
 	public FlavoredMonetaryAmount stripTrailingZeros() {
 		return new FlavoredMonetaryAmount(this.baseAmount.stripTrailingZeros(),
 				amountType);
+	}
+
+	@Override
+	public MonetaryAmountFactory getFactory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

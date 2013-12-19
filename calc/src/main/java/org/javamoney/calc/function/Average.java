@@ -36,7 +36,7 @@ import org.javamoney.moneta.Money;
  * @author Anatole Tresch
  */
 final class Average implements
-		MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> {
+		MonetaryCalculation<Iterable<? extends MonetaryAmount>> {
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
@@ -53,7 +53,7 @@ final class Average implements
 	 *            currency.
 	 * @return the average.
 	 */
-	public MonetaryAmount<?> calculate(Iterable<? extends MonetaryAmount<?>> amounts) {
+	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}
@@ -61,7 +61,7 @@ final class Average implements
 		BigDecimal total = null;
 		int itemNumber = 0;
 
-		for (MonetaryAmount<?> amount : amounts) {
+		for (MonetaryAmount amount : amounts) {
 			itemNumber++;
 			if (unit == null) {
 				unit = amount.getCurrency();

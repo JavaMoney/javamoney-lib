@@ -26,7 +26,7 @@ import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
 
 public class PresentValue implements MonetaryOperator,
-		CompoundCalculation<MonetaryAmount<?>> {
+		CompoundCalculation<MonetaryAmount> {
 
 	private int periods;
 	private Rate rate;
@@ -79,8 +79,8 @@ public class PresentValue implements MonetaryOperator,
 	 *         rate.
 	 */
 	@Override
-	public <T extends MonetaryAmount<T>> T apply(T amount) {
-		return amount.divide(divisor);
+	public <T extends MonetaryAmount> T apply(T amount) {
+		return (T)amount.divide(divisor);
 	}
 
 	@Override

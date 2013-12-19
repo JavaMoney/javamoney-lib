@@ -17,6 +17,7 @@ package org.javamoney.calc;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
@@ -44,11 +45,11 @@ import org.javamoney.moneta.Money;
  * @author Werner Keil
  */
 final class ConstraintMoney implements
-		MonetaryAmount<ConstraintMoney> {
+		MonetaryAmount {
 	/** The amount's predicate. */
-	private MonetaryPredicate<MonetaryAmount<?>> predicate;
+	private MonetaryPredicate<MonetaryAmount> predicate;
 	/** The underlying amount. */
-	private final MonetaryAmount<?> amount;
+	private final MonetaryAmount amount;
 
 	/**
 	 * Creates a new wrapper instance.
@@ -58,8 +59,8 @@ final class ConstraintMoney implements
 	 * @throws IllegalArgumentException
 	 *             if the amount passed is negative.
 	 */
-	ConstraintMoney(MonetaryAmount<?> amount,
-			MonetaryPredicate<MonetaryAmount<?>> predicate) {
+	ConstraintMoney(MonetaryAmount amount,
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		if (amount == null) {
 			throw new IllegalArgumentException("Amount required.");
 		}
@@ -81,8 +82,8 @@ final class ConstraintMoney implements
 	 * @param amount
 	 * @return
 	 */
-	private static ConstraintMoney of(MonetaryAmount<?> amount,
-			MonetaryPredicate<MonetaryAmount<?>> predicate) {
+	private static ConstraintMoney of(MonetaryAmount amount,
+			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}
 
@@ -110,7 +111,7 @@ final class ConstraintMoney implements
 	 * 
 	 * @see javax.money.MonetaryAmount#add(javax.money.MonetaryAmount)
 	 */
-	public ConstraintMoney add(MonetaryAmount<?> augend) {
+	public ConstraintMoney add(MonetaryAmount augend) {
 		return of(this.amount.add(augend), predicate);
 	}
 
@@ -130,7 +131,7 @@ final class ConstraintMoney implements
 	 */
 	@SuppressWarnings("unchecked")
 	public ConstraintMoney[] divideAndRemainder(Number divisor) {
-		MonetaryAmount<?>[] res = this.amount.divideAndRemainder(divisor);
+		MonetaryAmount[] res = this.amount.divideAndRemainder(divisor);
 		return new ConstraintMoney[] { of(res[0], predicate),
 				of(res[1], predicate) };
 	}
@@ -255,26 +256,6 @@ final class ConstraintMoney implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.money.MonetaryAmount#from(java.lang.Number)
-	 */
-	public ConstraintMoney with(Number amount) {
-		return of(this.amount.with(this.amount.getCurrency(), amount),
-				predicate);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#from(javax.money.CurrencyUnit,
-	 * java.lang.Number)
-	 */
-	public ConstraintMoney with(CurrencyUnit currency, Number amount) {
-		return of(this.amount.with(currency, amount), predicate);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
 	 */
 	@Override
@@ -314,7 +295,7 @@ final class ConstraintMoney implements
 	 * 
 	 * @see javax.money.MonetaryAmount#isLessThan(javax.money.MonetaryAmount)
 	 */
-	public boolean isLessThan(MonetaryAmount<?> amount) {
+	public boolean isLessThan(MonetaryAmount amount) {
 		return this.amount.isLessThan(amount);
 	}
 
@@ -325,7 +306,7 @@ final class ConstraintMoney implements
 	 * javax.money.MonetaryAmount#isLessThanOrEqualTo(javax.money.MonetaryAmount
 	 * )
 	 */
-	public boolean isLessThanOrEqualTo(MonetaryAmount<?> amount) {
+	public boolean isLessThanOrEqualTo(MonetaryAmount amount) {
 		return this.amount.isLessThanOrEqualTo(amount);
 	}
 
@@ -334,7 +315,7 @@ final class ConstraintMoney implements
 	 * 
 	 * @see javax.money.MonetaryAmount#isGreaterThan(javax.money.MonetaryAmount)
 	 */
-	public boolean isGreaterThan(MonetaryAmount<?> amount) {
+	public boolean isGreaterThan(MonetaryAmount amount) {
 		return this.amount.isGreaterThan(amount);
 	}
 
@@ -345,7 +326,7 @@ final class ConstraintMoney implements
 	 * javax.money.MonetaryAmount#isGreaterThanOrEqualTo(javax.money.MonetaryAmount
 	 * )
 	 */
-	public boolean isGreaterThanOrEqualTo(MonetaryAmount<?> amount) {
+	public boolean isGreaterThanOrEqualTo(MonetaryAmount amount) {
 		return this.amount.isGreaterThanOrEqualTo(amount);
 	}
 
@@ -354,7 +335,7 @@ final class ConstraintMoney implements
 	 * 
 	 * @see javax.money.MonetaryAmount#isEqualTo(javax.money.MonetaryAmount)
 	 */
-	public boolean isEqualTo(MonetaryAmount<?> amount) {
+	public boolean isEqualTo(MonetaryAmount amount) {
 		return this.amount.isEqualTo(amount);
 	}
 
@@ -384,24 +365,7 @@ final class ConstraintMoney implements
 	}
 
 	@Override
-	public ConstraintMoney with(CurrencyUnit unit) {
-		return new ConstraintMoney(amount.with(unit), predicate);
-	}
-
-	@Override
-	public ConstraintMoney with(CurrencyUnit unit, long amount) {
-		return new ConstraintMoney(this.amount.with(unit, amount),
-				predicate);
-	}
-
-	@Override
-	public ConstraintMoney with(CurrencyUnit unit, double amount) {
-		return new ConstraintMoney(this.amount.with(unit, amount),
-				predicate);
-	}
-
-	@Override
-	public ConstraintMoney subtract(MonetaryAmount<?> amount) {
+	public ConstraintMoney subtract(MonetaryAmount amount) {
 		return new ConstraintMoney(this.amount.subtract(amount),
 				predicate);
 	}
@@ -441,7 +405,7 @@ final class ConstraintMoney implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(long divisor) {
-		MonetaryAmount<?>[] result = this.amount.divideAndRemainder(divisor);
+		MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
 		return new ConstraintMoney[] {
 				new ConstraintMoney(result[0], predicate),
 				new ConstraintMoney(result[1], predicate) };
@@ -450,7 +414,7 @@ final class ConstraintMoney implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(double divisor) {
-		MonetaryAmount<?>[] result = this.amount.divideAndRemainder(divisor);
+		MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
 		return new ConstraintMoney[] {
 				new ConstraintMoney(result[0], predicate),
 				new ConstraintMoney(result[1], predicate) };
@@ -474,6 +438,12 @@ final class ConstraintMoney implements
 	public ConstraintMoney stripTrailingZeros() {
 		return new ConstraintMoney(amount.stripTrailingZeros(),
 				predicate);
+	}
+
+	@Override
+	public MonetaryAmountFactory getFactory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

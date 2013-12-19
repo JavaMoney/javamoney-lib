@@ -53,8 +53,8 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 
 	private static final Function FUNCTION = new Function();
 
-	public SolveForNumPeriods(MonetaryAmount<?> presentValue,
-			MonetaryAmount<?> futureValue, int periods) {
+	public SolveForNumPeriods(MonetaryAmount presentValue,
+			MonetaryAmount futureValue, int periods) {
 		if (presentValue == null) {
 			throw new IllegalArgumentException("presentValue required.");
 		}
@@ -68,14 +68,14 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 	/**
 	 * @return the presentValue
 	 */
-	public final MonetaryAmount<?> getPresentValue() {
+	public final MonetaryAmount getPresentValue() {
 		return presentValue;
 	}
 
 	/**
 	 * @return the futureValue
 	 */
-	public final MonetaryAmount<?> getFutureValue() {
+	public final MonetaryAmount getFutureValue() {
 		return futureValue;
 	}
 
@@ -87,9 +87,9 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 	}
 
 	public BigDecimal calculate(Rate rate) {
-		MonetaryAmount<?> pv = new PresentValue(rate, periods)
+		MonetaryAmount pv = new PresentValue(rate, periods)
 				.apply(presentValue);
-		MonetaryAmount<?> fv = new PresentValue(rate, periods)
+		MonetaryAmount fv = new PresentValue(rate, periods)
 				.apply(futureValue);
 		return FUNCTION.calculate(rate, periods, pv, fv);
 	}
@@ -122,12 +122,12 @@ public class SolveForNumPeriods implements Calculation<Rate, BigDecimal>
 			INPUT_TYPE.checkInput(input);
 			Rate rate = input.get("rate", Rate.class);
 			int periods = input.get("periods", Integer.class);
-			MonetaryAmount<?> pv = input.get("presentValue", MonetaryAmount.class);
-			MonetaryAmount<?> fv = input.get("futureValue", MonetaryAmount.class);
+			MonetaryAmount pv = input.get("presentValue", MonetaryAmount.class);
+			MonetaryAmount fv = input.get("futureValue", MonetaryAmount.class);
 			return calculate(rate, periods, pv, fv);
 		}
 		
-		private BigDecimal calculate(Rate rate, int periods, MonetaryAmount<?> presentValue, MonetaryAmount<?> futureValue){
+		private BigDecimal calculate(Rate rate, int periods, MonetaryAmount presentValue, MonetaryAmount futureValue){
 			BigDecimal count = BigDecimal.valueOf(Math.log(futureValue.getNumber()
 					.doubleValue() / presentValue.getNumber().doubleValue()));
 			BigDecimal divisor = BigDecimal.valueOf(Math.log(1 + rate.get()

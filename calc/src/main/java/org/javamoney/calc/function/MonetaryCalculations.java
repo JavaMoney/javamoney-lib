@@ -55,12 +55,12 @@ public final class MonetaryCalculations {
 		// Singleton constructor
 	}
 
-	public static MonetaryPredicate<MonetaryAmount<?>> withFlavors(String... flavors) {
+	public static MonetaryPredicate<MonetaryAmount> withFlavors(String... flavors) {
 		return new MonetaryAmountFlavorPredicate<>(flavors);
 	}
 
 	@SafeVarargs
-	public static MonetaryPredicate<MonetaryAmount<?>> withFlavors(
+	public static MonetaryPredicate<MonetaryAmount> withFlavors(
 			Iterable<String>... flavors) {
 		return new MonetaryAmountFlavorPredicate<>(flavors);
 	}
@@ -110,7 +110,7 @@ public final class MonetaryCalculations {
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
-	public static MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> total() {
+	public static MonetaryCalculation<Iterable<? extends MonetaryAmount>> total() {
 		return TOTAL;
 	}
 
@@ -119,7 +119,7 @@ public final class MonetaryCalculations {
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
-	public static MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> average() {
+	public static MonetaryCalculation<Iterable<? extends MonetaryAmount>> average() {
 		return AVERAGE;
 	}
 
@@ -128,7 +128,7 @@ public final class MonetaryCalculations {
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
-	public static MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> minimum() {
+	public static MonetaryCalculation<Iterable<? extends MonetaryAmount>> minimum() {
 		return MINIMUM;
 	}
 
@@ -137,7 +137,7 @@ public final class MonetaryCalculations {
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
-	public static MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> maximum() {
+	public static MonetaryCalculation<Iterable<? extends MonetaryAmount>> maximum() {
 		return MAXIMUM;
 	}
 

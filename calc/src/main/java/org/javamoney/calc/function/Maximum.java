@@ -28,7 +28,7 @@ import org.javamoney.moneta.Money;
  * @author Anatole Tresch
  */
 final class Maximum implements
-		MonetaryCalculation<Iterable<? extends MonetaryAmount<?>>> {
+		MonetaryCalculation<Iterable<? extends MonetaryAmount>> {
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
@@ -45,12 +45,12 @@ final class Maximum implements
 	 *            currency.
 	 * @return the maximum.
 	 */
-	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount<?>> amounts) {
+	public MonetaryAmount calculate(Iterable<? extends MonetaryAmount> amounts) {
 		if (amounts == null) {
 			throw new IllegalArgumentException("amounts required.");
 		}
-		MonetaryAmount<?> result = null;
-		for (MonetaryAmount<?> amount : amounts) {
+		MonetaryAmount result = null;
+		for (MonetaryAmount amount : amounts) {
 			if (result == null) {
 				result = amount;
 			} else if (result.getNumber(BigDecimal.class).compareTo(

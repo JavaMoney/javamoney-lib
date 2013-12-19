@@ -1,29 +1,28 @@
 /*
- *  Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 import org.javamoney.calc.function.CompoundCalculation;
 import org.javamoney.calc.function.CompoundType;
 import org.javamoney.calc.function.CompoundValue;
-import org.javamoney.moneta.Money;
 
 /**
  * The future value of an annuity formula is used to calculate what the value at
@@ -56,7 +55,7 @@ import org.javamoney.moneta.Money;
  * 
  */
 public class FutureValueOfAnnuity implements MonetaryOperator,
-		CompoundCalculation<MonetaryAmount<?>> {
+		CompoundCalculation<MonetaryAmount> {
 
 	private Rate rate;
 	private int periods;
@@ -76,9 +75,9 @@ public class FutureValueOfAnnuity implements MonetaryOperator,
 	}
 
 	@Override
-	public <T extends MonetaryAmount<T>> T apply(T amount) {
+	public <T extends MonetaryAmount> T apply(T amount) {
 		// Am * (((1 + r).pow(n))-1/rate)
-		return amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
+		return (T) amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.get()));
 	}
 
@@ -93,11 +92,11 @@ public class FutureValueOfAnnuity implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount<?> calculate(CompoundValue input) {
+	public MonetaryAmount calculate(CompoundValue input) {
 		INPUT_TYPE.checkInput(input);
 		Rate rate = input.get("rate", Rate.class);
 		int period = input.get("periods", Integer.class);
-		MonetaryAmount<?> amount = input.get("amount", MonetaryAmount.class);
+		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
 		return amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
 				.subtract(BigDecimal.ONE).divide(rate.get()));
 	}

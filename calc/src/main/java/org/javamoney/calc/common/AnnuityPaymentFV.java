@@ -74,13 +74,13 @@ public class AnnuityPaymentFV implements MonetaryOperator
 	}
 
 	@Override
-	public <T extends MonetaryAmount<T>> T apply(T amount){
+	public <T extends MonetaryAmount> T apply(T amount){
 		// FV(r) / (((1 + r).pow(n))-1)
 		return (T)FUNCTION.calculate(rate, periods, amount);
 	}
 
 	private static final class Function implements
-			CompoundCalculation<MonetaryAmount<?>> {
+			CompoundCalculation<MonetaryAmount> {
 
 		private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
 				.withIdForInput(AnnuityPaymentFV.class)
@@ -99,11 +99,11 @@ public class AnnuityPaymentFV implements MonetaryOperator
 		}
 
 		@Override
-		public MonetaryAmount<?> calculate(CompoundValue input) {
+		public MonetaryAmount calculate(CompoundValue input) {
 			INPUT_TYPE.checkInput(input);
 			int periods = input.get("periods", Integer.class);
 			Rate rate = input.get("rate", Rate.class);
-			MonetaryAmount<?> amt = input.get("amount", MonetaryAmount.class);
+			MonetaryAmount amt = input.get("amount", MonetaryAmount.class);
 			return calculate(rate, periods, amt);
 		}
 

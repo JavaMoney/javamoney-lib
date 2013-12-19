@@ -28,7 +28,7 @@ import org.javamoney.moneta.Money;
 
 import com.ibm.icu.util.Currency;
 
-public class IsoAmountFormatter implements ItemFormat<MonetaryAmount<?>> {
+public class IsoAmountFormatter implements ItemFormat<MonetaryAmount> {
 
 	private LocalizationStyle style;
 	private LocalizationStyle currencyStyle;

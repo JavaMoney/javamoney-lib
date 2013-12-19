@@ -112,8 +112,8 @@ public class FutureValue implements MonetaryOperator,
 	 * the cash flow at period 0, which is upcounted for n periods.
 	 */
 	@Override
-	public <T extends MonetaryAmount<T>> T apply(T amount) {
-		return amount.multiply(factor);
+	public <T extends MonetaryAmount> T apply(T amount) {
+		return (T)amount.multiply(factor);
 	}
 
 	@Override
@@ -127,11 +127,11 @@ public class FutureValue implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount<?> calculate(CompoundValue input) {
+	public MonetaryAmount calculate(CompoundValue input) {
 		INPUT_TYPE.checkInput(input);
 		Rate rate = input.get("rate", Rate.class);
 		int period = input.get("periods", Integer.class);
-		MonetaryAmount<?> amount = input.get("amount", MonetaryAmount.class);
+		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
 		BigDecimal f = (BigDecimal.ONE.add(rate.get())).pow(periods);
 		return amount.multiply(f);
 	}
