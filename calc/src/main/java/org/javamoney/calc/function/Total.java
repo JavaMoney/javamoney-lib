@@ -54,9 +54,9 @@ final class Total implements
 		BigDecimal result = null;
 		for (MonetaryAmount amount : amounts) {
 			if (result == null) {
-				result = amount.getNumber(BigDecimal.class);
+				result = amount.getNumber().numberValue(BigDecimal.class);
 			} else {
-				result = result.add(amount.getNumber(BigDecimal.class));
+				result = result.add(amount.getNumber().numberValue(BigDecimal.class));
 			}
 		}
 		if (result == null) {

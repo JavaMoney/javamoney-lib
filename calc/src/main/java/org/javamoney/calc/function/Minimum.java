@@ -53,8 +53,8 @@ final class Minimum implements
 		for (MonetaryAmount amount : amounts) {
 			if (result == null) {
 				result = amount;
-			} else if (result.getNumber(BigDecimal.class).compareTo(
-					amount.getNumber(BigDecimal.class)) > 0) {
+			} else if (result.getNumber().numberValue(BigDecimal.class).compareTo(
+					amount.getNumber().numberValue(BigDecimal.class)) > 0) {
 				result = amount;
 			}
 		}

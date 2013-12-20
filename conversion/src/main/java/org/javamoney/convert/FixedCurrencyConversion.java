@@ -1,16 +1,10 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil. Licensed under the Apache
+ * License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package org.javamoney.convert;
@@ -24,8 +18,8 @@ import javax.money.MonetaryAmount;
 import org.javamoney.moneta.Money;
 
 /**
- * This interface defines access to the exchange conversion logic of JavaMoney.
- * It is provided by the Money singleton. It is provided by the Money singleton.
+ * This interface defines access to the exchange conversion logic of JavaMoney. It is provided by
+ * the Money singleton. It is provided by the Money singleton.
  * 
  * @author Anatole Tresch
  */
@@ -56,8 +50,7 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	}
 
 	/**
-	 * Get the exchange rate type that this provider instance is providing data
-	 * for.
+	 * Get the exchange rate type that this provider instance is providing data for.
 	 * 
 	 * @return the {@link ExchangeRateType} if this instance.
 	 */
@@ -71,7 +64,6 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -83,7 +75,8 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	@Override
 	public <T extends MonetaryAmount> T apply(T amount) {
 		ExchangeRate rate = getExchangeRate(amount);
-		return (T)amount.getFactory().with(rate.getTerm()).with(amount.getNumber(BigDecimal.class)
-				.multiply(rate.getFactor())).create();
+		return (T) amount.getFactory().with(rate.getTerm())
+				.with(amount.getNumber().numberValue(BigDecimal.class)
+						.multiply(rate.getFactor())).create();
 	}
 }

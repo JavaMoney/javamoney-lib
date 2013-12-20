@@ -72,9 +72,9 @@ final class Average implements
 								+ amount.getCurrency());
 			}
 			if (total == null) {
-				total = amount.getNumber(BigDecimal.class);
+				total = amount.getNumber().numberValue(BigDecimal.class);
 			} else {
-				total = total.add(amount.getNumber(BigDecimal.class));
+				total = total.add(amount.getNumber().numberValue(BigDecimal.class));
 			}
 		}
 		if (total == null) {

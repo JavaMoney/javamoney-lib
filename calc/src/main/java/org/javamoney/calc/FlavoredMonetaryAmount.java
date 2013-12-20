@@ -23,6 +23,7 @@ import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
+import javax.money.NumberValue;
 
 /**
  * This class allows to attach an {@link String} to the {@link MonetaryAmount}
@@ -229,21 +230,10 @@ public final class FlavoredMonetaryAmount implements
 	}
 
 	@Override
-	public Number getNumber() {
+	public NumberValue getNumber() {
 		return this.baseAmount.getNumber();
 	}
 
-	@Override
-	public <N extends Number> N getNumber(Class<N> type) {
-		return (N) this.baseAmount.getNumber(type);
-	}
-
-	@Override
-	public <N extends Number> N getNumberExact(Class<N> type) {
-		return (N) this.baseAmount.getNumberExact(type);
-	}
-
-	
 
 	@Override
 	public boolean isGreaterThan(MonetaryAmount amount) {

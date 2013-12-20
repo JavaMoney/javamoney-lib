@@ -21,6 +21,7 @@ import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
+import javax.money.NumberValue;
 
 import org.javamoney.calc.function.MonetaryPredicate;
 import org.javamoney.moneta.Money;
@@ -129,7 +130,6 @@ final class ConstraintMoney implements
 	 * 
 	 * @see javax.money.MonetaryAmount#divideAndRemainder(java.lang.Number)
 	 */
-	@SuppressWarnings("unchecked")
 	public ConstraintMoney[] divideAndRemainder(Number divisor) {
 		MonetaryAmount[] res = this.amount.divideAndRemainder(divisor);
 		return new ConstraintMoney[] { of(res[0], predicate),
@@ -345,18 +345,8 @@ final class ConstraintMoney implements
 	}
 
 	@Override
-	public Number getNumber() {
+	public NumberValue getNumber() {
 		return this.amount.getNumber();
-	}
-
-	@Override
-	public <N extends Number> N getNumber(Class<N> type) {
-		return this.amount.getNumber(type);
-	}
-
-	@Override
-	public <N extends Number> N getNumberExact(Class<N> type) {
-		return this.amount.getNumberExact(type);
 	}
 
 	@Override
@@ -402,7 +392,6 @@ final class ConstraintMoney implements
 		return new ConstraintMoney(amount.remainder(divisor), predicate);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(long divisor) {
 		MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
@@ -411,7 +400,6 @@ final class ConstraintMoney implements
 				new ConstraintMoney(result[1], predicate) };
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ConstraintMoney[] divideAndRemainder(double divisor) {
 		MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
@@ -441,9 +429,8 @@ final class ConstraintMoney implements
 	}
 
 	@Override
-	public MonetaryAmountFactory getFactory() {
-		// TODO Auto-generated method stub
-		return null;
+	public MonetaryAmountFactory<ConstraintMoney> getFactory() {
+		return new ConstraintMoneyFactory(this).with(this);
 	}
 
 }

@@ -60,7 +60,7 @@ public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 					rate == null ? null : rate.getTerm(), null);
 		}
 		return (T)amount.getFactory().with(rate.getTerm()).with(amount.multiply(rate.getFactor())
-				.getNumber(BigDecimal.class)).create();
+				.getNumber().numberValue(BigDecimal.class)).create();
 	}
 
 	/*
