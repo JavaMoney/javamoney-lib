@@ -215,16 +215,6 @@ public final class FlavoredMonetaryAmount implements
 	}
 
 	@Override
-	public int getPrecision() {
-		return this.baseAmount.getPrecision();
-	}
-
-	@Override
-	public int getScale() {
-		return this.baseAmount.getScale();
-	}
-
-	@Override
 	public MonetaryContext getMonetaryContext() {
 		return this.baseAmount.getMonetaryContext();
 	}

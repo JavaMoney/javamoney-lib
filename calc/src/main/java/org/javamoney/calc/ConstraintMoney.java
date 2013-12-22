@@ -266,24 +266,6 @@ final class ConstraintMoney implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.money.MonetaryAmount#getScale()
-	 */
-	public int getScale() {
-		return this.amount.getScale();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.MonetaryAmount#getPrecision()
-	 */
-	public int getPrecision() {
-		return this.amount.getPrecision();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see javax.money.MonetaryAmount#signum()
 	 */
 	public int signum() {
