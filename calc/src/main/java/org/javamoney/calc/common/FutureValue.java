@@ -111,6 +111,7 @@ public class FutureValue implements MonetaryOperator,
 	 * Calculates the future value ov {@code value}. The value hereby represents
 	 * the cash flow at period 0, which is upcounted for n periods.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends MonetaryAmount> T apply(T amount) {
 		return (T)amount.multiply(factor);

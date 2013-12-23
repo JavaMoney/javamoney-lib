@@ -35,8 +35,8 @@ import org.javamoney.calc.Calculation;
 public class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
 
 	/**
-	 * This function returnes the number of periods required to double an amount
-	 * with continous compounding, given a rate.
+	 * This function returns the number of periods required to double an amount
+	 * with continuous compounding, given a rate.
 	 */
 	@Override
 	public BigDecimal calculate(Rate rate) {

@@ -133,7 +133,7 @@ public class ContinuesCompundInterest implements MonetaryOperator,
 		int power = rate.get().multiply(BigDecimal.valueOf(periods))
 				.intValue();
 		BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
-		return Money.from(amount).multiply(f);
+		return amount.multiply(f);
 	}
 
 }

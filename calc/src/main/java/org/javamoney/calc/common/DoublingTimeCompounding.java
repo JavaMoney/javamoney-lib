@@ -17,8 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import javax.money.MonetaryOperator;
-
 import org.javamoney.calc.Calculation;
 
 

@@ -104,8 +104,8 @@ public class CompundInterest implements MonetaryOperator,
 	 * n periods.
 	 */
 	@Override
-	public MonetaryAmount apply(MonetaryAmount amount) {
-		return Money.from(amount).multiply(factor);
+	public <T extends MonetaryAmount> T apply(T amount) {
+		return (T)amount.multiply(factor);
 	}
 
 	@Override

@@ -65,6 +65,7 @@ public class PresentValueOfAnnuity implements MonetaryOperator,
 		this.periods = periods;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends MonetaryAmount> T apply(T amount){
 		// Am * (((1 + r).pow(n))-1/rate)

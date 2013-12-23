@@ -39,8 +39,7 @@ import org.javamoney.moneta.Money;
  * example, if the rate is compounded monthly, then the monthly rate would be
  * used and the number of periods would reflect the number of months.
  * 
- * @see http
- *      ://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
+ * @see http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
  * @author Anatole Tresch
  * @author Werner Keil
  */
