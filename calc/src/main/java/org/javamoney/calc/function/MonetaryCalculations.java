@@ -39,7 +39,7 @@ public final class MonetaryCalculations {
 	 */
 	private static final Total TOTAL = new Total();
 	/** Shared average instance. */
-	private static final Average AVERAGE = new Average();
+	private static final AverageMean AVERAGE = new AverageMean();
 
 	/**
 	 * The shared instance of this class.

@@ -22,7 +22,7 @@ import org.javamoney.calc.Calculation;
 
 public interface CompoundCalculation<T> extends Calculation<CompoundValue, T> {
 
-	public CompoundType getInputTape();
+	public CompoundType getInputType();
 
 	public Class<T> getResultType();
 

@@ -33,19 +33,17 @@ public class FutureValueTest {
 	@Test
 	@Ignore("rounding apply doesn't work as expected")
 	public void test() {
-		FutureValue f = new FutureValue(new Rate(0.05), 1);
+		FutureValue f = FutureValue.of();
 		Money money = Money.of("CHF", 100);
 		MonetaryOperator rounding = MonetaryRoundings
 				.getRounding(new MonetaryContext.Builder().setPrecision(2)
 						.setAttribute(
 								RoundingMode.HALF_EVEN).build());
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.apply(money)
+		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.calculate(money,new Rate(0.05), 1)
 				.with(rounding));
-		f = new FutureValue(new Rate(0.05), 2);
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(90.7)),
-				f.apply(money).with(rounding));
-		f = new FutureValue(new Rate(0.05), 3);
+				f.calculate(money,new Rate(0.05), 2).with(rounding));
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(86.38)),
-				f.apply(money).with(rounding));
+				f.calculate(money,new Rate(0.05), 3).with(rounding));
 	}
 }

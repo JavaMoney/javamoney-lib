@@ -9,17 +9,13 @@
  */
 package org.javamoney.calc.common;
 
-import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-
-import org.javamoney.calc.function.CompoundCalculation;
-import org.javamoney.calc.function.CompoundType;
-import org.javamoney.calc.function.CompoundValue;
-import org.javamoney.moneta.Money;
 
 /**
+ * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%203.gif" />
+ * <p>
  * Present Value (PV) is a formula used in Finance that calculates the present day value of an
  * amount that is received at a future date. The premise of the equation is that there is
  * "time value of money".
@@ -33,92 +29,26 @@ import org.javamoney.moneta.Money;
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%201.gif" />
  * <p>
  * alterantively this can be written also as (which is much easier to implement):<br/>
- * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%203.gif" />
- * <p>
- * so leading to...
- * <pre>
- * &lt;amount> * 1/(1+&lt;rate>)^&lt;periods>
- * </pre>
  * 
  * @see http://www.financeformulas.net/Present_Value.html
  * @author Anatole Tresch
- * 
  */
-public class PresentValue implements MonetaryOperator,
-		CompoundCalculation<MonetaryAmount> {
+public final class PresentValue extends AbstractPeriodicalFunction {
 
-	private int periods;
-	private Rate rate;
-	private BigDecimal divisor;
+	private static final PresentValue INSTANCE = new PresentValue();
 
-	private static final CompoundType INPUT_TYPE = new CompoundType.Builder()
-			.withIdForInput(PresentValue.class)
-			.withRequiredArg("periods", Integer.class)
-			.withRequiredArg("amount", MonetaryAmount.class)
-			.withRequiredArg("rate", Rate.class).build();
-
-	public PresentValue(Rate rate, int periods) {
-		this.rate = rate;
-		this.periods = periods;
-		divisor = (BigDecimal.ONE.add(rate.get())).pow(periods);
+	private PresentValue() {
 	}
 
-	/**
-	 * The divisor to be divided thru to get the present value from an amount a, where
-	 * {@code f(a) = a / divisor}.
-	 * 
-	 * @return the futer value factor based on the given rate and period.
-	 */
-	public BigDecimal getDivisor() {
-		return divisor;
-	}
-
-	/**
-	 * The number of periods.
-	 * 
-	 * @return the number of periods.
-	 */
-	public int getPeriods() {
-		return periods;
-	}
-
-	/**
-	 * The rate of return.
-	 * 
-	 * @return the rate of return.
-	 */
-	public Rate getRate() {
-		return rate;
-	}
-
-	/**
-	 * Calculates the present value for a given amount.
-	 * 
-	 * @return the present value, discounted for the periods, based on the given rate.
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends MonetaryAmount> T apply(T amount) {
-		return (T) amount.divide(divisor);
+	public static final PresentValue of() {
+		return INSTANCE;
 	}
 
 	@Override
-	public CompoundType getInputTape() {
-		return INPUT_TYPE;
-	}
-
-	@Override
-	public Class getResultType() {
-		return MonetaryAmount.class;
-	}
-
-	@Override
-	public MonetaryAmount calculate(CompoundValue input) {
-		INPUT_TYPE.checkInput(input);
-		Rate rate = input.get("rate", Rate.class);
-		int period = input.get("periods", Integer.class);
-		MonetaryAmount amount = input.get("amount", MonetaryAmount.class);
-		BigDecimal divisor = (BigDecimal.ONE.add(rate.get())).pow(periods);
-		return Money.from(amount).divide(divisor);
+	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
+			int periods) {
+		Objects.requireNonNull(amount, "Amount required");
+		Objects.requireNonNull(rate, "Rate required");
+		return amount.divide(PresentValueFactor.of().calculate(rate, periods));
 	}
 }

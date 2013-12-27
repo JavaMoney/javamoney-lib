@@ -32,8 +32,17 @@ import org.javamoney.calc.Calculation;
  * @see http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
  * @author Anatole Tresch
  */
-public class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
+public final class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
 
+	private static final DoublingTimeSimple INSTANCE = new DoublingTimeSimple();
+
+	private DoublingTimeSimple() {
+	}
+
+	public static final DoublingTimeSimple of() {
+		return INSTANCE;
+	}
+	
 	/**
 	 * This function returns the number of periods required to double an amount
 	 * with continuous compounding, given a rate.

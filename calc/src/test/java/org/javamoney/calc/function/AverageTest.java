@@ -28,7 +28,7 @@ public class AverageTest {
 
 	@Test
 	public void testNew() {
-		Average avg = new Average();
+		AverageMean avg = new AverageMean();
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class AverageTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("Average [Iterable<MonetaryAmount> -> MonetaryAmount]",
-				new Average().toString());
+		assertEquals("Average Mean [Iterable<MonetaryAmount> -> MonetaryAmount]",
+				new AverageMean().toString());
 	}
 }

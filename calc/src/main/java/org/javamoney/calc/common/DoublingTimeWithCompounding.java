@@ -33,8 +33,17 @@ import org.javamoney.calc.Calculation;
  * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
  * @author Anatole Tresch
  */
-public class DoublingTimeCompounding implements Calculation<Rate, BigDecimal> {
+public final class DoublingTimeWithCompounding implements Calculation<Rate, BigDecimal> {
 
+	private static final DoublingTimeWithCompounding INSTANCE = new DoublingTimeWithCompounding();
+
+	private DoublingTimeWithCompounding() {
+	}
+
+	public static final DoublingTimeWithCompounding of() {
+		return INSTANCE;
+	}
+	
 	/**
 	 * This function returnes the number of periods required to double an amount
 	 * with continous compounding, given a rate.

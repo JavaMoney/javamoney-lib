@@ -36,10 +36,18 @@ import org.javamoney.calc.Calculation;
  * 
  * @see http://www.financeformulas.net/Doubling_Time.html
  * @author Anatole Tresch
- * @author Werner Keil
  */
-public class DoublingTime implements Calculation<Rate, BigDecimal> {
+public final class DoublingTime implements Calculation<Rate, BigDecimal> {
 
+	private static final DoublingTime INSTANCE = new DoublingTime();
+
+	private DoublingTime() {
+	}
+
+	public static final DoublingTime of() {
+		return INSTANCE;
+	}
+	
 	/**
 	 * This function returns the number of periods required to double an amount
 	 * with continuous compounding, given a rate.

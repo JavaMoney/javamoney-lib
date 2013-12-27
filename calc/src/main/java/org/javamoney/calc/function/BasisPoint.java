@@ -152,7 +152,7 @@ public final class BasisPoint implements MonetaryOperator,
 	}
 
 	@Override
-	public CompoundType getInputTape() {
+	public CompoundType getInputType() {
 		return INPUT_TYPE;
 	}
 
