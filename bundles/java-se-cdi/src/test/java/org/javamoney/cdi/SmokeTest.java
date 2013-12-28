@@ -140,7 +140,7 @@ public class SmokeTest {
 	public void testAmountFormatRoundTrip() throws ParseException {
 		// Using parsers
 		MonetaryAmountFormat format = MonetaryFormats
-				.getAmountFormat(Locale.GERMANY);
+				.getDefaultFormat(Locale.GERMANY);
 		assertNotNull(format);
 		MonetaryAmount amount = MonetaryAmounts.getDefaultAmountFactory()
 				.withCurrency("CHF").with(10.50).create();
