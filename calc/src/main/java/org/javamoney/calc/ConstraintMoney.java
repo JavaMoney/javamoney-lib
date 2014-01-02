@@ -412,7 +412,7 @@ final class ConstraintMoney implements
 
 	@Override
 	public MonetaryAmountFactory<ConstraintMoney> getFactory() {
-		return new ConstraintMoneyFactory(this).with(this);
+		return new ConstraintMoneyFactory(this).setAmount(this);
 	}
 
 }

@@ -10,12 +10,9 @@
 package org.javamoney.convert;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-
-import org.javamoney.moneta.Money;
 
 /**
  * This interface defines access to the exchange conversion logic of JavaMoney. It is provided by
@@ -75,8 +72,8 @@ public class FixedCurrencyConversion extends AbstractCurrencyConversion {
 	@Override
 	public <T extends MonetaryAmount> T apply(T amount) {
 		ExchangeRate rate = getExchangeRate(amount);
-		return (T) amount.getFactory().with(rate.getTerm())
-				.with(amount.getNumber().numberValue(BigDecimal.class)
+		return (T) amount.getFactory().setCurrency(rate.getTerm())
+				.setNumber(amount.getNumber().numberValue(BigDecimal.class)
 						.multiply(rate.getFactor())).create();
 	}
 }

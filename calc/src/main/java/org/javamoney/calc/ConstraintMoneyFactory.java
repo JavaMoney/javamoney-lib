@@ -25,8 +25,8 @@ public class ConstraintMoneyFactory extends
 	@Override
 	protected ConstraintMoney create(CurrencyUnit currency, Number number,
 			MonetaryContext monetaryContext) {
-		return new ConstraintMoney(baseAmount.getFactory().with(currency)
-				.with(number).with(monetaryContext).create(), constraint);
+		return new ConstraintMoney(baseAmount.getFactory().setCurrency(currency)
+				.setNumber(number).setContext(monetaryContext).create(), constraint);
 	}
 
 	@Override

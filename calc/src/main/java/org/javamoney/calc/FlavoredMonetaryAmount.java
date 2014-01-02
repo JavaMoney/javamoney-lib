@@ -111,8 +111,8 @@ public final class FlavoredMonetaryAmount implements
 			return ((FlavoredMonetaryAmount) baseAmount)
 					.with(number, newFlavor);
 		}
-		return new FlavoredMonetaryAmount(this.baseAmount.getFactory().with(
-				this.baseAmount.getCurrency()).with(
+		return new FlavoredMonetaryAmount(this.baseAmount.getFactory().setCurrency(
+				this.baseAmount.getCurrency()).setNumber(
 				number).create(), newFlavor);
 	}
 
