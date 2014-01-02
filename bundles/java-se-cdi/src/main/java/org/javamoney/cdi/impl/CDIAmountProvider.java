@@ -15,14 +15,16 @@ import javax.money.spi.MonetaryAmountsSpi;
 public class CDIAmountProvider implements MonetaryAmountsSpi {
 
 	@Inject
-	private Instance<MonetaryAmountFactory> factories;
+	private Instance<MonetaryAmountFactory<?>> factories;
 
+	// cast is safe (self managed)
+	@SuppressWarnings("unchecked")
 	@Override
-	public MonetaryAmountFactory getAmountFactory(
-			Class<? extends MonetaryAmount> amountType) {
-		for (MonetaryAmountFactory f : factories) {
+	public <T extends MonetaryAmount> MonetaryAmountFactory<T> getAmountFactory(
+			Class<T> amountType) {
+		for (MonetaryAmountFactory<?> f : factories) {
 			if (f.getAmountType().isAssignableFrom(amountType)) {
-				return (MonetaryAmountFactory) f;
+				return (MonetaryAmountFactory<T>) f;
 			}
 		}
 		return null;
@@ -31,7 +33,7 @@ public class CDIAmountProvider implements MonetaryAmountsSpi {
 	@Override
 	public Set<Class<? extends MonetaryAmount>> getAmountTypes() {
 		Set<Class<? extends MonetaryAmount>> types = new HashSet<>();
-		for (MonetaryAmountFactory f : factories) {
+		for (MonetaryAmountFactory<?> f : factories) {
 			types.add(f.getAmountType());
 		}
 		return types;
@@ -40,8 +42,7 @@ public class CDIAmountProvider implements MonetaryAmountsSpi {
 	@Override
 	public Class<? extends MonetaryAmount> getDefaultAmountType() {
 		// TODO check system property
-		Set<Class<? extends MonetaryAmount>> types = new HashSet<>();
-		for (MonetaryAmountFactory f : factories) {
+		for (MonetaryAmountFactory<?> f : factories) {
 			return f.getAmountType();
 		}
 		return null;

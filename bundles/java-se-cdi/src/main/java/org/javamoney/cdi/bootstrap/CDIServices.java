@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.inject.Instance;
-import javax.money.spi.Priority;
+import javax.money.spi.ServicePriority;
 import javax.money.spi.ServiceProvider;
 
 import org.javamoney.cdi.CDIContainer;
 import org.slf4j.LoggerFactory;
 
-@Priority(Priority.NORMAL + 1)
+@ServicePriority(ServicePriority.NORM_PRIORITY + 1)
 public class CDIServices implements ServiceProvider {
 
 	@Override
