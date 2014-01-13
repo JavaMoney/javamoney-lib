@@ -11,12 +11,6 @@
 	<name>Money and Currency - JavaMoney libraries</name>
 	<packaging>pom</packaging>
 
-	<properties>
-		<!-- Dependency versions -->
-		<junit.version>4.8.2</junit.version>
-		<slf4j.version>1.6.1</slf4j.version>
-	</properties>
-
 	<licenses>
 		<license>
 			<name>Apache License version 2.0</name>
@@ -52,8 +46,6 @@
 						</instructions>
 					</configuration>
 				</plugin>
-
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -112,7 +104,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
