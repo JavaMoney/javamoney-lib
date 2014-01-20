@@ -5,36 +5,18 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.inject.Instance;
-import javax.money.spi.ServicePriority;
 import javax.money.spi.ServiceProvider;
 
 import org.javamoney.cdi.CDIContainer;
+import org.javamoney.moneta.ServicePriority;
 import org.slf4j.LoggerFactory;
 
 @ServicePriority(ServicePriority.NORM_PRIORITY + 1)
 public class CDIServices implements ServiceProvider {
 
+	
 	@Override
-	public <T> T getService(Class<T> serviceType) {
-		return CDIContainer
-				.getInstance(serviceType);
-	}
-
-	@Override
-	public <T> T getService(Class<T> serviceType, T defaultInstance) {
-		try {
-			return CDIContainer
-					.getInstance(serviceType);
-		} catch (Exception e) {
-			LoggerFactory.getLogger(CDIServices.class).debug(
-					"Component not found: " + serviceType.getName()
-							+ ", returning default: " + defaultInstance);
-			return defaultInstance;
-		}
-	}
-
-	@Override
-	public <T> Collection<T> getServices(Class<T> serviceType) {
+	public <T> List<T> getServices(Class<T> serviceType) {
 		List<T> instances = new ArrayList<T>();
 		for (T t : CDIContainer
 				.getInstances(serviceType)) {
@@ -44,8 +26,8 @@ public class CDIServices implements ServiceProvider {
 	}
 
 	@Override
-	public <T> Collection<T> getServices(Class<T> serviceType,
-			Collection<T> defaultList) {
+	public <T> List<T> getServices(Class<T> serviceType,
+			List<T> defaultList) {
 		Instance<T> found = CDIContainer
 				.getInstances(serviceType);
 		if (found.isUnsatisfied()) {
