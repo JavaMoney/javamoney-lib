@@ -40,7 +40,7 @@ public class ConstraintMoneyFactory extends
 				ConstraintMoney.class).setFlavor(AmountFlavor.UNDEFINED)
 				.setMaxScale(-1).setFixedScale(false)
 				.setPrecision(0)
-				.build();
+				.create();
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ConstraintMoneyFactory extends
 				ConstraintMoney.class).setFlavor(AmountFlavor.UNDEFINED)
 				.setMaxScale(-1).setFixedScale(false)
 				.setPrecision(0)
-				.build();
+				.create();
 	}
 
 }

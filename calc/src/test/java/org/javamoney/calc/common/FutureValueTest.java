@@ -37,8 +37,8 @@ public class FutureValueTest {
 		Money money = Money.of("CHF", 100);
 		MonetaryOperator rounding = MonetaryRoundings
 				.getRounding(new MonetaryContext.Builder().setPrecision(2)
-						.setAttribute(
-								RoundingMode.HALF_EVEN).build());
+						.set(
+								RoundingMode.HALF_EVEN).create());
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)), f.calculate(money,new Rate(0.05), 1)
 				.with(rounding));
 		assertEquals(Money.of("CHF", BigDecimal.valueOf(90.7)),

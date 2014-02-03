@@ -32,7 +32,8 @@ public class CurrencyMappingsTest {
 		assertNotNull(units);
 		assertFalse(units.isEmpty());
 		assertTrue(units.contains(MonetaryCurrencies.getCurrency("CHF")));
-		BuildableCurrencyUnit bu = new BuildableCurrencyUnit("SDR", -1, 3);
+		BuildableCurrencyUnit bu = new BuildableCurrencyUnit.Builder("SDR")
+				.setNumericCode(-1).setDefaultFractionDigits(3).create();
 		assertFalse(units.contains(bu));
 	}
 

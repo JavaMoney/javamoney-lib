@@ -15,6 +15,7 @@
  */
 package org.javamoney.data.icu4j;
 
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public final class CLDRTranslations extends AbstractXmlResourceLoaderListener {
+public final class CLDRTranslations {
 
 	private static final CLDRTranslations INSTANCE = new CLDRTranslations();
 
@@ -95,7 +96,8 @@ public final class CLDRTranslations extends AbstractXmlResourceLoaderListener {
 							+ language + ".xml"));
 		}
 		
-		public void loadDocument{Document document){
+		@Override
+		protected void loadDocument(Document document) {
 			Map<String, String> languageTranslations = new HashMap<String, String>();
 			Map<String, String> territoryTranslations = new HashMap<String, String>();
 			Map<String, CurrencyTranslations> currencyTranslations = new HashMap<String, CurrencyTranslations>();
@@ -157,6 +159,7 @@ public final class CLDRTranslations extends AbstractXmlResourceLoaderListener {
 			this.languageTranslations = languageTranslations;
 			this.currencyTranslations = currencyTranslations;
 		}
+	}
 
 		public static final class CurrencyTranslations {
 			private String isoCode;
@@ -244,16 +247,5 @@ public final class CLDRTranslations extends AbstractXmlResourceLoaderListener {
 
 		}
 
-		@Override
-		protected void loadDocument(Document document) {
-			// TODO Auto-generated method stub
-		}
 	}
 
-	@Override
-	protected void loadDocument(Document document) {
-		// TODO Auto-generated method stub
-		
-	}
-
-}
