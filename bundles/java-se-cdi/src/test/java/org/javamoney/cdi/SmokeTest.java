@@ -32,13 +32,13 @@ import javax.money.MonetaryContext;
 import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRoundings;
+import javax.money.convert.ExchangeRate;
+import javax.money.convert.ExchangeRateProvider;
+import javax.money.convert.ExchangeRateType;
+import javax.money.convert.MonetaryConversions;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 
-import org.javamoney.convert.ConversionProvider;
-import org.javamoney.convert.ExchangeRate;
-import org.javamoney.convert.ExchangeRateType;
-import org.javamoney.convert.MonetaryConversions;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -78,7 +78,7 @@ public class SmokeTest {
 
 	@Test
 	public void testExchange() {
-		ConversionProvider prov = MonetaryConversions
+		ExchangeRateProvider prov = MonetaryConversions
 				.getConversionProvider(RATE_TYPE);
 		assertNotNull(prov);
 		ExchangeRate rate1 = prov.getExchangeRate(

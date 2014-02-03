@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 
-import org.javamoney.util.BuildableCurrencyUnit;
+import org.javamoney.moneta.BuildableCurrencyUnit;
 import org.junit.Ignore;
 import org.junit.Test;
 

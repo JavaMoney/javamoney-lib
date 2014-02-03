@@ -22,13 +22,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.javamoney.util.loader.AbstractXmlResource;
+import javax.money.spi.Bootstrap;
+
+import org.javamoney.moneta.spi.LoaderService;
+import org.javamoney.moneta.spi.LoaderService.UpdatePolicy;
+import org.javamoney.util.AbstractXmlResourceLoaderListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public final class CLDRTranslations {
+public final class CLDRTranslations extends AbstractXmlResourceLoaderListener {
 
 	private static final CLDRTranslations INSTANCE = new CLDRTranslations();
 
@@ -59,7 +63,8 @@ public final class CLDRTranslations {
 		return getInstance(locale.getLanguage());
 	}
 
-	public static final class LanguageTranslations extends AbstractXmlResource {
+	public static final class LanguageTranslations extends
+			AbstractXmlResourceLoaderListener {
 
 		private Map<String, String> languageTranslations = new HashMap<String, String>();
 		private Map<String, String> territoryTranslations = new HashMap<String, String>();
@@ -79,15 +84,18 @@ public final class CLDRTranslations {
 
 		public LanguageTranslations(String language)
 				throws MalformedURLException {
-			super("CLDR-Translations_" + language,
-					new URL(
-							"http://unicode.org/repos/cldr/trunk/common/main/"
-									+ language + ".xml"),
-					"java-money/defaults/cldr/main/"
-							+ language + ".xml");
+			Bootstrap.getService(LoaderService.class).registerData(
+					"CLDR-Translations_" + language,
+					UpdatePolicy.ONSTARTUP,
+					new HashMap<String, String>(),
+					getClass().getResource(
+							"java-money/defaults/cldr/main/" + language
+									+ ".xml"),
+					new URL("http://unicode.org/repos/cldr/trunk/common/main/"
+							+ language + ".xml"));
 		}
-
-		protected void documentReloaded() {
+		
+		public void loadDocument{Document document){
 			Map<String, String> languageTranslations = new HashMap<String, String>();
 			Map<String, String> territoryTranslations = new HashMap<String, String>();
 			Map<String, CurrencyTranslations> currencyTranslations = new HashMap<String, CurrencyTranslations>();
@@ -133,15 +141,13 @@ public final class CLDRTranslations {
 						currencyAttrs = chNode.getAttributes();
 						if (currencyAttrs.getLength() == 0) {
 							cl.setDisplayName(null, chNode.getTextContent());
-						}
-						else {
+						} else {
 							cl.setDisplayName(
 									currencyAttrs.getNamedItem("count")
 											.getNodeValue(), chNode
 											.getTextContent());
 						}
-					}
-					else if ("symbol".equals(chNode.getNodeName())) {
+					} else if ("symbol".equals(chNode.getNodeName())) {
 						cl.setSymbol(chNode.getNodeValue());
 					}
 				}
@@ -170,11 +176,9 @@ public final class CLDRTranslations {
 			public void setDisplayName(String type, String displayName) {
 				if (type == null) {
 					this.displayName = displayName;
-				}
-				else if ("one".equals(type)) {
+				} else if ("one".equals(type)) {
 					this.displayNameOne = displayName;
-				}
-				else if ("other".equals(type)) {
+				} else if ("other".equals(type)) {
 					this.displayNameOther = displayName;
 				}
 			}
@@ -244,6 +248,12 @@ public final class CLDRTranslations {
 		protected void loadDocument(Document document) {
 			// TODO Auto-generated method stub
 		}
+	}
+
+	@Override
+	protected void loadDocument(Document document) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

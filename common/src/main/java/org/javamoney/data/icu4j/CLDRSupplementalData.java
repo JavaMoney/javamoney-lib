@@ -15,9 +15,9 @@
  */
 package org.javamoney.data.icu4j;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,15 +25,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.javamoney.util.loader.AbstractXmlResource;
+import javax.money.spi.Bootstrap;
+
+import org.javamoney.moneta.spi.LoaderService;
+import org.javamoney.util.AbstractXmlResourceLoaderListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public final class CLDRSupplementalData extends AbstractXmlResource {
+public final class CLDRSupplementalData extends AbstractXmlResourceLoaderListener {
 
+	private static final Logger LOG = Logger.getLogger(CLDRSupplementalData.class.getName());
 	private static final CLDRSupplementalData INSTANCE = createInstance();
 
 	/*
@@ -45,12 +51,12 @@ public final class CLDRSupplementalData extends AbstractXmlResource {
 	private Map<String, Currency4Region> currencyRegionData;
 
 	private CLDRSupplementalData() throws MalformedURLException {
-		super(
-				"CLDR-SupplementalData",
-				new URL(
-						"http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml"),
-				"/java-money/defaults/cldr/supplementalData.xml");
-		load();
+		Bootstrap.getService(LoaderService.class).addLoaderListener(this, "CLDR-SupplementalData");
+		try {
+			Bootstrap.getService(LoaderService.class).loadData("CLDR-SupplementalData");
+		} catch (IOException e) {
+			LOG.log(Level.SEVERE, "Error loading CLDR supplemental data.", e);
+		}
 	}
 
 	public static CLDRSupplementalData getInstance() {
