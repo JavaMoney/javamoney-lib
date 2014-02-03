@@ -25,11 +25,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.javamoney.lib</groupId>
-			<artifactId>javamoney-conversion</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javamoney.lib</groupId>
 			<artifactId>javamoney-format</artifactId>
 			<version>${project.version}</version>
 		</dependency>

@@ -34,7 +34,6 @@ import javax.money.MonetaryOperator;
 import javax.money.MonetaryRoundings;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.ExchangeRateType;
 import javax.money.convert.MonetaryConversions;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
@@ -48,8 +47,6 @@ public class SmokeTest {
 	private static final Logger logger = LoggerFactory
 			.getLogger(SmokeTest.class);
 
-	private static final ExchangeRateType RATE_TYPE = ExchangeRateType
-			.of("EZB");
 
 	@Test
 	public void testCreateAmounts() {
@@ -79,7 +76,7 @@ public class SmokeTest {
 	@Test
 	public void testExchange() {
 		ExchangeRateProvider prov = MonetaryConversions
-				.getConversionProvider(RATE_TYPE);
+				.getExchangeRateProvider("EZB");
 		assertNotNull(prov);
 		ExchangeRate rate1 = prov.getExchangeRate(
 				MonetaryCurrencies.getCurrency("CHF"),
@@ -99,42 +96,6 @@ public class SmokeTest {
 		System.out.println(rate4);
 	}
 
-	@Test
-	public void testCurrencyConverter() {
-		MonetaryOperator rounding = MonetaryRoundings
-				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
-						.setAttribute(RoundingMode.HALF_UP).build());
-
-		MonetaryAmount srcCHF = Money.of(MonetaryCurrencies.getCurrency("CHF"),
-				100.15);
-		MonetaryAmount srcUSD = Money.of(MonetaryCurrencies.getCurrency("USD"),
-				100.15);
-		MonetaryAmount srcEUR = Money.of(MonetaryCurrencies.getCurrency("EUR"),
-				100.15);
-
-		MonetaryAmount tgt = MonetaryConversions
-				.getConversionProvider(RATE_TYPE).getConverter()
-				.convert(srcCHF, MonetaryCurrencies.getCurrency("EUR"));
-		MonetaryAmount tgt3 = MonetaryConversions
-				.getConversionProvider(RATE_TYPE).getConverter()
-				.convert(tgt, MonetaryCurrencies.getCurrency("CHF"));
-		assertEquals(srcCHF.with(rounding), tgt3.with(rounding));
-		tgt = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter()
-				.convert(srcEUR, MonetaryCurrencies.getCurrency("CHF"));
-		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter()
-				.convert(tgt, MonetaryCurrencies.getCurrency("EUR"));
-		assertEquals(srcEUR.with(rounding), rounding.apply(tgt3));
-		tgt = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter()
-				.convert(srcCHF, MonetaryCurrencies.getCurrency("USD"));
-		tgt3 = MonetaryConversions.getConversionProvider(RATE_TYPE)
-				.getConverter()
-				.convert(tgt, MonetaryCurrencies.getCurrency("CHF"));
-		assertEquals(srcCHF, tgt3);
-		assertEquals(srcCHF.with(rounding), rounding.apply(tgt3));
-	}
 
 	@Test
 	public void testAmountFormatRoundTrip() throws ParseException {
