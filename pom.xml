@@ -22,10 +22,8 @@
 		<module>common</module>
 		<module>calc</module>
 		<module>format</module>
-		<module>conversion</module>
 		<module>extensions</module>
 		<module>validity</module>
-		<!-- <module>bundles</module> -->
 	</modules>
 
 	<build>
