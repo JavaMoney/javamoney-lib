@@ -17,27 +17,22 @@ package org.javamoney.format.tokens;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.ParsePosition;
 import java.util.Locale;
 
-import javax.money.MonetaryAmount;
-
-import org.javamoney.format.FormatToken;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.ParseContext;
+import org.javamoney.format.ItemParseContext;
 
 
 /**
- * {@link FormatToken} which allows to format a {@link Number} type.
+ * {@link org.javamoney.format.StyleableItemFormatToken} which allows to format a {@link Number} type.
  * 
  * @author Anatole Tresch
  * 
  * @param <T>
  *            The item type.
  */
-public class AmountNumberToken<T extends MonetaryAmount> extends
-		AbstractFormatToken<T> {
+public class NumberTokenStyleableItem extends AbstractStyleableItemFormatToken<Number>{
 
 	private static final char[] EMPTY_CHAR_ARRAY = new char[0];
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
@@ -46,17 +41,17 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 
 	// private StringGrouper fractionGroup;
 
-	public AmountNumberToken() {
+	public NumberTokenStyleableItem() {
 	}
 
-	public AmountNumberToken(DecimalFormat format) {
+	public NumberTokenStyleableItem(DecimalFormat format) {
 		if (format == null) {
 			throw new IllegalArgumentException("Format is required.");
 		}
 		this.format = (DecimalFormat) format.clone();
 	}
 
-	public AmountNumberToken<T> setNumberGroupSizes(int... groupSizes) {
+	public NumberTokenStyleableItem setNumberGroupSizes(int... groupSizes) {
 		if (this.numberGroup == null) {
 			this.numberGroup = new StringGrouper();
 		}
@@ -64,7 +59,7 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 		return this;
 	}
 
-	public AmountNumberToken<T> setNumberGroupChars(char... groupChars) {
+	public NumberTokenStyleableItem setNumberGroupChars(char... groupChars) {
 		if (this.numberGroup == null) {
 			this.numberGroup = new StringGrouper();
 		}
@@ -86,7 +81,7 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 		return this.numberGroup.getGroupSizes();
 	}
 
-	public AmountNumberToken<T> setPattern(String pattern) {
+	public NumberTokenStyleableItem setPattern(String pattern) {
 		if (this.format == null) {
 			this.format = new DecimalFormat(pattern);
 		} else {
@@ -95,7 +90,7 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 		return this;
 	}
 
-	public AmountNumberToken<T> setDecimalFormat(DecimalFormat format) {
+	public NumberTokenStyleableItem setDecimalFormat(DecimalFormat format) {
 		this.format = format;
 		return this;
 	}
@@ -111,7 +106,7 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 		return null;
 	}
 
-	public AmountNumberToken<T> setSymbols(DecimalFormatSymbols symbols) {
+	public NumberTokenStyleableItem setSymbols(DecimalFormatSymbols symbols) {
 		if (this.format == null) {
 			this.format = (DecimalFormat) DecimalFormat.getInstance();
 			this.format.setDecimalFormatSymbols(symbols);
@@ -133,7 +128,7 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 	}
 
 	@Override
-	protected String getToken(T item, Locale locale, LocalizationStyle style) {
+	protected String getToken(Number item, Locale locale, LocalizationStyle style) {
 		DecimalFormat format = getNumberFormat(locale, style);
 		if (this.numberGroup == null) { // || this.fractionGroup==null
 			return format.format(item);
@@ -149,17 +144,30 @@ public class AmountNumberToken<T extends MonetaryAmount> extends
 				+ numberParts[1];
 	}
 
-	private String[] splitNumberParts(T item, DecimalFormat format,
+	private String[] splitNumberParts(Number item, DecimalFormat format,
 			LocalizationStyle style, String preformattedValue) {
 		return preformattedValue.split(String.valueOf(format
 				.getDecimalFormatSymbols().getDecimalSeparator()));
 	}
 
 	@Override
-	public void parse(ParseContext context, Locale locale, LocalizationStyle style) throws ItemParseException {
-		DecimalFormat format = getNumberFormat(locale, style);
-		ParsePosition pos = new ParsePosition(0);
-		Number number = format.parse(context.getInput().toString(), pos);
-		context.addParseResult(Number.class, number);
+	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
+			throws ItemParseException {
+		DecimalFormat df = getNumberFormat(locale, style);
+		if (style.getAttribute("enforceGrouping", Boolean.class)) {
+			df.setGroupingUsed(true);
+		} else {
+			df.setGroupingUsed(false);
+		}
+		String token = context.lookupNextToken();
+		Number num;
+		try {
+			num = df.parse(token);
+		} catch (java.text.ParseException e) {
+			throw new ItemParseException("Failed to parse number from '"
+					+ token, e);
+		}
+		context.addParseResult(Number.class, num);
+		context.consume(token);
 	}
 }

@@ -24,20 +24,17 @@ import javax.inject.Singleton;
 import javax.money.CurrencyUnit;
 
 
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.IsoCurrencyFormatter.RenderedField;
+import org.javamoney.format.IsoCurrencyFormat.RenderedField;
 import org.javamoney.format.spi.ItemFormatFactorySpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-public class IsoCurrencyFormatterFactory implements
+public class IsoCurrencyFormatFactory implements
 		ItemFormatFactorySpi<CurrencyUnit> {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(IsoCurrencyFormatterFactory.class);
+			.getLogger(IsoCurrencyFormatFactory.class);
 
 	@Override
 	public Class<CurrencyUnit> getTargetClass() {
@@ -47,7 +44,7 @@ public class IsoCurrencyFormatterFactory implements
 	@Override
 	public Collection<String> getSupportedStyleIds() {
 		Set<String> supportedRenderTypes = new HashSet<String>();
-		for (IsoCurrencyFormatter.RenderedField f : IsoCurrencyFormatter.RenderedField
+		for (IsoCurrencyFormat.RenderedField f : IsoCurrencyFormat.RenderedField
 				.values()) {
 			supportedRenderTypes.add(f.name());
 		}
@@ -84,13 +81,13 @@ public class IsoCurrencyFormatterFactory implements
 		if (style != null) {
 			String renderedFieldValue = style.getId();
 			try {
-				IsoCurrencyFormatter.RenderedField.valueOf(renderedFieldValue
+				IsoCurrencyFormat.RenderedField.valueOf(renderedFieldValue
 						.toUpperCase());
 			} catch (Exception e) {
 				throw new IllegalArgumentException("style's ID must one of "
 						+ Arrays.toString(RenderedField.values()));
 			}
 		}
-		return new IsoCurrencyFormatter(style);
+		return new IsoCurrencyFormat(style);
 	}
 }

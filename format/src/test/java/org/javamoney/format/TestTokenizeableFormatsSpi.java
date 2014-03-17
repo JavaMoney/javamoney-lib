@@ -21,21 +21,16 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.TokenizableFormats;
-import org.javamoney.format.spi.MonetaryFormatsSingletonSpi;
+import org.javamoney.format.spi.TokenizeableFormatsSingletonSpi;
 
 /**
- * Tests class registered into {@link TokenizableFormats} to test
- * {@link TokenizableFormats}.
+ * Tests class registered into {@link ItemFormats} to test
+ * {@link ItemFormats}.
  * 
  * @author Anatole Tresch
  * 
  */
-public class TestMonetaryFormatsSpi implements MonetaryFormatsSingletonSpi {
+public class TestTokenizeableFormatsSpi implements TokenizeableFormatsSingletonSpi{
 
 	@Override
 	public Collection<String> getSupportedStyleIds(Class<?> targetType) {

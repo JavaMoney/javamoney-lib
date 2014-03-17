@@ -18,13 +18,13 @@ package org.javamoney.format.tokens;
 import java.io.IOException;
 import java.util.Locale;
 
-import org.javamoney.format.FormatToken;
+import org.javamoney.format.ItemParseContext;
+import org.javamoney.format.StyleableItemFormatToken;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.ParseContext;
 
 /**
- * {@link FormatDecorator} that allows to replace the representation of a zero
+ * Conditional token that allows to replace the representation of a zero
  * {@link Number} with an arbitrary literal value.
  * 
  * @author Anatole Tresch
@@ -32,19 +32,19 @@ import org.javamoney.format.ParseContext;
  * @param <T>
  *            The concrete {@link Number} type.
  */
-public class ZeroValueToken<T extends Number> extends AbstractFormatToken<T> {
+public class ZeroValueNumberTokenStyleableItem<T extends Number> extends AbstractStyleableItemFormatToken<T>{
 
 	private String zeroValue;
-	private FormatToken<T> decorated;
+	private StyleableItemFormatToken<T> decorated;
 
-	public ZeroValueToken(FormatToken<T> decorated) {
+	public ZeroValueNumberTokenStyleableItem(StyleableItemFormatToken<T> decorated) {
 		if (decorated == null) {
 			throw new IllegalArgumentException("decorated is required.");
 		}
 		this.decorated = decorated;
 	}
 
-	public ZeroValueToken<T> setZeroValue(String value) {
+	public ZeroValueNumberTokenStyleableItem<T> setZeroValue(String value) {
 		this.zeroValue = value;
 		return this;
 	}
@@ -68,7 +68,7 @@ public class ZeroValueToken<T extends Number> extends AbstractFormatToken<T> {
 	}
 
 	@Override
-	public void parse(ParseContext context, Locale locale, LocalizationStyle style)
+	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
 			throws ItemParseException {
 		// not supported...
 	}

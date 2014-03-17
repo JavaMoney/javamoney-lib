@@ -13,31 +13,34 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.format;
+package org.javamoney.format.tokens;
+
+import org.javamoney.format.ItemParseContext;
+import org.javamoney.format.StyleableItemFormatToken;
+import org.javamoney.format.ItemParseException;
+import org.javamoney.format.LocalizationStyle;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
 /**
- * {@link FormatToken} which adds an arbitrary literal constant value to the
+ * {@link org.javamoney.format.StyleableItemFormatToken} which adds an arbitrary literal constant value to the
  * output.
  * <p>
  * This class is thread safe, immutable and serializable.
  * 
  * @author Anatole Tresch
  * 
- * @param <T>
+ * @param <R>
  *            The item type.
  */
-public final class LiteralToken<R> implements FormatToken<R>, Serializable {
+public final class LiteralTokenStyleableItem<R> implements StyleableItemFormatToken<R>, Serializable {
 
 	/**
 	 * The literal part.
 	 */
 	private String token;
-	/** The token's id, or null. */
-	private String tokenId;
 
 	/**
 	 * Constructor.
@@ -45,34 +48,25 @@ public final class LiteralToken<R> implements FormatToken<R>, Serializable {
 	 * @param token
 	 *            The literal token part.
 	 */
-	public LiteralToken(String token) {
+	public LiteralTokenStyleableItem(String token) {
 		if (token == null) {
 			throw new IllegalArgumentException("Token is required.");
 		}
 		this.token = token;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.money.format.FormatToken#getTokenId()
-	 */
-	@Override
-	public String getTokenId() {
-		return tokenId;
-	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.money.format.FormatToken#parse(javax.money.format.ParseContext,
+	 * javax.money.format.StyleableItemFormatToken#parse(javax.money.format.ItemParseContext,
 	 * java.util.Locale, javax.money.format.LocalizationStyle)
 	 */
 	@Override
-	public void parse(ParseContext<R> context, Locale locale,
+	public void parse(ItemParseContext<R> context, Locale locale,
 			LocalizationStyle style)
-			throws ItemParseException {
+			throws ItemParseException{
 		if (!context.consume(token)) {
 			throw new ItemParseException("Expected '" + token + "' in "
 					+ context.getInput().toString());
@@ -82,7 +76,7 @@ public final class LiteralToken<R> implements FormatToken<R>, Serializable {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.money.format.FormatToken#print(java.lang.Appendable,
+	 * @see javax.money.format.StyleableItemFormatToken#print(java.lang.Appendable,
 	 * java.lang.Object, java.util.Locale, javax.money.format.LocalizationStyle)
 	 */
 	@Override
@@ -99,7 +93,7 @@ public final class LiteralToken<R> implements FormatToken<R>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "LiteralToken [token=" + token + "]";
+		return "LiteralTokenStyleableItem [token=" + token + "]";
 	}
 
 }

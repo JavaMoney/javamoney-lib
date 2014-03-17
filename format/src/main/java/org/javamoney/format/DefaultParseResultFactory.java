@@ -16,13 +16,13 @@
 package org.javamoney.format;
 
 /**
- * Default implementation of {@link ItemFactory} that looks up resulting item
+ * Default implementation of {@link ParseResultFactory} that looks up resulting item
  * under the {@link Class} or {@link Class#getName()} key. This is used as
- * described in {@link ItemFactory} as a last step after all {@link FormatToken}
+ * described in {@link ParseResultFactory} as a last step after all {@link StyleableItemFormatToken}
  * instances in {@link ItemFormat}, created by the {@link ItemFormatBuilder},
- * has parsed the input. This instance of {@link ItemFactory} is trying to
+ * has parsed the input. This instance of {@link ParseResultFactory} is trying to
  * lookup an instance of type {@link ItemFormat#getTargetClass()} from the
- * current {@link ParseContext}.
+ * current {@link ItemParseContext}.
  * <p>
  * This class is thread-safe and immutable.
  * 
@@ -31,7 +31,7 @@ package org.javamoney.format;
  * @param <T>
  *            the item type.
  */
-public final class DefaultItemFactory<T> implements ItemFactory<T> {
+public class DefaultParseResultFactory<T> implements ParseResultFactory<T>{
 	/** The item class. */
 	private Class<T> itemClass;
 
@@ -41,25 +41,25 @@ public final class DefaultItemFactory<T> implements ItemFactory<T> {
 	 * @param itemClass
 	 *            The item class, not {@code null}.
 	 */
-	public DefaultItemFactory(Class<T> itemClass) {
+	public DefaultParseResultFactory(Class<T> itemClass) {
 		this.itemClass = itemClass;
 	}
 
 	/**
-	 * Accesses the final item from the {@link ParseContext} as defined by
+	 * Accesses the final item from the {@link ItemParseContext} as defined by
 	 * {@link ItemFormat#getTargetClass()}.
 	 * 
 	 * @param context
-	 *            the {@link ParseContext}.
+	 *            the {@link ItemParseContext}.
 	 * @return the item parsed.
 	 * @throws IllegalStateException
 	 *             , if the item could not be found.
-	 * @see #isComplete(ParseContext)
+	 * @see #isComplete(ItemParseContext)
 	 * @throws IllegalStateException
 	 *             if no such result could be evaluated.
 	 */
 	@Override
-	public T createItemParsed(ParseContext<T> context) {
+	public T createItemParsed(ItemParseContext<T> context) {
 		T item = context.getResult(itemClass, itemClass);
 		if (item == null) {
 			item = context.getResult(itemClass.getName(), itemClass);
@@ -71,16 +71,16 @@ public final class DefaultItemFactory<T> implements ItemFactory<T> {
 	}
 
 	/**
-	 * CHecks if the required item is available within the {@link ParseContext},
+	 * CHecks if the required item is available within the {@link ItemParseContext},
 	 * using the class or fully qualified class name as a key.
 	 * 
 	 * @param context
-	 *            the {@link ParseContext}.
+	 *            the {@link ItemParseContext}.
 	 * @return {@code true}, if the item parsed was found or can be created.
-	 * @see #apply(ParseContext)
+	 * @see #apply(ItemParseContext)
 	 */
 	@Override
-	public boolean isComplete(ParseContext<T> context) {
+	public boolean isComplete(ItemParseContext<T> context) {
 		return context.getResult(itemClass, itemClass) != null
 				|| context.getResult(itemClass.getName(), itemClass) != null;
 	}
@@ -92,7 +92,7 @@ public final class DefaultItemFactory<T> implements ItemFactory<T> {
 	 */
 	@Override
 	public String toString() {
-		return "DefaultItemFactory [itemClass=" + itemClass + "]";
+		return "DefaultParseResultFactory [itemClass=" + itemClass + "]";
 	}
 
 }

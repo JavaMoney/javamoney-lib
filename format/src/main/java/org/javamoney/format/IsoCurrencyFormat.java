@@ -23,15 +23,13 @@ import java.util.Locale;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 
-public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
+public class IsoCurrencyFormat implements ItemFormat<CurrencyUnit> {
 
 	public enum RenderedField {
-
 		ID, CODE, SYMBOL, DISPLAYNAME, NUMERICCODE, OMIT
 	}
 
 	public enum ParsedField {
-
 		ID, CODE
 	}
 
@@ -44,7 +42,7 @@ public class IsoCurrencyFormatter implements ItemFormat<CurrencyUnit> {
 		return CurrencyUnit.class;
 	}
 
-	public IsoCurrencyFormatter(LocalizationStyle style) {
+	public IsoCurrencyFormat(LocalizationStyle style) {
 		String field = null;
 		if (style != null) {
 			field = style.getId();

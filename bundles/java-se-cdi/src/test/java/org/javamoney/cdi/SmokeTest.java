@@ -76,7 +76,7 @@ public class SmokeTest {
 	@Test
 	public void testExchange() {
 		ExchangeRateProvider prov = MonetaryConversions
-				.getExchangeRateProvider("EZB");
+				.getExchangeRateProvider("ECB");
 		assertNotNull(prov);
 		ExchangeRate rate1 = prov.getExchangeRate(
 				MonetaryCurrencies.getCurrency("CHF"),

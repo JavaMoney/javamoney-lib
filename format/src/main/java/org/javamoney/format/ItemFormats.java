@@ -23,57 +23,57 @@ import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.javamoney.format.spi.MonetaryFormatsSingletonSpi;
+import org.javamoney.format.spi.TokenizeableFormatsSingletonSpi;
 
 /**
- * This interface provides access to the formatting logic of JavaMoney. *
+ * This singleton accessor provides access to the formatting logic of JavaMoney. *
  * <p>
  * {@link ItemFormat} instances are not required to be thread-safe. Basically
- * when accessing an {@link ItemFormat} from the {@link TokenizableFormats}
+ * when accessing an {@link ItemFormat} from the {@link ItemFormats}
  * singleton a new instance should be created on each access.<br/>
  * This class itself is thread-safe, delegating its calls to the
- * {@link MonetaryFormatsSingletonSpi} registered using the
+ * {@link org.javamoney.format.spi.TokenizeableFormatsSingletonSpi} registered using the
  * {@link ServiceLoader}.
  * 
  * @author Anatole Tresch
  */
-public final class TokenizableFormats {
+public final class ItemFormats{
 	/** SPI implementation loaded loaded from ServiceLodaer. */
-	private static MonetaryFormatsSingletonSpi monetaryFormatSpi = loadMonetaryFormatSpi();
+	private static TokenizeableFormatsSingletonSpi monetaryFormatSpi = loadMonetaryFormatSpi();
 
 	/**
 	 * Singleton constructor.
 	 */
-	private TokenizableFormats() {
+	private ItemFormats() {
 	}
 
 	/**
-	 * Loads the MonetaryFormatSpi the {@link MonetaryFormatsSingletonSpi} used.
+	 * Loads the MonetaryFormatSpi the {@link org.javamoney.format.spi.TokenizeableFormatsSingletonSpi} used.
 	 * 
 	 * @return the MonetaryFormatSpi to be used.
 	 */
-	private static MonetaryFormatsSingletonSpi loadMonetaryFormatSpi() {
-		MonetaryFormatsSingletonSpi spi = null;
+	private static TokenizeableFormatsSingletonSpi loadMonetaryFormatSpi() {
+		TokenizeableFormatsSingletonSpi spi = null;
 		try {
 			// try loading directly from ServiceLoader
-			Iterator<MonetaryFormatsSingletonSpi> instances = ServiceLoader
-					.load(MonetaryFormatsSingletonSpi.class).iterator();
+			Iterator<TokenizeableFormatsSingletonSpi> instances = ServiceLoader
+					.load(TokenizeableFormatsSingletonSpi.class).iterator();
 			if (instances.hasNext()) {
 				spi = instances.next();
 				if (instances.hasNext()) {
 					throw new IllegalStateException(
 							"Ambigous reference to spi (only "
 									+ "one can be registered: "
-									+ MonetaryFormatsSingletonSpi.class
+									+ TokenizeableFormatsSingletonSpi.class
 											.getName());
 				}
 				return spi;
 			}
 		} catch (Exception e) {
-			Logger.getLogger(TokenizableFormats.class.getName()).log(Level.INFO,
+			Logger.getLogger(ItemFormats.class.getName()).log(Level.INFO,
 					"No MonetaryFormatSpi found, using  default.", e);
 		}
-		return new DefaultMonetaryFormatsSpi();
+		return new DefaultTokenizeableFormatsSpi();
 	}
 
 	/**
@@ -89,7 +89,7 @@ public final class TokenizableFormats {
 		Collection<String> styleIDs = monetaryFormatSpi
 				.getSupportedStyleIds(targetType);
 		if (styleIDs == null) {
-			Logger.getLogger(TokenizableFormats.class.getName()).log(
+			Logger.getLogger(ItemFormats.class.getName()).log(
 					Level.WARNING,
 					"MonetaryFormatSpi.getSupportedStyleIds returned null for "
 							+ targetType);
@@ -228,18 +228,17 @@ public final class TokenizableFormats {
 	}
 
 	/**
-	 * Default SPI implementation of {@link MonetaryFormatsSingletonSpi}, only
+	 * Default SPI implementation of {@link org.javamoney.format.spi.TokenizeableFormatsSingletonSpi}, only
 	 * used when no corresponding SPI was registered into {@link ServiceLoader}.
 	 * 
 	 * @author Anatole Tresch
 	 */
-	private static final class DefaultMonetaryFormatsSpi implements
-			MonetaryFormatsSingletonSpi {
+	private static final class DefaultTokenizeableFormatsSpi implements TokenizeableFormatsSingletonSpi{
 		/*
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.money.format.spi.MonetaryFormatsSingletonSpi#getSupportedStyleIds
+		 * javax.money.format.spi.TokenizeableFormatsSingletonSpi#getSupportedStyleIds
 		 * (java.lang.Class)
 		 */
 		@Override
@@ -251,7 +250,7 @@ public final class TokenizableFormats {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.money.format.spi.MonetaryFormatsSingletonSpi#isSupportedStyle
+		 * javax.money.format.spi.TokenizeableFormatsSingletonSpi#isSupportedStyle
 		 * (java.lang.Class, java.lang.String)
 		 */
 		@Override
@@ -263,7 +262,7 @@ public final class TokenizableFormats {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.money.format.spi.MonetaryFormatsSingletonSpi#getItemFormat(
+		 * javax.money.format.spi.TokenizeableFormatsSingletonSpi#getItemFormat(
 		 * java.lang.Class, javax.money.format.LocalizationStyle)
 		 */
 		@Override
@@ -276,7 +275,7 @@ public final class TokenizableFormats {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.money.format.spi.MonetaryFormatsSingletonSpi#getLocalizationStyle
+		 * javax.money.format.spi.TokenizeableFormatsSingletonSpi#getLocalizationStyle
 		 * (java.lang.Class, java.lang.String)
 		 */
 		@Override

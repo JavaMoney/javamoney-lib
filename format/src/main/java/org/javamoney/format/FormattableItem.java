@@ -71,8 +71,8 @@ public interface FormattableItem {
 	 * 
 	 * @param appendable
 	 *            the appendable to add to, not null
-	 * @param style
-	 *            the {@link Locale} to be used.
+	 * @@param locale
+     *            The {@link Locale} to be used.
 	 * @throws UnsupportedOperationException
 	 *             if the formatter is unable to print
 	 * @throws ItemFormatException

@@ -17,25 +17,22 @@ package org.javamoney.format;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Singleton;
-import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.LocalizationStyle;
 import org.javamoney.format.spi.ItemFormatFactorySpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-public class IsoAmountFormatterFactory implements
+public class DefaultAmountFormatFactory implements
 		ItemFormatFactorySpi<MonetaryAmount> {
 
 	private static final Logger LOG = LoggerFactory
-			.getLogger(IsoAmountFormatterFactory.class);
+			.getLogger(DefaultAmountFormatFactory.class);
 
 	@Override
 	public Class getTargetClass() {
@@ -68,19 +65,8 @@ public class IsoAmountFormatterFactory implements
 	@Override
 	public ItemFormat<MonetaryAmount> getItemFormat(LocalizationStyle style)
 			throws ItemFormatException {
-		String renderedFieldValue = null;
-		if (style != null) {
-			renderedFieldValue = (String) style.getAttribute(
-					"currencyRendering", String.class);
-		}
-		if (renderedFieldValue == null) {
-			renderedFieldValue = "CODE";
-		}
-		LocalizationStyle currencyStyle = new LocalizationStyle.Builder(
-				CurrencyUnit.class,
-				renderedFieldValue).setAttribute("currencyRendering",
-				renderedFieldValue).build();
-		return new IsoAmountFormatter(style, currencyStyle);
+        Objects.requireNonNull(style);
+        return new DefaultAmountFormat(style);
 	}
 
 }

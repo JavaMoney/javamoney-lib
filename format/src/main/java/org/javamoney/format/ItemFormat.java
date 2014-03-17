@@ -24,7 +24,7 @@ import org.javamoney.format.spi.ItemFormatFactorySpi;
  * Formats instances of {@code T} to a {@link String} or an {@link Appendable}.
  * <p>
  * Note that formatters are not required to be thread-safe. Basically when
- * accessing an {@link ItemFormat} from the {@link TokenizableFormats} singleton a
+ * accessing an {@link ItemFormat} from the {@link ItemFormats} singleton a
  * new instance should be created on each access.<br/>
  * As a consequence classes implementing this interface are not required to be
  * thread.safe, but they must be immutable.
@@ -57,8 +57,8 @@ public interface ItemFormat<T> {
 	 * {@link ItemFormat} implementation:
 	 * <ul>
 	 * <li>When the {@link ItemFormat} was created using the
-	 * {@link ItemFormatBuilder}, all the {@link FormatToken}, that model the
-	 * overall format, and the {@link ItemFactory}, that is responsible for
+	 * {@link ItemFormatBuilder}, all the {@link StyleableItemFormatToken}, that model the
+	 * overall format, and the {@link ParseResultFactory}, that is responsible for
 	 * extracting the final parsing result, returned from a parsing call, are
 	 * all possible recipients for attributes of the configuring
 	 * {@link LocalizationStyle}.

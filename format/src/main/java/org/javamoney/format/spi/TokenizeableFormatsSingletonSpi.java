@@ -22,11 +22,10 @@ import java.util.ServiceLoader;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.TokenizableFormats;
 
 /**
  * This SPI must be registered using the {@code ServiceLoader} to be used as
- * delegate for the {@link TokenizableFormats} singleton. It is responsible for
+ * delegate for the {@link org.javamoney.format.ItemFormats} singleton. It is responsible for
  * loading and managing of the {@link ItemFormatFactorySpi} instances. Hereby
  * the {@link ItemFormatFactorySpi} instances can be loaded from the
  * {@link ServiceLoader} or by other mechanisms, e.g. CDI.
@@ -36,13 +35,13 @@ import org.javamoney.format.TokenizableFormats;
  * 
  * @author Anatole Tresch
  */
-public interface MonetaryFormatsSingletonSpi {
+public interface TokenizeableFormatsSingletonSpi{
 
 	/**
-	 * Return the style id's supported by this {@link ItemFormatterFactorySpi}
+	 * Return the style id's supported by this {@link ItemFormatFactorySpi}
 	 * instance.
 	 * 
-	 * @see LocalizationStyle#getId()
+	 * @see org.javamoney.format.LocalizationStyle#getId()
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @return the supported style ids, never {@code null}.
@@ -79,13 +78,13 @@ public interface MonetaryFormatsSingletonSpi {
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link org.javamoney.format.LocalizationStyle} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
 	 * @return the formatter required, if available.
 	 * @throws ItemFormatException
-	 *             if the {@link LocalizationStyle} passed can not be used for
+	 *             if the {@link org.javamoney.format.LocalizationStyle} passed can not be used for
 	 *             configuring the {@link ItemFormat} and no matching
 	 *             {@link ItemFormat} could be provided by any of the registered
 	 *             {@link ItemFormatFactorySpi} instances.

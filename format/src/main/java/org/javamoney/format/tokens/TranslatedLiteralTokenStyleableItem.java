@@ -19,15 +19,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-import org.javamoney.format.FormatToken;
+import org.javamoney.format.ItemParseContext;
 import org.javamoney.format.ItemParseException;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.ParseContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link FormatToken} that adds a localizable {@link String}, read by key from
+ * {@link org.javamoney.format.StyleableItemFormatToken} that adds a localizable {@link String}, read by key from
  * a {@link ResourceBundle}..
  * 
  * @author Anatole Tresch
@@ -35,25 +34,25 @@ import org.slf4j.LoggerFactory;
  * @param <T>
  *            The concrete type.
  */
-public class TranslatedLiteralToken<T> extends AbstractFormatToken<T> {
+public class TranslatedLiteralTokenStyleableItem<T> extends AbstractStyleableItemFormatToken<T>{
 
 	private String bundle;
 	private String key;
-	private Logger LOG = LoggerFactory.getLogger(TranslatedLiteralToken.class);
+	private Logger LOG = LoggerFactory.getLogger(TranslatedLiteralTokenStyleableItem.class);
 
-	public TranslatedLiteralToken(String key) {
+	public TranslatedLiteralTokenStyleableItem(String key) {
 		if (key == null) {
 			throw new IllegalArgumentException("Token is required.");
 		}
 		this.key = key;
 	}
 
-	public TranslatedLiteralToken(String key, String bundle) {
+	public TranslatedLiteralTokenStyleableItem(String key, String bundle) {
 		setKey(key);
 		setBundle(bundle);
 	}
 
-	public TranslatedLiteralToken<T> setKey(String key) {
+	public TranslatedLiteralTokenStyleableItem<T> setKey(String key) {
 		if (key == null) {
 			throw new IllegalArgumentException("Token is required.");
 		}
@@ -61,7 +60,7 @@ public class TranslatedLiteralToken<T> extends AbstractFormatToken<T> {
 		return this;
 	}
 
-	public TranslatedLiteralToken<T> setBundle(String bundle) {
+	public TranslatedLiteralTokenStyleableItem<T> setBundle(String bundle) {
 		if (bundle == null) {
 			throw new IllegalArgumentException("Bundle is required.");
 		}
@@ -77,7 +76,7 @@ public class TranslatedLiteralToken<T> extends AbstractFormatToken<T> {
 		return this.key;
 	}
 
-	protected String getToken(T item, Locale locale, org.javamoney.format.LocalizationStyle style) {
+	protected String getToken(T item, Locale locale, LocalizationStyle style) {
 		return getTokenInternal(locale, style);
 	};
 
@@ -95,7 +94,7 @@ public class TranslatedLiteralToken<T> extends AbstractFormatToken<T> {
 	}
 
 	@Override
-	public void parse(ParseContext context, Locale locale, LocalizationStyle style)
+	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
 			throws ItemParseException {
 		String token = getTokenInternal(locale, style);
 		if (!context.consume(token)) {

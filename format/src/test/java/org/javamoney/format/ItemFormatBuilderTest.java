@@ -26,13 +26,8 @@ import java.util.Collection;
 import java.util.Locale;
 
 
-
-import org.javamoney.format.FormatToken;
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemFormatBuilder;
-import org.javamoney.format.LiteralToken;
-import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.tokens.NumberToken;
+import org.javamoney.format.tokens.LiteralTokenStyleableItem;
+import org.javamoney.format.tokens.NumberTokenStyleableItem;
 import org.junit.Test;
 
 public class ItemFormatBuilderTest {
@@ -46,12 +41,12 @@ public class ItemFormatBuilderTest {
 	public void testAddTokenFormatTokenOfT() throws IOException {
 		ItemFormatBuilder<Number> b = new ItemFormatBuilder<Number>(
 				Number.class);
-		b.append(new LiteralToken<Number>("test- "));
+		b.append(new LiteralTokenStyleableItem<Number>("test- "));
 		DecimalFormat df = new DecimalFormat("#0.0#");
 		DecimalFormatSymbols syms = df.getDecimalFormatSymbols();
 		syms.setDecimalSeparator(':');
 		df.setDecimalFormatSymbols(syms);
-		b.append(new NumberToken(df).setNumberGroupChars(',', '\'')
+		b.append(new NumberTokenStyleableItem(df).setNumberGroupChars(',', '\'')
 				.setNumberGroupSizes(2, 2, 3));
 		b.withStyle(new LocalizationStyle.Builder(Number.class).build());
 		ItemFormat<Number> f = b.build();
@@ -69,7 +64,7 @@ public class ItemFormatBuilderTest {
 		DecimalFormatSymbols symbols = f.getDecimalFormatSymbols();
 		symbols.setDecimalSeparator(':');
 		f.setDecimalFormatSymbols(symbols);
-		b.append(new NumberToken(f).setNumberGroupChars(',', '\'')
+		b.append(new NumberTokenStyleableItem(f).setNumberGroupChars(',', '\'')
 				.setNumberGroupSizes(2, 2, 3));
 		b.withStyle(new LocalizationStyle.Builder(Number.class).build());
 		ItemFormat<Number> sf = b.build();
@@ -85,11 +80,11 @@ public class ItemFormatBuilderTest {
 		b.append("1");
 		b.append("2");
 		b.append("3");
-		Collection<FormatToken<Double>> tokens = b.getTokens();
+		Collection<StyleableItemFormatToken<Double>> tokens = b.getTokens();
 		int size = 0;
-		for(FormatToken<?> token: tokens){
+		for(StyleableItemFormatToken<?> token: tokens){
 			assertNotNull(token);
-			assertTrue(token instanceof LiteralToken<?>);
+			assertTrue(token instanceof LiteralTokenStyleableItem<?>);
 			size++;
 		}
 		assertEquals(3, size);
@@ -119,8 +114,8 @@ public class ItemFormatBuilderTest {
 	public void testToFormatterLocalizationStyle() {
 		ItemFormatBuilder<Number> b = new ItemFormatBuilder<Number>(
 				Number.class);
-		b.append(new LiteralToken<Number>("test "));
-		b.append(new NumberToken());
+		b.append(new LiteralTokenStyleableItem<Number>("test "));
+		b.append(new NumberTokenStyleableItem());
 		b.withStyle(new LocalizationStyle.Builder(Number.class).build());
 		ItemFormat<Number> f = b.build();
 		assertNotNull(f);

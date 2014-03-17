@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Context passed along to each {@link FormatToken} in-line, when parsing an
+ * Context passed along to each {@link StyleableItemFormatToken} in-line, when parsing an
  * input stream using a {@link ItemFormatBuilder}. It allows to inspect the
  * next tokens, the whole input String, or just the current input substring,
  * based on the current parsing position etc.
@@ -29,7 +29,7 @@ import java.util.Map;
  * This class is mutable and intended for use by a single thread. A new instance
  * is created for each parse.
  */
-public final class ParseContext<T> {
+public final class ItemParseContext<T>{
 	/** The current position of parsing. */
 	private int index;
 	/** The error index position. */
@@ -40,40 +40,50 @@ public final class ParseContext<T> {
 	 * Item factory to determine if the result was successfuylly parsed and to
 	 * evaluate the result item.
 	 */
-	private ItemFactory<T> itemFactory;
+	private ParseResultFactory<T> parseResultFactory;
 	/**
-	 * The instances parsed and added to this {@link ParseContext}. This objects
-	 * can be used by an according {@code MonetaryFunction<ParseContext,T>} to
+	 * The instances parsed and added to this {@link ItemParseContext}. This objects
+	 * can be used by an according {@code MonetaryFunction<ItemParseContext,T>} to
 	 * create an instance of T.
 	 */
 	private Map<Object, Object> results = new HashMap<Object, Object>();
+    /** The parse error message. */
+    private String errorMessage;
 
 	/**
-	 * Creates a new {@link ParseContext} with the given input.
+	 * Creates a new {@link ItemParseContext} with the given input.
 	 * 
 	 * @param text
 	 *            The test to be parsed.
 	 */
-	public ParseContext(CharSequence text, ItemFactory<T> itemFactory) {
+	public ItemParseContext(CharSequence text, ParseResultFactory<T> parseResultFactory) {
 		if (text == null) {
 			throw new IllegalArgumentException("test is required");
 		}
-		if (itemFactory == null) {
-			throw new IllegalArgumentException("itemFactory is required");
+		if (parseResultFactory == null) {
+			throw new IllegalArgumentException("parseResultFactory is required");
 		}
 		this.originalInput = text;
-		this.itemFactory = itemFactory;
+		this.parseResultFactory = parseResultFactory;
 	}
 
 	/**
 	 * Method allows to determine if the item being parsed is available from the
-	 * {@link ParseContext}.
+	 * {@link ItemParseContext}.
 	 * 
 	 * @return true, if the item is available.
 	 */
 	public boolean isComplete() {
-		return itemFactory.isComplete(this);
+		return parseResultFactory.isComplete(this);
 	}
+
+    /**
+     * Get the stored error message.
+     * @return the stored error message, or null.
+     */
+    public String getErrorMessage(){
+        return this.errorMessage;
+    }
 
 	/**
 	 * Get the parsed item.
@@ -84,7 +94,7 @@ public final class ParseContext<T> {
 		if (!isComplete()) {
 			throw new IllegalStateException("Parsing is not yet complete.");
 		}
-		T item = this.itemFactory.createItemParsed(this);
+		T item = this.parseResultFactory.createItemParsed(this);
 		if (item == null) {
 			throw new IllegalStateException("Item is not available.");
 		}
@@ -297,7 +307,7 @@ public final class ParseContext<T> {
 	 */
 	@Override
 	public String toString() {
-		return "ParseContext [index=" + index + ", errorIndex=" + errorIndex
+		return "ItemParseContext [index=" + index + ", errorIndex=" + errorIndex
 				+ ", originalInput='" + originalInput + "', results=" + results
 				+ "]";
 	}

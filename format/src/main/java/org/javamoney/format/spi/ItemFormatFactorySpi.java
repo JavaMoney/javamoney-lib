@@ -23,9 +23,9 @@ import org.javamoney.format.LocalizationStyle;
 
 /**
  * Instances of this class are loaded and managed by the
- * {@link MonetaryFormatsSingletonSpi}. The formatter runtime will ask each
+ * {@link TokenizeableFormatsSingletonSpi}. The formatter runtime will ask each
  * registered instance of {@link ItemFormatFactorySpi} for a formatter given a
- * {@link LocalizationStyle} provided, until an instance will return a non-null
+ * {@link org.javamoney.format.LocalizationStyle} provided, until an instance will return a non-null
  * instance of {@link ItemFormat}. This instance finally will be returned to the
  * client.
  * <p>
@@ -56,16 +56,16 @@ public interface ItemFormatFactorySpi<T> {
 	 * Return the style id's supported by this {@link ItemFormatFactorySpi}
 	 * instance.
 	 * 
-	 * @see LocalizationStyle#getId()
+	 * @see org.javamoney.format.LocalizationStyle#getId()
 	 * @return the supported style identifiers, never {@code null}.
 	 */
 	public Collection<String> getSupportedStyleIds();
 
 	/**
-	 * Access a configured default {@link LocalizationStyle} instance. If the
+	 * Access a configured default {@link org.javamoney.format.LocalizationStyle} instance. If the
 	 * required styleId is part of the supported styles returned by this spi
 	 * implementation, then this method should return the according
-	 * {@link LocalizationStyle} instance.
+	 * {@link org.javamoney.format.LocalizationStyle} instance.
 	 * 
 	 * @param targetType
 	 *            The target type, not {@code null}.
@@ -91,14 +91,14 @@ public interface ItemFormatFactorySpi<T> {
 
 	/**
 	 * Creates a new instance of {@link ItemFormat} configured by the given
-	 * {@link LocalizationStyle} instance, if the style (style identifier, one
+	 * {@link org.javamoney.format.LocalizationStyle} instance, if the style (style identifier, one
 	 * of the style's attributes) required are not supported by this factory,
 	 * {@code null} should be returned (different to the API, where an
 	 * {@link ItemFormatException} must be thrown.
 	 * 
 	 * @see #getTargetClass()
 	 * @param style
-	 *            the {@link LocalizationStyle} that configures this
+	 *            the {@link org.javamoney.format.LocalizationStyle} that configures this
 	 *            {@link ItemFormat}, which also contains the {@link ItemFormat}
 	 *            's configuration attributes.
 	 * @return a {@link ItemFormat} instance configured with the given style, or

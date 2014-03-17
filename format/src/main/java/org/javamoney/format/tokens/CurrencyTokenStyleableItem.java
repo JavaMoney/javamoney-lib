@@ -20,24 +20,16 @@ import java.util.ResourceBundle;
 
 import javax.money.CurrencyUnit;
 
-import org.javamoney.format.FormatToken;
-import org.javamoney.format.ItemFormat;
-import org.javamoney.format.ItemParseException;
+import org.javamoney.format.*;
 import org.javamoney.format.LocalizationStyle;
-import org.javamoney.format.TokenizableFormats;
-import org.javamoney.format.ParseContext;
 
 /**
- * {@link FormatToken} that adds a localizable {@link String}, read by key from
+ * {@link org.javamoney.format.StyleableItemFormatToken} that adds a localizable {@link String}, read by key from
  * a {@link ResourceBundle}..
  * 
  * @author Anatole Tresch
- * 
- * @param <T>
- *            The concrete type.
  */
-public class CurrencyToken extends
-		AbstractFormatToken<CurrencyUnit> {
+public class CurrencyTokenStyleableItem extends AbstractStyleableItemFormatToken<CurrencyUnit>{
 
 	public static enum DisplayType {
 		CODE, NAME, NUMERIC_CODE, SYMBOL
@@ -45,10 +37,10 @@ public class CurrencyToken extends
 
 	private DisplayType displayType = DisplayType.CODE;
 
-	public CurrencyToken() {
+	public CurrencyTokenStyleableItem() {
 	}
 
-	public CurrencyToken setDisplayType(DisplayType displayType) {
+	public CurrencyTokenStyleableItem setDisplayType(DisplayType displayType) {
 		if (displayType == null) {
 			throw new IllegalArgumentException("Display type null.");
 		}
@@ -61,21 +53,21 @@ public class CurrencyToken extends
 	}
 
 	protected String getToken(CurrencyUnit unit, Locale locale,
-			org.javamoney.format.LocalizationStyle style) {
+			LocalizationStyle style) {
 		switch (displayType) {
 		case NUMERIC_CODE:
 			return String.valueOf(unit.getNumericCode());
 		case NAME:
-			ItemFormat<CurrencyUnit> cf1 = TokenizableFormats
-					.getItemFormat(
-							CurrencyUnit.class,
-							new LocalizationStyle.Builder(style).setAttribute(
-									"renderField", "displayName").build());
+			ItemFormat<CurrencyUnit> cf1 = ItemFormats
+					.getItemFormat(CurrencyUnit.class,
+                                   new LocalizationStyle.Builder(style).setAttribute("renderField", "displayName")
+                                           .build());
 			return cf1.format(unit, locale);
 		case SYMBOL:
-			ItemFormat<CurrencyUnit> cf2 = TokenizableFormats.getItemFormat(
-					CurrencyUnit.class, new LocalizationStyle.Builder(style)
-							.setAttribute("renderField", "symbol").build());
+			ItemFormat<CurrencyUnit> cf2 = ItemFormats.getItemFormat(CurrencyUnit.class,
+                                                                     new LocalizationStyle.Builder(style)
+                                                                             .setAttribute("renderField", "symbol")
+                                                                             .build());
 			return cf2.format(unit, locale);
 		default:
 		case CODE:
@@ -84,7 +76,7 @@ public class CurrencyToken extends
 	}
 
 	@Override
-	public void parse(ParseContext context, Locale locale,
+	public void parse(ItemParseContext context, Locale locale,
 			LocalizationStyle style)
 			throws ItemParseException {
 		throw new UnsupportedOperationException("Not yet implemented");
