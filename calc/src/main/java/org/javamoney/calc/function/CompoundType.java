@@ -16,10 +16,7 @@
 package org.javamoney.calc.function;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.javamoney.calc.ValidationException;
 
@@ -39,24 +36,25 @@ public final class CompoundType implements Serializable {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 4831291549617485148L;
-
+    /** The validation preciate to be used, for complex validations of the input. */
 	private final MonetaryPredicate<Map<String, Object>> validationPredicate;
-	@SuppressWarnings("rawtypes")
-	private final Map<String, Class> typeDef;
+	/** The defines input parameters, mapped to their required base type. */
+    @SuppressWarnings("rawtypes")
+	private final Map<String, Class> typeDef = new HashMap<>();
+    /** Set of the parameters that are mandatory. */
 	private final Set<String> typeRequired;
-	private final String id;
+    /** The name of the input type. */
+	private final String name;
 
-	private CompoundType(String id,
-			@SuppressWarnings("rawtypes") Map<String, Class> typeDef,
-			Set<String> typeRequired,
-			MonetaryPredicate<Map<String, Object>> validationPredicate) {
-		if (id == null) {
-			throw new IllegalArgumentException("id required.");
-		}
-		this.id = id;
-		this.typeDef = typeDef;
-		this.typeRequired = typeRequired;
-		this.validationPredicate = validationPredicate;
+    /**
+     * Constructor used by builder.
+     * @param builder the Builder instance used.
+     */
+	private CompoundType(Builder builder) {
+		this.name = builder.name;
+		this.typeDef.putAll(builder.typeDef);
+		this.typeRequired = builder.typeRequired;
+		this.validationPredicate = builder.validationPredicate;
 	}
 
 	/**
@@ -65,8 +63,8 @@ public final class CompoundType implements Serializable {
 	 * 
 	 * @return the {@link CompoundType}'s type, never null.
 	 */
-	public String getId() {
-		return this.id;
+	public String getName() {
+		return this.name;
 	}
 
 	/**
@@ -88,7 +86,6 @@ public final class CompoundType implements Serializable {
 	 * @param compundValueMap
 	 *            the {@link Map} to be validated before a {@link CompoundValue}
 	 *            is created.
-	 * @see #isValid(CompoundValue)
 	 * @throws IllegalArgumentException
 	 *             if validation fails.
 	 */
@@ -123,60 +120,66 @@ public final class CompoundType implements Serializable {
 		}
 	}
 
+    /**
+     * Builder for creating new instances of {@link org.javamoney.calc.function.CompoundType}.
+     */
 	public static final class Builder {
-		@SuppressWarnings("rawtypes")
-		private Map<String, Class> typeDef = new HashMap<String, Class>();
-		private Set<String> typeRequired = new HashSet<String>();
-		private String id;
-		private MonetaryPredicate<Map<String, Object>> validationPredicate;
+        /** The validation preciate to be used, for complex validations of the input. */
+        private MonetaryPredicate<Map<String, Object>> validationPredicate;
+        /** The defines input parameters, mapped to their required base type. */
+        @SuppressWarnings("rawtypes")
+        private Map<String, Class> typeDef = new HashMap<>();
+        /** Set of the parameters that are mandatory. */
+        private Set<String> typeRequired = new HashSet<>();
+        /** The name of the input type. */
+        private String name;
 
-		public Builder() {
-		}
+        /**
+         * Creates a new Builder.
+         * @param name the compound type's name, not null.
+         */
+		public Builder(String name) {
+            Objects.requireNonNull(name);
+            this.name = name;
+        }
 
-		public Builder withIdForInput(Class<?> type) {
-			if (type == null) {
-				throw new IllegalArgumentException("type required.");
-			}
-			this.id = type.getName() + "_in";
+		public Builder setNameForInput(Class<?> type) {
+            Objects.requireNonNull(type);
+			this.name = type.getName() + "_in";
 			return this;
 		}
 
-		public Builder withIdForOutput(Class<?> type) {
-			if (type == null) {
-				throw new IllegalArgumentException("type required.");
-			}
-			this.id = type.getName() + "_out";
+		public Builder setNameForOutput(Class<?> type) {
+            Objects.requireNonNull(type);
+			this.name = type.getName() + "_out";
 			return this;
 		}
 
-		public Builder withId(String id) {
-			if (id == null || id.trim().isEmpty()) {
-				throw new IllegalArgumentException("id required.");
-			}
-			this.id = id;
+		public Builder setName(String name) {
+            Objects.requireNonNull(name);
+			this.name = name;
 			return this;
 		}
 
-		public Builder withValidationPredicate(
+		public Builder setValidationPredicate(
 				MonetaryPredicate<Map<String, Object>> predicate) {
 			this.validationPredicate = predicate;
 			return this;
 		}
 
-		public Builder withArg(String key, Class<?> type) {
+		public Builder addParameter(String key, Class<?> type) {
 			this.typeDef.put(key, type);
 			return this;
 		}
 
-		public Builder withRequiredArg(String key, Class<?> type) {
+		public Builder addRequiredParameter(String key, Class<?> type) {
 			this.typeDef.put(key, type);
 			this.typeRequired.add(key);
 			return this;
 		}
 
 		public CompoundType build() {
-			return new CompoundType(id, typeDef, typeRequired,
-					validationPredicate);
+			return new CompoundType(this);
 		}
 	}
 

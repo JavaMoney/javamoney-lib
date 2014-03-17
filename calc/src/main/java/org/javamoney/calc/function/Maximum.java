@@ -32,7 +32,7 @@ final class Maximum implements
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
-	 * calling {@link #of()}.
+	 * calling {@link MonetaryCalculations#maximum()}.
 	 */
 	Maximum() {
 	}

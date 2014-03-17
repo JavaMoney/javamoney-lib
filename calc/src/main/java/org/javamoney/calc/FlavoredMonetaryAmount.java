@@ -41,12 +41,7 @@ public final class FlavoredMonetaryAmount implements
 	private MonetaryAmount baseAmount;
 	private String amountType = UNKNOWN;
 
-	public FlavoredMonetaryAmount(MonetaryAmount baseAmount) {
-		Objects.requireNonNull(baseAmount, "baseAmount required.");
-		this.baseAmount = baseAmount;
-	}
-	
-	public FlavoredMonetaryAmount(MonetaryAmount baseAmount,
+	private FlavoredMonetaryAmount(MonetaryAmount baseAmount,
 			String amountType) {
 		Objects.requireNonNull(baseAmount, "baseAmount required.");
 		this.baseAmount = baseAmount;
@@ -98,34 +93,21 @@ public final class FlavoredMonetaryAmount implements
 	}
 
 	/**
-	 * @see #from(Number)
-	 * @param number
-	 *            The number
+	 * Creates a new instance of a FlavoredMonetaryAmount.
+	 * @param amount
+	 *            The amount
 	 * @param newFlavor
 	 *            the {@link String} for the result instance.
 	 * @return the result, with the given flavor.
 	 */
-	public FlavoredMonetaryAmount with(Number number,
+	public FlavoredMonetaryAmount of(MonetaryAmount amount,
 			String newFlavor) {
-		if (this.baseAmount.getClass().equals(getClass())) {
-			return ((FlavoredMonetaryAmount) baseAmount)
-					.with(number, newFlavor);
-		}
-		return new FlavoredMonetaryAmount(this.baseAmount.getFactory().setCurrency(
-				this.baseAmount.getCurrency()).setNumber(
-				number).create(), newFlavor);
-	}
-
-	/**
-	 * @see #from(Number)
-	 * @param newFlavor
-	 *            the {@link String} for the result instance.
-	 * @return the result, with the given flavor.
-	 */
-	public FlavoredMonetaryAmount with(
-			String newFlavor) {
-		return new FlavoredMonetaryAmount(this.baseAmount,
-				newFlavor);
+		Objects.requireNonNull(amount);
+        Objects.requireNonNull(newFlavor);
+        if(amount instanceof FlavoredMonetaryAmount){
+            return new FlavoredMonetaryAmount(((FlavoredMonetaryAmount)amount).baseAmount, newFlavor);
+        }
+		return new FlavoredMonetaryAmount(amount, newFlavor);
 	}
 
 	/**
@@ -138,11 +120,7 @@ public final class FlavoredMonetaryAmount implements
 	 */
 	public FlavoredMonetaryAmount with(MonetaryOperator operator,
 			String newFlavor) {
-		if (this.baseAmount.getClass().equals(getClass())) {
-			return ((FlavoredMonetaryAmount) baseAmount).with(operator,
-					newFlavor);
-		}
-		return new FlavoredMonetaryAmount(this.baseAmount.with(operator),
+		return of(this.baseAmount.with(operator),
 				newFlavor);
 	}
 

@@ -15,107 +15,100 @@
  */
 package org.javamoney.calc.function;
 
+import javax.money.MonetaryAmount;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.money.MonetaryAmount;
-
+import java.util.Objects;
 
 
 /**
  * This class allows instances of {@link MonetaryAmount} to be filtered by
  * arbitrary predicates.
- * 
+ *
  * @author Anatole Tresch
  */
-final class ItemFilter<T> implements MonetaryFunction<MonetaryPredicate<T>, Collection<T>> {
+final class ItemFilter<T> implements MonetaryFunction<MonetaryPredicate<T>,Collection<T>>{
 
-	/** The input {@link MonetaryAmount} instances to be filtered. */
-	private Collection<T> input = new ArrayList<T>();
+    /**
+     * The input {@link MonetaryAmount} instances to be filtered.
+     */
+    private Collection<T> input = new ArrayList<T>();
 
-	/**
-	 * Creates a new empty {@link ItemFilter}.
-	 */
-	public ItemFilter(Iterable<? extends T>... values) {
-		for (Iterable<? extends T> iterable : values) {
-			for (T t : iterable) {
-				input.add(t);
-			}
-		}
-	}
+    /**
+     * Creates a new empty {@link ItemFilter}.
+     */
+    public ItemFilter(Iterable<? extends T>... values){
+        for(Iterable<? extends T> iterable : values){
+            for(T t : iterable){
+                input.add(t);
+            }
+        }
+    }
 
-	/**
-	 * Creates a new {@link ItemFilter}, using the given amounts.
-	 * 
-	 * @param amounts
-	 *            the amounts to be added as input, not null.
-	 */
-	public ItemFilter(T... values) {
-		for (T t : values) {
-			input.add(t);
-		}
-	}
+    /**
+     * Creates a new {@link ItemFilter}, using the given amounts.
+     *
+     * @param values the amounts to be added as input, not null.
+     */
+    public ItemFilter(T... values){
+        for(T t : values){
+            input.add(t);
+        }
+    }
 
-	/**
-	 * Allows to add instances of {@link MonetaryAmount} to the input list.
-	 * 
-	 * @param amounts
-	 *            the amounts to be added.
-	 * @return this filter instance, for chaining.
-	 */
-	public ItemFilter<T> add(T... items) {
-		if (items == null) {
-			throw new IllegalArgumentException("amounts required.");
-		}
-		for (T item : items) {
-			this.input.add(item);
-		}
-		return this;
-	}
+    /**
+     * Allows to add instances of {@link MonetaryAmount} to the input list.
+     *
+     * @param values the amounts to be added.
+     * @return this filter instance, for chaining.
+     */
+    public ItemFilter<T> add(T... values){
+        Objects.requireNonNull(values);
+        for(T item : values){
+            this.input.add(item);
+        }
+        return this;
+    }
 
-	/**
-	 * Allows to add instances of {@link MonetaryAmount} to the input list.
-	 * 
-	 * @param amounts
-	 *            the amounts to be added.
-	 * @return this filter instance, for chaining.
-	 */
-	public ItemFilter<T> add(Iterable<T> items) {
-		if (items == null) {
-			throw new IllegalArgumentException("items required.");
-		}
-		for (T item : items) {
-			this.input.add(item);
-		}
-		return this;
-	}
+    /**
+     * Allows to add instances of {@link MonetaryAmount} to the input list.
+     *
+     * @param values the amounts to be added.
+     * @return this filter instance, for chaining.
+     */
+    public ItemFilter<T> add(Iterable<T> values){
+        Objects.requireNonNull(values);
+        for(T item : values){
+            this.input.add(item);
+        }
+        return this;
+    }
 
-	/**
-	 * Visits all amount in the input collection and selects the ones matching
-	 * the predicate passed.
-	 * 
-	 * @param The
-	 *            predicate determining what amounts are filtered into the
-	 *            result.
-	 * @return a collection with all the amounts, for which the predicate
-	 *         returned {@code true}.
-	 */
-	public Collection<T> apply(
-			final MonetaryPredicate<T> predicate) {
-		final List<T> result = new ArrayList<T>();
-		ItemVisitor visitor = new ItemVisitor(this.input);
-		visitor.apply(new MonetaryPredicate<T>() {
-			@Override
-			public boolean test(T value) {
-				if (predicate.test(value)) {
-					result.add(value);
-					return true;
-				}
-				return false;
-			}
-		});
-		return result;
-	}
+    /**
+     * Visits all amount in the input collection and selects the ones matching
+     * the predicate passed.
+     *
+     * @param predicate The
+     *                  predicate determining what amounts are filtered into the
+     *                  result.
+     * @return a collection with all the amounts, for which the predicate
+     * returned {@code true}.
+     */
+    public Collection<T> apply(final MonetaryPredicate<T> predicate){
+        final List<T> result = new ArrayList<T>();
+        ItemVisitor visitor = new ItemVisitor(this.input);
+        visitor.apply(new MonetaryPredicate<T>(){
+            @Override
+            public boolean test(T value){
+                if(predicate.test(value)){
+                    result.add(value);
+                    return true;
+                }
+                return false;
+            }
+        });
+        return result;
+    }
 
 }

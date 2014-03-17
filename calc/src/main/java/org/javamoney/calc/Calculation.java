@@ -20,10 +20,10 @@ package org.javamoney.calc;
  * This interface defines a calculation. It is hereby important to
  * distinguish between <i>internal rounding</i> such as implied by the maximal
  * precision/scale of an amount, and <i>rounding</i> applied to a
- * {@link MonetaryAmount} or a calculation algorithm.
+ * {@link javax.money.MonetaryAmount} or a calculation algorithm.
  * <p>
  * Nevertheless extensions provide a MonetaryCalculation, which
- * wraps a {@link MonetaryAmount} and adds implicit rounding.
+ * wraps a {@link javax.money.MonetaryAmount} and adds implicit rounding.
  * 
  * @version 0.9.4
  * @author Werner Keil

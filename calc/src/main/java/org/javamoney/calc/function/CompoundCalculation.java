@@ -15,17 +15,36 @@
  */
 package org.javamoney.calc.function;
 
-import javax.money.MonetaryAmount;
-
 import org.javamoney.calc.Calculation;
 
 
-public interface CompoundCalculation<T> extends Calculation<CompoundValue, T> {
+/**
+ * Models an arbitrary ccomplex calculation.
+ *
+ * @param <T> the result type.
+ */
+public interface CompoundCalculation<T> extends Calculation<CompoundValue,T>{
+    /**
+     * Access the input type descriptor.
+     *
+     * @return the input type descriptor, never null.
+     */
+    public CompoundType getInputType();
 
-	public CompoundType getInputType();
+    /**
+     * Access the result type.
+     *
+     * @return the result type, never null.
+     */
+    public Class<T> getResultType();
 
-	public Class<T> getResultType();
-
-	public T calculate(CompoundValue input);
+    /**
+     * Calulates the result.
+     *
+     * @param input the input value
+     * @return the result
+     * @throws javax.money.MonetaryException if input validation fails, or an other monetary errors occurring.
+     */
+    public T calculate(CompoundValue input);
 
 }

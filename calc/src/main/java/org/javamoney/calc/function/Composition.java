@@ -17,17 +17,27 @@ package org.javamoney.calc.function;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
+/**
+ * A composition is an operator that contains multiple other operators that are applied as
+ * a chain of functions to a MonetaryAmount. This allows to easily encapsulate a chain of operations
+ * to a higher valued operation programmatically.
+ */
 public class Composition implements MonetaryOperator {
 
 	private List<MonetaryOperator> functions = new ArrayList<>();
 
+    private String name;
+
 	@SafeVarargs
-	public Composition(Iterable<MonetaryOperator>... operations) {
-		if (operations != null) {
+	public Composition(String name, Iterable<MonetaryOperator>... operations) {
+        Objects.requireNonNull(name);
+        this.name = name;
+        if (operations != null) {
 			for (Iterable<MonetaryOperator> iterable : operations) {
 				for (MonetaryOperator monetaryOperator : iterable) {
 					functions.add(monetaryOperator);
@@ -36,11 +46,20 @@ public class Composition implements MonetaryOperator {
 		}
 	}
 
-	public Composition(MonetaryOperator... operations) {
+	public Composition(String name, MonetaryOperator... operations) {
+        Objects.requireNonNull(name);
 		for (MonetaryOperator monetaryOperator : operations) {
 			functions.add(monetaryOperator);
 		}
 	}
+
+    /**
+     * Get the composition's name.
+     * @return
+     */
+    public String getName(){
+        return name;
+    }
 
 	@Override
 	public MonetaryAmount apply(MonetaryAmount value) {
@@ -51,4 +70,10 @@ public class Composition implements MonetaryOperator {
 		return amount;
 	}
 
+    @Override
+    public String toString(){
+        return "Composition{" + name +
+                ": chain=" + functions +
+                '}';
+    }
 }

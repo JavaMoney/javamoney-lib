@@ -305,19 +305,4 @@ public final class MonetaryPredicates {
 		return new ItemVisitor<>(items).apply(predicate);
 	}
 
-	/**
-	 * This method allows to create a predicate for {@link MonetaryAmount}s, by
-	 * predicating its {@link CurrencyUnit}.
-	 * 
-	 * @param currencyPredicate
-	 *            The {@link CurrencyUnit} {@link MonetaryPredicate} instance, not {@code null}.
-	 * @return The according {@link MonetaryPredicate} for {@link MonetaryAmount}.
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static MonetaryPredicate<? extends MonetaryAmount> createAmountPredicate(
-			MonetaryPredicate<? extends CurrencyUnit> currencyPredicate) {
-		return new AmountCurrencyUnitPredicate(currencyPredicate);
-	}
-
-
 }

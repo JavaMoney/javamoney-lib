@@ -21,7 +21,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 /**
- * A rate is simply a multiplicand that is sued as a constant, e.g. a calculalatory interest rate.
+ * A rate is simply a multiplicand that is used as a constant, e.g. a calculalatory interest rate.
  * When combined with a {@link MonetaryAmount} the according abosulte rate related to that amount is
  * returned, e.g. a 10 % interest rate is modeled as {@code 0.1}, whereas the absolute value given
  * an amount of {@code USD 100} will be {@code USD 10}.

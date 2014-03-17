@@ -27,15 +27,15 @@ import org.javamoney.moneta.Money;
  * <li>finally dividing the total amount by the number of amounts.
  * </ul>
  * 
- * @see http://www.financeformulas.net/Average-Collection-Period.html
+ * @link http://www.financeformulas.net/Average-Collection-Period.html
  * @author Anatole Tresch
  */
 final class AverageMean implements
 		MonetaryCalculation<Iterable<? extends MonetaryAmount>> {
 
 	/**
-	 * Private constructor, there is only one instance of this class, accessible calling
-	 * {@link #of()}.
+	 * Package private constructor, there is only one instance of this class, accessible calling
+	 * {@link org.javamoney.calc.function.MonetaryCalculations#average()}.
 	 */
 	AverageMean() {
 	}

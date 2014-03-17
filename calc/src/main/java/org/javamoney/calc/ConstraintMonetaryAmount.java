@@ -62,7 +62,7 @@ public final class ConstraintMonetaryAmount {
 	 * @return a predicated instance, that ensures the given predicate is always
 	 *         ensured on all operations.
 	 */
-	public static MonetaryAmount constraintAmount(MonetaryAmount amount,
+	public static MonetaryAmount of(MonetaryAmount amount,
 			MonetaryPredicate<MonetaryAmount> predicate) {
 		return new ConstraintMoney(amount, predicate);
 	}

@@ -25,8 +25,7 @@ import javax.money.MonetaryAmount;
 
 /**
  * This abstract class models a predicate used for filtering of
- * {@link MonetaryAmount} instances based on arbitrary {@link #acceptedValues}
- * and a {@link #isPredicateTrue(MonetaryAmount, Set)} predicate function.
+ * {@link MonetaryAmount} instances based on arbitrary {@link #acceptedValues}.
  * 
  * @author Anatole Tresch
  * 

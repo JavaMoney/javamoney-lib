@@ -43,13 +43,13 @@ public final class BasisPoint implements MonetaryOperator,
 
 	private final BigDecimal basisPointValue;
 
-	private CompoundType INPUT_TYPE = new CompoundType.Builder()
-			.withIdForInput(BasisPoint.class)
-			.withRequiredArg("basisPoints", Number.class)
-			.withRequiredArg("amount", MonetaryAmount.class).build();
+	private CompoundType INPUT_TYPE = new CompoundType.Builder("BasisPoint")
+			.setNameForInput(BasisPoint.class)
+			.addRequiredParameter("basisPoints", Number.class)
+			.addRequiredParameter("amount", MonetaryAmount.class).build();
 
 	/**
-	 * Access the shared instance of {@link Permil} for use.
+	 * Access the shared instance of {@link org.javamoney.moneta.function.Permil} for use.
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
@@ -58,7 +58,7 @@ public final class BasisPoint implements MonetaryOperator,
 	}
 
 	/**
-	 * Get {@link MathContext} for {@link Permil} instances.
+	 * Get {@link MathContext} for {@link org.javamoney.moneta.function.Permil} instances.
 	 * 
 	 * @return the {@link MathContext} to be used, by default
 	 *         {@link MathContext#DECIMAL64}.

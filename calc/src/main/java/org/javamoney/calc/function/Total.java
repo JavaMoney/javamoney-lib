@@ -16,6 +16,7 @@
 package org.javamoney.calc.function;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
@@ -33,12 +34,12 @@ final class Total implements
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
-	 * calling {@link #of()}.
+	 * calling {@link org.javamoney.calc.function.MonetaryCalculations#total()} .
 	 */
 	Total() {
 	}
 
-	/**
+    /**
 	 * Evaluates the total sum of the given amounts.
 	 * 
 	 * @param amounts

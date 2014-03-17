@@ -21,11 +21,7 @@ import javax.money.MonetaryAmount;
 
 /**
  * This predicate allows filtering of {@link MonetaryAmount} instances using a
- * predicate and hereby counts the items that are matching. Additionally this
- * predicate can be configured using {@link #withMinMatching(Integer)} to ensure
- * that a minimal number of items matches the criterias, or with
- * {@link #withMaxMatching(Integer)} to ensure that not more than the specified
- * maximum number of items are matching the predicate.<br/>
+ * predicate and hereby counts the items that are matching. <br/>
  * Note that instances of this class are NOT thread-safe.
  * 
  * @author Anatole Tresch
@@ -39,11 +35,11 @@ class MaxCountPredicate<T> implements MonetaryPredicate<T> {
 	private MonetaryPredicate<? super T> predicate;
 
 	/**
-	 * Set the minimal number of items that are required to match the predicate
-	 * passed to {@link #apply(MonetaryAmount)}. If less items match the whole
+	 * Set the maximal number of items that are allowed to match the predicate
+	 * passed to {@link #test(T)}. If less items match the whole
 	 * {@link MaxCountPredicate} will not match.
 	 * 
-	 * @param min
+	 * @param max
 	 *            The minimal number, or {@code null} to remove the condition.
 	 * @return this, for chaining.
 	 */

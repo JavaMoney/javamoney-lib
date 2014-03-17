@@ -66,7 +66,7 @@ public final class MonetaryCalculations {
 	}
 
 	/**
-	 * Get {@link MathContext} for {@link Permil} instances.
+	 * Get {@link MathContext} for {@link org.javamoney.moneta.function.Permil} instances.
 	 * 
 	 * @return the {@link MathContext} to be used, by default
 	 *         {@link MathContext#DECIMAL64}.

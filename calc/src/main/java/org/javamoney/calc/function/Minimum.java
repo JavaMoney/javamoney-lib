@@ -32,7 +32,7 @@ final class Minimum implements
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
-	 * calling {@link #of()}.
+	 * calling {@link MonetaryCalculations#minimum()}.
 	 */
 	Minimum() {
 	}

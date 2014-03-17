@@ -18,54 +18,54 @@ package org.javamoney.calc.function;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
-
-
-/**
- * This abstract class models a predicate used for filtering of
- * {@link MonetaryAmount} instances based on an arbitrary {@link CurrencyUnit}
- * predicate. I.e. all amounts of a given CurrencyUnit can be filtered by
- * calling:
- * 
- * <pre>
- *   Collection<MonetaryAmount> mixedAmounts = ...;
- *   Collection<MonetaryAmount> amountsInCHF = MonetaryPredicates.filter(
- *   	MonetaryPredicates.createAmountPredicate(
- *   	    MonetaryPredicates.includes(MoneyCurrency.of("CHF")));
- *   );
- * </pre>
- * 
- * @author Anatole Tresch
- * 
- * @param <T>
- *            the input values to
- */
-class AmountCurrencyUnitPredicate<T extends MonetaryAmount> implements
-		MonetaryPredicate<T> {
-
-	private MonetaryPredicate<CurrencyUnit> currencyPredicate;
-
-	public AmountCurrencyUnitPredicate(
-			MonetaryPredicate<CurrencyUnit> currencyPredicate) {
-		if (currencyPredicate == null) {
-			throw new IllegalArgumentException("currencyPredicate required.");
-		}
-		this.currencyPredicate = currencyPredicate;
-	}
-
-	@Override
-	public boolean test(MonetaryAmount value) {
-		return currencyPredicate.test(value.getCurrency());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "AmountCurrencyUnitPredicate [currencyPredicate="
-				+ currencyPredicate + "]";
-	}
-
-}
+//
+//
+///**
+// * This abstract class models a predicate used for filtering of
+// * {@link MonetaryAmount} instances based on an arbitrary {@link CurrencyUnit}
+// * predicate. I.e. all amounts of a given CurrencyUnit can be filtered by
+// * calling:
+// *
+// * <pre>
+// *   Collection<MonetaryAmount> mixedAmounts = ...;
+// *   Collection<MonetaryAmount> amountsInCHF = MonetaryPredicates.filter(
+// *   	MonetaryPredicates.createAmountPredicate(
+// *   	    MonetaryPredicates.includes(MoneyCurrency.of("CHF")));
+// *   );
+// * </pre>
+// *
+// * @author Anatole Tresch
+// *
+// * @param <T>
+// *            the input values to
+// */
+//class AmountCurrencyUnitPredicate<T extends MonetaryAmount> implements
+//		MonetaryPredicate<T> {
+//
+//	private MonetaryPredicate<CurrencyUnit> currencyPredicate;
+//
+//	public AmountCurrencyUnitPredicate(
+//			MonetaryPredicate<CurrencyUnit> currencyPredicate) {
+//		if (currencyPredicate == null) {
+//			throw new IllegalArgumentException("currencyPredicate required.");
+//		}
+//		this.currencyPredicate = currencyPredicate;
+//	}
+//
+//	@Override
+//	public boolean test(MonetaryAmount value) {
+//		return currencyPredicate.test(value.getCurrency());
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 *
+//	 * @see java.lang.Object#toString()
+//	 */
+//	@Override
+//	public String toString() {
+//		return "AmountCurrencyUnitPredicate [currencyPredicate="
+//				+ currencyPredicate + "]";
+//	}
+//
+//}
