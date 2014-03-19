@@ -1,0 +1,2 @@
+org.javamoney.currencies.internal.data.IsoCurrencyOnlineProvider
+org.javamoney.currencies.internal.data.ICUCurrencyProvider

@@ -8,8 +8,8 @@
 		<version>0.4</version>
 	</parent>
 
-	<artifactId>javamoney-validity</artifactId>
-	<name>Money and Currency - JavaMoney validity</name>
+	<artifactId>javamoney-currencies</artifactId>
+	<name>Money and Currency - JavaMoney extensions</name>
 	<packaging>bundle</packaging>
 
 	<dependencies>

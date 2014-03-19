@@ -19,10 +19,11 @@
 	</licenses>
 
 	<modules>
-		<module>common</module>
-		<module>calc</module>
+        <module>data</module>
+        <module>currencies</module>
+        <module>calc</module>
 		<module>format</module>
-		<module>extensions</module>
+        <module>regions</module>
 		<module>validity</module>
 	</modules>
 
