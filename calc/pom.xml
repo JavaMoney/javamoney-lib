@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>javamoney-calc</artifactId>
-	<name>Money and Currency - JavaMoney calculations</name>
+	<name>Money and Currency - JavaMoney Calculations</name>
 	<packaging>bundle</packaging>
 
 </project>

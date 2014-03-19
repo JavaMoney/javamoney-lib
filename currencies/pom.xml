@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>javamoney-currencies</artifactId>
-	<name>Money and Currency - JavaMoney extensions</name>
+	<name>Money and Currency - JavaMoney Currency Extensions</name>
 	<packaging>bundle</packaging>
 
 	<dependencies>

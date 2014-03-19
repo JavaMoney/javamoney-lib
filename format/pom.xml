@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>javamoney-format</artifactId>
-	<name>Money and Currency - JavaMoney format</name>
+	<name>Money and Currency - JavaMoney Format</name>
 	<packaging>bundle</packaging>
 
 

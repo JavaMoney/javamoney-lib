@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>javamoney-validity</artifactId>
-	<name>Money and Currency - JavaMoney validity</name>
+	<name>Money and Currency - JavaMoney Validity</name>
 	<packaging>bundle</packaging>
 
 	<dependencies>
