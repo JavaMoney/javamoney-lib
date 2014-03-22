@@ -398,4 +398,15 @@ public final class FlavoredMonetaryAmount implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public int compareTo(MonetaryAmount o){
+        int compare = this.baseAmount.compareTo(o);
+        if(compare==0){
+            if(o instanceof FlavoredMonetaryAmount){
+                return this.getAmountFlavor().compareTo(((FlavoredMonetaryAmount)o).getAmountFlavor());
+            }
+        }
+        return compare;
+    }
 }

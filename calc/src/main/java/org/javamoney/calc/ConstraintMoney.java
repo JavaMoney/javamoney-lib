@@ -416,4 +416,9 @@ final class ConstraintMoney implements
 		// return new ConstraintMoneyFactory(this);
 	}
 
+    @Override
+    public int compareTo(MonetaryAmount o){
+        return this.amount.compareTo(o);
+    }
+
 }

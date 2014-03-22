@@ -88,6 +88,10 @@ public class ICUCurrencyProvider implements CurrencyProviderSpi {
 			return this.currency.getDisplayName(locale);
 		}
 
-	}
+        @Override
+        public int compareTo(CurrencyUnit o){
+            return this.getCurrencyCode().compareTo(o.getCurrencyCode());
+        }
+    }
 
 }

@@ -134,7 +134,12 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 		public int getCashRounding() {
 			return -1;
 		}
-	}
+
+        @Override
+        public int compareTo(CurrencyUnit o){
+            return this.getCurrencyCode().compareTo(o.getCurrencyCode());
+        }
+    }
 
 	private class CountryHandler extends DefaultHandler {
 

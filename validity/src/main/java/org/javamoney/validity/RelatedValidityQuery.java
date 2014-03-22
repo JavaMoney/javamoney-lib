@@ -52,8 +52,6 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 	 *            the item type, not {@code null}.
 	 * @param item
 	 *            the item constraint.
-	 * @param validitySource
-	 *            the validity source id.
 	 * @param from
 	 *            the starting UTC timestamp.
 	 * @param to
@@ -150,21 +148,6 @@ public class RelatedValidityQuery<T, R> extends ValidityQuery<T> {
 
 		/**
 		 * Constructor.
-		 * 
-		 * @param validityType
-		 *            the validity type, not {@code null}.
-		 * @param itemType
-		 *            the item type, not {@code null}.
-		 * @param item
-		 *            the item constraint.
-		 * @param validitySource
-		 *            the validity source id.
-		 * @param from
-		 *            the starting UTC timestamp.
-		 * @param to
-		 *            the ending UTC timestamp.
-		 * @param targetTimezoneId
-		 *            the target timezone ID.
 		 */
 		public Builder() {
 			super();

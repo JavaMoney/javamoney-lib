@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-lib</artifactId>
-		<version>0.4</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>javamoney-validity</artifactId>
@@ -18,6 +18,11 @@
 			<artifactId>javamoney-data</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>javamoney-calc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 	</dependencies>
 
 </project>
