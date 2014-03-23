@@ -8,7 +8,7 @@
  * API ("Specification") Copyright (c) 2012-2013, Credit Suisse All rights
  * reserved.
  */
-package org.javamoney.regions.data;
+package org.javamoney.regions.internal.data;
 
 import java.util.Arrays;
 import java.util.Collection;

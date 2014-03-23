@@ -20,4 +20,4 @@
  * instead of access regions using the Region API, e.g. by calling methods on
  * the {@code org.javamoney.regions.Regions} singleton.
  */
-package org.javamoney.regions.data;
+package org.javamoney.regions.internal.data;
