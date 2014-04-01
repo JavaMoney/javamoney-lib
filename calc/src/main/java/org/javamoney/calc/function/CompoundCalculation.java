@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ *  Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ import org.javamoney.calc.Calculation;
 
 
 /**
- * Models an arbitrary ccomplex calculation.
- *
+ * Models an arbitrary complex calculation.
+ * @author Anatole Tresch
+ * @author Werner Keil
+ * 
  * @param <T> the result type.
  */
 public interface CompoundCalculation<T> extends Calculation<CompoundValue,T>{
