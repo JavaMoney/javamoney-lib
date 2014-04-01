@@ -75,7 +75,7 @@ final class AverageMean implements
 		if (total == null) {
 			throw new IllegalArgumentException("No amounts to totalize.");
 		}
-		return Money.of(unit, total.divide(BigDecimal.valueOf(itemNumber)));
+		return Money.of(total.divide(BigDecimal.valueOf(itemNumber)), unit);
 	}
 
 	/*

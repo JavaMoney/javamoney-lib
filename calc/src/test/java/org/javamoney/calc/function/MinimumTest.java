@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,22 +28,23 @@ public class MinimumTest {
 
 	@Test
 	public void testNew() {
+		@SuppressWarnings("unused")
 		Minimum max = new Minimum();
 	}
 
 	@Test
 	public void testFromIterableOfMonetaryAmount() {
-		Money m = Money.of("CHF", 1);
+		Money m = Money.of(1, "CHF");
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
-		m = Money.of("CHF", 3);
+		m = Money.of(3, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
-		m = Money.of("CHF", 0);
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.minimum().calculate(set));
+		m = Money.of(0, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
+		assertEquals(Money.of(0, "CHF"), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -58,17 +59,17 @@ public class MinimumTest {
 
 	@Test
 	public void testApply() {
-		Money m = Money.of("CHF", 1);
+		Money m = Money.of(1, "CHF");
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.minimum().calculate(set));
 		set.add(m);
-		m = Money.of("CHF", 3);
+		m = Money.of(3, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.minimum().calculate(set));
-		m = Money.of("CHF", 0);
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.minimum().calculate(set));
+		m = Money.of(0, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 0), MonetaryCalculations.minimum().calculate(set));
+		assertEquals(Money.of(0, "CHF"), MonetaryCalculations.minimum().calculate(set));
 	}
 
 	@Test

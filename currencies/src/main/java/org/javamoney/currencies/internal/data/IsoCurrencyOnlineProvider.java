@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,6 +17,7 @@ package org.javamoney.currencies.internal.data;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
@@ -57,9 +58,9 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 	private final SAXParserFactory saxParserFactory = SAXParserFactory
 			.newInstance();
 
-	private Map<String, String> countryCodeMap = new ConcurrentHashMap<String, String>();
+	private Map<String, String> countryCodeMap = new ConcurrentHashMap<>();
 
-	private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<String, CurrencyUnit>();
+	private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<>();
 
 	private final Properties prop = new Properties();
 
@@ -305,7 +306,12 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi {
 
 	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
-		return null;
+		return null; // TODO is this intentional?
+	}
+
+	@Override
+	public Collection<CurrencyUnit> getCurrencies() {
+		return currencies.values();
 	}
 
 }

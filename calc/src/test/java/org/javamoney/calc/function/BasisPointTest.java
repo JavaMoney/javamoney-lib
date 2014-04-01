@@ -38,29 +38,29 @@ public class BasisPointTest {
 
 	@Test
 	public void testApply() {
-		Money m = Money.of("CHF", BigDecimal.valueOf(2.35d));
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(0.00235d)),
+		Money m = Money.of(BigDecimal.valueOf(2.35d), "CHF");
+		assertEquals(Money.of(BigDecimal.valueOf(0.00235d), "CHF"),
 				BasisPoint.of(BigDecimal.TEN).apply(m));
 	}
 
 	@Test
 	public void testApply10() {
-		Money m = Money.of("CHF", 3);
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(0.003d)),
+		Money m = Money.of(3, "CHF");
+		assertEquals(Money.of(BigDecimal.valueOf(0.003d), "CHF"),
 				BasisPoint.of(BigDecimal.TEN).apply(m));
 	}
 
 	@Test
 	public void testApply20() {
-		Money m = Money.of("CHF", 12);
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(0.024d)),
+		Money m = Money.of(12, "CHF");
+		assertEquals(Money.of(BigDecimal.valueOf(0.024d), "CHF"),
 				BasisPoint.of(BigDecimal.valueOf(20)).apply(m));
 	}
 
 	@Test
 	public void testApply30() {
-		Money m = Money.of("CHF", 12);
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(0.036d)),
+		Money m = Money.of(12, "CHF");
+		assertEquals(Money.of(BigDecimal.valueOf(0.036d), "CHF"),
 				BasisPoint.of(BigDecimal.valueOf(30)).apply(m));
 	}
 

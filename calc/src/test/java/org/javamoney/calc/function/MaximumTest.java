@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ *  Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,17 +33,17 @@ public class MaximumTest {
 
 	@Test
 	public void testFromIterableOfMonetaryAmount() {
-		Money m = Money.of("CHF", 1);
+		Money m = Money.of(1, "CHF");
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
-		 m = Money.of("CHF", -1);
+		 m = Money.of(-1, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
-		m = Money.of("CHF", 3);
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.maximum().calculate(set));
+		m = Money.of(3, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
+		assertEquals(Money.of(3, "CHF"), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -59,17 +59,17 @@ public class MaximumTest {
 
 	@Test
 	public void testApply() {
-		Money m = Money.of("CHF", 1);
+		Money m = Money.of(1, "CHF");
 		List<Money> set = new ArrayList<Money>();
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.maximum().calculate(set));
 		set.add(m);
-		 m = Money.of("CHF", -1);
+		 m = Money.of(-1, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 1), MonetaryCalculations.maximum().calculate(set));
-		m = Money.of("CHF", 3);
+		assertEquals(Money.of(1, "CHF"), MonetaryCalculations.maximum().calculate(set));
+		m = Money.of(3, "CHF");
 		set.add(m);
-		assertEquals(Money.of("CHF", 3), MonetaryCalculations.maximum().calculate(set));
+		assertEquals(Money.of(3, "CHF"), MonetaryCalculations.maximum().calculate(set));
 	}
 
 	@Test

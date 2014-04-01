@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,6 +15,7 @@
  */
 package org.javamoney.currencies.internal.data;
 
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,7 +41,7 @@ public class ICUCurrencyProvider implements CurrencyProviderSpi {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ICUCurrencyProvider.class);
 
-	private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<String, CurrencyUnit>();
+	private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<>();
 
 	public ICUCurrencyProvider() {
 		for(com.ibm.icu.util.Currency currency:com.ibm.icu.util.Currency.getAvailableCurrencies()){
@@ -93,5 +94,11 @@ public class ICUCurrencyProvider implements CurrencyProviderSpi {
             return this.getCurrencyCode().compareTo(o.getCurrencyCode());
         }
     }
+
+
+	@Override
+	public Collection<CurrencyUnit> getCurrencies() {
+		return currencies.values();
+	}
 
 }

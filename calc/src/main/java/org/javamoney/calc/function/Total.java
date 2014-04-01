@@ -63,7 +63,7 @@ final class Total implements
 		if (result == null) {
 			throw new IllegalArgumentException("amounts is empty.");
 		}
-		return Money.of(unit, result);
+		return Money.of(result, unit);
 	}
 
 	/*

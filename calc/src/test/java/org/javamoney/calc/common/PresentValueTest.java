@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil. Licensed under the Apache
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in compliance with the
  * License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License
@@ -26,17 +26,17 @@ public class PresentValueTest {
 	@Test
 	public void test() {
 		PresentValue f = PresentValue.of();
-		Money money = Money.of("CHF", 100);
+		Money money = Money.of(100, "CHF");
 		MonetaryOperator rounding = MonetaryRoundings
 				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
-						.set(
-								RoundingMode.HALF_EVEN).create());
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(95.24)),
+						//.setRoundingMode(RoundingMode.HALF_EVEN)
+						.create());
+		assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"),
 				f.calculate(money, new Rate(0.05), 1)
 						.with(rounding));
-		assertEquals(Money.of("CHF", new BigDecimal("90.70")),
+		assertEquals(Money.of(new BigDecimal("90.70"), "CHF"),
 				f.calculate(money, new Rate(0.05), 2).with(rounding));
-		assertEquals(Money.of("CHF", BigDecimal.valueOf(86.38)),
+		assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"),
 				f.calculate(money, new Rate(0.05), 3).with(rounding));
 	}
 }

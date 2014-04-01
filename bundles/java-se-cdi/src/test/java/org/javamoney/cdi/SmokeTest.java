@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012, 2014, Werner Keil, Credit Suisse (Anatole Tresch).
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -43,6 +43,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Anatole Tresch
+ * @author Werner Keil
+ *
+ */
 public class SmokeTest {
 	private static final Logger logger = LoggerFactory
 			.getLogger(SmokeTest.class);
@@ -52,8 +57,8 @@ public class SmokeTest {
 	public void testCreateAmounts() {
 		// Creating one
 		CurrencyUnit currency = MonetaryCurrencies.getCurrency("CHF");
-		Money amount1 = Money.of(currency, 1.0d);
-		Money amount2 = Money.of(currency, 1.0d);
+		Money amount1 = Money.of(1.0d, currency);
+		Money amount2 = Money.of(1.0d, currency);
 		Money amount3 = amount1.add(amount2);
 		logger.debug(amount1 + " + " + amount2 + " = " + amount3);
 		assertEquals(1.0d, amount1.getNumber().doubleValue(), 0);
@@ -64,8 +69,8 @@ public class SmokeTest {
 	@Test
 	public void testCreateMoney() {
 		// Creating one
-		Money amount1 = Money.of("CHF", 1.0d);
-		Money amount2 = Money.of("CHF", 1.0d);
+		Money amount1 = Money.of(1.0d, "CHF");
+		Money amount2 = Money.of(1.0d, "CHF");
 		Money amount3 = amount1.add(amount2);
 		logger.debug(amount1 + " + " + amount2 + " = " + amount3);
 		assertEquals(1.0d, amount1.getNumber().doubleValue(), 0);

@@ -20,17 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.javamoney.lib</groupId>
-			<artifactId>javamoney-common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javamoney.lib</groupId>
 			<artifactId>javamoney-format</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javamoney.lib</groupId>
-			<artifactId>javamoney-extensions</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

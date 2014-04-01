@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,6 +15,7 @@
  */
 package org.javamoney.currencies.internal.data;
 
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
@@ -66,6 +67,11 @@ public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 		catch(Exception e){
 			return null;
 		}
+	}
+
+	@Override
+	public Collection<CurrencyUnit> getCurrencies() {
+		return currencies.values();
 	}
 
 }
