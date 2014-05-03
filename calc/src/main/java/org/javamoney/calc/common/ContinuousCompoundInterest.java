@@ -36,7 +36,7 @@ public final class ContinuousCompoundInterest extends AbstractPeriodicalFunction
 	private ContinuousCompoundInterest() {
 	}
 
-	public static final ContinuousCompoundInterest of() {
+	public static final ContinuousCompoundInterest getInstance() {
 		return INSTANCE;
 	}
 

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 /**
  * 
  * @author Anatole
+ * @author Werner
  * 
  */
 public final class DiscountFactor {
@@ -23,7 +24,7 @@ public final class DiscountFactor {
 	private DiscountFactor() {
 	}
 
-	public static final DiscountFactor of() {
+	public static final DiscountFactor getInstance() {
 		return INSTANCE;
 	}
 

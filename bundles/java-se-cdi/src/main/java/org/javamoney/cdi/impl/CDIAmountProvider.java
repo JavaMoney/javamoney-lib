@@ -9,10 +9,10 @@ import javax.inject.Singleton;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
-import javax.money.spi.MonetaryAmountsSpi;
+import javax.money.spi.MonetaryAmountsSingletonSpi;
 
 @Singleton
-public class CDIAmountProvider implements MonetaryAmountsSpi {
+public class CDIAmountProvider implements MonetaryAmountsSingletonSpi {
 
 	@Inject
 	private Instance<MonetaryAmountFactory<?>> factories;
@@ -48,7 +48,6 @@ public class CDIAmountProvider implements MonetaryAmountsSpi {
 		return null;
 	}
 
-	@Override
 	public Class<? extends MonetaryAmount> queryAmountType(
 			MonetaryContext requiredContext) {
 		// TODO Auto-generated method stub

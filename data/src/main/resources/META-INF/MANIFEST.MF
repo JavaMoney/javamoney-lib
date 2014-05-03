@@ -7,7 +7,7 @@ Bundle-DocURL: http://javamoney.org
 Bundle-License: LICENSE.txt
 Bundle-ManifestVersion: 2
 Bundle-Name: Money and Currency - JavaMoney common parts
-Bundle-SymbolicName: org.javamoney.lib.javamoney-common
+Bundle-SymbolicName: org.javamoney.lib.javamoney-data
 Bundle-Vendor: JavaMoney
 Bundle-Version: 0.4.0.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin

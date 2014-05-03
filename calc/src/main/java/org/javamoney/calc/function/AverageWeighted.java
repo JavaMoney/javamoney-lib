@@ -26,7 +26,7 @@ final class AverageWeighted implements
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible calling
-	 * {@link #of()}.
+	 * {@link #getInstance()}.
 	 */
 	AverageWeighted() {
 	}

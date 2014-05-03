@@ -30,8 +30,9 @@ import org.javamoney.calc.ValidationException;
  * objects or input parameters as they are common in financial applications.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
-public final class CompoundType implements Serializable {
+public final class CompoundType implements Serializable, Nameable {
 	/**
 	 * serialVersionUID.
 	 */

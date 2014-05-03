@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ *  Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,8 +26,11 @@ import javax.money.MonetaryOperator;
  * A composition is an operator that contains multiple other operators that are applied as
  * a chain of functions to a MonetaryAmount. This allows to easily encapsulate a chain of operations
  * to a higher valued operation programmatically.
+ * 
+ * @author Anatole
+ * @author Werner
  */
-public class Composition implements MonetaryOperator {
+public class Composition implements MonetaryOperator, Nameable {
 
 	private List<MonetaryOperator> functions = new ArrayList<>();
 
