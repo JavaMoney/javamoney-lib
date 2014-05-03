@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -18,11 +18,9 @@ package org.javamoney.calc.common;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRoundings;
+import javax.money.RoundingContext;
 
 import org.javamoney.moneta.Money;
 import org.junit.Ignore;
@@ -35,8 +33,8 @@ public class FutureValueTest {
 	public void test() {
 		FutureValue f = FutureValue.of();
 		Money money = Money.of(100, "CHF");
-		MonetaryOperator rounding = MonetaryRoundings
-				.getRounding(new MonetaryContext.Builder().setPrecision(2)
+		MonetaryOperator rounding = MonetaryRoundings.getRounding(
+				new RoundingContext.Builder().setScale(2)
 						//.setRoundingMode(RoundingMode.HALF_EVEN)
 						.create());
 		assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), f.calculate(money,new Rate(0.05), 1)

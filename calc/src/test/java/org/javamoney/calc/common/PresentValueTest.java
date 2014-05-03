@@ -12,11 +12,9 @@ package org.javamoney.calc.common;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import javax.money.MonetaryContext;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRoundings;
+import javax.money.RoundingContext;
 
 import org.javamoney.moneta.Money;
 import org.junit.Test;
@@ -28,7 +26,7 @@ public class PresentValueTest {
 		PresentValue f = PresentValue.of();
 		Money money = Money.of(100, "CHF");
 		MonetaryOperator rounding = MonetaryRoundings
-				.getRounding(new MonetaryContext.Builder().setMaxScale(2)
+				.getRounding(new RoundingContext.Builder().setScale(2)
 						//.setRoundingMode(RoundingMode.HALF_EVEN)
 						.create());
 		assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"),
