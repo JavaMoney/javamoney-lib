@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>javamoney-lib</artifactId>
 	<groupId>org.javamoney.lib</groupId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4</version>
 	<name>Money and Currency - JavaMoney Libraries (parent)</name>
 	<packaging>pom</packaging>
 
