@@ -27,7 +27,6 @@ import javax.money.MonetaryOperator;
  * an amount of {@code USD 100} will be {@code USD 10}.
  * 
  * @author Anatole Tresch
- * 
  */
 public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> for Java 8/9
 	/** The rate factor. */
@@ -114,10 +113,9 @@ public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> f
 	 * (non-Javadoc)
 	 * @see javax.money.MonetaryOperator#apply(javax.money.MonetaryAmount)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends MonetaryAmount> T apply(T amount) {
-		return (T) amount.multiply(rate);
+	public MonetaryAmount apply(MonetaryAmount amount) {
+		return amount.multiply(rate);
 	}
 
 }

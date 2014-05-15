@@ -74,8 +74,8 @@ public final class PresentValueGrowingAnnuity {
 		}
 
 		@Override
-		public <T extends MonetaryAmount> T apply(T amount) {
-			return (T) PresentValueGrowingAnnuity.of().calculate(amount,
+		public MonetaryAmount apply(MonetaryAmount amount) {
+			return PresentValueGrowingAnnuity.of().calculate(amount,
 					discountRate, growthRate);
 		}
 

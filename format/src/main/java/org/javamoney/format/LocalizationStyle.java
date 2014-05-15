@@ -15,6 +15,7 @@
  */
 package org.javamoney.format;
 
+import org.javamoney.format.internal.AbstractContext;
 import org.javamoney.format.spi.ItemFormatFactorySpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Anatole Tresch
  */
-public final class LocalizationStyle implements Serializable{
+public final class LocalizationStyle extends AbstractContext
+implements Serializable{
 
     /**
      * serialVersionUID.
@@ -59,30 +61,19 @@ public final class LocalizationStyle implements Serializable{
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalizationStyle.class);
 
+    /** the default id. */
     public static final String DEFAULT_ID = "default";
+
     /**
      * The style's name, by default ({@link #DEFAULT_ID}.
      */
     private String id = DEFAULT_ID;
+
     /**
      * The style's target type.
      */
     private Class<?> targetType;
 
-    /**
-     * Fully qualified class name, of the item format class to be used by default for rendering this style instance.
-     */
-    private String defaultItemFormatClassName;
-
-    /**
-     * Instantiated class using by default form formatting.
-     */
-    private transient Class<? extends ItemFormat<?>> defaultItemFormatClass;
-
-    /**
-     * The style's generic attributes.
-     */
-    private Map<String,Object> attributes = new HashMap<String,Object>();
 
     /**
      * The shared map of LocalizationStyle instances.
@@ -153,13 +144,9 @@ public final class LocalizationStyle implements Serializable{
      * @param builder The style's builder (not null).
      */
     private LocalizationStyle(Builder builder){
+        super(builder);
         this.id = builder.id;
         this.targetType = builder.targetType;
-        this.defaultItemFormatClass = builder.defaultItemFormatClass;
-        if(defaultItemFormatClass!=null){
-            this.defaultItemFormatClassName = defaultItemFormatClass.getName();
-        }
-        this.attributes.putAll(builder.attributes);
     }
 
     /**
@@ -185,88 +172,18 @@ public final class LocalizationStyle implements Serializable{
      * @return the default item format class, or null.
      */
     public final Class<? extends ItemFormat<?>> getDefaultItemFormatClass(){
-        if(defaultItemFormatClass != null && defaultItemFormatClassName != null){
+        String defaultItemFormatClassName = getText("defaultItemFormatClassName");
+        if(defaultItemFormatClassName != null){
             try{
-                defaultItemFormatClass = (Class<? extends ItemFormat<?>>) Class.forName(defaultItemFormatClassName);
+                return (Class<? extends ItemFormat<?>>) Class.forName(defaultItemFormatClassName);
             }
             catch(Exception e){
                 LOG.error("Failed to load ItemFormat class: " + defaultItemFormatClassName, e);
             }
         }
-        return defaultItemFormatClass;
+        return getNamedAttribute("defaultItemFormatClass", Class.class);
     }
 
-    /**
-     * Get the current defined attributes for this style.
-     *
-     * @return the attributes defined
-     */
-    public final Map<String,Object> getAttributes(){
-        return new HashMap<String,Object>(attributes);
-    }
-
-    /**
-     * Read an attribute from this style.
-     *
-     * @param key The attribute key
-     * @return the current property value, or null.
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T getAttribute(String key, Class<T> type){
-        return (T) attributes.get(key);
-    }
-
-    /**
-     * Read a typed attribute from this style.
-     *
-     * @param type The attribute's type, resolving to a key representing the
-     *             fully qualified class name of the given type.
-     * @return the current attribute value, or {@code null}.
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T getAttribute(Class<T> type){
-        return (T) attributes.get(type.getName());
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode(){
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
-        return result;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj){
-        if(this == obj){
-            return true;
-        }
-        if(obj == null){
-            return false;
-        }
-        if(getClass() != obj.getClass()){
-            return false;
-        }
-        LocalizationStyle other = (LocalizationStyle) obj;
-        if(attributes == null){
-            if(other.attributes != null){
-                return false;
-            }
-        }else if(!attributes.equals(other.attributes)){
-            return false;
-        }
-        return true;
-    }
 
     /*
      * (non-Javadoc)
@@ -297,7 +214,9 @@ public final class LocalizationStyle implements Serializable{
      *
      * @author Anatole Tresch
      */
-    public static final class Builder{
+    public static final class Builder extends AbstractBuilder<Builder>{
+        /** The style's id. */
+        private String id = DEFAULT_ID;
 
         /**
          * The formated type.
@@ -305,19 +224,9 @@ public final class LocalizationStyle implements Serializable{
         private Class<?> targetType;
 
         /**
-         * The style's name, by default ({@link #DEFAULT_ID}.
-         */
-        private String id;
-
-        /**
          * The default class of ItemFormat to be used.
          */
         private Class<? extends ItemFormat<?>> defaultItemFormatClass;
-
-        /**
-         * The style's attributes.
-         */
-        private Map<String,Object> attributes = new HashMap<String,Object>();
 
         /**
          * Constructor.
@@ -326,7 +235,7 @@ public final class LocalizationStyle implements Serializable{
          */
         public Builder(Class<?> targetType){
             this.targetType = targetType;
-            setId(LocalizationStyle.DEFAULT_ID);
+            setId(DEFAULT_ID);
         }
 
         /**
@@ -349,7 +258,7 @@ public final class LocalizationStyle implements Serializable{
          * @param baseStyle The style to be used as a base style.
          */
         public Builder(LocalizationStyle baseStyle){
-            this.attributes.putAll(baseStyle.getAttributes());
+            setAll(baseStyle);
             this.id = baseStyle.getId();
             this.targetType = baseStyle.getTargetType();
         }
@@ -441,99 +350,6 @@ public final class LocalizationStyle implements Serializable{
          */
         public String getId(){
             return id;
-        }
-
-        /**
-         * Get the current defined attributes for this instance.
-         *
-         * @return the attributes defined.
-         */
-        public final Map<String,Object> getAttributes(){
-            return new HashMap<>(attributes);
-        }
-
-        /**
-         * Sets the given property. This method is meant for adding custom
-         * properties.
-         *
-         * @param key   The target key, not {@code null}.
-         * @param value The target value, not {@code null}.
-         * @return The Builder instance for chaining.
-         */
-        public Builder setAttribute(String key, Object value){
-            attributes.put(key, value);
-            return this;
-        }
-
-        /**
-         * Sets the given value as a property, using the fully qualified class
-         * name given as the key.
-         *
-         * @param key   The instance's class, or subclass to be registered, not
-         *              {@code null}.
-         * @param value The target value, not {@code null}.
-         * @return The Builder instance for chaining.
-         */
-        public <T> Builder setAttribute(Class<T> key, T value){
-            attributes.put(key.getName(), value);
-            return this;
-        }
-
-        /**
-         * Sets the given value as a property, using the fully qualified class
-         * name of the given instance as the key.
-         *
-         * @param value The attribute value
-         * @return The Builder instance for chaining.
-         * @see #getAttribute(Class)
-         */
-        public <T> Builder setAttribute(Object value){
-            attributes.put(value.getClass().getName(), value);
-            return this;
-        }
-
-        /**
-         * Read a property from this style.
-         *
-         * @param key The property's key
-         * @return the current property value, or {@code null}.
-         */
-        @SuppressWarnings("unchecked")
-        public <T> T getAttribute(String key, Class<T> type){
-            return (T) attributes.get(key);
-        }
-
-        /**
-         * Read a typed property from this style.
-         *
-         * @param type The property's type, resolving to a key representing the
-         *             fully qualified class name of the given type.
-         * @return the current property value, or {@code null}.
-         */
-        @SuppressWarnings("unchecked")
-        public <T> T getAttribute(Class<T> type){
-            return (T) attributes.get(type.getName());
-        }
-
-        /**
-         * Removes the given property.
-         *
-         * @param key The key to be removed, not {@code null}
-         * @return The Builder instance for chaining.
-         */
-        public Builder removeAttribute(String key){
-            attributes.remove(key);
-            return this;
-        }
-
-        /**
-         * Removes the given property.
-         *
-         * @param key The key to be removed, not {@code null}
-         * @return The Builder instance for chaining.
-         */
-        public <T> Builder removeAttribute(Class<T> key){
-            return removeAttribute(key.getName());
         }
 
     }

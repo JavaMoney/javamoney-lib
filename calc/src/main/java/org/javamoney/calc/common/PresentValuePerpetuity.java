@@ -65,8 +65,8 @@ public final class PresentValuePerpetuity {
 		}
 
 		@Override
-		public <T extends MonetaryAmount> T apply(T amount) {
-			return (T) PresentValuePerpetuity.of().calculate(amount,
+		public MonetaryAmount apply(MonetaryAmount amount) {
+			return PresentValuePerpetuity.of().calculate(amount,
 					rate);
 		}
 

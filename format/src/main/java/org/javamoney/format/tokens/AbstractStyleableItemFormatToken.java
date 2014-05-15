@@ -48,17 +48,17 @@ public abstract class AbstractStyleableItemFormatToken<T> implements StyleableIt
         if(instanceId != null){
             accessKey = instanceId + '.' + key;
         }
-        T value = style.getAttribute(accessKey, type);
+        T value = style.getNamedAttribute(accessKey, type);
         if(value == null){
             accessKey = getClass().getName() + '.' + key;
-            value = style.getAttribute(accessKey, type);
+            value = style.getNamedAttribute(accessKey, type);
         }
         if(value == null){
             accessKey = getClass().getSimpleName() + '.' + key;
-            value = style.getAttribute(accessKey, type);
+            value = style.getNamedAttribute(accessKey, type);
         }
         if(value == null){
-            value = style.getAttribute(key, type);
+            value = style.getNamedAttribute(key, type);
         }
         if(value == null){
             return defaultValue;

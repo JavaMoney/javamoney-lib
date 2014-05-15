@@ -44,8 +44,8 @@ public abstract class AbstractPeriodicalFunction implements PeriodicalFunction {
 		}
 
 		@Override
-		public <T extends MonetaryAmount> T apply(T amount) {
-			return (T) function.calculate(amount, rate, periods);
+		public MonetaryAmount apply(MonetaryAmount amount) {
+			return function.calculate(amount, rate, periods);
 		}
 
 		/*
