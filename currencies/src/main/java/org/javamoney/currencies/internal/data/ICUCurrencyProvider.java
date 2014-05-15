@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Implements a {@link CurrencyUnitProviderSpi} that provides the additional
+ * Implements a {@link CurrencyProviderSpi} that provides the additional
  * currencies available from the ICO library, but not part of the JDK.
  * 
  * @author Anatole Tresch

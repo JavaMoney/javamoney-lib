@@ -15,25 +15,25 @@
  */
 package org.javamoney.format;
 
-/**
- * When accessing {@link ItemFormat} instances from the {@link org.javamoney.format.ItemFormats} singleton, it is also
- * possible to access an ItemFormat configured with a LocalizationStyle directly,
- * e.g. ba calling {@link org.javamoney.format.ItemFormats#getItemFormat(Class, LocalizationStyle)}. Hereby it is
- * possible that
- * the item format to be used is defined as a default by the LocalizationStyle. When the format will be instantiated
- * finally
- * it can obtain references to the concrete target type and localization style by implementing this interface.
- * Created by Anatole Tresch on 17.03.14.
- */
-public interface ConfigurableItemFormat<T> extends ItemFormat<T>{
-
-    /**
-     * Configures the given instance with the values.
-     *
-     * @param targetType the target type, not null.
-     * @param style      the localization style, not null
-     * @param <T>        the target type's class.
-     */
-    <T> void configure(Class<T> targetType, LocalizationStyle style);
-
-}
+///**
+// * When accessing {@link ItemFormat} instances from the {@link org.javamoney.format.ItemFormats} singleton, it is also
+// * possible to access an ItemFormat configured with a LocalizationStyle directly,
+// * e.g. ba calling {@link org.javamoney.format.ItemFormats#getItemFormat(Class, LocalizationStyle)}. Hereby it is
+// * possible that
+// * the item format to be used is defined as a default by the LocalizationStyle. When the format will be instantiated
+// * finally
+// * it can obtain references to the concrete target type and localization style by implementing this interface.
+// * Created by Anatole Tresch on 17.03.14.
+// */
+//public interface ConfigurableItemFormat<T> extends ItemFormat<T>{
+//
+//    /**
+//     * Configures the given instance with the values.
+//     *
+//     * @param targetType the target type, not null.
+//     * @param style      the localization style, not null
+//     * @param <T>        the target type's class.
+//     */
+//    <T> void configure(Class<T> targetType, LocalizationStyle style);
+//
+//}

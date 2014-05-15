@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import javax.money.CurrencyUnit;
 
 import org.javamoney.format.*;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 
 /**
  * {@link org.javamoney.format.StyleableItemFormatToken} that adds a localizable {@link String}, read by key from
@@ -53,19 +53,19 @@ public class CurrencyTokenStyleableItem extends AbstractStyleableItemFormatToken
 	}
 
 	protected String getToken(CurrencyUnit unit, Locale locale,
-			LocalizationStyle style) {
+			LocalizationContext style) {
 		switch (displayType) {
 		case NUMERIC_CODE:
 			return String.valueOf(unit.getNumericCode());
 		case NAME:
 			ItemFormat<CurrencyUnit> cf1 = ItemFormats
 					.getItemFormat(CurrencyUnit.class,
-                                   new LocalizationStyle.Builder(style).setAttribute("renderField", "displayName")
+                                   new LocalizationContext.Builder(style).setAttribute("renderField", "displayName")
                                            .build());
 			return cf1.format(unit, locale);
 		case SYMBOL:
 			ItemFormat<CurrencyUnit> cf2 = ItemFormats.getItemFormat(CurrencyUnit.class,
-                                                                     new LocalizationStyle.Builder(style)
+                                                                     new LocalizationContext.Builder(style)
                                                                              .setAttribute("renderField", "symbol")
                                                                              .build());
 			return cf2.format(unit, locale);
@@ -77,7 +77,7 @@ public class CurrencyTokenStyleableItem extends AbstractStyleableItemFormatToken
 
 	@Override
 	public void parse(ItemParseContext context, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws ItemParseException {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}

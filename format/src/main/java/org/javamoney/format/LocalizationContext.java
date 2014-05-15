@@ -15,11 +15,11 @@
  */
 package org.javamoney.format;
 
-import org.javamoney.format.internal.AbstractContext;
 import org.javamoney.format.spi.ItemFormatFactorySpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.money.AbstractContext;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +42,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * configuration attributes may be necessary to be passed to a formatter/parser
  * instance.
  * <p/>
- * Finally instances of {@link LocalizationStyle} can be registered to the
+ * Finally instances of {@link LocalizationContext} can be registered to the
  * internal style cache, which allows to share the according styles, by
  * accessing them using {@link #of(Class)} of {@link #of(Class, String)}.
  * <p/>
@@ -51,7 +51,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Anatole Tresch
  */
-public final class LocalizationStyle extends AbstractContext
+public final class LocalizationContext extends AbstractContext
 implements Serializable{
 
     /**
@@ -59,7 +59,7 @@ implements Serializable{
      */
     private static final long serialVersionUID = 8612440355369457473L;
 
-    private static final Logger LOG = LoggerFactory.getLogger(LocalizationStyle.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalizationContext.class);
 
     /** the default id. */
     public static final String DEFAULT_ID = "default";
@@ -78,33 +78,33 @@ implements Serializable{
     /**
      * The shared map of LocalizationStyle instances.
      */
-    private static final Map<String,LocalizationStyle> STYLE_MAP = new ConcurrentHashMap<String,LocalizationStyle>();
+    private static final Map<String,LocalizationContext> STYLE_MAP = new ConcurrentHashMap<String,LocalizationContext>();
 
     /**
      * Access a cached <i>default</i> style for a type. This equals to
      * {@link #of(Class, String)}, hereby passing
-     * {@link LocalizationStyle#DEFAULT_ID} as {@code styleId}.
+     * {@link LocalizationContext#DEFAULT_ID} as {@code styleId}.
      *
      * @param targetType The target type, not {@code null}.
      * @param styleId    The style's id, not {@code null}.
      * @return the according style, if a corresponding style is cached, or
      * {@code null].
      */
-    public static final LocalizationStyle of(Class<?> targetType, String styleId){
+    public static final LocalizationContext of(Class<?> targetType, String styleId){
         return STYLE_MAP.get(getKey(targetType, styleId));
     }
 
     /**
      * Access a cached <i>default</i> style for a type. This equals to
      * {@link #of(Class, String)}, hereby passing
-     * {@link LocalizationStyle#DEFAULT_ID} as {@code styleId}.
+     * {@link LocalizationContext#DEFAULT_ID} as {@code styleId}.
      *
      * @param targetType The target type, not {@code null}.
      * @return the according style, if a corresponding style is cached, or
      * {@code null].
      */
-    public static final LocalizationStyle of(Class<?> targetType){
-        return of(targetType, LocalizationStyle.DEFAULT_ID);
+    public static final LocalizationContext of(Class<?> targetType){
+        return of(targetType, LocalizationContext.DEFAULT_ID);
     }
 
     /**
@@ -143,7 +143,7 @@ implements Serializable{
      *
      * @param builder The style's builder (not null).
      */
-    private LocalizationStyle(Builder builder){
+    private LocalizationContext(Builder builder){
         super(builder);
         this.id = builder.id;
         this.targetType = builder.targetType;
@@ -206,10 +206,10 @@ implements Serializable{
     }
 
     /**
-     * Builder to create new instances of {@link LocalizationStyle}.
+     * Builder to create new instances of {@link LocalizationContext}.
      * <p/>
      * This class is not thread-safe and should not be used in multiple threads.
-     * However {@link LocalizationStyle} instances created can securely shared
+     * However {@link LocalizationContext} instances created can securely shared
      * among threads.
      *
      * @author Anatole Tresch
@@ -243,7 +243,7 @@ implements Serializable{
          *
          * @param styleId    The style's id.
          * @param targetType The target TYPE
-         * @return the {@link LocalizationStyle} created.
+         * @return the {@link LocalizationContext} created.
          */
         public Builder(Class<?> targetType, String styleId){
             setId(styleId);
@@ -257,33 +257,33 @@ implements Serializable{
          *
          * @param baseStyle The style to be used as a base style.
          */
-        public Builder(LocalizationStyle baseStyle){
+        public Builder(LocalizationContext baseStyle){
             setAll(baseStyle);
             this.id = baseStyle.getId();
             this.targetType = baseStyle.getTargetType();
         }
 
         /**
-         * Creates a new instance of {@link LocalizationStyle}.
+         * Creates a new instance of {@link LocalizationContext}.
          *
-         * @return a new instance of {@link LocalizationStyle}, never
+         * @return a new instance of {@link LocalizationContext}, never
          * {@code null}
          * @throws IllegalStateException if this builder can not create a new instance.
          */
-        public LocalizationStyle build(){
+        public LocalizationContext build(){
             return build(false);
         }
 
         /**
-         * Creates a new instance of {@link LocalizationStyle}.
+         * Creates a new instance of {@link LocalizationContext}.
          *
          * @param register flag for registering the style into the global cache.
-         * @return a new instance of {@link LocalizationStyle}, never
+         * @return a new instance of {@link LocalizationContext}, never
          * {@code null}
          * @throws IllegalStateException if this builder can not create a new instance.
          */
-        public LocalizationStyle build(boolean register){
-            LocalizationStyle style = new LocalizationStyle(this);
+        public LocalizationContext build(boolean register){
+            LocalizationContext style = new LocalizationContext(this);
             if(register){
                 STYLE_MAP.put(getKey(this.targetType, this.id), style);
             }

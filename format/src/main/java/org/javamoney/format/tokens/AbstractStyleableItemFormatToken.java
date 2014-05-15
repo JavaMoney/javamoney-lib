@@ -15,7 +15,7 @@
  */
 package org.javamoney.format.tokens;
 
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 import org.javamoney.format.StyleableItemFormatToken;
 
 import java.io.IOException;
@@ -29,20 +29,20 @@ import java.util.Locale;
  */
 public abstract class AbstractStyleableItemFormatToken<T> implements StyleableItemFormatToken<T>{
 
-    protected abstract String getToken(T item, Locale locale, LocalizationStyle style);
+    protected abstract String getToken(T item, Locale locale, LocalizationContext style);
 
 
     /**
      * Access a configured value as with an additional identifier for this token instance.
      *
-     * @param style        the {@link org.javamoney.format.LocalizationStyle}
+     * @param style        the {@link org.javamoney.format.LocalizationContext}
      * @param instanceId   The sub identifier of this token (optional).
      * @param type         key the attribute's key
      * @param defaultValue the attribute's default value, if no such attribute is present.
      * @param type         the attribute's type.
      * @return the parameter value, or the given defaultValue.
      */
-    protected <T> T getParamterValue(String key, String instanceId, LocalizationStyle style, Class<T> type,
+    protected <T> T getParamterValue(String key, String instanceId, LocalizationContext style, Class<T> type,
                                      T defaultValue){
         String accessKey = key;
         if(instanceId != null){
@@ -70,15 +70,15 @@ public abstract class AbstractStyleableItemFormatToken<T> implements StyleableIt
     /**
      * Access a configured value.
      *
-     * @param style the {@link org.javamoney.format.LocalizationStyle}
+     * @param style the {@link org.javamoney.format.LocalizationContext}
      * @return the parameter value, or the given defaultValue.
      */
-    protected <T> T getParamterValue(String key, LocalizationStyle style, Class<T> type, T defaultValue){
+    protected <T> T getParamterValue(String key, LocalizationContext style, Class<T> type, T defaultValue){
         return getParamterValue(key, null, style, type, defaultValue);
     }
 
     @Override
-    public void print(Appendable appendable, T item, Locale locale, LocalizationStyle style) throws IOException{
+    public void print(Appendable appendable, T item, Locale locale, LocalizationContext style) throws IOException{
         String token = adjustPreformatted(getToken(adjustValue(item), locale, style));
         if(token == null){
             throw new IllegalStateException("Token may not be null.");

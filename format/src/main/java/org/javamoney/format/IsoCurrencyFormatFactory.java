@@ -52,16 +52,16 @@ public class IsoCurrencyFormatFactory implements
 	}
 
 	@Override
-	public LocalizationStyle getLocalizationStyle(Class<?> targetType,
+	public LocalizationContext getLocalizationStyle(Class<?> targetType,
 			String styleId) {
-		LocalizationStyle style = LocalizationStyle.of(targetType, styleId);
-		if (LocalizationStyle.DEFAULT_ID.equals(styleId)) {
-			style = new LocalizationStyle.Builder(targetType, styleId)
+		LocalizationContext style = LocalizationContext.of(targetType, styleId);
+		if (LocalizationContext.DEFAULT_ID.equals(styleId)) {
+			style = new LocalizationContext.Builder(targetType, styleId)
 					.build(true);
 		}
 		try {
 			RenderedField.valueOf(styleId);
-			style = new LocalizationStyle.Builder(targetType, styleId)
+			style = new LocalizationContext.Builder(targetType, styleId)
 					.build(true);
 		} catch (Exception e) {
 			// it is not a valid style...
@@ -76,7 +76,7 @@ public class IsoCurrencyFormatFactory implements
 	}
 
 	@Override
-	public ItemFormat<CurrencyUnit> getItemFormat(LocalizationStyle style)
+	public ItemFormat<CurrencyUnit> getItemFormat(LocalizationContext style)
 			throws ItemFormatException {
 		if (style != null) {
 			String renderedFieldValue = style.getId();

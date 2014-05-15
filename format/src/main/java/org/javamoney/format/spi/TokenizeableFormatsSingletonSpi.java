@@ -21,7 +21,7 @@ import java.util.ServiceLoader;
 
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 
 /**
  * This SPI must be registered using the {@code ServiceLoader} to be used as
@@ -41,7 +41,7 @@ public interface TokenizeableFormatsSingletonSpi{
 	 * Return the style id's supported by this {@link ItemFormatFactorySpi}
 	 * instance.
 	 * 
-	 * @see org.javamoney.format.LocalizationStyle#getId()
+	 * @see org.javamoney.format.LocalizationContext#getId()
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @return the supported style ids, never {@code null}.
@@ -57,7 +57,7 @@ public interface TokenizeableFormatsSingletonSpi{
 	 *            the required style id.
 	 * @return the supported style ids, never {@code null}.
 	 */
-	public LocalizationStyle getLocalizationStyle(Class<?> targetType,
+	public LocalizationContext getLocalizationStyle(Class<?> targetType,
 			String styleId);
 
 	/**
@@ -78,17 +78,17 @@ public interface TokenizeableFormatsSingletonSpi{
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @param style
-	 *            the {@link org.javamoney.format.LocalizationStyle} to be attached to this
+	 *            the {@link org.javamoney.format.LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
 	 * @return the formatter required, if available.
 	 * @throws ItemFormatException
-	 *             if the {@link org.javamoney.format.LocalizationStyle} passed can not be used for
+	 *             if the {@link org.javamoney.format.LocalizationContext} passed can not be used for
 	 *             configuring the {@link ItemFormat} and no matching
 	 *             {@link ItemFormat} could be provided by any of the registered
 	 *             {@link ItemFormatFactorySpi} instances.
 	 */
 	public <T> ItemFormat<T> getItemFormat(Class<T> targetType,
-			LocalizationStyle style) throws ItemFormatException;
+			LocalizationContext style) throws ItemFormatException;
 }

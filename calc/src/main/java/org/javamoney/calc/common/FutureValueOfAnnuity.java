@@ -9,9 +9,8 @@
  */
 package org.javamoney.calc.common;
 
-import java.math.BigDecimal;
-
 import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -19,7 +18,7 @@ import javax.money.MonetaryAmount;
  * <p>
  * The future value of an annuity formula is used to calculate what the value at a future date would
  * be for a series of periodic payments. The future value of an annuity formula assumes that
- * 
+ * <p>
  * <nl>
  * <li>The rate does not change
  * <li>The first payment is one period away
@@ -27,31 +26,27 @@ import javax.money.MonetaryAmount;
  * </nl>
  * If the rate or periodic payment does change, then the sum of the future value of each individual
  * cash flow would need to be calculated to determine the future value of the annuity. If the first
- * cash flow, or payment, is made immediately, the {@link CommonFunctions#futureValue()
- * #OfAnnuityDue()} formula would be used.
- * 
- * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
+ * cash flow, or payment, is made immediately, the {@link org.javamoney.calc.common.FutureValue} formula would be used.
+ *
  * @author Anatole
  * @author Werner
- * 
+ * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
  */
-public final class FutureValueOfAnnuity extends AbstractPeriodicalFunction {
+public final class FutureValueOfAnnuity extends AbstractPeriodicalFunction{
 
-	private static final FutureValueOfAnnuity INSTANCE = new FutureValueOfAnnuity();
+    private static final FutureValueOfAnnuity INSTANCE = new FutureValueOfAnnuity();
 
-	private FutureValueOfAnnuity() {
-	}
+    private FutureValueOfAnnuity(){
+    }
 
-	public static final FutureValueOfAnnuity of() {
-		return INSTANCE;
-	}
+    public static final FutureValueOfAnnuity of(){
+        return INSTANCE;
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		// Am * (((1 + r).pow(n))-1/rate)
-		return amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods)
-				.subtract(BigDecimal.ONE).divide(rate.get()));
-	}
+    @Override
+    public MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods){
+        // Am * (((1 + r).pow(n))-1/rate)
+        return amount.multiply(BigDecimal.ONE.add(rate.get()).pow(periods).subtract(BigDecimal.ONE).divide(rate.get()));
+    }
 
 }

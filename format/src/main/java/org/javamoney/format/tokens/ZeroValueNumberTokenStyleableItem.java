@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.javamoney.format.ItemParseContext;
+import org.javamoney.format.LocalizationContext;
 import org.javamoney.format.StyleableItemFormatToken;
 import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
 
 /**
  * Conditional token that allows to replace the representation of a zero
@@ -54,7 +54,7 @@ public class ZeroValueNumberTokenStyleableItem<T extends Number> extends Abstrac
 	}
 
 	@Override
-	protected String getToken(T item, Locale locale, LocalizationStyle style) {
+	protected String getToken(T item, Locale locale, LocalizationContext style) {
 		if (item.doubleValue() == 0.0d || item.doubleValue() == -0.0d) {
 			return zeroValue;
 		}
@@ -68,7 +68,7 @@ public class ZeroValueNumberTokenStyleableItem<T extends Number> extends Abstrac
 	}
 
 	@Override
-	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
+	public void parse(ItemParseContext context, Locale locale, LocalizationContext style)
 			throws ItemParseException {
 		// not supported...
 	}

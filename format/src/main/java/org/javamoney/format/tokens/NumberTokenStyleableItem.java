@@ -20,7 +20,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 import org.javamoney.format.ItemParseContext;
 
 
@@ -116,7 +116,7 @@ public class NumberTokenStyleableItem extends AbstractStyleableItemFormatToken<N
 		return this;
 	}
 
-	protected DecimalFormat getNumberFormat(Locale locale, LocalizationStyle style) {
+	protected DecimalFormat getNumberFormat(Locale locale, LocalizationContext style) {
 		DecimalFormat formatUsed = this.format;
 		if (formatUsed == null) {
 			formatUsed = (DecimalFormat) DecimalFormat.getInstance(locale);
@@ -128,7 +128,7 @@ public class NumberTokenStyleableItem extends AbstractStyleableItemFormatToken<N
 	}
 
 	@Override
-	protected String getToken(Number item, Locale locale, LocalizationStyle style) {
+	protected String getToken(Number item, Locale locale, LocalizationContext style) {
 		DecimalFormat format = getNumberFormat(locale, style);
 		if (this.numberGroup == null) { // || this.fractionGroup==null
 			return format.format(item);
@@ -145,13 +145,13 @@ public class NumberTokenStyleableItem extends AbstractStyleableItemFormatToken<N
 	}
 
 	private String[] splitNumberParts(Number item, DecimalFormat format,
-			LocalizationStyle style, String preformattedValue) {
+			LocalizationContext style, String preformattedValue) {
 		return preformattedValue.split(String.valueOf(format
 				.getDecimalFormatSymbols().getDecimalSeparator()));
 	}
 
 	@Override
-	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
+	public void parse(ItemParseContext context, Locale locale, LocalizationContext style)
 			throws ItemParseException {
 		DecimalFormat df = getNumberFormat(locale, style);
 		if (style.getNamedAttribute("enforceGrouping", Boolean.class)) {

@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 import org.javamoney.format.ItemParseContext;
 import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,11 +76,11 @@ public class TranslatedLiteralTokenStyleableItem<T> extends AbstractStyleableIte
 		return this.key;
 	}
 
-	protected String getToken(T item, Locale locale, LocalizationStyle style) {
+	protected String getToken(T item, Locale locale, LocalizationContext style) {
 		return getTokenInternal(locale, style);
 	};
 
-	private String getTokenInternal(Locale locale, LocalizationStyle style) {
+	private String getTokenInternal(Locale locale, LocalizationContext style) {
 		if (bundle == null) {
 			return String.valueOf(key);
 		}
@@ -94,7 +94,7 @@ public class TranslatedLiteralTokenStyleableItem<T> extends AbstractStyleableIte
 	}
 
 	@Override
-	public void parse(ItemParseContext context, Locale locale, LocalizationStyle style)
+	public void parse(ItemParseContext context, Locale locale, LocalizationContext style)
 			throws ItemParseException {
 		String token = getTokenInternal(locale, style);
 		if (!context.consume(token)) {

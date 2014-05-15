@@ -24,7 +24,7 @@ package org.javamoney.calc.function;
  * It is meant to extend it and could be fully replaced by this functional interface in a later version of JavaMoney.
  * <p>
  * Instances of this interface are required to be immutable, thread-safe and
- * {@link Serializable}.
+ * {@link java.io.Serializable}.
  * 
  * @author Anatole Tresch
  * @author Werner Keil
@@ -32,8 +32,9 @@ package org.javamoney.calc.function;
  * @param <T>
  *            The item type targeting
  */
-public interface MonetaryPredicate<T> { // extends java.util.function.Predicate<T> for Java 8/9
+@FunctionalInterface
+public interface MonetaryPredicate<T> extends java.util.function.Predicate<T>{
 	
-	public boolean test(T item);
+	// public boolean test(T item);
 
 }

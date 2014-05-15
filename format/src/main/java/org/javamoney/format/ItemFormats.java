@@ -80,7 +80,7 @@ public final class ItemFormats{
 	 * Return the style id's supported by this {@link ItemFormatterFactorySpi}
 	 * instance.
 	 * 
-	 * @see LocalizationStyle#getId()
+	 * @see LocalizationContext#getId()
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @return the supported style ids, never {@code null}.
@@ -113,19 +113,19 @@ public final class ItemFormats{
 	}
 
 	/**
-	 * Access a default {@link LocalizationStyle}.
+	 * Access a default {@link LocalizationContext}.
 	 * 
 	 * @param targetType
 	 *            the target type.
 	 * @return the default style, as defined for the targetType.
 	 */
-	public static LocalizationStyle getLocalizationStyle(Class<?> targetType) {
+	public static LocalizationContext getLocalizationStyle(Class<?> targetType) {
 		return monetaryFormatSpi.getLocalizationStyle(targetType,
-				LocalizationStyle.DEFAULT_ID);
+				LocalizationContext.DEFAULT_ID);
 	}
 
 	/**
-	 * Access the configuring {@link LocalizationStyle},
+	 * Access the configuring {@link LocalizationContext},
 	 * 
 	 * @param targetType
 	 *            the target type.
@@ -133,7 +133,7 @@ public final class ItemFormats{
 	 *            the style's identifier.
 	 * @return the style instance found.
 	 */
-	public static LocalizationStyle getLocalizationStyle(Class<?> targetType,
+	public static LocalizationContext getLocalizationStyle(Class<?> targetType,
 			String styleId) {
 		return monetaryFormatSpi.getLocalizationStyle(targetType, styleId);
 	}
@@ -144,20 +144,20 @@ public final class ItemFormats{
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
 	 * @return the formatter required, if available.
 	 * @throws ItemFormatException
-	 *             if the {@link LocalizationStyle} passed can not be used for
+	 *             if the {@link LocalizationContext} passed can not be used for
 	 *             configuring the {@link ItemFormat} and no matching
 	 *             {@link ItemFormat} could be provided.
 	 */
 	public static <T> ItemFormat<T> getItemFormat(Class<T> targetType)
 			throws ItemFormatException {
-		LocalizationStyle style = getLocalizationStyle(targetType,
-				LocalizationStyle.DEFAULT_ID);
+		LocalizationContext style = getLocalizationStyle(targetType,
+				LocalizationContext.DEFAULT_ID);
 		if (style == null) {
 			throw new ItemFormatException("No default style present for "
 					+ targetType);
@@ -171,13 +171,13 @@ public final class ItemFormats{
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
 	 * @return the formatter required, if available.
 	 * @throws ItemFormatException
-	 *             if the {@link LocalizationStyle} passed can not be used for
+	 *             if the {@link LocalizationContext} passed can not be used for
 	 *             configuring the {@link ItemFormat} and no matching
 	 *             {@link ItemFormat} could be provided.
 	 */
@@ -194,21 +194,21 @@ public final class ItemFormats{
 	 * @param targetType
 	 *            the target type, never {@code null}.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
 	 * @return the formatter required, if available.
 	 * @throws ItemFormatException
-	 *             if the {@link LocalizationStyle} passed can not be used for
+	 *             if the {@link LocalizationContext} passed can not be used for
 	 *             configuring the {@link ItemFormat} and no matching
 	 *             {@link ItemFormat} could be provided.
 	 */
 	public static <T> ItemFormat<T> getItemFormat(Class<T> targetType,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws ItemFormatException {
 		if (style == null) {
-			style = LocalizationStyle.of(targetType);
+			style = LocalizationContext.of(targetType);
 		}
 		if (targetType == null) {
 			throw new IllegalArgumentException("targetType required.");
@@ -243,7 +243,7 @@ public final class ItemFormats{
 		 */
 		@Override
 		public Collection<String> getSupportedStyleIds(Class<?> targetType) {
-			return LocalizationStyle.getSupportedStyleIds(targetType);
+			return LocalizationContext.getSupportedStyleIds(targetType);
 		}
 
 		/*
@@ -267,7 +267,7 @@ public final class ItemFormats{
 		 */
 		@Override
 		public <T> ItemFormat<T> getItemFormat(Class<T> targetType,
-				LocalizationStyle style) throws ItemFormatException {
+				LocalizationContext style) throws ItemFormatException {
 			throw new ItemFormatException("No MonetaryFormatSpi registered.");
 		}
 
@@ -279,9 +279,9 @@ public final class ItemFormats{
 		 * (java.lang.Class, java.lang.String)
 		 */
 		@Override
-		public LocalizationStyle getLocalizationStyle(Class<?> targetType,
+		public LocalizationContext getLocalizationStyle(Class<?> targetType,
 				String styleId) {
-			return LocalizationStyle.of(targetType, styleId);
+			return LocalizationContext.of(targetType, styleId);
 		}
 
 	}

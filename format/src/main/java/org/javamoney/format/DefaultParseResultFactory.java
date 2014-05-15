@@ -71,13 +71,12 @@ public class DefaultParseResultFactory<T> implements ParseResultFactory<T>{
 	}
 
 	/**
-	 * CHecks if the required item is available within the {@link ItemParseContext},
+	 * Checks if the required item is available within the {@link ItemParseContext},
 	 * using the class or fully qualified class name as a key.
 	 * 
 	 * @param context
 	 *            the {@link ItemParseContext}.
 	 * @return {@code true}, if the item parsed was found or can be created.
-	 * @see #apply(ItemParseContext)
 	 */
 	@Override
 	public boolean isComplete(ItemParseContext<T> context) {

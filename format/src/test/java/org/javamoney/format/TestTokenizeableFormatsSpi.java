@@ -50,7 +50,7 @@ public class TestTokenizeableFormatsSpi implements TokenizeableFormatsSingletonS
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> ItemFormat<T> getItemFormat(Class<T> targetType,
-			LocalizationStyle style) throws ItemFormatException {
+			LocalizationContext style) throws ItemFormatException {
 		if (style.isDefaultStyle()) {
 			return new DummyItemFormatter(style, targetType);
 		}
@@ -60,11 +60,11 @@ public class TestTokenizeableFormatsSpi implements TokenizeableFormatsSingletonS
 	@SuppressWarnings("rawtypes")
 	public static final class DummyItemFormatter implements ItemFormat {
 
-		private LocalizationStyle style;
+		private LocalizationContext style;
 
 		private Class targetClass;
 
-		public DummyItemFormatter(LocalizationStyle style, Class type) {
+		public DummyItemFormatter(LocalizationContext style, Class type) {
 			this.style = style;
 			this.targetClass = type;
 		}
@@ -75,7 +75,7 @@ public class TestTokenizeableFormatsSpi implements TokenizeableFormatsSingletonS
 		}
 
 		@Override
-		public LocalizationStyle getStyle() {
+		public LocalizationContext getStyle() {
 			return style;
 		}
 
@@ -103,11 +103,11 @@ public class TestTokenizeableFormatsSpi implements TokenizeableFormatsSingletonS
 	}
 
 	@Override
-	public LocalizationStyle getLocalizationStyle(Class<?> targetType, String styleId) {
+	public LocalizationContext getLocalizationStyle(Class<?> targetType, String styleId) {
 	    if(targetType.getSimpleName().equals(styleId)){
-		LocalizationStyle style = LocalizationStyle.of(targetType, styleId);
+		LocalizationContext style = LocalizationContext.of(targetType, styleId);
 		if(style==null){
-		    style = new LocalizationStyle.Builder(targetType, styleId).build(true);
+		    style = new LocalizationContext.Builder(targetType, styleId).build(true);
 		}
 		return style;
 	    }

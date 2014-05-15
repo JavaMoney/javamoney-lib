@@ -35,14 +35,14 @@ public class IsoCurrencyFormat implements ItemFormat<CurrencyUnit> {
 
 	private ParsedField[] parsedFields = new ParsedField[] { ParsedField.CODE };
 	private RenderedField renderedField = RenderedField.CODE;
-	private LocalizationStyle style;
+	private LocalizationContext style;
 
 	@Override
 	public Class<CurrencyUnit> getTargetClass() {
 		return CurrencyUnit.class;
 	}
 
-	public IsoCurrencyFormat(LocalizationStyle style) {
+	public IsoCurrencyFormat(LocalizationContext style) {
 		String field = null;
 		if (style != null) {
 			field = style.getId();
@@ -79,7 +79,7 @@ public class IsoCurrencyFormat implements ItemFormat<CurrencyUnit> {
 	}
 
 	@Override
-	public LocalizationStyle getStyle() {
+	public LocalizationContext getStyle() {
 		return style;
 	}
 

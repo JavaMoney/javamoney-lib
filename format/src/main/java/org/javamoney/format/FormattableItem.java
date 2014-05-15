@@ -31,7 +31,7 @@ public interface FormattableItem {
 
 	/**
 	 * Formats a value to a {@code String}. This method uses a
-	 * {@link LocalizationStyle} as an input parameter. Styles allows to define
+	 * {@link LocalizationContext} as an input parameter. Styles allows to define
 	 * detailed and customized formatting input parameters. This allows to
 	 * implement also complex formatting requirements using this interface.
 	 * 
@@ -45,14 +45,14 @@ public interface FormattableItem {
 
 	/**
 	 * Formats a value to a {@code String}. This method uses a
-	 * {@link LocalizationStyle} as an input parameter. Styles allows to define
+	 * {@link LocalizationContext} as an input parameter. Styles allows to define
 	 * detailed and customized formatting input parameters. This allows to
 	 * implement also complex formatting requirements using this interface.
 	 * 
 	 * @param locale
 	 *            The {@link Locale} to be used.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
@@ -60,7 +60,7 @@ public interface FormattableItem {
 	 * @throws ItemFormatException
 	 *             if there is a problem while printing
 	 */
-	public String format(Locale locale, LocalizationStyle style);
+	public String format(Locale locale, LocalizationContext style);
 
 	/**
 	 * Prints a item value to an {@code Appendable}.
@@ -94,7 +94,7 @@ public interface FormattableItem {
 	 * @param locale
 	 *            The {@link Locale} to be used.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be attached to this
+	 *            the {@link LocalizationContext} to be attached to this
 	 *            {@link ItemFormat}, which also contains the target
 	 *            {@link Locale} instances to be used, as well as other
 	 *            attributes configuring this instance.
@@ -106,6 +106,6 @@ public interface FormattableItem {
 	 *             if an IO error occurs
 	 */
 	public void print(Appendable appendable, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws IOException;
 }

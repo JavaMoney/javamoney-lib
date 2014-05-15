@@ -48,7 +48,7 @@ public class ItemFormatBuilder<T> {
 	/** The tokens to be used for formatting/parsing. */
 	private List<StyleableItemFormatToken<T>> tokens = new ArrayList<StyleableItemFormatToken<T>>();
 	/** The localization configuration. */
-	private LocalizationStyle localizationStyle;
+	private LocalizationContext localizationContext;
 	/** The target type being parsed/formatted. */
 	private Class<T> targetType;
 	/** The item factory to be used. */
@@ -84,17 +84,17 @@ public class ItemFormatBuilder<T> {
 	}
 
 	/**
-	 * Configure the format with the given {@link LocalizationStyle}.
+	 * Configure the format with the given {@link LocalizationContext}.
 	 * 
 	 * @param style
 	 *            the localizationStyle to be applied.
 	 * @return the builder instance, for chaining.
 	 */
-	public ItemFormatBuilder<T> withStyle(LocalizationStyle style) {
+	public ItemFormatBuilder<T> withStyle(LocalizationContext style) {
 		if (style == null) {
 			throw new IllegalArgumentException("localizationStyle required.");
 		}
-		this.localizationStyle = style;
+		this.localizationContext = style;
 		return this;
 	}
 
@@ -183,7 +183,7 @@ public class ItemFormatBuilder<T> {
 	 * @see #build()
 	 */
 	public boolean isBuildable() {
-		return this.localizationStyle != null && this.targetType != null
+		return this.localizationContext != null && this.targetType != null
 				&& !this.tokens.isEmpty();
 	}
 
@@ -197,12 +197,12 @@ public class ItemFormatBuilder<T> {
 	}
 
 	/**
-	 * Get the configuring {@link LocalizationStyle}.
+	 * Get the configuring {@link LocalizationContext}.
 	 * 
 	 * @return the localizationStyle instance applied, never null.
 	 */
-	public LocalizationStyle getLocalizationStyle() {
-		return this.localizationStyle;
+	public LocalizationContext getLocalizationContext() {
+		return this.localizationContext;
 	}
 
 	/**
@@ -214,10 +214,10 @@ public class ItemFormatBuilder<T> {
 	 */
 	public ItemFormat<T> build() {
 		if (this.parseResultFactory == null) {
-			return new TokenizedItemFormat<T>(targetType, localizationStyle,
+			return new TokenizedItemFormat<T>(targetType, localizationContext,
 					new DefaultParseResultFactory<T>(targetType), tokens);
 		}
-		return new TokenizedItemFormat<T>(targetType, localizationStyle, parseResultFactory,
+		return new TokenizedItemFormat<T>(targetType, localizationContext, parseResultFactory,
 				tokens);
 	}
 
@@ -229,7 +229,7 @@ public class ItemFormatBuilder<T> {
 	@Override
 	public String toString() {
 		return "BuildableItemFormat [targetType=" + targetType + ", localizationStyle="
-				+ localizationStyle + ", tokens=" + tokens + "]";
+				+ localizationContext + ", tokens=" + tokens + "]";
 	}
 
 	/**
@@ -246,7 +246,7 @@ public class ItemFormatBuilder<T> {
 		/** The tokens to be used for formatting/parsing. */
 		private List<StyleableItemFormatToken<T>> tokens = new ArrayList<StyleableItemFormatToken<T>>();
 		/** The localization configuration. */
-		private LocalizationStyle style;
+		private LocalizationContext style;
 		/** The target type being parsed/formatted. */
 		private Class<T> targetType;
 		/** The item factory to be used. */
@@ -261,7 +261,7 @@ public class ItemFormatBuilder<T> {
 		 *            the parseResultFactory to be used, not null.
 		 */
 		public TokenizedItemFormat(Class<T> targetType,
-				LocalizationStyle style, ParseResultFactory<T> parseResultFactory,
+				LocalizationContext style, ParseResultFactory<T> parseResultFactory,
 				StyleableItemFormatToken<T>... tokens) {
 			this(targetType, style, parseResultFactory, Arrays.asList(tokens));
 		}
@@ -275,7 +275,7 @@ public class ItemFormatBuilder<T> {
 		 *            the parseResultFactory to be used, not null.
 		 */
 		public TokenizedItemFormat(Class<T> targetType,
-				LocalizationStyle style, ParseResultFactory<T> parseResultFactory,
+				LocalizationContext style, ParseResultFactory<T> parseResultFactory,
 				List<StyleableItemFormatToken<T>> tokens) {
 			if (targetType == null) {
 				throw new IllegalArgumentException(
@@ -315,7 +315,7 @@ public class ItemFormatBuilder<T> {
 		 * @see javax.money.format.ItemFormat#getLocalizationStyle()
 		 */
 		@Override
-		public LocalizationStyle getStyle() {
+		public LocalizationContext getStyle() {
 			return this.style;
 		}
 

@@ -62,7 +62,7 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
 	 * This method maps the given {@link CurrencyUnit} to another
 	 * {@link CurrencyUnit} with the given target namespace.
 	 * 
-	 * @param unit
+	 * @param currencyUnit
 	 *            The source unit, never {@code null}.
 	 * @param targetNamespace
 	 *            the target namespace, never {@code null}.
@@ -84,7 +84,7 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
 	 * This method maps the given {@link CurrencyUnit} to another
 	 * {@link CurrencyUnit} with the given target namespace.
 	 * 
-	 * @param unit
+	 * @param currencyUnit
 	 *            The source unit, never {@code null}.
 	 * @param targetNamespace
 	 *            the target namespace, never {@code null}.

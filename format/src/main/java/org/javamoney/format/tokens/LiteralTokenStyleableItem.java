@@ -16,9 +16,9 @@
 package org.javamoney.format.tokens;
 
 import org.javamoney.format.ItemParseContext;
+import org.javamoney.format.LocalizationContext;
 import org.javamoney.format.StyleableItemFormatToken;
 import org.javamoney.format.ItemParseException;
-import org.javamoney.format.LocalizationStyle;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -65,7 +65,7 @@ public final class LiteralTokenStyleableItem<R> implements StyleableItemFormatTo
 	 */
 	@Override
 	public void parse(ItemParseContext<R> context, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws ItemParseException{
 		if (!context.consume(token)) {
 			throw new ItemParseException("Expected '" + token + "' in "
@@ -81,7 +81,7 @@ public final class LiteralTokenStyleableItem<R> implements StyleableItemFormatTo
 	 */
 	@Override
 	public void print(Appendable appendable, R item, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws IOException {
 		appendable.append(this.token);
 	}

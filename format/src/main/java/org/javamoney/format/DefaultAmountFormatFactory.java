@@ -42,16 +42,16 @@ public class DefaultAmountFormatFactory implements
 	@Override
 	public Collection<String> getSupportedStyleIds() {
 		Set<String> supportedRenderTypes = new HashSet<String>();
-		supportedRenderTypes.add(LocalizationStyle.DEFAULT_ID);
+		supportedRenderTypes.add(LocalizationContext.DEFAULT_ID);
 		return supportedRenderTypes;
 	}
 
 	@Override
-	public LocalizationStyle getLocalizationStyle(Class<?> targetType,
+	public LocalizationContext getLocalizationStyle(Class<?> targetType,
 			String styleId) {
-		LocalizationStyle style = LocalizationStyle.of(targetType, styleId);
-		if (LocalizationStyle.DEFAULT_ID.equals(styleId)) {
-			style = new LocalizationStyle.Builder(targetType, styleId)
+		LocalizationContext style = LocalizationContext.of(targetType, styleId);
+		if (LocalizationContext.DEFAULT_ID.equals(styleId)) {
+			style = new LocalizationContext.Builder(targetType, styleId)
 					.build(true);
 		}
 		return style;
@@ -63,7 +63,7 @@ public class DefaultAmountFormatFactory implements
 	}
 
 	@Override
-	public ItemFormat<MonetaryAmount> getItemFormat(LocalizationStyle style)
+	public ItemFormat<MonetaryAmount> getItemFormat(LocalizationContext style)
 			throws ItemFormatException {
         Objects.requireNonNull(style);
         return new DefaultAmountFormat(style);

@@ -40,18 +40,18 @@ public interface ItemFormat<T> {
 	public Class<T> getTargetClass();
 
 	/**
-	 * Access the {@link LocalizationStyle} configuring this {@link ItemFormat}.
+	 * Access the {@link LocalizationContext} configuring this {@link ItemFormat}.
 	 * 
-	 * @return Returns the {@link LocalizationStyle} attached to this
+	 * @return Returns the {@link LocalizationContext} attached to this
 	 *         {@link ItemFormat}, never {@code null}.
 	 */
-	public LocalizationStyle getStyle();
+	public LocalizationContext getStyle();
 
 	/**
 	 * Formats a value of {@code T} to a {@code String}. The {@link Locale}
 	 * passed defines the overall target {@link Locale}, whereas the
-	 * {@link LocalizationStyle} attached with the instances configures, how the
-	 * {@link ItemFormat} should generally behave. The {@link LocalizationStyle}
+	 * {@link LocalizationContext} attached with the instances configures, how the
+	 * {@link ItemFormat} should generally behave. The {@link LocalizationContext}
 	 * allows to configure the formatting and parsing in arbitrary details. The
 	 * attributes that are supported are determined by the according
 	 * {@link ItemFormat} implementation:
@@ -61,7 +61,7 @@ public interface ItemFormat<T> {
 	 * overall format, and the {@link ParseResultFactory}, that is responsible for
 	 * extracting the final parsing result, returned from a parsing call, are
 	 * all possible recipients for attributes of the configuring
-	 * {@link LocalizationStyle}.
+	 * {@link LocalizationContext}.
 	 * <li>When the {@link ItemFormat} was provided by an instance of
 	 * {@link ItemFormatFactorySpi} the {@link ItemFormat} returned determines
 	 * the capabilities that can be configured.
@@ -69,7 +69,7 @@ public interface ItemFormat<T> {
 	 * 
 	 * So, regardless if an {@link ItemFormat} is created using the fluent style
 	 * {@link ItemFormatBuilder} pattern, or provided as preconfigured
-	 * implementation, {@link LocalizationStyle}s allow to configure them both
+	 * implementation, {@link LocalizationContext}s allow to configure them both
 	 * effectively.
 	 * 
 	 * @param item
@@ -115,7 +115,7 @@ public interface ItemFormat<T> {
 	 * <p>
 	 * This method uses a {@link Locale} as an input parameter. Additionally the
 	 * {@link ItemFormatException} instance is configured by a
-	 * {@link LocalizationStyle}. {@link LocalizationStyle}s allows to configure
+	 * {@link LocalizationContext}. {@link LocalizationContext}s allows to configure
 	 * formatting input in detail. This allows to implement complex formatting
 	 * requirements using this interface.
 	 * 

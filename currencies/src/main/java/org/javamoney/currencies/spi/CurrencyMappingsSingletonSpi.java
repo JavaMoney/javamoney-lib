@@ -86,11 +86,10 @@ public interface CurrencyMappingsSingletonSpi {
 	 * Access all currencies for a given namespace.
 	 * 
 	 * @see #getNamespaces()
-	 * @see #getDefaultNamespace()
 	 * @param namespace
 	 *            The target namespace, not {@code null}.
 	 * @return The currencies found, never {@code null}.
-	 * @throws UnknownCurrencyException
+	 * @throws javax.money.UnknownCurrencyException
 	 *             if the required namespace is not defined.
 	 */
 	public Set<CurrencyUnit> getCurrencies(String namespace);
@@ -107,8 +106,8 @@ public interface CurrencyMappingsSingletonSpi {
 	/**
 	 * Evaluates the currency namespace of a currency code.
 	 * 
-	 * @param code
-	 *            The currency code.
+	 * @param currency
+	 *            The currency, not null.
 	 * @return {@code true}, if the currency is defined.
 	 */
 	public Set<String> getNamespaces(CurrencyUnit currency);

@@ -15,10 +15,9 @@
  */
 package org.javamoney.format.internal;
 
-import org.javamoney.format.ConfigurableItemFormat;
 import org.javamoney.format.ItemFormat;
 import org.javamoney.format.ItemFormatException;
-import org.javamoney.format.LocalizationStyle;
+import org.javamoney.format.LocalizationContext;
 import org.javamoney.format.spi.ItemFormatFactorySpi;
 import org.javamoney.format.spi.TokenizeableFormatsSingletonSpi;
 import org.slf4j.Logger;
@@ -75,7 +74,7 @@ public class DefaultTokenizeableFormatsSingletonSpi implements TokenizeableForma
     }
 
     @Override
-    public <T> ItemFormat<T> getItemFormat(Class<T> targetType, LocalizationStyle style) throws ItemFormatException{
+    public <T> ItemFormat<T> getItemFormat(Class<T> targetType, LocalizationContext style) throws ItemFormatException{
         @SuppressWarnings("rawtypes") Set<ItemFormatFactorySpi> factories = formatMap.get(targetType);
         if(factories == null){
             throw new ItemFormatException("No formatter factories loaded for " + targetType.getName());
@@ -98,9 +97,6 @@ public class DefaultTokenizeableFormatsSingletonSpi implements TokenizeableForma
         }
         if(format==null){
             format = style.getAttribute(ItemFormat.class);
-        }
-        if(format instanceof ConfigurableItemFormat){
-            ((ConfigurableItemFormat)format).configure(targetType, style);
         }
         if(format==null){
             throw new ItemFormatException("No formatter could be created for " + targetType.getName() + ", " + style);
@@ -133,10 +129,10 @@ public class DefaultTokenizeableFormatsSingletonSpi implements TokenizeableForma
     }
 
     @Override
-    public LocalizationStyle getLocalizationStyle(Class<?> targetType, String styleId){
-        LocalizationStyle style = LocalizationStyle.of(targetType, styleId);
+    public LocalizationContext getLocalizationStyle(Class<?> targetType, String styleId){
+        LocalizationContext style = LocalizationContext.of(targetType, styleId);
         if(style == null){
-            style = new LocalizationStyle.Builder(targetType, styleId).build();
+            style = new LocalizationContext.Builder(targetType, styleId).build();
         }
         return style;
     }

@@ -51,7 +51,7 @@ public interface StyleableItemFormatToken<T>{
 	 * @param locale
 	 *            the {@link Locale} to be used, not null.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be used.
+	 *            the {@link LocalizationContext} to be used.
 	 * @throws UnsupportedOperationException
 	 *             if the formatter is unable to print
 	 * @throws ItemFormatException
@@ -60,7 +60,7 @@ public interface StyleableItemFormatToken<T>{
 	 *             if an IO error occurs
 	 */
 	public void print(Appendable appendable, T item, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws IOException;
 
 	/**
@@ -75,12 +75,12 @@ public interface StyleableItemFormatToken<T>{
 	 * @param locale
 	 *            the {@link Locale} to be used, not null.
 	 * @param style
-	 *            the {@link LocalizationStyle} to be used.
+	 *            the {@link LocalizationContext} to be used.
 	 * @throws ItemParseException
 	 *             thrown, if parsing fails.
 	 */
 	public void parse(ItemParseContext<T> context, Locale locale,
-			LocalizationStyle style)
+			LocalizationContext style)
 			throws ItemParseException;
 
 }

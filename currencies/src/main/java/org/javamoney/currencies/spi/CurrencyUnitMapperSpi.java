@@ -40,7 +40,7 @@ public interface CurrencyUnitMapperSpi {
 	 * @param currencyUnit
 	 *            The source unit, never {@code null}.
 	 * @param targetNamespace
-	 *            the target {@link CurrencyNamespace}, never {@code null}.
+	 *            the target currency namespace, never {@code null}.
 	 * @param timestamp
 	 *            the target timestamp, may be {@code null}.
 	 * @return The mapped {@link CurrencyUnit}, or {@code null}.

@@ -96,7 +96,6 @@ public final class CurrencyMappings {
 	 * Access all currencies for a given namespace.
 	 * 
 	 * @see #getNamespaces()
-	 * @see #getDefaultNamespace()
 	 * @param namespace
 	 *            The target namespace, not {@code null}.
 	 * @return The currencies found, never null.
@@ -111,7 +110,7 @@ public final class CurrencyMappings {
 	 * This method maps the given {@link CurrencyUnit} to another
 	 * {@link CurrencyUnit} with the given target namespace.
 	 * 
-	 * @param unit
+	 * @param currencyUnit
 	 *            The source unit, never {@code null}.
 	 * @param targetNamespace
 	 *            the target namespace, never {@code null}.
@@ -126,7 +125,7 @@ public final class CurrencyMappings {
 	 * This method maps the given {@link CurrencyUnit} to another
 	 * {@link CurrencyUnit} with the given target namespace.
 	 * 
-	 * @param unit
+	 * @param currencyUnit
 	 *            The source unit, never {@code null}.
 	 * @param targetNamespace
 	 *            the target namespace, never {@code null}.
