@@ -204,7 +204,7 @@ public final class MonetaryPredicates {
 	 */
 	@SafeVarargs
 	public static <T> MonetaryPredicate<T> exclude(T... values) {
-		return new NotPredicate<>(new IncludedPredicate<>(Arrays.asList(values)));
+		return new NotPredicate<T>(new IncludedPredicate<>(Arrays.asList(values)));
 	}
 
 	/**

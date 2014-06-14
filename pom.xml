@@ -11,9 +11,14 @@
 	<name>Money and Currency - JavaMoney Libraries (parent)</name>
 	<packaging>pom</packaging>
 
-    <properties>
-        <jsr.version>0.9-SNAPSHOT</jsr.version>
-    </properties>
+	<properties>
+		<jsr.version>0.9-SNAPSHOT</jsr.version>
+		<jdkVersion>1.8</jdkVersion>
+		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
+		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<licenses>
 		<license>
@@ -23,11 +28,11 @@
 	</licenses>
 
 	<modules>
-        <module>data</module>
-        <module>currencies</module>
-        <module>calc</module>
+		<module>data</module>
+		<module>currencies</module>
+		<module>calc</module>
 		<module>format</module>
-        <module>regions</module>
+		<module>regions</module>
 		<module>validity</module>
 		<module>bundles</module>
 	</modules>
