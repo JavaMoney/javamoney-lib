@@ -27,6 +27,9 @@ import org.javamoney.moneta.spi.LoaderService.LoaderListener;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+/**
+ * Abstract base class for loading XML document using the {@link org.javamoney.moneta.spi.LoaderService}.
+ */
 public abstract class AbstractXmlResourceLoaderListener implements
 		LoaderListener {
 
@@ -35,13 +38,17 @@ public abstract class AbstractXmlResourceLoaderListener implements
 
 	private Document document;
 
-	public AbstractXmlResourceLoaderListener() {
+    /**
+     * Constructor.
+     */
+    public AbstractXmlResourceLoaderListener() {
 		docBuilderFactory.setIgnoringComments(true);
 		docBuilderFactory.setIgnoringElementContentWhitespace(true);
 		docBuilderFactory.setValidating(false);
 	}
 
-	public void newDataLoaded(String dataId, InputStream is) {
+    @Override
+    public void newDataLoaded(String dataId, InputStream is) {
 		try {
 			InputSource inputSource = new InputSource(is);
             docBuilderFactory.setValidating(false);
@@ -67,10 +74,19 @@ public abstract class AbstractXmlResourceLoaderListener implements
 		}
 	}
 
-	public Document getDocument() {
+    /**
+     * Access the underlying XML document, last read.
+     *
+     * @return the underlying document.
+     */
+    public Document getDocument() {
 		return this.document;
-	}
+    }
 
-	protected abstract void loadDocument(Document document);
+    /**
+     * Method to be implemented to load the document data.
+     * @param document the document, not null.
+     */
+    protected abstract void loadDocument(Document document);
 
 }
