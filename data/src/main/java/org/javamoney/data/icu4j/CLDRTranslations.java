@@ -17,6 +17,8 @@ package org.javamoney.data.icu4j;
 
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,8 +54,8 @@ public final class CLDRTranslations {
 		if (transl == null) {
 			try {
 				transl = new LanguageTranslations(language);
-			} catch (MalformedURLException e) {
-				throw new IllegalArgumentException("Unsupported language.", e);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unsupported language.", e);
 			}
 			INSTANCE.translations.put(language, transl);
 		}
@@ -67,9 +69,9 @@ public final class CLDRTranslations {
 	public static final class LanguageTranslations extends
 			AbstractXmlResourceLoaderListener {
 
-		private Map<String, String> languageTranslations = new HashMap<String, String>();
-		private Map<String, String> territoryTranslations = new HashMap<String, String>();
-		private Map<String, CurrencyTranslations> currencyTranslations = new HashMap<String, CurrencyTranslations>();
+        private Map<String, String> languageTranslations = new HashMap<>();
+        private Map<String, String> territoryTranslations = new HashMap<>();
+        private Map<String, CurrencyTranslations> currencyTranslations = new HashMap<>();
 
 		public String getLanguageName(String langCode) {
 			return this.languageTranslations.get(langCode);
@@ -84,24 +86,29 @@ public final class CLDRTranslations {
 		}
 
 		public LanguageTranslations(String language)
-				throws MalformedURLException {
-			Bootstrap.getService(LoaderService.class).registerData(
-					"CLDR-Translations_" + language,
+                throws MalformedURLException, URISyntaxException {
+            LoaderService loader = Bootstrap.getService(LoaderService.class);
+
+            URL backupUrl = CLDRTranslations.class.getResource(
+                    "java-money/defaults/cldr/main/" + language
+                            + ".xml");
+            URI backupURI = backupUrl == null ? null : backupUrl.toURI();
+            loader.registerAndLoadData(
+                    "CLDR-Translations_" + language,
 					UpdatePolicy.ONSTARTUP,
 					new HashMap<String, String>(),
-					getClass().getResource(
-							"java-money/defaults/cldr/main/" + language
-									+ ".xml"),
-					new URL("http://unicode.org/repos/cldr/trunk/common/main/"
-							+ language + ".xml"));
+                    this,
+                    backupURI,
+                    new URI("http://unicode.org/repos/cldr/trunk/common/main/"
+                            + language + ".xml"));
 		}
 		
 		@Override
 		protected void loadDocument(Document document) {
-			Map<String, String> languageTranslations = new HashMap<String, String>();
-			Map<String, String> territoryTranslations = new HashMap<String, String>();
-			Map<String, CurrencyTranslations> currencyTranslations = new HashMap<String, CurrencyTranslations>();
-			// ldml(root)/localeDisplayNames/languages/language*: <language
+            Map<String, String> languageTranslations = new HashMap<>();
+            Map<String, String> territoryTranslations = new HashMap<>();
+            Map<String, CurrencyTranslations> currencyTranslations = new HashMap<>();
+            // ldml(root)/localeDisplayNames/languages/language*: <language
 			// type="aa">Afar</language>
 			// ldml/localeDisplayNames/territories/territory*: <territory
 			// type="001">Welt</territory>
@@ -117,14 +124,23 @@ public final class CLDRTranslations {
 			// </currency>
 			NodeList territoryTranslationsNodes = getDocument()
 					.getElementsByTagName(
-							"ldml/localeDisplayNames/territories/territory");
-			NodeList languageTranslationsNodes = getDocument()
+                            "territory"); // ldml/localeDisplayNames/territories
+            NodeList languageTranslationsNodes = getDocument()
 					.getElementsByTagName(
-							"ldml/localeDisplayNames/languages/language");
-			NodeList currencyTranslationsNodes = getDocument()
-					.getElementsByTagName("ldml/numbers/currencies/currency");
+                            "language"); // ldml/localeDisplayNames/languages
+            NodeList currencyTranslationsNodes = getDocument()
+                    .getElementsByTagName("currency"); // ldml/numbers/currencies
 
-			for (int i = 0; i < territoryTranslationsNodes.getLength(); i++) {
+            for (int i = 0; i < languageTranslationsNodes.getLength(); i++) {
+                Node node = languageTranslationsNodes.item(i);
+                NamedNodeMap languageAttrs = node.getAttributes();
+                String langCode = languageAttrs.getNamedItem("type") != null ?
+                        languageAttrs.getNamedItem("type").getNodeValue() : null;
+                if (langCode != null) {
+                    languageTranslations.put(langCode, node.getTextContent());
+                }
+            }
+            for (int i = 0; i < territoryTranslationsNodes.getLength(); i++) {
 				Node node = territoryTranslationsNodes.item(i);
 				NamedNodeMap territoryTrans = node.getAttributes();
 				String regionCode = territoryTrans.getNamedItem("type")
@@ -144,16 +160,24 @@ public final class CLDRTranslations {
 						if (currencyAttrs.getLength() == 0) {
 							cl.setDisplayName(null, chNode.getTextContent());
 						} else {
-							cl.setDisplayName(
-									currencyAttrs.getNamedItem("count")
-											.getNodeValue(), chNode
-											.getTextContent());
-						}
+                            Node countNode = currencyAttrs.getNamedItem("count");
+                            if (countNode != null) {
+                                cl.setDisplayName(
+                                        currencyAttrs.getNamedItem("count")
+                                                .getNodeValue(), chNode
+                                                .getTextContent());
+                            } else {
+                                cl.setDisplayName(
+                                        null, chNode
+                                                .getTextContent());
+                            }
+                        }
 					} else if ("symbol".equals(chNode.getNodeName())) {
-						cl.setSymbol(chNode.getNodeValue());
-					}
+                        cl.setSymbol(chNode.getTextContent());
+                    }
 				}
-			}
+                currencyTranslations.put(code, cl);
+            }
 
 			this.territoryTranslations = territoryTranslations;
 			this.languageTranslations = languageTranslations;
@@ -172,8 +196,8 @@ public final class CLDRTranslations {
 				this.isoCode = isoCode;
 			}
 
-			public void setSymbol(String nodeValue) {
-				this.symbol = symbol;
+            public void setSymbol(String symbol) {
+                this.symbol = symbol;
 			}
 
 			public void setDisplayName(String type, String displayName) {
@@ -219,8 +243,8 @@ public final class CLDRTranslations {
 			/**
 			 * @return the displayNameOther
 			 */
-			public final String getDisplayNameOther() {
-				return displayNameOther;
+            public final String getDisplayNameMultiple() {
+                return displayNameOther;
 			}
 
 			/**

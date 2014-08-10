@@ -75,8 +75,8 @@ public final class CLDRCurrencyRegionData extends AbstractXmlResourceLoaderListe
 	@Override
 	protected void loadDocument(Document document) {
 		// load currencies
-		Map<String, Currency4Region> data = new HashMap<String, Currency4Region>();
-		try {
+        Map<String, Currency4Region> data = new HashMap<>();
+        try {
 			NodeList nl = document.getDocumentElement()
 					.getElementsByTagName("region");
 			for (int i = 0; i < nl.getLength(); i++) {
@@ -122,7 +122,7 @@ public final class CLDRCurrencyRegionData extends AbstractXmlResourceLoaderListe
     public static final class Currency4Region implements Serializable {
 
         private String regionCode;
-        private List<CurrencyRegionRecord> entries = new ArrayList<CurrencyRegionRecord>();
+        private List<CurrencyRegionRecord> entries = new ArrayList<>();
 
         public Currency4Region(String regionCode, Node item) {
             this.regionCode = regionCode;
@@ -182,9 +182,8 @@ public final class CLDRCurrencyRegionData extends AbstractXmlResourceLoaderListe
                 this.fromYMD[1] = Integer.parseInt(dtParts[1]);
                 this.fromYMD[2] = Integer.parseInt(dtParts[2]);
             }
-            String to = null;
             if (attrs.getNamedItem("to") != null) {
-                to = attrs.getNamedItem("to").getNodeValue();
+                String to = attrs.getNamedItem("to").getNodeValue();
                 String[] dtParts = to.split("-");
                 this.toYMD = new int[3];
                 this.toYMD[0] = Integer.parseInt(dtParts[0]);

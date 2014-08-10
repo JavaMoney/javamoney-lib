@@ -25,9 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.javamoney.moneta.spi.LoaderService.LoaderListener;
 import org.w3c.dom.Document;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public abstract class AbstractXmlResourceLoaderListener implements
 		LoaderListener {
@@ -46,21 +44,12 @@ public abstract class AbstractXmlResourceLoaderListener implements
 	public void newDataLoaded(String dataId, InputStream is) {
 		try {
 			InputSource inputSource = new InputSource(is);
-			DocumentBuilder builder = docBuilderFactory.newDocumentBuilder();
-			builder.setEntityResolver(new EntityResolver() {
-				public InputSource resolveEntity(java.lang.String publicId,
-						java.lang.String systemId) throws SAXException,
-						java.io.IOException {
-					if (systemId.contains("ldmlSupplemental.dtd"))
-						// this deactivates the open office DTD
-						return new InputSource(new ByteArrayInputStream(
-								"<?xml version='1.0' encoding='UTF-8'?>"
-										.getBytes()));
-					else
-						return null;
-				}
-			});
-			document = builder.parse(inputSource);
+            docBuilderFactory.setValidating(false);
+            DocumentBuilder builder = docBuilderFactory.newDocumentBuilder();
+            builder.setEntityResolver((publicId, systemId) -> new InputSource(new ByteArrayInputStream(
+                    "<?xml version='1.0' encoding='UTF-8'?>"
+                            .getBytes())));
+            document = builder.parse(inputSource);
 			document.normalize();
 			loadDocument(document);
 		} catch (Exception e) {
