@@ -17,12 +17,10 @@ package org.javamoney.regions.internal.data;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 
 import org.javamoney.regions.Region;
 import org.javamoney.regions.RegionType;
-import org.javamoney.util.Displayable;
 
 import com.ibm.icu.util.TimeZone;
 
@@ -34,7 +32,7 @@ import com.ibm.icu.util.TimeZone;
  * @author Werner Keil
  * 
  */
-public class IcuRegion implements Region, Displayable {
+public class IcuRegion implements Region {
 
 	private com.ibm.icu.util.Region icuRegion;
 	private RegionType regionType;
@@ -73,7 +71,6 @@ public class IcuRegion implements Region, Displayable {
 		return Arrays.asList(timezones);
 	}
 
-	@Override
 	public String getDisplayName(Locale locale) {
 		String name = this.countryLocale.getDisplayCountry(locale);
 		if (name == null) {

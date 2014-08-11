@@ -154,8 +154,8 @@ public class NumberTokenStyleableItem extends AbstractStyleableItemFormatToken<N
 	public void parse(ItemParseContext context, Locale locale, LocalizationContext style)
 			throws ItemParseException {
 		DecimalFormat df = getNumberFormat(locale, style);
-		if (style.getNamedAttribute("enforceGrouping", Boolean.class)) {
-			df.setGroupingUsed(true);
+        if (style.getAny("enforceGrouping", Boolean.class)) {
+            df.setGroupingUsed(true);
 		} else {
 			df.setGroupingUsed(false);
 		}

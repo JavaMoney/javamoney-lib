@@ -15,90 +15,107 @@
  */
 package org.javamoney.currencies.internal.data;
 
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
+import javax.money.CurrencyContext;
+import javax.money.CurrencyContextBuilder;
+import javax.money.CurrencyQuery;
 import javax.money.CurrencyUnit;
 import javax.money.spi.CurrencyProviderSpi;
 
-import org.javamoney.util.Displayable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Implements a {@link CurrencyProviderSpi} that provides the additional
  * currencies available from the ICO library, but not part of the JDK.
- * 
+ *
  * @author Anatole Tresch
  * @author Werner Keil
  */
 @Singleton
 public class ICUCurrencyProvider implements CurrencyProviderSpi {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ICUCurrencyProvider.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ICUCurrencyProvider.class);
 
-	private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<>();
+    private static final CurrencyContext CURRENCY_CONTEXT = CurrencyContextBuilder.create("ICU").build();
 
-	public ICUCurrencyProvider() {
-		for(com.ibm.icu.util.Currency currency:com.ibm.icu.util.Currency.getAvailableCurrencies()){
-			ICUCurrency icuInstance = new ICUCurrency(currency);
-			this.currencies.put(icuInstance.getCurrencyCode(), icuInstance);
-		}
-	}
+    private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<>();
 
-	@Override
-	public CurrencyUnit getCurrencyUnit(String currencyCode) {
-		return this.currencies.get(currencyCode);
-	}
-
-	@Override
-	public CurrencyUnit getCurrencyUnit(Locale locale) {
-		return null;
-	}
-
-	
-	private final class ICUCurrency implements CurrencyUnit, Displayable {
-		private com.ibm.icu.util.Currency currency;
-
-		public ICUCurrency(com.ibm.icu.util.Currency currency) {
-			this.currency = currency;
-		}
-		
-		public String getCurrencyCode() {
-			return this.currency.getCurrencyCode();
-		}
-
-		public int getNumericCode() {
-			return this.currency.getNumericCode();
-		}
-
-		public int getDefaultFractionDigits() {
-			return this.currency.getDefaultFractionDigits();
-		}
-
-		@Override
-		public String toString() {
-			return this.currency.toString();
-		}
-
-		public String getDisplayName(Locale locale) {
-			return this.currency.getDisplayName(locale);
-		}
-
-        @Override
-        public int compareTo(CurrencyUnit o){
-            return this.getCurrencyCode().compareTo(o.getCurrencyCode());
+    public ICUCurrencyProvider() {
+        for (com.ibm.icu.util.Currency currency : com.ibm.icu.util.Currency.getAvailableCurrencies()) {
+            ICUCurrency icuInstance = new ICUCurrency(currency);
+            this.currencies.put(icuInstance.getCurrencyCode(), icuInstance);
         }
     }
 
+    @Override
+    public String getProviderName() {
+        return "ICU";
+    }
 
-	@Override
-	public Collection<CurrencyUnit> getCurrencies() {
-		return currencies.values();
-	}
+    @Override
+    public Set<CurrencyUnit> getCurrencies(CurrencyQuery query) {
+        if (query.getTimestamp() != null) {
+            return Collections.emptySet();
+        }
+        Set<CurrencyUnit> currencies = new HashSet<>();
+        if (!query.getCurrencyCodes().isEmpty()) {
+            for (String code : query.getCurrencyCodes()) {
+                CurrencyUnit cu = this.currencies.get(code);
+                if (cu != null) {
+                    currencies.add(cu);
+                }
+            }
+        } else {
+            currencies.addAll(this.currencies.values());
+        }
+        return currencies;
+    }
+
+
+    private final class ICUCurrency implements CurrencyUnit {
+
+
+        private com.ibm.icu.util.Currency currency;
+
+        public ICUCurrency(com.ibm.icu.util.Currency currency) {
+            this.currency = currency;
+        }
+
+        public String getCurrencyCode() {
+            return this.currency.getCurrencyCode();
+        }
+
+        public int getNumericCode() {
+            return this.currency.getNumericCode();
+        }
+
+        public int getDefaultFractionDigits() {
+            return this.currency.getDefaultFractionDigits();
+        }
+
+        @Override
+        public CurrencyContext getCurrencyContext() {
+            return CURRENCY_CONTEXT;
+        }
+
+        @Override
+        public String toString() {
+            return this.currency.toString();
+        }
+
+        public String getDisplayName(Locale locale) {
+            return this.currency.getDisplayName(locale);
+        }
+
+        @Override
+        public int compareTo(CurrencyUnit o) {
+            return this.getCurrencyCode().compareTo(o.getCurrencyCode());
+        }
+    }
 
 }

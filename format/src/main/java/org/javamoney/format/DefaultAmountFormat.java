@@ -16,9 +16,7 @@
 package org.javamoney.format;
 
 import javax.money.MonetaryAmount;
-import javax.money.format.AmountFormatContext;
-import javax.money.format.MonetaryAmountFormat;
-import javax.money.format.MonetaryFormats;
+import javax.money.format.*;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
@@ -45,14 +43,14 @@ public class DefaultAmountFormat implements ItemFormat<MonetaryAmount>{
 
     @Override
     public String format(MonetaryAmount item, Locale locale) throws ItemFormatException{
-        MonetaryAmountFormat amountFormat = style.getAttribute(MonetaryAmountFormat.class);
+        MonetaryAmountFormat amountFormat = style.get(MonetaryAmountFormat.class);
         if(amountFormat == null){
-            AmountFormatContext formatContext = style.getAttribute(AmountFormatContext.class);
+            AmountFormatQuery formatContext = style.get(AmountFormatQuery.class);
             if(formatContext != null){
                 amountFormat = MonetaryFormats.getAmountFormat(formatContext);
             }else{
                 amountFormat = MonetaryFormats.getAmountFormat(
-                        new AmountFormatContext.Builder(style.getAttribute(Locale.class)).setAll(style).build());
+                        AmountFormatQueryBuilder.create(style.get(Locale.class)).importContext(style).build());
             }
         } return amountFormat.format(item);
     }
@@ -64,7 +62,7 @@ public class DefaultAmountFormat implements ItemFormat<MonetaryAmount>{
 
     @Override
     public MonetaryAmount parse(CharSequence text, Locale locale) throws ItemParseException{
-        MonetaryAmountFormat amountFormat = style.getAttribute(MonetaryAmountFormat.class);
+        MonetaryAmountFormat amountFormat = style.get(MonetaryAmountFormat.class);
         if(amountFormat == null){
             amountFormat = MonetaryFormats.getAmountFormat(locale);
         }

@@ -21,7 +21,8 @@
 
 	<artifactId>javamoney-regions</artifactId>
 	<name>Money and Currency - JavaMoney Regions</name>
-	<packaging>bundle</packaging>
+    <packaging>jar</packaging>
+    <!-- bundle -->
 
     <dependencyManagement>
         <dependencies>

@@ -96,7 +96,7 @@ public class DefaultTokenizeableFormatsSingletonSpi implements TokenizeableForma
             }
         }
         if(format==null){
-            format = style.getAttribute(ItemFormat.class);
+            format = style.get(ItemFormat.class);
         }
         if(format==null){
             throw new ItemFormatException("No formatter could be created for " + targetType.getName() + ", " + style);

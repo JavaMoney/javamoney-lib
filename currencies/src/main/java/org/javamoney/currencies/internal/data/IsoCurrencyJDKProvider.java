@@ -15,14 +15,11 @@
  */
 package org.javamoney.currencies.internal.data;
 
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Singleton;
+import javax.money.CurrencyQuery;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryCurrencies;
 import javax.money.spi.CurrencyProviderSpi;
@@ -53,13 +50,11 @@ public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 		}
 	}
 
-	@Override
 	public CurrencyUnit getCurrencyUnit(String currencyCode) {
 		init();
 		return this.currencies.get(currencyCode);
 	}
 
-	@Override
 	public CurrencyUnit getCurrencyUnit(Locale locale) {
 		try{
 			return this.currencies.get(Currency.getInstance(locale).getCurrencyCode());
@@ -69,9 +64,22 @@ public class IsoCurrencyJDKProvider implements CurrencyProviderSpi {
 		}
 	}
 
-	@Override
 	public Collection<CurrencyUnit> getCurrencies() {
 		return currencies.values();
 	}
 
+    @Override
+    public Set<CurrencyUnit> getCurrencies(CurrencyQuery query) {
+        Set<CurrencyUnit> result = new HashSet<>();
+        for(String code:query.getCurrencyCodes()){
+            CurrencyUnit u = this.currencies.get(code);
+            if(u!=null){
+                result.add(u);
+            }
+            else{
+                throw new IllegalArgumentException("No such currency: " + code);
+            }
+        }
+        return result;
+    }
 }

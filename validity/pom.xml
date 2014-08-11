@@ -10,9 +10,10 @@
 
 	<artifactId>javamoney-validity</artifactId>
 	<name>Money and Currency - JavaMoney Validity</name>
-	<packaging>bundle</packaging>
+    <packaging>jar</packaging>
+    <!-- bundle -->
 
-	<dependencies>
+    <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>javamoney-data</artifactId>

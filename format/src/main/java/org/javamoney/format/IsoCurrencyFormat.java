@@ -59,8 +59,8 @@ public class IsoCurrencyFormat implements ItemFormat<CurrencyUnit> {
 		String value = null;
 		if (style != null) {
 			value = (String) style
-					.getNamedAttribute("parsedFields", String.class);
-		}
+                    .getAny("parsedFields", String.class);
+        }
 		if (value != null) {
 			try {
 				String[] fields = value.split(",");

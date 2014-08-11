@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import javax.money.spi.Bootstrap;
 
 import org.javamoney.moneta.spi.LoaderService;
-import org.javamoney.util.AbstractXmlResourceLoaderListener;
+import org.javamoney.data.AbstractXmlResourceLoaderListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -39,84 +39,84 @@ import org.w3c.dom.NodeList;
 
 public final class CLDRCurrencyRegionData extends AbstractXmlResourceLoaderListener {
 
-	private static final Logger LOG = Logger.getLogger(CLDRCurrencyRegionData.class.getName());
-	private static final CLDRCurrencyRegionData INSTANCE = createInstance();
+    private static final Logger LOG = Logger.getLogger(CLDRCurrencyRegionData.class.getName());
+    private static final CLDRCurrencyRegionData INSTANCE = createInstance();
 
-	/*
-	 * <region iso3166="AD"> <currency iso4217="EUR" from="1999-01-01"/>
-	 * <currency iso4217="ESP" from="1873-01-01" to="2002-02-28"/> <currency
-	 * iso4217="FRF" from="1960-01-01" to="2002-02-17"/> <currency iso4217="ADP"
-	 * from="1936-01-01" to="2001-12-31"/> </region>
-	 */
-	private Map<String, Currency4Region> currencyRegionData;
+    /*
+     * <region iso3166="AD"> <currency iso4217="EUR" from="1999-01-01"/>
+     * <currency iso4217="ESP" from="1873-01-01" to="2002-02-28"/> <currency
+     * iso4217="FRF" from="1960-01-01" to="2002-02-17"/> <currency iso4217="ADP"
+     * from="1936-01-01" to="2001-12-31"/> </region>
+     */
+    private Map<String, Currency4Region> currencyRegionData;
 
-	private CLDRCurrencyRegionData() throws MalformedURLException {
-		Bootstrap.getService(LoaderService.class).addLoaderListener(this, "CLDR-SupplementalData");
-		try {
-			Bootstrap.getService(LoaderService.class).loadData("CLDR-SupplementalData");
-		} catch (IOException e) {
-			LOG.log(Level.SEVERE, "Error loading CLDR supplemental data.", e);
-		}
-	}
+    private CLDRCurrencyRegionData() throws MalformedURLException {
+        Bootstrap.getService(LoaderService.class).addLoaderListener(this, "CLDR-SupplementalData");
+        try {
+            Bootstrap.getService(LoaderService.class).loadData("CLDR-SupplementalData");
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, "Error loading CLDR supplemental data.", e);
+        }
+    }
 
-	public static CLDRCurrencyRegionData getInstance() {
-		return INSTANCE;
-	}
+    public static CLDRCurrencyRegionData getInstance() {
+        return INSTANCE;
+    }
 
-	private static CLDRCurrencyRegionData createInstance() {
-		try {
-			return new CLDRCurrencyRegionData();
-		} catch (MalformedURLException e) {
-			throw new IllegalStateException(
-					"Error creating CLDR SupplementalData.", e);
-		}
-	}
+    private static CLDRCurrencyRegionData createInstance() {
+        try {
+            return new CLDRCurrencyRegionData();
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException(
+                    "Error creating CLDR SupplementalData.", e);
+        }
+    }
 
-	@Override
-	protected void loadDocument(Document document) {
-		// load currencies
+    @Override
+    protected void loadDocument(Document document) {
+        // load currencies
         Map<String, Currency4Region> data = new HashMap<>();
         try {
-			NodeList nl = document.getDocumentElement()
-					.getElementsByTagName("region");
-			for (int i = 0; i < nl.getLength(); i++) {
-				Node childNode = nl.item(i);
-				String regionCode = childNode.getAttributes()
-						.getNamedItem("iso3166").getNodeValue();
-				Currency4Region currencyEntry = new Currency4Region(
-						regionCode, childNode);
-				data.put(regionCode, currencyEntry);
-			}
-			this.currencyRegionData = data;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            NodeList nl = document.getDocumentElement()
+                    .getElementsByTagName("region");
+            for (int i = 0; i < nl.getLength(); i++) {
+                Node childNode = nl.item(i);
+                String regionCode = childNode.getAttributes()
+                        .getNamedItem("iso3166").getNodeValue();
+                Currency4Region currencyEntry = new Currency4Region(
+                        regionCode, childNode);
+                data.put(regionCode, currencyEntry);
+            }
+            this.currencyRegionData = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public Currency4Region getCurrencyData(String countryCode) {
-		if (this.currencyRegionData == null) {
-			return null;
-		}
-		return this.currencyRegionData.get(countryCode);
-	}
+    public Currency4Region getCurrencyData(String countryCode) {
+        if (this.currencyRegionData == null) {
+            return null;
+        }
+        return this.currencyRegionData.get(countryCode);
+    }
 
-	public Collection<Currency4Region> getAllCurrencyData() {
-		if (this.currencyRegionData == null) {
-			return Collections.emptySet();
-		}
-		return this.currencyRegionData.values();
-	}
+    public Collection<Currency4Region> getAllCurrencyData() {
+        if (this.currencyRegionData == null) {
+            return Collections.emptySet();
+        }
+        return this.currencyRegionData.values();
+    }
 
-	public boolean isCurrencyDataAvailable(String countryCode) {
-		if (this.currencyRegionData == null) {
-			return false;
-		}
-		return this.currencyRegionData.containsKey(countryCode);
-	}
+    public boolean isCurrencyDataAvailable(String countryCode) {
+        if (this.currencyRegionData == null) {
+            return false;
+        }
+        return this.currencyRegionData.containsKey(countryCode);
+    }
 
-	public String getSource() {
-		return "http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml";
-	}
+    public String getSource() {
+        return "http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml";
+    }
 
 
     public static final class Currency4Region implements Serializable {

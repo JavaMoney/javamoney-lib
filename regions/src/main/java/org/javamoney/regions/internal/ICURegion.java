@@ -15,8 +15,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.javamoney.util.Displayable;
-
 import com.ibm.icu.util.Region;
 import com.ibm.icu.util.Region.RegionType;
 import com.ibm.icu.util.TimeZone;
@@ -28,7 +26,7 @@ import com.ibm.icu.util.TimeZone;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public class ICURegion implements Displayable {
+public class ICURegion {
 
 	private Region icuRegion;
 	private Locale countryLocale;

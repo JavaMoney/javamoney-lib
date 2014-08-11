@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javamoney.util;
+package org.javamoney.data;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -31,48 +31,48 @@ import org.xml.sax.InputSource;
  * Abstract base class for loading XML document using the {@link org.javamoney.moneta.spi.LoaderService}.
  */
 public abstract class AbstractXmlResourceLoaderListener implements
-		LoaderListener {
+        LoaderListener {
 
-	private DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-			.newInstance();
+    private DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+            .newInstance();
 
-	private Document document;
+    private Document document;
 
     /**
      * Constructor.
      */
     public AbstractXmlResourceLoaderListener() {
-		docBuilderFactory.setIgnoringComments(true);
-		docBuilderFactory.setIgnoringElementContentWhitespace(true);
-		docBuilderFactory.setValidating(false);
-	}
+        docBuilderFactory.setIgnoringComments(true);
+        docBuilderFactory.setIgnoringElementContentWhitespace(true);
+        docBuilderFactory.setValidating(false);
+    }
 
     @Override
     public void newDataLoaded(String dataId, InputStream is) {
-		try {
-			InputSource inputSource = new InputSource(is);
+        try {
+            InputSource inputSource = new InputSource(is);
             docBuilderFactory.setValidating(false);
             DocumentBuilder builder = docBuilderFactory.newDocumentBuilder();
             builder.setEntityResolver((publicId, systemId) -> new InputSource(new ByteArrayInputStream(
                     "<?xml version='1.0' encoding='UTF-8'?>"
                             .getBytes())));
             document = builder.parse(inputSource);
-			document.normalize();
-			loadDocument(document);
-		} catch (Exception e) {
-			Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-					"Failed to parse resource " + dataId, e);
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (Exception e) {
-					Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-							"Error closing input stream from " + dataId, e);
-				}
-			}
-		}
-	}
+            document.normalize();
+            loadDocument(document);
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                    "Failed to parse resource " + dataId, e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                            "Error closing input stream from " + dataId, e);
+                }
+            }
+        }
+    }
 
     /**
      * Access the underlying XML document, last read.
@@ -80,11 +80,12 @@ public abstract class AbstractXmlResourceLoaderListener implements
      * @return the underlying document.
      */
     public Document getDocument() {
-		return this.document;
+        return this.document;
     }
 
     /**
      * Method to be implemented to load the document data.
+     *
      * @param document the document, not null.
      */
     protected abstract void loadDocument(Document document);

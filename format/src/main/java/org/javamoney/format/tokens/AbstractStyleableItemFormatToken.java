@@ -27,7 +27,7 @@ import java.util.Locale;
  * @param <T> The target type.
  * @author Anatole Tresch
  */
-public abstract class AbstractStyleableItemFormatToken<T> implements StyleableItemFormatToken<T>{
+public abstract class AbstractStyleableItemFormatToken<T> implements StyleableItemFormatToken<T> {
 
     protected abstract String getToken(T item, Locale locale, LocalizationContext style);
 
@@ -43,24 +43,24 @@ public abstract class AbstractStyleableItemFormatToken<T> implements StyleableIt
      * @return the parameter value, or the given defaultValue.
      */
     protected <T> T getParamterValue(String key, String instanceId, LocalizationContext style, Class<T> type,
-                                     T defaultValue){
+                                     T defaultValue) {
         String accessKey = key;
-        if(instanceId != null){
+        if (instanceId != null) {
             accessKey = instanceId + '.' + key;
         }
-        T value = style.getNamedAttribute(accessKey, type);
-        if(value == null){
+        T value = style.getAny(accessKey, type);
+        if (value == null) {
             accessKey = getClass().getName() + '.' + key;
-            value = style.getNamedAttribute(accessKey, type);
+            value = style.getAny(accessKey, type);
         }
-        if(value == null){
+        if (value == null) {
             accessKey = getClass().getSimpleName() + '.' + key;
-            value = style.getNamedAttribute(accessKey, type);
+            value = style.getAny(accessKey, type);
         }
-        if(value == null){
-            value = style.getNamedAttribute(key, type);
+        if (value == null) {
+            value = style.getAny(key, type);
         }
-        if(value == null){
+        if (value == null) {
             return defaultValue;
         }
         return value;
@@ -73,24 +73,24 @@ public abstract class AbstractStyleableItemFormatToken<T> implements StyleableIt
      * @param style the {@link org.javamoney.format.LocalizationContext}
      * @return the parameter value, or the given defaultValue.
      */
-    protected <T> T getParamterValue(String key, LocalizationContext style, Class<T> type, T defaultValue){
+    protected <T> T getParamterValue(String key, LocalizationContext style, Class<T> type, T defaultValue) {
         return getParamterValue(key, null, style, type, defaultValue);
     }
 
     @Override
-    public void print(Appendable appendable, T item, Locale locale, LocalizationContext style) throws IOException{
+    public void print(Appendable appendable, T item, Locale locale, LocalizationContext style) throws IOException {
         String token = adjustPreformatted(getToken(adjustValue(item), locale, style));
-        if(token == null){
+        if (token == null) {
             throw new IllegalStateException("Token may not be null.");
         }
         appendable.append(token);
     }
 
-    protected T adjustValue(T item){
+    protected T adjustValue(T item) {
         return item;
     }
 
-    protected String adjustPreformatted(String preformattedValue){
+    protected String adjustPreformatted(String preformattedValue) {
         return preformattedValue;
     }
 

@@ -18,6 +18,7 @@ package org.javamoney.currencies.spi;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.money.CurrencyQuery;
 import javax.money.CurrencyUnit;
 
 /**
@@ -29,87 +30,64 @@ import javax.money.CurrencyUnit;
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
  * in a EE context.
- * 
+ *
  * @author Anatole Tresch
  */
 public interface CurrencyMappingsSingletonSpi {
 
-	/**
-	 * This method allows to evaluate, if the given currency namespace is
-	 * defined. {@code "ISO-4217"} should be defined in all environments
-	 * (default).
-	 * 
-	 * @param namespace
-	 *            the required namespace
-	 * @return {@code true}, if the namespace exists.
-	 */
-	public boolean isNamespaceAvailable(String namespace);
+    /**
+     * This method allows to evaluate, if the given currency namespace is
+     * defined. {@code "ISO-4217"} should be defined in all environments
+     * (default).
+     *
+     * @param namespace the required namespace
+     * @return {@code true}, if the namespace exists.
+     */
+    public boolean isNamespaceAvailable(String namespace);
 
-	/**
-	 * This method allows to access all namespaces currently defined.
-	 * {@code "ISO-4217"} should be defined in all environments (default).
-	 * 
-	 * @return the array of currently defined namespace.
-	 */
-	public Set<String> getNamespaces();
+    /**
+     * This method allows to access all namespaces currently defined.
+     * {@code "ISO-4217"} should be defined in all environments (default).
+     *
+     * @return the array of currently defined namespace.
+     */
+    public Set<String> getNamespaces();
 
-	/**
-	 * This method maps the given {@link CurrencyUnit} to another
-	 * {@link CurrencyUnit} with the given target namespace.
-	 * 
-	 * @param currencyUnit
-	 *            The source {@link CurrencyUnit}, never {@code null}.
-	 * @param targetNamespace
-	 *            the target namespace, never {@code null}.
-	 * @return The mapped {@link CurrencyUnit}, or {@code null}.
-	 */
-	public CurrencyUnit map(CurrencyUnit currencyUnit,
-			String targetNamespace);
+    /**
+     * This method maps the given {@link CurrencyUnit} to another
+     * {@link CurrencyUnit} with the given target namespace.
+     *
+     * @param currencyUnit    The source {@link CurrencyUnit}, never {@code null}.
+     * @param targetNamespace the target namespace, never {@code null}.
+     * @return The mapped {@link CurrencyUnit}, or {@code null}.
+     */
+    public CurrencyQuery getMappingQuery(CurrencyUnit currencyUnit,
+                                         String targetNamespace);
 
-	/**
-	 * This method maps the given {@link CurrencyUnit} to another
-	 * {@link CurrencyUnit} with the given target namespace.
-	 * 
-	 * @param currencyUnit
-	 *            The source unit, never {@code null}.
-	 * @param targetNamespace
-	 *            the target namespace, never {@code null}.
-	 * @param timestamp
-	 *            The target UTC timestamp.
-	 * @return The mapped {@link CurrencyUnit}, or {@code null}.
-	 */
-	public CurrencyUnit map(CurrencyUnit currencyUnit,
-			String targetNamespace,
-			long timestamp);
+    /**
+     * Access all currencies for a given namespace.
+     *
+     * @param namespace The target namespace, not {@code null}.
+     * @return The currencies found, never {@code null}.
+     * @throws javax.money.UnknownCurrencyException if the required namespace is not defined.
+     * @see #getNamespaces()
+     */
+    public CurrencyQuery getNamespaceQuery(String namespace);
 
-	/**
-	 * Access all currencies for a given namespace.
-	 * 
-	 * @see #getNamespaces()
-	 * @param namespace
-	 *            The target namespace, not {@code null}.
-	 * @return The currencies found, never {@code null}.
-	 * @throws javax.money.UnknownCurrencyException
-	 *             if the required namespace is not defined.
-	 */
-	public Set<CurrencyUnit> getCurrencies(String namespace);
+    /**
+     * Evaluates the currency namespace of a currency code.
+     *
+     * @param code The currency code.
+     * @return {@code true}, if the currency is defined.
+     */
+    public Set<String> getNamespaces(String code);
 
-	/**
-	 * Evaluates the currency namespace of a currency code.
-	 * 
-	 * @param code
-	 *            The currency code.
-	 * @return {@code true}, if the currency is defined.
-	 */
-	public Set<String> getNamespaces(String code);
-	
-	/**
-	 * Evaluates the currency namespace of a currency code.
-	 * 
-	 * @param currency
-	 *            The currency, not null.
-	 * @return {@code true}, if the currency is defined.
-	 */
-	public Set<String> getNamespaces(CurrencyUnit currency);
+    /**
+     * Evaluates the currency namespace of a currency code.
+     *
+     * @param currency The currency, not null.
+     * @return {@code true}, if the currency is defined.
+     */
+    public Set<String> getNamespaces(CurrencyUnit currency);
 
 }

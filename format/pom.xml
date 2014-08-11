@@ -10,7 +10,8 @@
 
 	<artifactId>javamoney-format</artifactId>
 	<name>Money and Currency - JavaMoney Format</name>
-	<packaging>bundle</packaging>
+    <packaging>jar</packaging>
+    <!-- bundle -->
 
 
 </project>

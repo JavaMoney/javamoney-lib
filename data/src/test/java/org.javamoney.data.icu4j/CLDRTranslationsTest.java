@@ -78,11 +78,11 @@ public class CLDRTranslationsTest {
 
     @Test
     public void testCLDRTranslations_RegionName() {
-        String region = CLDRTranslations.getInstance(Locale.ENGLISH).getRegionName("EUROPE");
+        String region = CLDRTranslations.getInstance(Locale.ENGLISH).getRegionName("001");
         assertNotNull(region);
-        assertEquals("Europe", region);
-        region = CLDRTranslations.getInstance("de").getLanguageName("EUROPE");
+        assertEquals("World", region);
+        region = CLDRTranslations.getInstance("de").getRegionName("003");
         assertNotNull(region);
-        assertEquals("Europa", region);
+        assertEquals("Nordamerika", region);
     }
 }
