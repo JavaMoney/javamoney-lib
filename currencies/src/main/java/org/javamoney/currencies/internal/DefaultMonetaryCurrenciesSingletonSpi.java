@@ -22,8 +22,7 @@ import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
  * @author Anatole Tresch
  */
 @Singleton
-public class DefaultMonetaryCurrenciesSingletonSpi implements
-        CurrencyMappingsSingletonSpi {
+public class DefaultMonetaryCurrenciesSingletonSpi implements CurrencyMappingsSingletonSpi{
 
     /**
      * This method allows to evaluate, if the given currency namespace is
@@ -34,9 +33,9 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * @return {@code true}, if the namespace exists.
      */
     @Override
-    public boolean isNamespaceAvailable(String namespace) {
-        for (CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)) {
-            if (spi.isNamespaceAvailable(namespace)) {
+    public boolean isNamespaceAvailable(String namespace){
+        for(CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
+            if(spi.isNamespaceAvailable(namespace)){
                 return true;
             }
         }
@@ -51,9 +50,9 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * {@code null}.
      */
     @Override
-    public Set<String> getNamespaces() {
+    public Set<String> getNamespaces(){
         Set<String> ns = new HashSet<>();
-        for (CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)) {
+        for(CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
             ns.addAll(spi.getNamespaces());
         }
         return ns;
@@ -68,10 +67,9 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * @return The mapped {@link CurrencyUnit}, or {@code null}.
      */
     @Override
-    public CurrencyQuery getMappingQuery(CurrencyUnit currencyUnit,
-                                         String targetNamespace) {
-        return CurrencyQueryBuilder.create().set(CurrencyMappingQuerySelector.MAPPING).set(currencyUnit, CurrencyUnit.class).set(
-                "targetNamespace", targetNamespace).build();
+    public CurrencyQuery getMappingQuery(CurrencyUnit currencyUnit, String targetNamespace){
+        return CurrencyQueryBuilder.of().set(CurrencyMappingQuerySelector.MAPPING).set(currencyUnit, CurrencyUnit.class)
+                .set("targetNamespace", targetNamespace).build();
     }
 
 
@@ -83,9 +81,9 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * .String)
      */
     @Override
-    public CurrencyQuery getNamespaceQuery(String targetNamespace) {
-        return CurrencyQueryBuilder.create().set(CurrencyMappingQuerySelector.NAMESPACE).set("targetNamespace",
-                targetNamespace).build();
+    public CurrencyQuery getNamespaceQuery(String targetNamespace){
+        return CurrencyQueryBuilder.of().set(CurrencyMappingQuerySelector.NAMESPACE)
+                .set("targetNamespace", targetNamespace).build();
     }
 
     /*
@@ -96,9 +94,9 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * .lang.String)
      */
     @Override
-    public Set<String> getNamespaces(String code) {
+    public Set<String> getNamespaces(String code){
         Set<String> ns = new HashSet<>();
-        for (CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)) {
+        for(CurrencyUnitNamespaceProviderSpi spi : Bootstrap.getServices(CurrencyUnitNamespaceProviderSpi.class)){
             ns.addAll(spi.getNamespaces(code));
         }
         return ns;
@@ -112,7 +110,7 @@ public class DefaultMonetaryCurrenciesSingletonSpi implements
      * .lang.String)
      */
     @Override
-    public Set<String> getNamespaces(CurrencyUnit code) {
+    public Set<String> getNamespaces(CurrencyUnit code){
         return getNamespaces(code.getCurrencyCode());
     }
 

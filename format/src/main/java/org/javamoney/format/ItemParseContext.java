@@ -29,7 +29,7 @@ import java.util.Map;
  * This class is mutable and intended for use by a single thread. A new instance
  * is created for each parse.
  */
-public final class ItemParseContext<T> {
+public final class ItemParseContext<T>{
     /**
      * The current position of parsing.
      */
@@ -50,9 +50,9 @@ public final class ItemParseContext<T> {
     /**
      * The instances parsed and added to this {@link ItemParseContext}. This objects
      * can be used by an according {@code MonetaryFunction<ItemParseContext,T>} to
-     * create an instance of T.
+     * of an instance of T.
      */
-    private Map<Object, Object> results = new HashMap<Object, Object>();
+    private Map<Object,Object> results = new HashMap<Object,Object>();
     /**
      * The parse error message.
      */
@@ -63,11 +63,11 @@ public final class ItemParseContext<T> {
      *
      * @param text The test to be parsed.
      */
-    public ItemParseContext(CharSequence text, ParseResultFactory<T> parseResultFactory) {
-        if (text == null) {
+    public ItemParseContext(CharSequence text, ParseResultFactory<T> parseResultFactory){
+        if(text == null){
             throw new IllegalArgumentException("test is required");
         }
-        if (parseResultFactory == null) {
+        if(parseResultFactory == null){
             throw new IllegalArgumentException("parseResultFactory is required");
         }
         this.originalInput = text;
@@ -80,7 +80,7 @@ public final class ItemParseContext<T> {
      *
      * @return true, if the item is available.
      */
-    public boolean isComplete() {
+    public boolean isComplete(){
         return parseResultFactory.isComplete(this);
     }
 
@@ -89,7 +89,7 @@ public final class ItemParseContext<T> {
      *
      * @return the stored error message, or null.
      */
-    public String getErrorMessage() {
+    public String getErrorMessage(){
         return this.errorMessage;
     }
 
@@ -98,12 +98,12 @@ public final class ItemParseContext<T> {
      *
      * @return the item parsed.
      */
-    public T getItem() {
-        if (!isComplete()) {
+    public T getItem(){
+        if(!isComplete()){
             throw new IllegalStateException("Parsing is not yet complete.");
         }
         T item = this.parseResultFactory.createItemParsed(this);
-        if (item == null) {
+        if(item == null){
             throw new IllegalStateException("Item is not available.");
         }
         return item;
@@ -117,8 +117,8 @@ public final class ItemParseContext<T> {
      * @return true, if the token could be consumed and the index was increased
      * by {@code token.size()}.
      */
-    public boolean consume(String token) {
-        if (getInput().toString().startsWith(token)) {
+    public boolean consume(String token){
+        if(getInput().toString().startsWith(token)){
             index += token.length();
             return true;
         }
@@ -132,8 +132,8 @@ public final class ItemParseContext<T> {
      * @return true, if the character matched and the index could be increased
      * by one.
      */
-    public boolean consume(char c) {
-        if (originalInput.charAt(index) == c) {
+    public boolean consume(char c){
+        if(originalInput.charAt(index) == c){
             index++;
             return true;
         }
@@ -147,11 +147,11 @@ public final class ItemParseContext<T> {
      * @return the new parse index after skipping any whitespaces.
      * @see Character#isWhitespace(char)
      */
-    public int skipWhitespace() {
-        for (int i = index; i < originalInput.length(); i++) {
-            if (Character.isWhitespace(originalInput.charAt(i))) {
+    public int skipWhitespace(){
+        for(int i = index; i < originalInput.length(); i++){
+            if(Character.isWhitespace(originalInput.charAt(i))){
                 index++;
-            } else {
+            }else{
                 break;
             }
         }
@@ -163,7 +163,7 @@ public final class ItemParseContext<T> {
      *
      * @return the error index, negative if no error
      */
-    public int getErrorIndex() {
+    public int getErrorIndex(){
         return errorIndex;
     }
 
@@ -172,14 +172,14 @@ public final class ItemParseContext<T> {
      *
      * @param index the error index
      */
-    public void setErrorIndex(int index) {
+    public void setErrorIndex(int index){
         this.errorIndex = index;
     }
 
     /**
      * Sets the error index from the current index.
      */
-    public void setError() {
+    public void setError(){
         this.errorIndex = index;
     }
 
@@ -188,7 +188,7 @@ public final class ItemParseContext<T> {
      *
      * @return the current parse position within the input.
      */
-    public int getIndex() {
+    public int getIndex(){
         return index;
     }
 
@@ -197,7 +197,7 @@ public final class ItemParseContext<T> {
      *
      * @return the residual input text
      */
-    public CharSequence getInput() {
+    public CharSequence getInput(){
         return originalInput.subSequence(index, originalInput.length() - 1);
     }
 
@@ -206,7 +206,7 @@ public final class ItemParseContext<T> {
      *
      * @return the full input.
      */
-    public String getOriginalInput() {
+    public String getOriginalInput(){
         return originalInput.toString();
     }
 
@@ -214,7 +214,7 @@ public final class ItemParseContext<T> {
      * Resets this instance; this will resetToFallback the parsing position, the error
      * index and also all containing results.
      */
-    public void reset() {
+    public void reset(){
         this.index = 0;
         this.errorIndex = -1;
         this.results.clear();
@@ -226,7 +226,7 @@ public final class ItemParseContext<T> {
      * @param key   The result key
      * @param value The result value
      */
-    public void addParseResult(Object key, Object value) {
+    public void addParseResult(Object key, Object value){
         this.results.put(key, value);
     }
 
@@ -235,7 +235,7 @@ public final class ItemParseContext<T> {
      *
      * @return the unmodifiable map of the results.
      */
-    public Map<Object, Object> getParseResults() {
+    public Map<Object,Object> getParseResults(){
         return Collections.unmodifiableMap(this.results);
     }
 
@@ -244,7 +244,7 @@ public final class ItemParseContext<T> {
      *
      * @return whether a parse error has occurred
      */
-    public boolean isError() {
+    public boolean isError(){
         return errorIndex >= 0;
     }
 
@@ -254,7 +254,7 @@ public final class ItemParseContext<T> {
      *
      * @return true if fully parsed
      */
-    public boolean isFullyParsed() {
+    public boolean isFullyParsed(){
         return index == this.originalInput.length();
     }
 
@@ -266,7 +266,7 @@ public final class ItemParseContext<T> {
      * @return the result value, casted to T, or null.
      */
     @SuppressWarnings("unchecked")
-    public <T> T getResult(Object key, Class<T> type) {
+    public <T> T getResult(Object key, Class<T> type){
         return (T) results.get(key);
     }
 
@@ -277,12 +277,12 @@ public final class ItemParseContext<T> {
      *
      * @return the next token found, or null.
      */
-    public String lookupNextToken() {
+    public String lookupNextToken(){
         skipWhitespace();
         int start = index;
-        for (int end = index; end < originalInput.length(); end++) {
-            if (Character.isWhitespace(originalInput.charAt(end))) {
-                if (end > start) {
+        for(int end = index; end < originalInput.length(); end++){
+            if(Character.isWhitespace(originalInput.charAt(end))){
+                if(end > start){
                     return originalInput.subSequence(start, end).toString();
                 }
                 return null;
@@ -296,7 +296,7 @@ public final class ItemParseContext<T> {
      *
      * @return the parse position, never null
      */
-    public ParsePosition toParsePosition() {
+    public ParsePosition toParsePosition(){
         return new ParsePosition(index);
     }
 
@@ -306,10 +306,9 @@ public final class ItemParseContext<T> {
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString() {
-        return "ItemParseContext [index=" + index + ", errorIndex=" + errorIndex
-                + ", originalInput='" + originalInput + "', results=" + results
-                + "]";
+    public String toString(){
+        return "ItemParseContext [index=" + index + ", errorIndex=" + errorIndex + ", originalInput='" + originalInput +
+                "', results=" + results + "]";
     }
 
 }

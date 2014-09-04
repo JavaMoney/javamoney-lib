@@ -33,78 +33,72 @@ import org.javamoney.format.LocalizationContext;
  * returned. It is the responsibility of the implementations of this interface,
  * to implement reuse of resources, where useful. Nevertheless keep in mind that
  * synchronization of shared resources can lead to severe performance issues.
- * Therefore in most of the cases it is reasonable to create a new formatter
+ * Therefore in most of the cases it is reasonable to of a new formatter
  * instance on each access and to delegate caching aspects to the clients.
  * Similarly it is not required that the instances returned by the SPI must be
  * thread safe.
  * <p>
  * Instances of this class are required to be thread-safe. They can be
  * implemented as contextual bean in a EE context.
- * 
+ *
  * @author Anatole Tresch
  */
-public interface ItemFormatFactorySpi<T> {
+public interface ItemFormatFactorySpi<T>{
 
-	/**
-	 * Return the target type the owning artifact can be applied to.
-	 * 
-	 * @return the target type, never {@code null}.
-	 */
-	public Class<T> getTargetClass();
+    /**
+     * Return the target type the owning artifact can be applied to.
+     *
+     * @return the target type, never {@code null}.
+     */
+    public Class<T> getTargetClass();
 
-	/**
-	 * Return the style id's supported by this {@link ItemFormatFactorySpi}
-	 * instance.
-	 * 
-	 * @see org.javamoney.format.LocalizationContext#getId()
-	 * @return the supported style identifiers, never {@code null}.
-	 */
-	public Collection<String> getSupportedStyleIds();
+    /**
+     * Return the style id's supported by this {@link ItemFormatFactorySpi}
+     * instance.
+     *
+     * @return the supported style identifiers, never {@code null}.
+     * @see org.javamoney.format.LocalizationContext#getId()
+     */
+    public Collection<String> getSupportedStyleIds();
 
-	/**
-	 * Access a configured default {@link org.javamoney.format.LocalizationContext} instance. If the
-	 * required styleId is part of the supported styles returned by this spi
-	 * implementation, then this method should return the according
-	 * {@link org.javamoney.format.LocalizationContext} instance.
-	 * 
-	 * @param targetType
-	 *            The target type, not {@code null}.
-	 * @param styleId
-	 *            The style identifier, may be {@code null}, acquiring a
-	 *            <i>default</i> style.
-	 * @return the style instance, or {@code null}.
-	 */
-	public LocalizationContext getLocalizationStyle(Class<?> targetType,
-			String styleId);
+    /**
+     * Access a configured default {@link org.javamoney.format.LocalizationContext} instance. If the
+     * required styleId is part of the supported styles returned by this spi
+     * implementation, then this method should return the according
+     * {@link org.javamoney.format.LocalizationContext} instance.
+     *
+     * @param targetType The target type, not {@code null}.
+     * @param styleId    The style identifier, may be {@code null}, acquiring a
+     *                   <i>default</i> style.
+     * @return the style instance, or {@code null}.
+     */
+    public LocalizationContext getLocalizationStyle(Class<?> targetType, String styleId);
 
-	/**
-	 * Method to check, if a style is available for the type this factory is
-	 * producing {@link ItemFormat}s.
-	 * 
-	 * @see #getTargetClass()
-	 * @param styleId
-	 *            the target style identifier.
-	 * @return {@code true}, if the style is available for the current target
-	 *         type.
-	 */
-	public boolean isSupportedStyle(String styleId);
+    /**
+     * Method to check, if a style is available for the type this factory is
+     * producing {@link ItemFormat}s.
+     *
+     * @param styleId the target style identifier.
+     * @return {@code true}, if the style is available for the current target
+     * type.
+     * @see #getTargetClass()
+     */
+    public boolean isSupportedStyle(String styleId);
 
-	/**
-	 * Creates a new instance of {@link ItemFormat} configured by the given
-	 * {@link org.javamoney.format.LocalizationContext} instance, if the style (style identifier, one
-	 * of the style's attributes) required are not supported by this factory,
-	 * {@code null} should be returned (different to the API, where an
-	 * {@link ItemFormatException} must be thrown.
-	 * 
-	 * @see #getTargetClass()
-	 * @param style
-	 *            the {@link org.javamoney.format.LocalizationContext} that configures this
-	 *            {@link ItemFormat}, which also contains the {@link ItemFormat}
-	 *            's configuration attributes.
-	 * @return a {@link ItemFormat} instance configured with the given style, or
-	 *         {@code null}.
-	 */
-	public ItemFormat<T> getItemFormat(LocalizationContext style)
-			throws ItemFormatException;
+    /**
+     * Creates a new instance of {@link ItemFormat} configured by the given
+     * {@link org.javamoney.format.LocalizationContext} instance, if the style (style identifier, one
+     * of the style's attributes) required are not supported by this factory,
+     * {@code null} should be returned (different to the API, where an
+     * {@link ItemFormatException} must be thrown.
+     *
+     * @param style the {@link org.javamoney.format.LocalizationContext} that configures this
+     *              {@link ItemFormat}, which also contains the {@link ItemFormat}
+     *              's configuration attributes.
+     * @return a {@link ItemFormat} instance configured with the given style, or
+     * {@code null}.
+     * @see #getTargetClass()
+     */
+    public ItemFormat<T> getItemFormat(LocalizationContext style) throws ItemFormatException;
 
 }

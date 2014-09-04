@@ -20,7 +20,7 @@ import javax.money.MonetaryAmount;
 
 /**
  * This class models the component that interprets/assembles the result
- * collected by several {@link StyleableItemFormatToken} to build the final item {@code T} to
+ * collected by several {@link StyleableItemFormatToken} to of the final item {@code T} to
  * be returned as the parse result, and as defined by
  * {@link ItemFormat#getTargetClass()}.<br/>
  * As an example parsing a monetary amount includes parsing of a {@link Number}
@@ -29,32 +29,29 @@ import javax.money.MonetaryAmount;
  * {@code javax.money.Money} to be returned by the
  * {@code ItemFormat<MonetaryAmount>}, assembled from the {@link Number} and the
  * {@link CurrencyUnit} parsed earlier.
- * 
+ *
+ * @param <T> the target type
  * @author Anatole Tresch
- * 
- * @param <T>
- *            the target type
  */
-public interface ParseResultFactory<T> {
-	/**
-	 * Returns {@code true}, if the required final target item is available from
-	 * the parsed results, this method is used by the {@link ItemFormat} to
-	 * evaluate if further parsing of an input stream can be stopped.
-	 * 
-	 * @param context
-	 *            The current {@link ItemParseContext}.
-	 * @return {@code true}, if the required item can be found in the
-	 *         {@link ItemParseContext}'s results.
-	 */
-	boolean isComplete(ItemParseContext<T> context);
+public interface ParseResultFactory<T>{
+    /**
+     * Returns {@code true}, if the required final target item is available from
+     * the parsed results, this method is used by the {@link ItemFormat} to
+     * evaluate if further parsing of an input stream can be stopped.
+     *
+     * @param context The current {@link ItemParseContext}.
+     * @return {@code true}, if the required item can be found in the
+     * {@link ItemParseContext}'s results.
+     */
+    boolean isComplete(ItemParseContext<T> context);
 
-	/**
-	 * Creates the item parsed using the parse results contained in the
-	 * {@link ItemParseContext}.
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public T createItemParsed(ItemParseContext<T> context);
-	
+    /**
+     * Creates the item parsed using the parse results contained in the
+     * {@link ItemParseContext}.
+     *
+     * @param context
+     * @return
+     */
+    public T createItemParsed(ItemParseContext<T> context);
+
 }

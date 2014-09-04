@@ -11,7 +11,7 @@ package org.javamoney.calc;
 //		AbstractAmountFactory<UltraFastMoney> {
 //
 //	@Override
-//	protected UltraFastMoney create(CurrencyUnit currency, Number number,
+//	protected UltraFastMoney of(CurrencyUnit currency, Number number,
 //			MonetaryContext monetaryContext) {
 //		return UltraFastMoney.of(currency, number);
 //	}
@@ -27,7 +27,7 @@ package org.javamoney.calc;
 //				FastMoney.class).setFlavor(AmountFlavor.java.PERFORMANCE)
 //				.setMaxScale(32).setFixedScale(false)
 //				.setPrecision(String.valueOf(Double.MAX_VALUE).length() - 1)
-//				.build();
+//				.of();
 //	}
 //
 //	@Override
@@ -37,7 +37,7 @@ package org.javamoney.calc;
 //				.setMaxScale(32).setFixedScale(false)
 //				.setFlavor(AmountFlavor.java.PERFORMANCE)
 //				.setPrecision(String.valueOf(Double.MAX_VALUE).length() - 1)
-//				.build();
+//				.of();
 //	}
 //
 //}

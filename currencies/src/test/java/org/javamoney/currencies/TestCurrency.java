@@ -37,8 +37,7 @@ import javax.money.CurrencyUnit;
  * @author Werner Keil
  * @version 0.5
  */
-public final class TestCurrency implements CurrencyUnit, Serializable,
-        Comparable<CurrencyUnit> {
+public final class TestCurrency implements CurrencyUnit, Serializable, Comparable<CurrencyUnit>{
 
     /**
      * The predefined name space for ISO 4217 currencies, similar to
@@ -64,12 +63,11 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
      */
     private final int defaultFractionDigits;
 
-    private CurrencyContext CONTEXT = CurrencyContextBuilder.create("TestCurrency").build();
+    private CurrencyContext CONTEXT = CurrencyContextBuilder.of("TestCurrency").build();
 
-    private static final Map<String, CurrencyUnit> CACHED = new ConcurrentHashMap<String, CurrencyUnit>();
+    private static final Map<String,CurrencyUnit> CACHED = new ConcurrentHashMap<String,CurrencyUnit>();
 
-    private static final Logger LOGGER = Logger.getLogger(TestCurrency.class
-            .getName());
+    private static final Logger LOGGER = Logger.getLogger(TestCurrency.class.getName());
 
     /**
      * Constructor.
@@ -78,17 +76,16 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
      * @param numCode        the numeric currency code, or -1.
      * @param fractionDigits the fraction digits, >= 0.
      */
-    private TestCurrency(String code, int numCode,
-                         int fractionDigits) {
+    private TestCurrency(String code, int numCode, int fractionDigits){
         this.currencyCode = code;
         this.numericCode = numCode;
         this.defaultFractionDigits = fractionDigits;
     }
 
-    public static CurrencyUnit of(Currency currency) {
+    public static CurrencyUnit of(Currency currency){
         String key = ISO_NAMESPACE + ':' + currency.getCurrencyCode();
         CurrencyUnit cachedItem = CACHED.get(key);
-        if (cachedItem == null) {
+        if(cachedItem == null){
             cachedItem = new JDKCurrencyAdapter(currency);
             CACHED.put(key, cachedItem);
         }
@@ -96,36 +93,35 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
     }
 
 
-    public static CurrencyUnit of(
-            String currencyCode) {
+    public static CurrencyUnit of(String currencyCode){
         CurrencyUnit cu = CACHED.get(currencyCode);
-        if (cu == null) {
+        if(cu == null){
             Currency cur = Currency.getInstance(currencyCode);
-            if (cur != null) {
+            if(cur != null){
                 return of(cur);
             }
         }
         return cu;
     }
 
-    public String getCurrencyCode() {
+    public String getCurrencyCode(){
         return currencyCode;
     }
 
-    public int getNumericCode() {
+    public int getNumericCode(){
         return numericCode;
     }
 
-    public int getDefaultFractionDigits() {
+    public int getDefaultFractionDigits(){
         return defaultFractionDigits;
     }
 
     @Override
-    public CurrencyContext getCurrencyContext() {
+    public CurrencyContext getCurrencyContext(){
         return CONTEXT;
     }
 
-    public int getCashRounding() {
+    public int getCashRounding(){
         throw new UnsupportedOperationException("Not supported yet."); // To
         // change
         // body
@@ -138,7 +134,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
         // Templates.
     }
 
-    public int compareTo(CurrencyUnit currency) {
+    public int compareTo(CurrencyUnit currency){
         return getCurrencyCode().compareTo(currency.getCurrencyCode());
     }
 
@@ -148,11 +144,11 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString() {
+    public String toString(){
         return currencyCode;
     }
 
-    public static final class Builder {
+    public static final class Builder{
         /**
          * currency code for this currency.
          */
@@ -166,65 +162,56 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
          */
         private int defaultFractionDigits = -1;
 
-        public Builder() {
+        public Builder(){
         }
 
-        public Builder(String currencyCode) {
+        public Builder(String currencyCode){
             withCurrencyCode(currencyCode);
         }
 
-        public Builder withCurrencyCode(String currencyCode) {
-            if (currencyCode == null) {
-                throw new IllegalArgumentException(
-                        "currencyCode may not be null.");
+        public Builder withCurrencyCode(String currencyCode){
+            if(currencyCode == null){
+                throw new IllegalArgumentException("currencyCode may not be null.");
             }
             this.currencyCode = currencyCode;
             return this;
         }
 
-        public Builder withDefaultFractionDigits(int defaultFractionDigits) {
-            if (defaultFractionDigits < -1) {
-                throw new IllegalArgumentException(
-                        "Invalid value for defaultFractionDigits: "
-                                + defaultFractionDigits);
+        public Builder withDefaultFractionDigits(int defaultFractionDigits){
+            if(defaultFractionDigits < -1){
+                throw new IllegalArgumentException("Invalid value for defaultFractionDigits: " + defaultFractionDigits);
             }
             this.defaultFractionDigits = defaultFractionDigits;
             return this;
         }
 
-        public Builder withNumericCode(int numericCode) {
-            if (numericCode < -1) {
-                throw new IllegalArgumentException(
-                        "Invalid value for numericCode: " + numericCode);
+        public Builder withNumericCode(int numericCode){
+            if(numericCode < -1){
+                throw new IllegalArgumentException("Invalid value for numericCode: " + numericCode);
             }
             this.numericCode = numericCode;
             return this;
         }
 
 
-        public CurrencyUnit build() {
+        public CurrencyUnit build(){
             return build(true);
         }
 
-        public CurrencyUnit build(boolean cache) {
-            if (currencyCode == null || currencyCode.isEmpty()) {
-                throw new IllegalStateException(
-                        "Can not build TestCurrencyUnit.");
+        public CurrencyUnit build(boolean cache){
+            if(currencyCode == null || currencyCode.isEmpty()){
+                throw new IllegalStateException("Can not of TestCurrencyUnit.");
             }
-            if (cache) {
+            if(cache){
                 String key = currencyCode;
                 CurrencyUnit current = CACHED.get(key);
-                if (current == null) {
-                    current = new TestCurrency(
-                            currencyCode,
-                            numericCode, defaultFractionDigits);
+                if(current == null){
+                    current = new TestCurrency(currencyCode, numericCode, defaultFractionDigits);
                     CACHED.put(key, current);
                 }
                 return current;
             }
-            return new TestCurrency(
-                    currencyCode, numericCode,
-                    defaultFractionDigits);
+            return new TestCurrency(currencyCode, numericCode, defaultFractionDigits);
         }
     }
 
@@ -237,16 +224,14 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
      * @author Anatole Tresch
      * @author Werner Keil
      */
-    private final static class JDKCurrencyAdapter implements CurrencyUnit,
-            Serializable,
-            Comparable<CurrencyUnit> {
+    private final static class JDKCurrencyAdapter implements CurrencyUnit, Serializable, Comparable<CurrencyUnit>{
 
         /**
          * serialVersionUID.
          */
         private static final long serialVersionUID = -2523936311372374236L;
 
-        private CurrencyContext JDK_CONTEXT = CurrencyContextBuilder.create(Currency.class.getName()).build();
+        private CurrencyContext JDK_CONTEXT = CurrencyContextBuilder.of(Currency.class.getName()).build();
 
         /**
          * ISO 4217 currency code for this currency.
@@ -260,49 +245,47 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
          *
          * @param currency
          */
-        private JDKCurrencyAdapter(Currency currency) {
-            if (currency == null) {
+        private JDKCurrencyAdapter(Currency currency){
+            if(currency == null){
                 throw new IllegalArgumentException("Currency required.");
             }
             this.currency = currency;
         }
 
-        public int compareTo(CurrencyUnit currency) {
-            int compare = getCurrencyCode().compareTo(
-                    currency.getCurrencyCode());
-            if (compare == 0) {
-                compare = getCurrencyCode().compareTo(
-                        currency.getCurrencyCode());
+        public int compareTo(CurrencyUnit currency){
+            int compare = getCurrencyCode().compareTo(currency.getCurrencyCode());
+            if(compare == 0){
+                compare = getCurrencyCode().compareTo(currency.getCurrencyCode());
             }
             return compare;
         }
 
-        public String getCurrencyCode() {
+        public String getCurrencyCode(){
             return this.currency.getCurrencyCode();
         }
 
-        public int getNumericCode() {
+        public int getNumericCode(){
             return this.currency.getNumericCode();
         }
 
-        public int getDefaultFractionDigits() {
+        public int getDefaultFractionDigits(){
             return this.currency.getDefaultFractionDigits();
         }
 
         @Override
-        public CurrencyContext getCurrencyContext() {
+        public CurrencyContext getCurrencyContext(){
             return JDK_CONTEXT;
         }
 
-        public String toString() {
+        public String toString(){
             return this.currency.toString();
         }
 
-        public String getDisplayName(Locale locale) {
+        public String getDisplayName(Locale locale){
             return this.currency.getDisplayName(locale);
         }
 
-        public int getCashRounding() {
+        public int getCashRounding(){
             throw new UnsupportedOperationException("Not supported yet."); // To
             // change
             // body
@@ -319,8 +302,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable,
     // it be used and if so,
     // consider changing it to a pattern similar as getAvailableCurrencies()
     // (including the type Set, unless Collection provides value)
-    public static Collection<CurrencyUnit> getAllMatching(
-            String expression) {
+    public static Collection<CurrencyUnit> getAllMatching(String expression){
         return Collections.emptySet();
     }
 

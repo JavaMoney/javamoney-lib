@@ -36,84 +36,83 @@ import org.slf4j.LoggerFactory;
  * @author Werner Keil
  */
 @Singleton
-public class ICUCurrencyProvider implements CurrencyProviderSpi {
+public class ICUCurrencyProvider implements CurrencyProviderSpi{
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ICUCurrencyProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ICUCurrencyProvider.class);
 
-    private static final CurrencyContext CURRENCY_CONTEXT = CurrencyContextBuilder.create("ICU").build();
+    private static final CurrencyContext CURRENCY_CONTEXT = CurrencyContextBuilder.of("ICU").build();
 
-    private Map<String, CurrencyUnit> currencies = new ConcurrentHashMap<>();
+    private Map<String,CurrencyUnit> currencies = new ConcurrentHashMap<>();
 
-    public ICUCurrencyProvider() {
-        for (com.ibm.icu.util.Currency currency : com.ibm.icu.util.Currency.getAvailableCurrencies()) {
+    public ICUCurrencyProvider(){
+        for(com.ibm.icu.util.Currency currency : com.ibm.icu.util.Currency.getAvailableCurrencies()){
             ICUCurrency icuInstance = new ICUCurrency(currency);
             this.currencies.put(icuInstance.getCurrencyCode(), icuInstance);
         }
     }
 
     @Override
-    public String getProviderName() {
+    public String getProviderName(){
         return "ICU";
     }
 
     @Override
-    public Set<CurrencyUnit> getCurrencies(CurrencyQuery query) {
-        if (query.getTimestamp() != null) {
+    public Set<CurrencyUnit> getCurrencies(CurrencyQuery query){
+        if(query.getTimestamp() != null){
             return Collections.emptySet();
         }
         Set<CurrencyUnit> currencies = new HashSet<>();
-        if (!query.getCurrencyCodes().isEmpty()) {
-            for (String code : query.getCurrencyCodes()) {
+        if(!query.getCurrencyCodes().isEmpty()){
+            for(String code : query.getCurrencyCodes()){
                 CurrencyUnit cu = this.currencies.get(code);
-                if (cu != null) {
+                if(cu != null){
                     currencies.add(cu);
                 }
             }
-        } else {
+        }else{
             currencies.addAll(this.currencies.values());
         }
         return currencies;
     }
 
 
-    private final class ICUCurrency implements CurrencyUnit {
+    private final class ICUCurrency implements CurrencyUnit{
 
 
         private com.ibm.icu.util.Currency currency;
 
-        public ICUCurrency(com.ibm.icu.util.Currency currency) {
+        public ICUCurrency(com.ibm.icu.util.Currency currency){
             this.currency = currency;
         }
 
-        public String getCurrencyCode() {
+        public String getCurrencyCode(){
             return this.currency.getCurrencyCode();
         }
 
-        public int getNumericCode() {
+        public int getNumericCode(){
             return this.currency.getNumericCode();
         }
 
-        public int getDefaultFractionDigits() {
+        public int getDefaultFractionDigits(){
             return this.currency.getDefaultFractionDigits();
         }
 
         @Override
-        public CurrencyContext getCurrencyContext() {
+        public CurrencyContext getCurrencyContext(){
             return CURRENCY_CONTEXT;
         }
 
         @Override
-        public String toString() {
+        public String toString(){
             return this.currency.toString();
         }
 
-        public String getDisplayName(Locale locale) {
+        public String getDisplayName(Locale locale){
             return this.currency.getDisplayName(locale);
         }
 
         @Override
-        public int compareTo(CurrencyUnit o) {
+        public int compareTo(CurrencyUnit o){
             return this.getCurrencyCode().compareTo(o.getCurrencyCode());
         }
     }

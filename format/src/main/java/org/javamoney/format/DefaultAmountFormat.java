@@ -50,9 +50,10 @@ public class DefaultAmountFormat implements ItemFormat<MonetaryAmount>{
                 amountFormat = MonetaryFormats.getAmountFormat(formatContext);
             }else{
                 amountFormat = MonetaryFormats.getAmountFormat(
-                        AmountFormatQueryBuilder.create(style.get(Locale.class)).importContext(style).build());
+                        AmountFormatQueryBuilder.of(style.get(Locale.class)).importContext(style).build());
             }
-        } return amountFormat.format(item);
+        }
+        return amountFormat.format(item);
     }
 
     @Override

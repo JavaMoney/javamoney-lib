@@ -34,48 +34,46 @@ import org.javamoney.validity.ValidityType;
  * Implementation of this interface must be thread-safe, and should not be
  * contextual in a EE context. Contextual behaviour should be implemented by the
  * {@link ValiditiesSingletonSpi}.
- * 
+ *
  * @author Anatole Tresch
  */
-public interface ValidityProviderSpi {
+public interface ValidityProviderSpi{
 
-	/**
-	 * Access the (unique) provider id.
-	 * 
-	 * @see {@link ValidityQuery#getValiditySource()}
-	 * @see {@link ValidityQuery#withValiditySource(String)}
-	 * @return the validity provider id, never {@code null}, not empty. The
-	 *         identifier must be unique, since it may also be used to
-	 *         explicitly select validity information from a certain provider.
-	 */
-	public String getProviderId();
+    /**
+     * Access the (unique) provider id.
+     *
+     * @return the validity provider id, never {@code null}, not empty. The
+     * identifier must be unique, since it may also be used to
+     * explicitly select validity information from a certain provider.
+     * @see {@link ValidityQuery#getValiditySource()}
+     * @see {@link ValidityQuery#withValiditySource(String)}
+     */
+    public String getProviderId();
 
-	/**
-	 * Return the {@link ValidityType} instances that this instance is
-	 * supporting, this can be used for determining which providers may create
-	 * result for a given query.
-	 * 
-	 * @return the set of supported {@link ValidityType}s, never {@code null}.
-	 */
-	public Set<ValidityType> getValidityTypes();
+    /**
+     * Return the {@link ValidityType} instances that this instance is
+     * supporting, this can be used for determining which providers may of
+     * result for a given query.
+     *
+     * @return the set of supported {@link ValidityType}s, never {@code null}.
+     */
+    public Set<ValidityType> getValidityTypes();
 
-	/**
-	 * Return the item types that this provider instance is supporting, this is
-	 * used for determining, which providers must be called for a given
-	 * {@link ValidityQuery} query.
-	 * 
-	 * @see {@link ValidityQuery#getItemType()}
-	 * @return the set of supported item types, never {@code null}.
-	 */
-	public Set<Class<?>> getItemTypes();
+    /**
+     * Return the item types that this provider instance is supporting, this is
+     * used for determining, which providers must be called for a given
+     * {@link ValidityQuery} query.
+     *
+     * @return the set of supported item types, never {@code null}.
+     * @see {@link ValidityQuery#getItemType()}
+     */
+    public Set<Class<?>> getItemTypes();
 
-	/**
-	 * Access all {@link ValidityInfo} for the given query.
-	 * 
-	 * @param query
-	 *            the related validity query.
-	 * @return the {@link ValidityInfo} instances found, never {@code null}.
-	 */
-	public <T> Collection<ValidityInfo<T>> getValidityInfo(
-			ValidityQuery<T> query);
+    /**
+     * Access all {@link ValidityInfo} for the given query.
+     *
+     * @param query the related validity query.
+     * @return the {@link ValidityInfo} instances found, never {@code null}.
+     */
+    public <T> Collection<ValidityInfo<T>> getValidityInfo(ValidityQuery<T> query);
 }

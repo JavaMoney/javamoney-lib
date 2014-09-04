@@ -52,8 +52,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Anatole Tresch
  */
-public final class LocalizationContext extends AbstractContext
-        implements Serializable {
+public final class LocalizationContext extends AbstractContext implements Serializable{
 
     /**
      * serialVersionUID.
@@ -81,7 +80,8 @@ public final class LocalizationContext extends AbstractContext
     /**
      * The shared map of LocalizationStyle instances.
      */
-    private static final Map<String, LocalizationContext> STYLE_MAP = new ConcurrentHashMap<String, LocalizationContext>();
+    private static final Map<String,LocalizationContext> STYLE_MAP =
+            new ConcurrentHashMap<String,LocalizationContext>();
 
     /**
      * Access a cached <i>default</i> style for a type. This equals to
@@ -93,7 +93,7 @@ public final class LocalizationContext extends AbstractContext
      * @return the according style, if a corresponding style is cached, or
      * {@code null].
      */
-    public static final LocalizationContext of(Class<?> targetType, String styleId) {
+    public static final LocalizationContext of(Class<?> targetType, String styleId){
         return STYLE_MAP.get(getKey(targetType, styleId));
     }
 
@@ -106,7 +106,7 @@ public final class LocalizationContext extends AbstractContext
      * @return the according style, if a corresponding style is cached, or
      * {@code null].
      */
-    public static final LocalizationContext of(Class<?> targetType) {
+    public static final LocalizationContext of(Class<?> targetType){
         return of(targetType, LocalizationContext.DEFAULT_ID);
     }
 
@@ -117,12 +117,12 @@ public final class LocalizationContext extends AbstractContext
      * @param targetType the target type, not {@code null}.
      * @return a set of style identifiers for the given type, never null.
      */
-    public static Collection<String> getSupportedStyleIds(Class<?> targetType) {
+    public static Collection<String> getSupportedStyleIds(Class<?> targetType){
         Set<String> result = new HashSet<String>();
         String className = targetType.getName();
-        for (String key : STYLE_MAP.keySet()) {
+        for(String key : STYLE_MAP.keySet()){
             int index = key.indexOf('_');
-            if (className.equals(key.substring(0, index))) {
+            if(className.equals(key.substring(0, index))){
                 result.add(key.substring(index + 1));
             }
         }
@@ -137,7 +137,7 @@ public final class LocalizationContext extends AbstractContext
      * @return the according style, if a corresponding style is cached, or
      * {@code null].
      */
-    private static String getKey(Class<?> targetType, String styleId) {
+    private static String getKey(Class<?> targetType, String styleId){
         return targetType.getName() + "_" + (styleId != null ? styleId : "default");
     }
 
@@ -146,7 +146,7 @@ public final class LocalizationContext extends AbstractContext
      *
      * @param builder The style's builder (not null).
      */
-    private LocalizationContext(Builder builder) {
+    private LocalizationContext(Builder builder){
         super(builder);
         this.id = builder.id;
         this.targetType = builder.targetType;
@@ -157,7 +157,7 @@ public final class LocalizationContext extends AbstractContext
      *
      * @return the style's id.
      */
-    public String getId() {
+    public String getId(){
         return id;
     }
 
@@ -166,7 +166,7 @@ public final class LocalizationContext extends AbstractContext
      *
      * @return the translation (default) locale
      */
-    public final Class<?> getTargetType() {
+    public final Class<?> getTargetType(){
         return this.targetType;
     }
 
@@ -175,12 +175,13 @@ public final class LocalizationContext extends AbstractContext
      *
      * @return the default item format class, or null.
      */
-    public final Class<? extends ItemFormat<?>> getDefaultItemFormatClass() {
+    public final Class<? extends ItemFormat<?>> getDefaultItemFormatClass(){
         String defaultItemFormatClassName = getText("defaultItemFormatClassName");
-        if (defaultItemFormatClassName != null) {
-            try {
+        if(defaultItemFormatClassName != null){
+            try{
                 return (Class<? extends ItemFormat<?>>) Class.forName(defaultItemFormatClassName);
-            } catch (Exception e) {
+            }
+            catch(Exception e){
                 LOG.error("Failed to load ItemFormat class: " + defaultItemFormatClassName, e);
             }
         }
@@ -194,12 +195,12 @@ public final class LocalizationContext extends AbstractContext
      *
      * @return true, if the instance is a default style.
      */
-    public boolean isDefaultStyle() {
+    public boolean isDefaultStyle(){
         return DEFAULT_ID.equals(getId());
     }
 
     /**
-     * Builder to create new instances of {@link LocalizationContext}.
+     * Builder to of new instances of {@link LocalizationContext}.
      * <p>
      * This class is not thread-safe and should not be used in multiple threads.
      * However {@link LocalizationContext} instances created can securely shared
@@ -207,7 +208,7 @@ public final class LocalizationContext extends AbstractContext
      *
      * @author Anatole Tresch
      */
-    public static final class Builder extends AbstractContextBuilder<Builder, LocalizationContext> {
+    public static final class Builder extends AbstractContextBuilder<Builder,LocalizationContext>{
         /**
          * The style's id.
          */
@@ -228,7 +229,7 @@ public final class LocalizationContext extends AbstractContext
          *
          * @param targetType the target type, not null.
          */
-        public Builder(Class<?> targetType) {
+        public Builder(Class<?> targetType){
             this.targetType = targetType;
             setId(DEFAULT_ID);
         }
@@ -240,7 +241,7 @@ public final class LocalizationContext extends AbstractContext
          * @param targetType The target TYPE
          * @return the {@link LocalizationContext} created.
          */
-        public Builder(Class<?> targetType, String styleId) {
+        public Builder(Class<?> targetType, String styleId){
             setId(styleId);
             this.targetType = targetType;
         }
@@ -252,7 +253,7 @@ public final class LocalizationContext extends AbstractContext
          *
          * @param baseContext The style to be used as a base style.
          */
-        public Builder(LocalizationContext baseContext) {
+        public Builder(LocalizationContext baseContext){
             importContext(baseContext);
             this.id = baseContext.getId();
             this.targetType = baseContext.getTargetType();
@@ -263,9 +264,9 @@ public final class LocalizationContext extends AbstractContext
          *
          * @return a new instance of {@link LocalizationContext}, never
          * {@code null}
-         * @throws IllegalStateException if this builder can not create a new instance.
+         * @throws IllegalStateException if this builder can not of a new instance.
          */
-        public LocalizationContext build() {
+        public LocalizationContext build(){
             return build(false);
         }
 
@@ -275,11 +276,11 @@ public final class LocalizationContext extends AbstractContext
          * @param register flag for registering the style into the global cache.
          * @return a new instance of {@link LocalizationContext}, never
          * {@code null}
-         * @throws IllegalStateException if this builder can not create a new instance.
+         * @throws IllegalStateException if this builder can not of a new instance.
          */
-        public LocalizationContext build(boolean register) {
+        public LocalizationContext build(boolean register){
             LocalizationContext style = new LocalizationContext(this);
-            if (register) {
+            if(register){
                 STYLE_MAP.put(getKey(this.targetType, this.id), style);
             }
             return style;
@@ -288,7 +289,7 @@ public final class LocalizationContext extends AbstractContext
         /**
          * Constructor for a <i>default</i> style.
          */
-        public Builder() {
+        public Builder(){
         }
 
         /**
@@ -297,7 +298,7 @@ public final class LocalizationContext extends AbstractContext
          *
          * @return {@code true}, if the instance is a <i>default</i> style.
          */
-        public boolean isDefaultStyle() {
+        public boolean isDefaultStyle(){
             return DEFAULT_ID.equals(getId());
         }
 
@@ -307,7 +308,7 @@ public final class LocalizationContext extends AbstractContext
          * @param id the style's id, not {@code null}.
          * @return this instance, for chaining.
          */
-        public Builder setId(String id) {
+        public Builder setId(String id){
             Objects.requireNonNull(id, "style id required.");
             this.id = id;
             return this;
@@ -320,7 +321,7 @@ public final class LocalizationContext extends AbstractContext
          * @param targetType The instance's targetType, not {@code null}.
          * @return The Builder instance for chaining.
          */
-        public <T> Builder setTargetType(Class<?> targetType) {
+        public <T> Builder setTargetType(Class<?> targetType){
             Objects.requireNonNull(targetType, "targetType required.");
             this.targetType = targetType;
             return this;
@@ -333,7 +334,7 @@ public final class LocalizationContext extends AbstractContext
          * @param <T>             the target type
          * @return The Builder instance for chaining.
          */
-        public <T> Builder setDefaultItemFormat(Class<? extends ItemFormat<?>> itemFormatClass) {
+        public <T> Builder setDefaultItemFormat(Class<? extends ItemFormat<?>> itemFormatClass){
             Objects.requireNonNull(itemFormatClass);
             this.defaultItemFormatClass = itemFormatClass;
             return this;
@@ -344,7 +345,7 @@ public final class LocalizationContext extends AbstractContext
          *
          * @return the style's id.
          */
-        public String getId() {
+        public String getId(){
             return id;
         }
 

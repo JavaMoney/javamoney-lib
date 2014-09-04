@@ -91,7 +91,7 @@ package org.javamoney.calc;
 //			UltraFastMoney.class)
 //			.setMaxScale(32).setFixedScale(false)
 //			.setPrecision(String.valueOf(Double.MAX_VALUE).length() - 1)
-//			.build();
+//			.of();
 //
 //	private static final ThreadLocal<StringBuilder> builders = new ThreadLocal<StringBuilder>() {
 //		@Override
