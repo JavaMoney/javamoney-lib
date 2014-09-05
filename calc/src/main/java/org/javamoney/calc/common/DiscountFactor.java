@@ -12,29 +12,25 @@ package org.javamoney.calc.common;
 import java.math.BigDecimal;
 
 /**
- * 
  * @author Anatole
  * @author Werner
- * 
  */
-public final class DiscountFactor {
+public final class DiscountFactor{
 
-	private static final DiscountFactor INSTANCE = new DiscountFactor();
+    private static final DiscountFactor INSTANCE = new DiscountFactor();
 
-	private DiscountFactor() {
-	}
+    private DiscountFactor(){
+    }
 
-	public static final DiscountFactor getInstance() {
-		return INSTANCE;
-	}
+    public static final DiscountFactor of(){
+        return INSTANCE;
+    }
 
-	public BigDecimal calculate(Rate rate, int periods) {
-		// (1-(1+r)^n)/1-(1+rate)
-		BigDecimal div = BigDecimal.ONE
-				.min(BigDecimal.ONE.add(rate.get()));
-		BigDecimal factor = BigDecimal.ONE.subtract(
-				BigDecimal.ONE.add(rate.get()).pow(periods)).divide(div);
-		return BigDecimal.ONE.add(factor);
-	}
+    public BigDecimal calculate(Rate rate, int periods){
+        // (1-(1+r)^n)/1-(1+rate)
+        BigDecimal div = BigDecimal.ONE.min(BigDecimal.ONE.add(rate.get()));
+        BigDecimal factor = BigDecimal.ONE.subtract(BigDecimal.ONE.add(rate.get()).pow(periods)).divide(div);
+        return BigDecimal.ONE.add(factor);
+    }
 
 }

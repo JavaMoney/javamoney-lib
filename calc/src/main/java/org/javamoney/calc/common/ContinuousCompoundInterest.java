@@ -24,29 +24,26 @@ import javax.money.MonetaryAmount;
  * rate. The continuous compounding formula takes this effect of compounding to the furthest limit.
  * Instead of compounding interest on an monthly, quarterly, or annual basis, continuous compounding
  * will effectively reinvest gains perpetually.
- * 
+ *
  * @author Anatole
  * @author Werner
- * 
  */
-public final class ContinuousCompoundInterest extends AbstractPeriodicalFunction {
+public final class ContinuousCompoundInterest extends AbstractPeriodicalFunction{
 
-	private static final ContinuousCompoundInterest INSTANCE = new ContinuousCompoundInterest();
+    private static final ContinuousCompoundInterest INSTANCE = new ContinuousCompoundInterest();
 
-	private ContinuousCompoundInterest() {
-	}
+    private ContinuousCompoundInterest(){
+    }
 
-	public static final ContinuousCompoundInterest getInstance() {
-		return INSTANCE;
-	}
+    public static final ContinuousCompoundInterest of(){
+        return INSTANCE;
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		int power = rate.get().multiply(BigDecimal.valueOf(periods))
-				.intValue();
-		BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
-		return amount.multiply(f);
-	}
+    @Override
+    public MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods){
+        int power = rate.get().multiply(BigDecimal.valueOf(periods)).intValue();
+        BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
+        return amount.multiply(f);
+    }
 
 }
