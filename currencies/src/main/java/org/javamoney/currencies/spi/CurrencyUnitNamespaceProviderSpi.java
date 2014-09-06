@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -23,7 +23,7 @@ import javax.money.spi.Bootstrap;
 
 /**
  * This class models namespaces that allow to group currencies. Examples for
- * namespaces for different organization units, countries or technical systems.<br/>
+ * namespaces for different organization units, countries or technical systems.<br>
  * It is the responsibility of the registered {@link Bootstrap} to load the and
  * manage the instances of {@link CurrencyUnitNamespaceProviderSpi}.
  * <p>
@@ -31,6 +31,7 @@ import javax.money.spi.Bootstrap;
  * in a EE context.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public interface CurrencyUnitNamespaceProviderSpi {
 

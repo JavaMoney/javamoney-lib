@@ -16,7 +16,7 @@ import javax.money.MonetaryAmount;
 /**
  * <p>
  * <img src="http://www.financeformulas.net/Formula%20Images/Growing%20Annuity%20-%20FV%201.gif"/>
- * <br/>
+ * <br>
  * <p>
  * The formula for the future value of a growing annuity is used to calculate the future amount of a
  * series of cash flows, or payments, that grow at a proportionate rate. A growing annuity may

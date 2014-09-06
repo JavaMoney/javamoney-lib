@@ -8,7 +8,7 @@ import javax.enterprise.inject.Instance;
 import javax.money.spi.ServiceProvider;
 
 import org.javamoney.cdi.CDIContainer;
-import org.javamoney.moneta.ServicePriority;
+import org.javamoney.moneta.spi.ServicePriority;
 import org.slf4j.LoggerFactory;
 
 @ServicePriority(ServicePriority.NORM_PRIORITY + 1)
