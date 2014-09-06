@@ -28,6 +28,7 @@ package org.javamoney.calc.function;
  * @author Werner Keil
  * @since 0.4
  */
+@FunctionalInterface
 public interface Nameable {
 
     /**
