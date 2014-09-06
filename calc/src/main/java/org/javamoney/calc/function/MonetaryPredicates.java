@@ -18,9 +18,6 @@ package org.javamoney.calc.function;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-
 
 /**
  * This class provides access to several predicate based functionalities that
