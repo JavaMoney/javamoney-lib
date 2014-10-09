@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,14 +15,12 @@
  */
 package org.javamoney.currencies.spi;
 
-import java.util.ServiceLoader;
-
 import javax.money.CurrencyUnit;
 import javax.money.spi.Bootstrap;
 
 /**
  * This class models mappings for {@link CurrencyUnit} instances. It is used by
- * the {@link CurrencyMappingsSingletonSpi} implementation.<br/>
+ * the {@link CurrencyMappingsSingletonSpi} implementation.<br>
  * It is the responsibility of the {@link Bootstrap} loader to load the and
  * manage the instances of {@link CurrencyUnitMapperSpi}. 
  * <p>
@@ -30,6 +28,7 @@ import javax.money.spi.Bootstrap;
  * in a EE context.
  * 
  * @author Anatole Tresch
+ * @author Werner Keil
  */
 public interface CurrencyUnitMapperSpi {
 

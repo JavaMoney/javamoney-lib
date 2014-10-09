@@ -55,8 +55,13 @@ final class Total implements
 		BigDecimal result = null;
 		for (MonetaryAmount amount : amounts) {
 			if (result == null) {
+				unit = amount.getCurrency();
 				result = amount.getNumber().numberValue(BigDecimal.class);
 			} else {
+				if (unit != amount.getCurrency()) {
+					throw new IllegalArgumentException("amounts should be of same currency");
+				}
+				
 				result = result.add(amount.getNumber().numberValue(BigDecimal.class));
 			}
 		}

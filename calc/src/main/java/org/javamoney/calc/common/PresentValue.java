@@ -29,7 +29,8 @@ import javax.money.MonetaryAmount;
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%201.gif" />
  * <p>
  * alterantively this can be written also as (which is much easier to implement):<br/>
- *
+ * 
+ * @see http://www.financeformulas.net/Present_Value.html
  * @author Anatole Tresch
  * @see http://www.financeformulas.net/Present_Value.html
  */
