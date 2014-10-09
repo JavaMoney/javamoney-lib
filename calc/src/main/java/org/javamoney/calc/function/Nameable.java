@@ -20,18 +20,19 @@ package org.javamoney.calc.function;
  * <p>
  * There is no requirement that a distinct result be returned each time the
  * supplier is invoked.
- * 
+ * <p>
  * <p>
  * This is a <b>functional interface</b> whose
  * functional method is {@link #getName()}.
- * 
+ *
  * @author Werner Keil
  * @since 0.4
  */
+@FunctionalInterface
 public interface Nameable {
 
     /**
      * @return a name
      */
-	public String getName();
+    public String getName();
 }

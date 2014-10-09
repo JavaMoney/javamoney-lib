@@ -15,8 +15,8 @@
     <orderEntry type="library" name="Maven: org.jboss.weld:weld-build-config:1.1.5.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="module" module-name="javamoney-format" />
-    <orderEntry type="module" module-name="money-api" />
-    <orderEntry type="module" module-name="moneta" />
+    <orderEntry type="library" name="Maven: javax.money:money-api:0.9-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.javamoney:moneta:0.9-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:51.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />

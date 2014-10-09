@@ -18,9 +18,6 @@ package org.javamoney.calc.function;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-
 
 /**
  * This class provides access to several predicate based functionalities that
@@ -30,12 +27,12 @@ import javax.money.MonetaryAmount;
  *
  * @author Anatole Tresch
  */
-public final class MonetaryPredicates{
+public final class MonetaryPredicates {
 
     /**
      * Singleton constructor.
      */
-    private MonetaryPredicates(){
+    private MonetaryPredicates() {
         // singleton constructor
     }
 
@@ -48,7 +45,7 @@ public final class MonetaryPredicates{
      * true, or no predicates are passed, never {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> and(Iterable<? extends MonetaryPredicate<? super T>>... predicates){
+    public static <T> MonetaryPredicate<T> and(Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
         return new AndPredicate<>(predicates);
     }
 
@@ -62,7 +59,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> and(MonetaryPredicate<? super T>... predicates){
+    public static <T> MonetaryPredicate<T> and(MonetaryPredicate<? super T>... predicates) {
         return new AndPredicate<>(Arrays.asList(predicates));
     }
 
@@ -76,7 +73,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> or(Iterable<? extends MonetaryPredicate<? super T>>... predicates){
+    public static <T> MonetaryPredicate<T> or(Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
         return new OrPredicate<>(predicates);
     }
 
@@ -90,7 +87,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> or(MonetaryPredicate<? super T>... predicates){
+    public static <T> MonetaryPredicate<T> or(MonetaryPredicate<? super T>... predicates) {
         return new OrPredicate<>(Arrays.asList(predicates));
     }
 
@@ -104,7 +101,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> xor(Iterable<? extends MonetaryPredicate<? super T>>... predicates){
+    public static <T> MonetaryPredicate<T> xor(Iterable<? extends MonetaryPredicate<? super T>>... predicates) {
         return new OrPredicate<>(predicates);
     }
 
@@ -118,7 +115,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> xor(MonetaryPredicate<? super T>... predicates){
+    public static <T> MonetaryPredicate<T> xor(MonetaryPredicate<? super T>... predicates) {
         return new OrPredicate<>(Arrays.asList(predicates));
     }
 
@@ -130,7 +127,7 @@ public final class MonetaryPredicates{
      * @return the inversed predicate, never {@code null}.
      * @throws IllegalArgumentException , if predicate is {@code null}.
      */
-    public static <T> MonetaryPredicate<T> not(MonetaryPredicate<? super T> predicate){
+    public static <T> MonetaryPredicate<T> not(MonetaryPredicate<? super T> predicate) {
         return new NotPredicate<>(predicate);
     }
 
@@ -143,7 +140,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> include(Iterable<? extends T>... values){
+    public static <T> MonetaryPredicate<T> include(Iterable<? extends T>... values) {
         return new IncludedPredicate<>(values);
     }
 
@@ -156,7 +153,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> include(T... values){
+    public static <T> MonetaryPredicate<T> include(T... values) {
         return new IncludedPredicate<>(Arrays.asList(values));
     }
 
@@ -170,7 +167,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> exclude(Iterable<? extends T>... values){
+    public static <T> MonetaryPredicate<T> exclude(Iterable<? extends T>... values) {
         return new NotPredicate<>(new IncludedPredicate<>(values));
     }
 
@@ -184,7 +181,7 @@ public final class MonetaryPredicates{
      * {@code null}.
      */
     @SafeVarargs
-    public static <T> MonetaryPredicate<T> exclude(T... values){
+    public static <T> MonetaryPredicate<T> exclude(T... values) {
         return new NotPredicate<T>(new IncludedPredicate<>(Arrays.asList(values)));
     }
 
@@ -198,7 +195,7 @@ public final class MonetaryPredicates{
      * @return the evaluating predicate based on the values passed, never
      * {@code null}.
      */
-    public static <T> MonetaryPredicate<T> min(int min, MonetaryPredicate<? super T> predicate){
+    public static <T> MonetaryPredicate<T> min(int min, MonetaryPredicate<? super T> predicate) {
         return new MinCountPredicate<>(min, predicate);
     }
 
@@ -212,7 +209,7 @@ public final class MonetaryPredicates{
      * @return the evaluating predicate based on the values passed, never
      * {@code null}.
      */
-    public static <T> MonetaryPredicate<T> max(int max, MonetaryPredicate<? super T> predicate){
+    public static <T> MonetaryPredicate<T> max(int max, MonetaryPredicate<? super T> predicate) {
         return new MaxCountPredicate<>(max, predicate);
     }
 
@@ -225,7 +222,7 @@ public final class MonetaryPredicates{
      * @return The items that match the predicate.
      */
     @SafeVarargs
-    public static <T> Collection<T> select(MonetaryPredicate<T> predicate, Iterable<T>... items){
+    public static <T> Collection<T> select(MonetaryPredicate<T> predicate, Iterable<T>... items) {
         return new ItemFilter<>(items).apply(predicate);
     }
 
@@ -238,7 +235,7 @@ public final class MonetaryPredicates{
      * @return The items that match the predicate.
      */
     @SafeVarargs
-    public static <T> Collection<T> select(MonetaryPredicate<T> predicate, T... items){
+    public static <T> Collection<T> select(MonetaryPredicate<T> predicate, T... items) {
         return new ItemFilter<>(items).apply(predicate);
     }
 
@@ -251,7 +248,7 @@ public final class MonetaryPredicates{
      * @return The items that match the predicate.
      */
     @SafeVarargs
-    public static <T> int count(MonetaryPredicate<T> predicate, Iterable<T>... items){
+    public static <T> int count(MonetaryPredicate<T> predicate, Iterable<T>... items) {
         return new ItemVisitor<>(items).apply(predicate);
     }
 
@@ -264,7 +261,7 @@ public final class MonetaryPredicates{
      * @return The items that match the predicate.
      */
     @SafeVarargs
-    public static <T> int count(MonetaryPredicate<T> predicate, T... items){
+    public static <T> int count(MonetaryPredicate<T> predicate, T... items) {
         return new ItemVisitor<>(items).apply(predicate);
     }
 

@@ -29,26 +29,26 @@ import javax.money.MonetaryAmount;
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%201.gif" />
  * <p>
  * alterantively this can be written also as (which is much easier to implement):<br/>
- * 
- * @see http://www.financeformulas.net/Present_Value.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Present_Value.html
  */
 public final class PresentValue extends AbstractPeriodicalFunction {
 
-	private static final PresentValue INSTANCE = new PresentValue();
+    private static final PresentValue INSTANCE = new PresentValue();
 
-	private PresentValue() {
-	}
+    private PresentValue() {
+    }
 
-	public static final PresentValue of() {
-		return INSTANCE;
-	}
+    public static PresentValue of() {
+        return INSTANCE;
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		Objects.requireNonNull(amount, "Amount required");
-		Objects.requireNonNull(rate, "Rate required");
-		return amount.divide(PresentValueFactor.of().calculate(rate, periods));
-	}
+    @Override
+    public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
+                                    int periods) {
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        return amount.divide(PresentValueFactor.of().calculate(rate, periods));
+    }
 }
