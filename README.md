@@ -43,7 +43,7 @@ Support or Contact
 ------------------
 Having trouble with Pages? Check out [documentation](http://javamoney.org) or contact support@javamoney.org.
 
-Everything is licenced under [Apache 2 Licence](LICENCE.txt).
+Everything is licenced under [Apache 2 Licence](LICENSE.txt).
 
 [![Build Status](https://api.travis-ci.org/JavaMoney/javamoney-lib.png?branch=master)](https://travis-ci.org/JavaMoney/javamoney-lib)
 [![Coverage Status](https://coveralls.io/repos/JavaMoney/javamoney-lib/badge.png)](https://coveralls.io/r/JavaMoney/javamoney-lib)
