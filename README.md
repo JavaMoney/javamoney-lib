@@ -12,8 +12,8 @@ The current project structure is as follows:
 - [format](format) Formatting module
 - [validity](validity) Validation module
 - [bundles](bundles) Bundles for particular Java Environments
-  - [java-ee](java-ee) Java EE Functionality
-  - [java-se](java-se-cdi) CDI SE Standalone Bundle (CDI)
+  - [java-ee](bundles/java-ee) Java EE Functionality
+  - [java-se-cdi](bundles/java-se-cdi) CDI SE Standalone Bundle (CDI)
 
 JavaMoney-lib is a financial library that is built upon JSR 354 (or compatible libraries).
 Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR development as a proof of concept:
