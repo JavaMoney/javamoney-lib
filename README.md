@@ -15,7 +15,7 @@ Of course, the API is fully extendible, so customer related regions such as lega
 * [**Validity API**](validity) This API provides a generic API for accessing historic validity information for arbitrary items, and for relationships between items.
 By default the API provides access to the historic relationship of currencies to countries using the Unicode CLDR data.
 * [**Calculation**](calc) finally provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
-* [Data](data) JavaMoney Data
+* [**Data**](data) JavaMoney Data
 * [**Bundles for particular Java Environments**](bundles) finally provides the library in different flavors, targeting different execution environments:
   * [**se-cdi**](bundles/java-se-cdi) CDI SE Standalone Bundle: loading SPIs based on a Weld SE container.
   * [**ee**](bundles/java-ee) Java EE Functionality: loading SPIs based on CDI in a Java EE environment >= EE6.
