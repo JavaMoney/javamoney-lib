@@ -5,16 +5,15 @@ Java Money and Currency - Modules that are not part of JSR 354
 
 The current project structure is as follows:
 
-- [calc](./calc) Calculation module
-- [common](./common) Common module
-- [conversion](./conversion) Conversion module
-- [extensions](./extensions) Extensions (Region, Currency Providers)
-- [format](./format) Formatting module
-- [validity](./validity) Validation module
-- [bundles](./bundles) Bundles for particular Java Environments
-  - [cdi](./cdi) CDI Support
-  - [java-ee](./java-ee) Java EE Functionality
-  - [java-se](./java-se) Java SE Functionality
+- [calc](calc) Calculation module
+- [common](common) Common module
+- [conversion](conversion) Conversion module
+- [extensions](extensions) Extensions (Region, Currency Providers)
+- [format](format) Formatting module
+- [validity](validity) Validation module
+- [bundles](bundles) Bundles for particular Java Environments
+  - [java-ee](java-ee) Java EE Functionality
+  - [java-se](java-se-cdi) CDI SE Standalone Bundle (CDI)
 
 JavaMoney-lib is a financial library that is built upon JSR 354 (or compatible libraries).
 Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR development as a proof of concept:
@@ -46,7 +45,19 @@ To use the library you simply have to add the Maven dependency to your project (
 </dependency>
 ```
 
-Everything is licenced under [Apache 2 Licence](./LICENCE.txt).
+Authors and Contributors
+------------------------
+Different people have contributed to this project. During the development of JSR 354, @atsticks and @keilw founded this project and were also the main contributors. Nevertheless everybody is really welcome to help us, to make this library more feasible and add features.
+
+javamoney-shelter
+-----------------
+The javamoney [shelter module](http://javamoney.github.io/shelter.html) is for testing out new features or modules before they may enter the official javamoney library.
+
+Support or Contact
+------------------
+Having trouble with Pages? Check out [documentation](http://javamoney.org) or contact support@javamoney.org.
+
+Everything is licenced under [Apache 2 Licence](LICENCE.txt).
 
 [![Build Status](https://api.travis-ci.org/JavaMoney/javamoney-lib.png?branch=master)](https://travis-ci.org/JavaMoney/javamoney-lib)
 [![Coverage Status](https://coveralls.io/repos/JavaMoney/javamoney-lib/badge.png)](https://coveralls.io/r/JavaMoney/javamoney-lib)
