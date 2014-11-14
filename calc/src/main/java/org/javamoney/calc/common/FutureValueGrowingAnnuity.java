@@ -10,8 +10,10 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <p>
@@ -38,28 +40,80 @@ import javax.money.MonetaryAmount;
  * <i>Example</i>
  * <p>
  * After solving this equation, the amount after the 5th cash flow would be $11,700.75.
- * 
- * @see http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html
  */
-public final class FutureValueGrowingAnnuity {
+public final class FutureValueGrowingAnnuity implements MonetaryOperator {
+    /**
+     * The discount rate, not null.
+     */
+    private final Rate discountRate;
+    /**
+     * The growth rate, not null.
+     */
+    private final Rate growthRate;
+    /**
+     * the target periods, >= 0.
+     */
+    private final int periods;
 
-	private static final FutureValueGrowingAnnuity INSTANCE = new FutureValueGrowingAnnuity();
+    /**
+     * Constructor.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     */
+    private FutureValueGrowingAnnuity(Rate discountRate, Rate growthRate, int periods) {
+        this.discountRate = Objects.requireNonNull(discountRate);
+        this.growthRate = Objects.requireNonNull(growthRate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	private FutureValueGrowingAnnuity() {
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static FutureValueGrowingAnnuity of(Rate discountRate, Rate growthRate, int periods) {
+        return new FutureValueGrowingAnnuity(discountRate, growthRate, periods);
+    }
 
-	public static final FutureValueGrowingAnnuity of() {
-		return INSTANCE;
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param firstPayment the first payment
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount firstPayment, Rate discountRate, Rate growthRate,
+                                           int periods) {
+        BigDecimal num = BigDecimal.ONE.add(discountRate.get()).pow(periods)
+                .subtract(BigDecimal.ONE.add(growthRate.get()).pow(periods));
+        BigDecimal denum = discountRate.get().subtract(growthRate.get());
+        return firstPayment.multiply(num.divide(denum));
+    }
 
-	public MonetaryAmount calculate(MonetaryAmount firstPayment,
-			Rate discountRate, Rate growthRate,
-			int periods) {
-		BigDecimal num = BigDecimal.ONE.add(discountRate.get()).pow(periods)
-				.subtract(BigDecimal.ONE.add(growthRate.get()).pow(periods));
-		BigDecimal denum = discountRate.get().subtract(growthRate.get());
-		return firstPayment.multiply(num.divide(denum));
-	}
+    @Override
+    public MonetaryAmount apply(MonetaryAmount firstPayment) {
+        return calculate(firstPayment, discountRate, growthRate, periods);
+    }
 
+    @Override
+    public String toString() {
+        return "FutureValueGrowingAnnuity{" +
+                "discountRate=" + discountRate +
+                ", growthRate=" + growthRate +
+                ", periods=" + periods +
+                '}';
+    }
 }

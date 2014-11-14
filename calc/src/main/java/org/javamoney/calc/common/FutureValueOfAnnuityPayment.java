@@ -10,8 +10,10 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20Payment%20(FV)%201.gif" />
@@ -28,30 +30,73 @@ import javax.money.MonetaryAmount;
  * interest bearing account to have a certain balance after a specific period of time, then this
  * wanted balance would be considered the future value. The latter example would use the annuity
  * payment using future value formula as the balance is increasing instead of decreasing:
- * 
- * @see http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
+ *
  * @author Anatole Tresch
  * @author Werner Keil
- * 
+ * @see http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
  */
-public final class FutureValueOfAnnuityPayment extends AbstractPeriodicalFunction {
+final class FutureValueOfAnnuityPayment implements MonetaryOperator {
 
-	private static final FutureValueOfAnnuityPayment INSTANCE = new FutureValueOfAnnuityPayment();
+    /**
+     * the target rate, not null.
+     */
+    private Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private int periods;
 
-	private FutureValueOfAnnuityPayment() {
-	}
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     */
+    FutureValueOfAnnuityPayment(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	public static final FutureValueOfAnnuityPayment of() {
-		return INSTANCE;
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static FutureValueOfAnnuityPayment of(Rate rate, int periods) {
+        return new FutureValueOfAnnuityPayment(rate, periods);
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		return FutureValue.of().calculate(amount, rate, periods).divide(
-				BigDecimal.ONE.add(rate.get()).pow(periods)
-						.subtract(BigDecimal.ONE)
-				);
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the first payment
+     * @param rate    The rate, not null.
+     * @param periods the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        return FutureValue.calculate(amount, rate, periods).divide(
+                BigDecimal.ONE.add(rate.get()).pow(periods)
+                        .subtract(BigDecimal.ONE)
+        );
+    }
 
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
+
+    @Override
+    public String toString() {
+        return "FutureValueOfAnnuityPayment{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
+    }
 }

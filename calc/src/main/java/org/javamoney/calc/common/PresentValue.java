@@ -9,9 +9,12 @@
  */
 package org.javamoney.calc.common;
 
+import com.ibm.icu.math.BigDecimal;
+
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%203.gif" />
@@ -29,27 +32,72 @@ import javax.money.MonetaryAmount;
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%201.gif" />
  * <p>
  * alterantively this can be written also as (which is much easier to implement):<br/>
- * 
- * @see http://www.financeformulas.net/Present_Value.html
+ *
  * @author Anatole Tresch
  * @see http://www.financeformulas.net/Present_Value.html
+ * @see http://www.financeformulas.net/Present_Value.html
  */
-public final class PresentValue extends AbstractPeriodicalFunction {
+public final class PresentValue implements MonetaryOperator {
 
-    private static final PresentValue INSTANCE = new PresentValue();
+    /**
+     * the target rate, not null.
+     */
+    private Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private int periods;
 
-    private PresentValue() {
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     */
+    private PresentValue(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
     }
 
-    public static PresentValue of() {
-        return INSTANCE;
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static PresentValue of(Rate rate, int periods) {
+        return new PresentValue(rate, periods);
+    }
+
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the first payment
+     * @param rate    The rate, not null.
+     * @param periods the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods){
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        return amount.divide(PresentValueFactor.calculate(rate, periods));
     }
 
     @Override
-    public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-                                    int periods) {
-        Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
-        return amount.divide(PresentValueFactor.of().calculate(rate, periods));
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
+
+    @Override
+    public String toString() {
+        return "PresentValue{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
     }
 }

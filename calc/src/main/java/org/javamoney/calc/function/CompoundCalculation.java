@@ -15,8 +15,6 @@
  */
 package org.javamoney.calc.function;
 
-import org.javamoney.calc.Calculation;
-
 
 /**
  * Models an arbitrary complex calculation.
@@ -25,7 +23,7 @@ import org.javamoney.calc.Calculation;
  * 
  * @param <T> the result type.
  */
-public interface CompoundCalculation<T> extends Calculation<CompoundValue,T>{
+public interface CompoundCalculation<T> {
     /**
      * Access the input type descriptor.
      *

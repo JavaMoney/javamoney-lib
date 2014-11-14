@@ -36,67 +36,73 @@ import javax.money.MonetaryOperator;
  * @author Anatole
  * @author Werner
  */
-public final class PresentValueGrowingAnnuityPayment {
+public final class PresentValueGrowingAnnuityPayment implements MonetaryOperator {
 
-	private static final PresentValueGrowingAnnuityPayment INSTANCE = new PresentValueGrowingAnnuityPayment();
+    private Rate discountRate;
+    private Rate growthRate;
+    private int periods;
 
-	private PresentValueGrowingAnnuityPayment() {
-	}
+    /**
+     * Constructor.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    private PresentValueGrowingAnnuityPayment(Rate discountRate, Rate growthRate,
+                                              int periods) {
+        this.discountRate = Objects.requireNonNull(discountRate);
+        this.growthRate = Objects.requireNonNull(growthRate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	public static final PresentValueGrowingAnnuityPayment of() {
-		return INSTANCE;
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static PresentValueGrowingAnnuityPayment of(Rate discountRate, Rate growthRate, int periods) {
+        return new PresentValueGrowingAnnuityPayment(discountRate, growthRate, periods);
+    }
 
-	public MonetaryAmount calculate(MonetaryAmount presentValue,
-			Rate discountRate, Rate growthRate,
-			int periods) {
-		Objects.requireNonNull(presentValue, "presentValue required");
-		Objects.requireNonNull(discountRate, "discountRate required");
-		Objects.requireNonNull(growthRate, "growthRate required");
-		BigDecimal numerator = discountRate.get().subtract(growthRate.get());
-		BigDecimal denum = BigDecimal.ONE.subtract(BigDecimal.ONE
-				.add(growthRate.get())
-				.divide(BigDecimal.ONE.add(discountRate.get())).pow(periods));
-		return presentValue.multiply(numerator.divide(denum));
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param dividend     the dividend payment
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate discountRate, Rate growthRate,
+                                           int periods) {
+        Objects.requireNonNull(amount, "amount required");
+        Objects.requireNonNull(discountRate, "discountRate required");
+        Objects.requireNonNull(growthRate, "growthRate required");
+        BigDecimal numerator = discountRate.get().subtract(growthRate.get());
+        BigDecimal denum = BigDecimal.ONE.subtract(BigDecimal.ONE
+                .add(growthRate.get())
+                .divide(BigDecimal.ONE.add(discountRate.get())).pow(periods));
+        return amount.multiply(numerator.divide(denum));
+    }
 
-	public MonetaryOperator getOperator(Rate discountRate, Rate growthRate, int periods) {
-		return new MonetaryOperatorAdapter(discountRate, growthRate, periods);
-	}
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, discountRate, growthRate, periods);
+    }
 
-	private static final class MonetaryOperatorAdapter implements
-			MonetaryOperator {
-		private Rate discountRate;
-		private Rate growthRate;
-		private int periods;
-
-		public MonetaryOperatorAdapter(Rate discountRate, Rate growthRate,
-				int periods) {
-			Objects.requireNonNull(discountRate);
-			Objects.requireNonNull(growthRate);
-			this.discountRate = discountRate;
-			this.growthRate = growthRate;
-			this.periods = periods;
-		}
-
-		@Override
-		public MonetaryAmount apply(MonetaryAmount amount) {
-			return PresentValueGrowingAnnuityPayment.of().calculate(amount,
-					discountRate, growthRate, periods);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "MonetaryOperatorAdapter:" + " [function="
-					+ PresentValueGrowingAnnuityPayment.class + ", discountRate="
-					+ discountRate + ", growthRate=" + growthRate
-					+ ", periods=" + periods
-					+ "]";
-		}
-
-	}
+    @Override
+    public String toString() {
+        return "PresentValueGrowingAnnuityPayment{" +
+                "discountRate=" + discountRate +
+                ", growthRate=" + growthRate +
+                ", periods=" + periods +
+                '}';
+    }
 }

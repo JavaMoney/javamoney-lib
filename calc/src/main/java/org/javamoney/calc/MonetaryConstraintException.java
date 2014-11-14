@@ -25,7 +25,7 @@ import org.javamoney.calc.function.CompoundValue;
  * 
  * @author Anatole Tresch
  */
-public class ValidationException extends MonetaryException {
+public class MonetaryConstraintException extends MonetaryException {
 
 	/**
 	 * serialVersionUID.
@@ -38,8 +38,8 @@ public class ValidationException extends MonetaryException {
 	 * @param message
 	 *            the exception message
 	 */
-	public ValidationException(String message) {
-		super(message);
+    public MonetaryConstraintException(String message) {
+        super(message);
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class ValidationException extends MonetaryException {
 	 * @param cause
 	 *            the cause, or {@code null}
 	 */
-	public ValidationException(String message, Throwable cause) {
-		super(message, cause);
+    public MonetaryConstraintException(String message, Throwable cause) {
+        super(message, cause);
 	}
 
 }

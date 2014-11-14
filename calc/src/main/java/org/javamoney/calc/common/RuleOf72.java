@@ -17,8 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.Calculation;
-
 /**
  * <p>
  * <img src="http://www.financeformulas.net/Formula%20Images/Rule%20of%2072%201.gif"/> <br/>
@@ -39,21 +37,14 @@ import org.javamoney.calc.Calculation;
  * @see http://www.financeformulas.net/Rule_of_72.html
  * @author Anatole Tresch
  */
-public final class RuleOf72 implements Calculation<Rate, BigDecimal> {
+public final class RuleOf72 {
 
 	private static final BigDecimal BD72 = BigDecimal.valueOf(72);
 	
-	private static final RuleOf72 INSTANCE = new RuleOf72();
-
 	private RuleOf72() {
 	}
 
-	public static final RuleOf72 of() {
-		return INSTANCE;
-	}
-
-	@Override
-	public BigDecimal calculate(Rate input) {
-		return BD72.divide(input.get().multiply(BigDecimal.valueOf(100)));
+    public static BigDecimal calculate(Rate input) {
+        return BD72.divide(input.get().multiply(BigDecimal.valueOf(100)));
 	}
 }

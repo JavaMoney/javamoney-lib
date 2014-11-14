@@ -17,9 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.Calculation;
-
-
 
 /**
  * The Doubling Time formula is used in Finance to calculate the length of time
@@ -33,29 +30,22 @@ import org.javamoney.calc.Calculation;
  * years. In addition to expressing r as the monthly rate if the account is
  * compounded monthly, one could also use the effective annual rate, or annual
  * percentage yield, as r in the doubling time formula.
- * 
- * @see http://www.financeformulas.net/Doubling_Time.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Doubling_Time.html
  */
-public final class DoublingTime implements Calculation<Rate, BigDecimal> {
+public final class DoublingTime {
 
-	private static final DoublingTime INSTANCE = new DoublingTime();
+    private DoublingTime() {
+    }
 
-	private DoublingTime() {
-	}
-
-	public static final DoublingTime of() {
-		return INSTANCE;
-	}
-	
-	/**
-	 * This function returns the number of periods required to double an amount
-	 * with continuous compounding, given a rate.
-	 */
-	@Override
-	public BigDecimal calculate(Rate rate) {
-		return BigDecimal.valueOf(Math.log(2.0d)).divide(
-				BigDecimal.valueOf(Math.log(1.0d)).add(rate.get()));
-	}
+    /**
+     * This function returns the number of periods required to double an amount
+     * with continuous compounding, given a rate.
+     */
+    public static BigDecimal calculate(Rate rate) {
+        return BigDecimal.valueOf(Math.log(2.0d)).divide(
+                BigDecimal.valueOf(Math.log(1.0d)).add(rate.get()));
+    }
 
 }

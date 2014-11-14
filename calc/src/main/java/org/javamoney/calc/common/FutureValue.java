@@ -10,8 +10,10 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * Future Value (FV) is a formula used in finance to calculate the value of a cash flow at a later
@@ -28,35 +30,77 @@ import javax.money.MonetaryAmount;
  * earnings will make additional monies on the earnings from the prior months. For example, if one
  * earns interest of $40 in month one, the next month will earn interest on the original balance
  * plus the $40 from the previous month. This is known as compound interest.
- * 
- * @see http://www.financeformulas.net/Future_Value.html
- *      <p>
- *      <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%201.gif" />
- *      <p>
- *      or...
- * 
- *      <pre>
- * FV(&lt;amount>)  = &lt;amount> * ((1 + &lt;rate>).pow(&lt;periods>))
- * </pre>
+ *
  * @author Anatole Tresch
  * @author Werner Keil
+ * @see http://www.financeformulas.net/Future_Value.html
+ * <p>
+ * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%201.gif" />
+ * <p>
+ * or...
+ * <p>
+ * <pre>
+ * FV(&lt;amount>)  = &lt;amount> * ((1 + &lt;rate>).pow(&lt;periods>))
+ * </pre>
  */
-public final class FutureValue extends AbstractPeriodicalFunction {
+public final class FutureValue implements MonetaryOperator {
+    /**
+     * the target rate, not null.
+     */
+    private final Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private final int periods;
 
-	private static final FutureValue INSTANCE = new FutureValue();
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     */
+    private FutureValue(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	private FutureValue() {
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static FutureValue of(Rate rate, int periods) {
+        return new FutureValue(rate, periods);
+    }
 
-	public static final FutureValue of() {
-		return INSTANCE;
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the base amount, not null.
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        BigDecimal f = (BigDecimal.ONE.add(rate.get())).pow(periods);
+        return amount.multiply(f);
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		BigDecimal f = (BigDecimal.ONE.add(rate.get())).pow(periods);
-		return amount.multiply(f);
-	}
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
 
+    @Override
+    public String toString() {
+        return "FutureValue{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
+    }
 }

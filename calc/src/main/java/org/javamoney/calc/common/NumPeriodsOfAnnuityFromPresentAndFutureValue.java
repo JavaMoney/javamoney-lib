@@ -42,22 +42,16 @@ import javax.money.MonetaryAmount;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class ResolveNumPeriodsOfAnnuityFromPVandFV {
+public final class NumPeriodsOfAnnuityFromPresentAndFutureValue {
 
-	private static final ResolveNumPeriodsOfAnnuityFromPVandFV INSTANCE = new ResolveNumPeriodsOfAnnuityFromPVandFV();
+    private NumPeriodsOfAnnuityFromPresentAndFutureValue() {
+    }
 
-	private ResolveNumPeriodsOfAnnuityFromPVandFV() {
-	}
-
-	public static final ResolveNumPeriodsOfAnnuityFromPVandFV of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(MonetaryAmount annuity,
-			MonetaryAmount paymentOrCashFlows, Rate rate, int periods) {
-		MonetaryAmount pvAnnuity = PresentValueAnnuity.of().calculate(annuity,
-				rate, periods);
-		return new BigDecimal(String.valueOf(Math.log(BigDecimal.ONE
+    public static BigDecimal calculate(MonetaryAmount annuity,
+                                       MonetaryAmount paymentOrCashFlows, Rate rate, int periods) {
+        MonetaryAmount pvAnnuity = PresentValueAnnuity.calculate(
+                annuity, rate, periods);
+        return new BigDecimal(String.valueOf(Math.log(BigDecimal.ONE
 				.subtract(pvAnnuity
 						.divide(paymentOrCashFlows.getNumber()).getNumber()
 						.numberValue(BigDecimal.class)).pow(-1).doubleValue())

@@ -10,8 +10,10 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%201.gif" />
@@ -41,25 +43,71 @@ import javax.money.MonetaryAmount;
  * @author Werner Keil
  * 
  */
-public final class PresentValueAnnuityPayment extends AbstractPeriodicalFunction
-{
-	private static final PresentValueAnnuityPayment INSTANCE = new PresentValueAnnuityPayment();
+public final class PresentValueAnnuityPayment implements MonetaryOperator {
 
-	private PresentValueAnnuityPayment() {
-	}
+    /**
+     * the target rate, not null.
+     */
+    private Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private int periods;
 
-	public static final PresentValueAnnuityPayment of() {
-		return INSTANCE;
-	}
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     */
+    private PresentValueAnnuityPayment(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		// AP(m) = PV(m,r,n) / [ (1-((1 + r).pow(-n))) / r ]
-		return PresentValue.of().calculate(amount, rate, periods).divide(
-				BigDecimal.ONE.subtract((BigDecimal.ONE.add(rate.get())
-						.pow(-1 * periods).divide(rate.get())
-						)));
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static PresentValueAnnuityPayment of(Rate rate, int periods) {
+        return new PresentValueAnnuityPayment(rate, periods);
+    }
 
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the first payment
+     * @param rate    The rate, not null.
+     * @param periods the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        // AP(m) = PV(m,r,n) / [ (1-((1 + r).pow(-n))) / r ]
+        return PresentValue.calculate(amount, rate, periods).divide(
+                BigDecimal.ONE.subtract((BigDecimal.ONE.add(rate.get())
+                        .pow(-1 * periods).divide(rate.get())
+                )));
+    }
+
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
+
+    @Override
+    public String toString() {
+        return "PresentValueAnnuityPayment{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
+    }
 }

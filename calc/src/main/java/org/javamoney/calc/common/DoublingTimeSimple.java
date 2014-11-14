@@ -17,9 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.Calculation;
-
-
 
 /**
  * The doubling time for simple interest is simply 1 divided by the periodic
@@ -28,28 +25,21 @@ import org.javamoney.calc.Calculation;
  * account that has simple interest. Simple interest is interest earned based
  * solely on the principle. In contrast, compound interest is interest earned on
  * principle along with prior interest earned.
- * 
- * @see http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
  */
-public final class DoublingTimeSimple implements Calculation<Rate, BigDecimal> {
+public final class DoublingTimeSimple {
 
-	private static final DoublingTimeSimple INSTANCE = new DoublingTimeSimple();
+    private DoublingTimeSimple() {
+    }
 
-	private DoublingTimeSimple() {
-	}
-
-	public static final DoublingTimeSimple of() {
-		return INSTANCE;
-	}
-	
-	/**
-	 * This function returns the number of periods required to double an amount
-	 * with continuous compounding, given a rate.
-	 */
-	@Override
-	public BigDecimal calculate(Rate rate) {
-		return BigDecimal.ONE.divide(rate.get());
-	}
+    /**
+     * This function returns the number of periods required to double an amount
+     * with continuous compounding, given a rate.
+     */
+    public static BigDecimal calculate(Rate rate) {
+        return BigDecimal.ONE.divide(rate.get());
+    }
 
 }

@@ -15,7 +15,11 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.moneta.spi.MoneyUtils;
+
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
@@ -28,22 +32,13 @@ import javax.money.MonetaryOperator;
  * 
  * @author Anatole Tresch
  */
-public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> for Java 8/9
-	/** The rate factor. */
+public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
+    /** The rate factor. */
 	private BigDecimal rate;
 
-	/**
-	 * Creates a new rate instance.
-	 * 
-	 * @param rate
-	 *            the rate, not {@code null}.
-	 */
-	public Rate(BigDecimal rate) {
-		if (rate == null) {
-			throw new IllegalArgumentException();
-		}
-		this.rate = rate;
-	}
+    private Rate(BigDecimal bd) {
+        this.rate = Objects.requireNonNull(rate);
+    }
 
 	/**
 	 * Creates a new rate instance.
@@ -51,12 +46,19 @@ public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> f
 	 * @param rate
 	 *            the rate, not {@code null}.
 	 */
-	public Rate(Number rate) {
-		if (rate == null) {
-			throw new IllegalArgumentException();
-		}
-		this.rate = BigDecimal.valueOf(rate.doubleValue());
-	}
+    public static Rate of(BigDecimal rate) {
+        return new Rate(rate);
+    }
+
+	/**
+	 * Creates a new rate instance.
+	 * 
+	 * @param rate
+	 *            the rate, not {@code null}.
+	 */
+    public static Rate of(Number rate) {
+        return new Rate(MoneyUtils.getBigDecimal(rate));
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -96,8 +98,9 @@ public final class Rate implements MonetaryOperator { // ,Supplier<BigDecimal> f
 	 * 
 	 * @return
 	 */
-	public BigDecimal get() {
-		return this.rate;
+    @Override
+    public BigDecimal get() {
+        return this.rate;
 	}
 
 	/*

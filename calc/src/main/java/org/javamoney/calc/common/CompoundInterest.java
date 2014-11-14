@@ -10,8 +10,10 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Compound%20Interest%201.gif" />
@@ -28,21 +30,65 @@ import javax.money.MonetaryAmount;
  * @author Werner Keil
  * @see http://www.financeformulas.net/Compound_Interest.html
  */
-public final class CompoundInterest extends AbstractPeriodicalFunction{
+public final class CompoundInterest implements MonetaryOperator {
 
-    private static final CompoundInterest INSTANCE = new CompoundInterest();
+    /**
+     * the target rate, not null.
+     */
+    private final Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private final int periods;
 
-    private CompoundInterest(){
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     */
+    private CompoundInterest(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
     }
 
-    public static final CompoundInterest of(){
-        return INSTANCE;
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static CompoundInterest of(Rate rate, int periods) {
+        return new CompoundInterest(rate, periods);
     }
 
-    @Override
-    public MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods){
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the base amount, not null.
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         BigDecimal f = BigDecimal.ONE.add(rate.get()).pow(periods).subtract(BigDecimal.ONE);
         return amount.multiply(f);
     }
 
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
+
+    @Override
+    public String toString() {
+        return "CompoundInterest{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
+    }
 }

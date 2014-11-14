@@ -37,50 +37,46 @@ import javax.money.MonetaryOperator;
  * @author Werner
  * 
  */
-public final class PresentValuePerpetuity {
-	private static final PresentValuePerpetuity INSTANCE = new PresentValuePerpetuity();
+public final class PresentValuePerpetuity implements MonetaryOperator {
 
-	private PresentValuePerpetuity() {
-	}
+    private Rate rate;
 
-	public static final PresentValuePerpetuity of() {
-		return INSTANCE;
-	}
+    private PresentValuePerpetuity(Rate rate) {
+        this.rate = Objects.requireNonNull(rate);
+    }
 
-	public MonetaryAmount calculate(MonetaryAmount dividend, Rate rate) {
-		return dividend.divide(rate.get());
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param rate The rate, not null.
+     * @return the operator, never null.
+     */
+    public static PresentValuePerpetuity of(Rate rate) {
+        return new PresentValuePerpetuity(rate);
+    }
 
-	public MonetaryOperator getOperator(Rate rate) {
-		return new MonetaryOperatorAdapter(rate);
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param amount the first payment
+     * @param rate   The rate, not null.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate) {
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        return amount.divide(rate.get());
+    }
 
-	private static final class MonetaryOperatorAdapter implements
-			MonetaryOperator {
-		private Rate rate;
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate);
+    }
 
-		public MonetaryOperatorAdapter(Rate rate) {
-			Objects.requireNonNull(rate);
-			this.rate = rate;
-		}
-
-		@Override
-		public MonetaryAmount apply(MonetaryAmount amount) {
-			return PresentValuePerpetuity.of().calculate(amount,
-					rate);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "MonetaryOperatorAdapter:" + " [function="
-					+ PresentValuePerpetuity.class + ", rate="
-					+ rate
-					+ "]";
-		}
-
-	}
+    @Override
+    public String toString() {
+        return "PresentValuePerpetuity{" +
+                "rate=" + rate +
+                '}';
+    }
 }

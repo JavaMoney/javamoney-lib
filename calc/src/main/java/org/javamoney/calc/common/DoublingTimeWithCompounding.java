@@ -17,9 +17,6 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.Calculation;
-
-
 
 /**
  * The formula for doubling time with continuous compounding is used to
@@ -29,28 +26,21 @@ import org.javamoney.calc.Calculation;
  * example, if the monthly rate is used, the answer to the formula will return
  * the number of months it takes to double. If the annual rate is used, the
  * answer will then reflect the number of years to double.
- * 
- * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
  */
-public final class DoublingTimeWithCompounding implements Calculation<Rate, BigDecimal> {
+public final class DoublingTimeWithCompounding {
 
-	private static final DoublingTimeWithCompounding INSTANCE = new DoublingTimeWithCompounding();
+    private DoublingTimeWithCompounding() {
+    }
 
-	private DoublingTimeWithCompounding() {
-	}
-
-	public static final DoublingTimeWithCompounding of() {
-		return INSTANCE;
-	}
-	
-	/**
-	 * This function returnes the number of periods required to double an amount
-	 * with continous compounding, given a rate.
-	 */
-	@Override
-	public BigDecimal calculate(Rate rate) {
-		return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get());
-	}
+    /**
+     * This function returnes the number of periods required to double an amount
+     * with continous compounding, given a rate.
+     */
+    public static BigDecimal calculate(Rate rate) {
+        return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get());
+    }
 
 }

@@ -17,8 +17,9 @@ package org.javamoney.calc.function;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Predicate;
 
-import org.javamoney.calc.ValidationException;
+import org.javamoney.calc.MonetaryConstraintException;
 
 /**
  * Defines a {@link CompoundType} containing several results. Hereby the
@@ -28,170 +29,185 @@ import org.javamoney.calc.ValidationException;
  * A {@link CompoundType} instance is defined to be implemented as immutable
  * object and therefore is very useful for modeling multidimensional results
  * objects or input parameters as they are common in financial applications.
- * 
+ *
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class CompoundType implements Serializable, Nameable {
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 4831291549617485148L;
-    /** The validation preciate to be used, for complex validations of the input. */
-	private final MonetaryPredicate<Map<String, Object>> validationPredicate;
-	/** The defines input parameters, mapped to their required base type. */
+public final class CompoundType implements Serializable {
+    /**
+     * serialVersionUID.
+     */
+    private static final long serialVersionUID = 4831291549617485148L;
+    /**
+     * The validation preciate to be used, for complex validations of the input.
+     */
+    private final Predicate<Map<String, Object>> validationPredicate;
+    /**
+     * The defines input parameters, mapped to their required base type.
+     */
     @SuppressWarnings("rawtypes")
-	private final Map<String, Class> typeDef = new HashMap<>();
-    /** Set of the parameters that are mandatory. */
-	private final Set<String> typeRequired;
-    /** The name of the input type. */
-	private final String name;
+    private final Map<String, Class> typeDef = new HashMap<>();
+    /**
+     * Set of the parameters that are mandatory.
+     */
+    private final Set<String> typeRequired;
+    /**
+     * The name of the input type.
+     */
+    private final String name;
 
     /**
      * Constructor used by builder.
+     *
      * @param builder the Builder instance used.
      */
-	private CompoundType(Builder builder) {
-		this.name = builder.name;
-		this.typeDef.putAll(builder.typeDef);
-		this.typeRequired = builder.typeRequired;
-		this.validationPredicate = builder.validationPredicate;
-	}
+    private CompoundType(Builder builder) {
+        this.name = builder.name;
+        this.typeDef.putAll(builder.typeDef);
+        this.typeRequired = builder.typeRequired;
+        this.validationPredicate = builder.validationPredicate;
+    }
 
-	/**
-	 * A {@link CompoundType}may have a type identifier that helps to identify,
-	 * what type of items object is returned.
-	 * 
-	 * @return the {@link CompoundType}'s type, never null.
-	 */
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * A {@link CompoundType}may have a type identifier that helps to identify,
+     * what type of items object is returned.
+     *
+     * @return the {@link CompoundType}'s type, never null.
+     */
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * This method allows to check if a key within the {@code CompoundType} is a
-	 * required value, so a corresponding {@link CompoundValue} is valid.
-	 * 
-	 * @param key
-	 *            the key
-	 * @return true, if the corresponding value is required, false otherwise.
-	 */
-	public boolean isRequired(String key) {
-		return typeRequired.contains(key);
-	}
+    /**
+     * This method allows to check if a key within the {@code CompoundType} is a
+     * required value, so a corresponding {@link CompoundValue} is valid.
+     *
+     * @param key the key
+     * @return true, if the corresponding value is required, false otherwise.
+     */
+    public boolean isRequired(String key) {
+        return typeRequired.contains(key);
+    }
 
-	/**
-	 * Validates if the given {@link CompoundValue} defines all the attributes
-	 * as required by this {@link CompoundType} instance.
-	 * 
-	 * @param compundValueMap
-	 *            the {@link Map} to be validated before a {@link CompoundValue}
-	 *            is created.
-	 * @throws IllegalArgumentException
-	 *             if validation fails.
-	 */
-	@SuppressWarnings("unchecked")
-	public void validate(Map<String, Object> compundValueMap)
-			throws ValidationException {
-		// Check for required fields to be present
-		for (String key : this.typeRequired) {
-			Object value = compundValueMap.get(key);
-			if (value == null) {
-				throw new ValidationException("Required value '" + key
-						+ "' of type " + typeDef.get(key) + " is missing.");
-			}
-		}
-		// Check the fields type for all possible fields
-		for (@SuppressWarnings("rawtypes")
-		Map.Entry<String, Class> entry : this.typeDef.entrySet()) {
-			Object value = compundValueMap.get(entry.getKey());
-			if (value != null
-					&& !entry.getValue().isAssignableFrom(value.getClass())) {
-				throw new ValidationException("Value  for '"
-						+ entry.getKey()
-						+ "' has invalid type type "
-						+ value.getClass().getName() + ", required: "
-						+ entry.getValue() + ".");
-			}
-		}
-		if (validationPredicate != null
-				&& !validationPredicate.test(compundValueMap)) {
-			throw new ValidationException("Validation predicate failed '"
-					+ validationPredicate + ".");
-		}
-	}
+    /**
+     * Validates if the given {@link CompoundValue} defines all the attributes
+     * as required by this {@link CompoundType} instance.
+     *
+     * @param compundValueMap the {@link Map} to be validated before a {@link CompoundValue}
+     *                        is created.
+     * @throws IllegalArgumentException if validation fails.
+     */
+    @SuppressWarnings("unchecked")
+    public void validate(Map<String, Object> compundValueMap)
+            throws MonetaryConstraintException {
+        // Check for required fields to be present
+        for (String key : this.typeRequired) {
+            Object value = compundValueMap.get(key);
+            if (value == null) {
+                throw new MonetaryConstraintException("Required value '" + key
+                        + "' of type " + typeDef.get(key) + " is missing.");
+            }
+        }
+        // Check the fields type for all possible fields
+        for (@SuppressWarnings("rawtypes")
+        Map.Entry<String, Class> entry : this.typeDef.entrySet()) {
+            Object value = compundValueMap.get(entry.getKey());
+            if (value != null
+                    && !entry.getValue().isAssignableFrom(value.getClass())) {
+                throw new MonetaryConstraintException("Value  for '"
+                        + entry.getKey()
+                        + "' has invalid type type "
+                        + value.getClass().getName() + ", required: "
+                        + entry.getValue() + ".");
+            }
+        }
+        if (validationPredicate != null
+                && !validationPredicate.test(compundValueMap)) {
+            throw new MonetaryConstraintException("Validation predicate failed '"
+                    + validationPredicate + ".");
+        }
+    }
 
     /**
      * Builder for creating new instances of {@link org.javamoney.calc.function.CompoundType}.
      */
-	public static final class Builder {
-        /** The validation preciate to be used, for complex validations of the input. */
-        private MonetaryPredicate<Map<String, Object>> validationPredicate;
-        /** The defines input parameters, mapped to their required base type. */
+    public static final class Builder {
+        /**
+         * The validation preciate to be used, for complex validations of the input.
+         */
+        private Predicate<Map<String, Object>> validationPredicate;
+        /**
+         * The defines input parameters, mapped to their required base type.
+         */
         @SuppressWarnings("rawtypes")
         private Map<String, Class> typeDef = new HashMap<>();
-        /** Set of the parameters that are mandatory. */
+        /**
+         * Set of the parameters that are mandatory.
+         */
         private Set<String> typeRequired = new HashSet<>();
-        /** The name of the input type. */
+        /**
+         * The name of the input type.
+         */
         private String name;
 
         /**
          * Creates a new Builder.
+         *
          * @param name the compound type's name, not null.
          */
-		public Builder(String name) {
+        public Builder(String name) {
             Objects.requireNonNull(name);
             this.name = name;
         }
 
-		public Builder setNameForInput(Class<?> type) {
+        public Builder setNameForInput(Class<?> type) {
             Objects.requireNonNull(type);
-			this.name = type.getName() + "_in";
-			return this;
-		}
+            this.name = type.getName() + "_in";
+            return this;
+        }
 
-		public Builder setNameForOutput(Class<?> type) {
+        public Builder setNameForOutput(Class<?> type) {
             Objects.requireNonNull(type);
-			this.name = type.getName() + "_out";
-			return this;
-		}
+            this.name = type.getName() + "_out";
+            return this;
+        }
 
-		public Builder setName(String name) {
+        public Builder setName(String name) {
             Objects.requireNonNull(name);
-			this.name = name;
-			return this;
-		}
+            this.name = name;
+            return this;
+        }
 
-		public Builder setValidationPredicate(
-				MonetaryPredicate<Map<String, Object>> predicate) {
-			this.validationPredicate = predicate;
-			return this;
-		}
+        public Builder setValidationPredicate(
+                Predicate<Map<String, Object>> predicate) {
+            this.validationPredicate = predicate;
+            return this;
+        }
 
-		public Builder addParameter(String key, Class<?> type) {
-			this.typeDef.put(key, type);
-			return this;
-		}
+        public Builder addParameter(String key, Class<?> type) {
+            this.typeDef.put(key, type);
+            return this;
+        }
 
-		public Builder addRequiredParameter(String key, Class<?> type) {
-			this.typeDef.put(key, type);
-			this.typeRequired.add(key);
-			return this;
-		}
+        public Builder addRequiredParameter(String key, Class<?> type) {
+            this.typeDef.put(key, type);
+            this.typeRequired.add(key);
+            return this;
+        }
 
-		public CompoundType build() {
-			return new CompoundType(this);
-		}
-	}
+        public CompoundType build() {
+            return new CompoundType(this);
+        }
+    }
 
-	public void checkInput(CompoundValue input) {
-		if (input == null) {
-			throw new IllegalArgumentException("Input missing, required: "
-					+ this);
-		}
-		if (!this.equals(input.getCompoundType())) {
-			throw new IllegalArgumentException("Invalid input, was " + input
-					+ ", required: " + this);
-		}
-	}
+    public void checkInput(CompoundValue input) {
+        if (input == null) {
+            throw new IllegalArgumentException("Input missing, required: "
+                    + this);
+        }
+        if (!this.equals(input.getCompoundType())) {
+            throw new IllegalArgumentException("Invalid input, was " + input
+                    + ", required: " + this);
+        }
+    }
 }

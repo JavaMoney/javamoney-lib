@@ -42,19 +42,22 @@ import javax.money.MonetaryAmount;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class ResolveNumPeriodsOfAnnuityFromFV {
+public final class NumPeriodsOfAnnuityFromFutureValue {
 
-	private static final ResolveNumPeriodsOfAnnuityFromFV INSTANCE = new ResolveNumPeriodsOfAnnuityFromFV();
+    private NumPeriodsOfAnnuityFromFutureValue() {
+    }
 
-	private ResolveNumPeriodsOfAnnuityFromFV() {
-	}
-
-	public static final ResolveNumPeriodsOfAnnuityFromFV of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(MonetaryAmount paymentOrCashFlows,
-			MonetaryAmount futureValue, Rate rate, int periods) {
+    /**
+     * See above.
+     *
+     * @param paymentOrCashFlows the payment or cash flows.
+     * @param futureValue        the future value
+     * @param rate               the target rate
+     * @param periods            the number of periods
+     * @return the number of periods.
+     */
+    public static BigDecimal calculate(MonetaryAmount paymentOrCashFlows,
+                                       MonetaryAmount futureValue, Rate rate, int periods) {
 		double num = Math.log(BigDecimal.ONE.add(
 				futureValue.multiply(rate.get()).divide(
 						paymentOrCashFlows.getNumber()).getNumber()

@@ -23,29 +23,24 @@ import java.math.BigDecimal;
  * waiting to receive the same amount with no earnings. An amount of $105 to be received a year from
  * now may be okay if the individual wants $100 today, assuming that the individual can earn 5%
  * otherwise in one year.
- * 
- * @see http://www.financeformulas.net/Future-Value-Factor.html
- * 
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Future-Value-Factor.html
  */
 public final class FutureValueFactor {
 
-	private static final FutureValueFactor INSTANCE = new FutureValueFactor();
+    private static final FutureValueFactor INSTANCE = new FutureValueFactor();
 
-	private FutureValueFactor() {
-	}
+    private FutureValueFactor() {
+    }
 
-	public static final FutureValueFactor of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(Rate rate, int periods) {
-		if (rate == null) {
-			throw new IllegalArgumentException("rate required.");
-		}
-		// 1/((1+r)^n)
-		return BigDecimal.ONE.divide(
-				BigDecimal.ONE.add(rate.get()).pow(periods));
-	}
+    public static BigDecimal calculate(Rate rate, int periods) {
+        if (rate == null) {
+            throw new IllegalArgumentException("rate required.");
+        }
+        // 1/((1+r)^n)
+        return BigDecimal.ONE.divide(
+                BigDecimal.ONE.add(rate.get()).pow(periods));
+    }
 
 }

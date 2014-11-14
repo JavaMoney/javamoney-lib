@@ -29,17 +29,11 @@ import java.util.Objects;
  */
 public final class PresentValueFactor {
 
-	private static final PresentValueFactor INSTANCE = new PresentValueFactor();
-
 	private PresentValueFactor() {
 	}
 
-	public static final PresentValueFactor of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(Rate rate, int periods) {
-		Objects.requireNonNull(rate, "rate required.");
+    public static BigDecimal calculate(Rate rate, int periods) {
+        Objects.requireNonNull(rate, "rate required.");
 		// (1+r)^n
 		return BigDecimal.ONE.add(rate.get()).pow(periods);
 	}

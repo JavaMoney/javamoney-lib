@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javamoney.calc.function;
+package org.javamoney.calc;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,6 +22,9 @@ import java.text.NumberFormat;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
+import org.javamoney.calc.function.CompoundCalculation;
+import org.javamoney.calc.function.CompoundType;
+import org.javamoney.calc.function.CompoundValue;
 import org.javamoney.moneta.Money;
 
 
@@ -35,7 +38,7 @@ import org.javamoney.moneta.Money;
  * @see <a href="http://en.wikipedia.org/wiki/Per_mil">Wikipedia: Per mil</a>
  */
 public final class BasisPoint implements MonetaryOperator,
-		CompoundCalculation<MonetaryAmount> {
+        CompoundCalculation<MonetaryAmount> {
 
 	private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
 	private static final BigDecimal ONE_TENTHOUSAND = new BigDecimal(10000,

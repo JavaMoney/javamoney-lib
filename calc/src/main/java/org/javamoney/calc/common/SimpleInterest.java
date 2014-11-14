@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Simple%20Interest%201.gif" />
@@ -34,25 +35,78 @@ import javax.money.MonetaryAmount;
  * @see http://www.financeformulas.net/Simple_Interest.html
  * @author Anatole Tresch
  */
-public final class SimpleInterest extends AbstractPeriodicalFunction {
+public final class SimpleInterest implements MonetaryOperator {
 
-	private static final SimpleInterest INSTANCE = new SimpleInterest();
+    private Rate rate;
+    private int periods;
 
-	private SimpleInterest() {
-	}
+    private SimpleInterest(Rate rate,
+                           int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
+        this.periods = periods;
+    }
 
-	public static final SimpleInterest of() {
-		return INSTANCE;
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static SimpleInterest of(Rate rate, int periods) {
+        return new SimpleInterest(rate, periods);
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		Objects.requireNonNull(amount, "Amount required");
-		Objects.requireNonNull(rate, "Rate required");
-		BigDecimal factor = BigDecimal.ONE.add(rate.get().multiply(
-				BigDecimal.valueOf(periods)));
-		return amount.multiply(factor);
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the first payment
+     * @param rate    The rate, not null.
+     * @param periods the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        BigDecimal factor = BigDecimal.ONE.add(rate.get().multiply(
+                BigDecimal.valueOf(periods)));
+        return amount.multiply(factor);
+    }
 
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimpleInterest that = (SimpleInterest) o;
+
+        if (periods != that.periods) return false;
+        if (!rate.equals(that.rate)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = rate.hashCode();
+        result = 31 * result + periods;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleInterest{" +
+                "rate=" + rate +
+                ", periods=" + periods +
+                '}';
+    }
 }

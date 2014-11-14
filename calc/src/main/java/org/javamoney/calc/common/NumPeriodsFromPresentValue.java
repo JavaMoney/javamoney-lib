@@ -53,19 +53,13 @@ import javax.money.MonetaryAmount;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class ResolveNumPeriodsFromPV {
+public final class NumPeriodsFromPresentValue {
 
-	private static final ResolveNumPeriodsFromPV INSTANCE = new ResolveNumPeriodsFromPV();
+    private NumPeriodsFromPresentValue() {
+    }
 
-	private ResolveNumPeriodsFromPV() {
-	}
-
-	public static final ResolveNumPeriodsFromPV of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(MonetaryAmount presentValue,
-			MonetaryAmount futureValue, Rate rate, int periods) {
+    public static BigDecimal calculate(MonetaryAmount presentValue,
+                                       MonetaryAmount futureValue, Rate rate, int periods) {
 		double result = Math.log(futureValue.divide(presentValue.getNumber())
 				.getNumber().doubleValue())
 				/ Math.log(1 + rate.get().doubleValue());

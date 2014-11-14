@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javamoney.calc.function;
+package org.javamoney.calc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,57 +26,44 @@ import javax.money.MonetaryOperator;
  * A composition is an operator that contains multiple other operators that are applied as
  * a chain of functions to a MonetaryAmount. This allows to easily encapsulate a chain of operations
  * to a higher valued operation programmatically.
- * 
+ *
  * @author Anatole
  * @author Werner
  */
-public class Composition implements MonetaryOperator, Nameable {
+public class CompositeMonetaryOperator implements MonetaryOperator {
 
-	private List<MonetaryOperator> functions = new ArrayList<>();
+    private List<MonetaryOperator> functions = new ArrayList<>();
 
-    private String name;
-
-	@SafeVarargs
-	public Composition(String name, Iterable<MonetaryOperator>... operations) {
-        Objects.requireNonNull(name);
-        this.name = name;
+    @SafeVarargs
+    public CompositeMonetaryOperator(Iterable<MonetaryOperator>... operations) {
         if (operations != null) {
-			for (Iterable<MonetaryOperator> iterable : operations) {
-				for (MonetaryOperator monetaryOperator : iterable) {
-					functions.add(monetaryOperator);
-				}
-			}
-		}
-	}
-
-	public Composition(String name, MonetaryOperator... operations) {
-        Objects.requireNonNull(name);
-		for (MonetaryOperator monetaryOperator : operations) {
-			functions.add(monetaryOperator);
-		}
-	}
-
-    /**
-     * Get the composition's name.
-     * @return
-     */
-    public String getName(){
-        return name;
+            for (Iterable<MonetaryOperator> iterable : operations) {
+                for (MonetaryOperator monetaryOperator : iterable) {
+                    functions.add(monetaryOperator);
+                }
+            }
+        }
     }
 
-	@Override
-	public MonetaryAmount apply(MonetaryAmount value) {
-		MonetaryAmount amount = value;
-		for (MonetaryOperator op : functions) {
-			amount = op.apply(amount);
-		}
-		return amount;
-	}
+    public CompositeMonetaryOperator(String name, MonetaryOperator... operations) {
+        Objects.requireNonNull(name);
+        for (MonetaryOperator monetaryOperator : operations) {
+            functions.add(monetaryOperator);
+        }
+    }
 
     @Override
-    public String toString(){
-        return "Composition{" + name +
-                ": chain=" + functions +
+    public MonetaryAmount apply(MonetaryAmount value) {
+        MonetaryAmount amount = value;
+        for (MonetaryOperator op : functions) {
+            amount = op.apply(amount);
+        }
+        return amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Composition{chain=" + functions +
                 '}';
     }
 }

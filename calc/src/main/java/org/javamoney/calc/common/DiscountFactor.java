@@ -10,23 +10,32 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author Anatole
  * @author Werner
  */
-public final class DiscountFactor{
+public final class DiscountFactor {
 
-    private static final DiscountFactor INSTANCE = new DiscountFactor();
-
-    private DiscountFactor(){
+    /**
+     * Private constructor.
+     */
+    private DiscountFactor() {
     }
 
-    public static final DiscountFactor of(){
-        return INSTANCE;
-    }
-
-    public BigDecimal calculate(Rate rate, int periods){
+    /**
+     * Calculates the discount factor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the factor calculated.
+     */
+    public static BigDecimal calculate(Rate rate, int periods) {
+        Objects.requireNonNull(rate);
+        if (periods < 0) {
+            throw new IllegalArgumentException("Periods < 0");
+        }
         // (1-(1+r)^n)/1-(1+rate)
         BigDecimal div = BigDecimal.ONE.min(BigDecimal.ONE.add(rate.get()));
         BigDecimal factor = BigDecimal.ONE.subtract(BigDecimal.ONE.add(rate.get()).pow(periods)).divide(div);

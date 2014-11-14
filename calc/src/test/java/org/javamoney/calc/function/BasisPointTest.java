@@ -21,52 +21,52 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 
+import org.javamoney.calc.BasisPoint;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**
  * @author Werner Keil
- * 
  */
 public class BasisPointTest {
 
-	@Test
-	public void testOf() {
-		BasisPoint perc = BasisPoint.of(BigDecimal.ONE);
-		assertNotNull(perc);
-	}
+    @Test
+    public void testOf() {
+        BasisPoint perc = BasisPoint.of(BigDecimal.ONE);
+        assertNotNull(perc);
+    }
 
-	@Test
-	public void testApply() {
-		Money m = Money.of(BigDecimal.valueOf(2.35d), "CHF");
-		assertEquals(Money.of(BigDecimal.valueOf(0.00235d), "CHF"),
-				BasisPoint.of(BigDecimal.TEN).apply(m));
-	}
+    @Test
+    public void testApply() {
+        Money m = Money.of(BigDecimal.valueOf(2.35d), "CHF");
+        assertEquals(Money.of(BigDecimal.valueOf(0.00235d), "CHF"),
+                BasisPoint.of(BigDecimal.TEN).apply(m));
+    }
 
-	@Test
-	public void testApply10() {
-		Money m = Money.of(3, "CHF");
-		assertEquals(Money.of(BigDecimal.valueOf(0.003d), "CHF"),
-				BasisPoint.of(BigDecimal.TEN).apply(m));
-	}
+    @Test
+    public void testApply10() {
+        Money m = Money.of(3, "CHF");
+        assertEquals(Money.of(BigDecimal.valueOf(0.003d), "CHF"),
+                BasisPoint.of(BigDecimal.TEN).apply(m));
+    }
 
-	@Test
-	public void testApply20() {
-		Money m = Money.of(12, "CHF");
-		assertEquals(Money.of(BigDecimal.valueOf(0.024d), "CHF"),
-				BasisPoint.of(BigDecimal.valueOf(20)).apply(m));
-	}
+    @Test
+    public void testApply20() {
+        Money m = Money.of(12, "CHF");
+        assertEquals(Money.of(BigDecimal.valueOf(0.024d), "CHF"),
+                BasisPoint.of(BigDecimal.valueOf(20)).apply(m));
+    }
 
-	@Test
-	public void testApply30() {
-		Money m = Money.of(12, "CHF");
-		assertEquals(Money.of(BigDecimal.valueOf(0.036d), "CHF"),
-				BasisPoint.of(BigDecimal.valueOf(30)).apply(m));
-	}
+    @Test
+    public void testApply30() {
+        Money m = Money.of(12, "CHF");
+        assertEquals(Money.of(BigDecimal.valueOf(0.036d), "CHF"),
+                BasisPoint.of(BigDecimal.valueOf(30)).apply(m));
+    }
 
-	@Test
-	public void testToString() {
-		assertEquals("15\u2031", BasisPoint.of(BigDecimal.valueOf(15))
-				.toString());
-	}
+    @Test
+    public void testToString() {
+        assertEquals("15\u2031", BasisPoint.of(BigDecimal.valueOf(15))
+                .toString());
+    }
 }

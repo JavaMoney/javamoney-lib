@@ -34,17 +34,11 @@ import java.util.Objects;
  */
 public final class PresentValueAnnuityFactor {
 
-	private static final PresentValueAnnuityFactor INSTANCE = new PresentValueAnnuityFactor();
-
 	private PresentValueAnnuityFactor() {
 	}
 
-	public static final PresentValueAnnuityFactor of() {
-		return INSTANCE;
-	}
-
-	public BigDecimal calculate(Rate rate, int periods) {
-		Objects.requireNonNull(rate, "Rate required.");
+    public static BigDecimal calculate(Rate rate, int periods) {
+        Objects.requireNonNull(rate, "Rate required.");
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
 		return BigDecimal.ONE.subtract(
 				BigDecimal.ONE.add(rate.get()).pow(periods * -1))

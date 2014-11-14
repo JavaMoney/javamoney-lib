@@ -14,6 +14,7 @@ import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
 
 /**
  * <img src=
@@ -42,34 +43,66 @@ import javax.money.MonetaryAmount;
  * The future value of annuity with continuous compounding formula applies both of these concepts
  * for one saving in an account that has continuous compounding.
  * </p>
- * 
- * 
- * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
+ *
  * @author Anatole Tresch
+ * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
  */
-public final class FutureValueOfAnnuityWithContCompounding extends
-		AbstractPeriodicalFunction {
+public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOperator {
 
-	private static final FutureValueOfAnnuityWithContCompounding INSTANCE = new FutureValueOfAnnuityWithContCompounding();
+    /**
+     * the target rate, not null.
+     */
+    private Rate rate;
+    /**
+     * the periods, >= 0.
+     */
+    private int periods;
 
-	private FutureValueOfAnnuityWithContCompounding() {
-	}
+    /**
+     * Private constructor.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods.
+     */
+    private FutureValueOfAnnuityWithContCompounding(Rate rate, int periods) {
+        this.rate = Objects.requireNonNull(rate);
+        this.periods = periods;
+    }
 
-	public static final FutureValueOfAnnuityWithContCompounding of() {
-		return INSTANCE;
-	}
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param discountRate The discount rate, not null.
+     * @param growthRate   The growth rate, not null.
+     * @param periods      the target periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static FutureValueOfAnnuityWithContCompounding of(Rate rate, int periods) {
+        return new FutureValueOfAnnuityWithContCompounding(rate, periods);
+    }
 
-	@Override
-	public MonetaryAmount calculate(MonetaryAmount amount, Rate rate,
-			int periods) {
-		Objects.requireNonNull(amount, "Amount required");
-		Objects.requireNonNull(rate, "Rate required");
-		// FVofA/CC = CF * [ (e.pow(r*n) - 1) / ((e.pow(r) - 1)) ]
-		double num = Math.pow(Math.E, rate.get().doubleValue() * periods) - 1.0;
-		double denum = Math.pow(Math.E, rate.get().doubleValue()) - 1.0;
-		BigDecimal factor = new BigDecimal(num, MathContext.DECIMAL64)
-				.divide(new BigDecimal(denum, MathContext.DECIMAL64));
-		return amount.multiply(factor);
-	}
+    /**
+     * Performs the calculation.
+     *
+     * @param amount  the first payment
+     * @param rate    The rate, not null.
+     * @param periods the target periods, >= 0.
+     * @return the resulting amount, never null.
+     */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        Objects.requireNonNull(amount, "Amount required");
+        Objects.requireNonNull(rate, "Rate required");
+        // FVofA/CC = CF * [ (e.pow(r*n) - 1) / ((e.pow(r) - 1)) ]
+        double num = Math.pow(Math.E, rate.get().doubleValue() * periods) - 1.0;
+        double denum = Math.pow(Math.E, rate.get().doubleValue()) - 1.0;
+        BigDecimal factor = new BigDecimal(num, MathContext.DECIMAL64)
+                .divide(new BigDecimal(denum, MathContext.DECIMAL64));
+        return amount.multiply(factor);
+    }
+
+    @Override
+    public MonetaryAmount apply(MonetaryAmount amount) {
+        return calculate(amount, rate, periods);
+    }
 
 }
