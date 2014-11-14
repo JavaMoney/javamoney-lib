@@ -29,12 +29,7 @@
     </licenses>
 
     <modules>
-        <module>data</module>
-        <module>currencies</module>
         <module>calc</module>
-        <module>format</module>
-        <module>regions</module>
-        <module>validity</module>
         <module>bundles</module>
     </modules>
 

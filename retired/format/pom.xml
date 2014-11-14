@@ -1,20 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.javamoney.lib</groupId>
         <artifactId>javamoney-lib</artifactId>
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.javamoney.bundles</groupId>
-    <artifactId>javamoney-bundles</artifactId>
-    <name>Money and Currency - JavaMoney Bundles</name>
-    <packaging>pom</packaging>
+    <artifactId>javamoney-format</artifactId>
+    <name>Money and Currency - JavaMoney Format</name>
+    <packaging>jar</packaging>
+    <!-- bundle -->
 
-    <modules>
-        <module>java-se-cdi</module>
-        <module>java-ee</module>
-    </modules>
-    <description>Parent for JavaMoney Bundles</description>
+
 </project>
