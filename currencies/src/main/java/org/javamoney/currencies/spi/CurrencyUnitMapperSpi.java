@@ -22,29 +22,26 @@ import javax.money.spi.Bootstrap;
  * This class models mappings for {@link CurrencyUnit} instances. It is used by
  * the {@link CurrencyMappingsSingletonSpi} implementation.<br>
  * It is the responsibility of the {@link Bootstrap} loader to load the and
- * manage the instances of {@link CurrencyUnitMapperSpi}. 
+ * manage the instances of {@link CurrencyUnitMapperSpi}.
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
  * in a EE context.
- * 
+ *
  * @author Anatole Tresch
  * @author Werner Keil
  */
 public interface CurrencyUnitMapperSpi {
 
-	/**
-	 * This method maps the given {@link CurrencyUnit} to another
-	 * {@link CurrencyUnit} with the given target namespace.
-	 * 
-	 * @param currencyUnit
-	 *            The source unit, never {@code null}.
-	 * @param targetNamespace
-	 *            the target currency namespace, never {@code null}.
-	 * @param timestamp
-	 *            the target timestamp, may be {@code null}.
-	 * @return The mapped {@link CurrencyUnit}, or {@code null}.
-	 */
-	public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
-			Long timestamp);
+    /**
+     * This method maps the given {@link CurrencyUnit} to another
+     * {@link CurrencyUnit} with the given target namespace.
+     *
+     * @param currencyUnit    The source unit, never {@code null}.
+     * @param targetNamespace the target currency namespace, never {@code null}.
+     * @param timestamp       the target timestamp, may be {@code null}.
+     * @return The mapped {@link CurrencyUnit}, or {@code null}.
+     */
+    public CurrencyUnit map(CurrencyUnit currencyUnit, String targetNamespace,
+                            Long timestamp);
 
 }

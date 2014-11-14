@@ -1,6 +1,7 @@
 package org.javamoney.currencies;
 
 //import org.javamoney.moneta.BuildableCurrencyUnit;
+
 import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.junit.Test;
 
@@ -12,17 +13,17 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class CurrencyMappingsTest{
+public class CurrencyMappingsTest {
 
     @Test
-    public void testGetNamespaces(){
+    public void testGetNamespaces() {
         Set<String> namespaces = CurrencyMappings.getNamespaces();
         assertNotNull(namespaces);
         assertTrue(namespaces.contains("ISO-4217"));
     }
 
     @Test
-    public void testIsNamespaceAvailable(){
+    public void testIsNamespaceAvailable() {
         assertTrue(CurrencyMappings.isNamespaceAvailable("ISO-4217"));
         assertFalse(CurrencyMappings.isNamespaceAvailable("foo"));
     }
@@ -41,7 +42,7 @@ public class CurrencyMappingsTest{
 //    }
 
     @Test
-    public void testNamespacesString(){
+    public void testNamespacesString() {
         Set<String> ns = CurrencyMappings.getNamespaces("CHF");
         assertNotNull(ns);
         assertFalse(ns.isEmpty());
@@ -49,7 +50,7 @@ public class CurrencyMappingsTest{
     }
 
     @Test
-    public void testNamespacesCurrencyUnit(){
+    public void testNamespacesCurrencyUnit() {
         Set<String> ns = CurrencyMappings.getNamespaces(MonetaryCurrencies.getCurrency("GBP"));
         assertNotNull(ns);
         assertFalse(ns.isEmpty());

@@ -29,52 +29,49 @@ import javax.money.spi.Bootstrap;
  * <p>
  * Implementation of this interface must be thread-safe, but can be contextual
  * in a EE context.
- * 
+ *
  * @author Anatole Tresch
  * @author Werner Keil
  */
 public interface CurrencyUnitNamespaceProviderSpi {
 
-	/**
-	 * Access the namespaces this provider defines. An instance of
-	 * {@link CurrencyUnitNamespaceProviderSpi} may define multiple namespaces containing
-	 * {@link CurrencyUnit}. Nevertheless multiple implementations of
-	 * Additionally a {@link CurrencyUnit} may be part of multiple namespaces,
-	 * if they do not conflict related to their currency code or numericCode (if
-	 * defined).
-	 * 
-	 * @return the namespaces that this provider defines, never {@code null}.
-	 */
-	public Collection<String> getNamespaces();
+    /**
+     * Access the namespaces this provider defines. An instance of
+     * {@link CurrencyUnitNamespaceProviderSpi} may define multiple namespaces containing
+     * {@link CurrencyUnit}. Nevertheless multiple implementations of
+     * Additionally a {@link CurrencyUnit} may be part of multiple namespaces,
+     * if they do not conflict related to their currency code or numericCode (if
+     * defined).
+     *
+     * @return the namespaces that this provider defines, never {@code null}.
+     */
+    public Collection<String> getNamespaces();
 
-	/**
-	 * Access all {@link CurrencyUnit} instances.
-	 * 
-	 * @param namespace
-	 *            The target namespace, never {@code null}.
-	 * @return the {@link CurrencyUnit} instances known to this provider
-	 *         instance, never {@code null}. If the provider can not provide a
-	 *         full list of all currencies an empty {@link Collection} should be
-	 *         returned.
-	 */
-	public Collection<CurrencyUnit> getCurrencies(String namespace);
+    /**
+     * Access all {@link CurrencyUnit} instances.
+     *
+     * @param namespace The target namespace, never {@code null}.
+     * @return the {@link CurrencyUnit} instances known to this provider
+     * instance, never {@code null}. If the provider can not provide a
+     * full list of all currencies an empty {@link Collection} should be
+     * returned.
+     */
+    public Collection<CurrencyUnit> getCurrencies(String namespace);
 
-	/**
-	 * Checks if a given namespace is known to this provider.
-	 * 
-	 * @param namespace
-	 *            the namespace id, not {@code null}.
-	 * @return {@code true} if the namespace is served by this provider.
-	 */
-	public boolean isNamespaceAvailable(String namespace);
+    /**
+     * Checks if a given namespace is known to this provider.
+     *
+     * @param namespace the namespace id, not {@code null}.
+     * @return {@code true} if the namespace is served by this provider.
+     */
+    public boolean isNamespaceAvailable(String namespace);
 
-	/**
-	 * Reverse mapping of a currencyCode to its namespaces.
-	 * 
-	 * @param currencyCode
-	 *            the currencyCode, not {@code null}
-	 * @return the set of namespaces for the given code, never {@code null}.
-	 */
-	public Set<String> getNamespaces(String currencyCode);
+    /**
+     * Reverse mapping of a currencyCode to its namespaces.
+     *
+     * @param currencyCode the currencyCode, not {@code null}
+     * @return the set of namespaces for the given code, never {@code null}.
+     */
+    public Set<String> getNamespaces(String currencyCode);
 
 }

@@ -22,7 +22,7 @@ import org.javamoney.currencies.spi.CurrencyMappingsSingletonSpi;
  * @author Anatole Tresch
  */
 @Singleton
-public class DefaultMonetaryCurrenciesSingletonSpi implements CurrencyMappingsSingletonSpi{
+public class DefaultCurrencyMappingsSingletonSpi implements CurrencyMappingsSingletonSpi {
 
     /**
      * This method allows to evaluate, if the given currency namespace is

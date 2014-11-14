@@ -1,1 +1,1 @@
-org.javamoney.currencies.internal.DefaultMonetaryCurrenciesSingletonSpi
+org.javamoney.currencies.internal.DefaultCurrencyMappingsSingletonSpi
