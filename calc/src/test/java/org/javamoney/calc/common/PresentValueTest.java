@@ -22,12 +22,11 @@ public class PresentValueTest{
 
     @Test
     public void test(){
-        PresentValue f = PresentValue.of();
         Money money = Money.of(100, "CHF");
         MonetaryRounding rounding = MonetaryRoundings
                 .getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN).build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), f.calculate(money, new Rate(0.05), 1).with(rounding));
-        assertEquals(Money.of(new BigDecimal("90.70"), "CHF"), f.calculate(money, new Rate(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), f.calculate(money, new Rate(0.05), 3).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 1).with(rounding));
+        assertEquals(Money.of(new BigDecimal("90.70"), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 2).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 3).with(rounding));
     }
 }

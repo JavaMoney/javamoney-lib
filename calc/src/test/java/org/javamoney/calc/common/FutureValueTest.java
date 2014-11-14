@@ -18,6 +18,7 @@ package org.javamoney.calc.common;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javax.money.*;
 
 import org.javamoney.moneta.Money;
@@ -27,15 +28,13 @@ import org.junit.Test;
 public class FutureValueTest{
 
     @Test
-    @Ignore("rounding apply doesn't work as expected")
     public void test(){
-        FutureValue f = FutureValue.of();
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2)
-                                                                          //.setRoundingMode(RoundingMode.HALF_EVEN)
-                                                                          .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), f.calculate(money, new Rate(0.05), 1).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.7), "CHF"), f.calculate(money, new Rate(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), f.calculate(money, new Rate(0.05), 3).with(rounding));
+                .set(RoundingMode.HALF_EVEN)
+                .build());
+        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(90.7), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 3).with(rounding));
     }
 }

@@ -36,7 +36,7 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
     /** The rate factor. */
 	private BigDecimal rate;
 
-    private Rate(BigDecimal bd) {
+    private Rate(BigDecimal rate) {
         this.rate = Objects.requireNonNull(rate);
     }
 
