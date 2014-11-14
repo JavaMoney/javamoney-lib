@@ -31,6 +31,7 @@
     <modules>
         <module>calc</module>
         <module>bundles</module>
+        <module>integration</module>
     </modules>
 
     <build>

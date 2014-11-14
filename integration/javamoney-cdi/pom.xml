@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>org.javamoney.integration</groupId>
+        <artifactId>javamoney-integration</artifactId>
+        <version>0.5-SNAPSHOT</version>
+	</parent>
+    <artifactId>javamoney-cdi</artifactId>
+    <name>JavaMoney - CDI Integration</name>
+    <description>Implementation of JSR 354 Bootstrap mechanism that uses CDI in additiona to the ServiceLoader for
+        locating components.
+    </description>
+
+    <dependencies>
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>1.1.5.Final</version>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+            <scope>provided</scope>
+        </dependency>
+	</dependencies>
+
+</project>

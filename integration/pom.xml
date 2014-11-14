@@ -7,13 +7,14 @@
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.javamoney.bundles</groupId>
-    <artifactId>javamoney-bundles</artifactId>
-    <name>Money and Currency - JavaMoney Bundles</name>
+    <groupId>org.javamoney.integration</groupId>
+    <artifactId>javamoney-integration</artifactId>
     <packaging>pom</packaging>
+    <name>Money and Currency - JavaMoney Integration Libraries</name>
+    <description>Parent for JavaMoney Integration Extensions</description>
 
     <modules>
-        <module>javamoney-all</module>
+        <module>javamoney-cdi</module>
     </modules>
-    <description>Parent for JavaMoney Bundles</description>
+
 </project>

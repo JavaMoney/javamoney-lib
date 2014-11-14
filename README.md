@@ -1,12 +1,22 @@
 Java Money and Currency - Modules that are not part of JSR 354
 ==============================================================
 
-JavaMoney-lib is a financial library that is built upon JSR 354 (or compatible libraries).
-Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR development as a proof of concept:
+WARNING: The modules in this area are not production ready. Use them on your own risk. APIs as well as packaging
+         may change at anytime!!
+ 
+JavaMoney-lib provides extensions built upon JSR 354 (or compatible libraries).
+Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies 
+and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR 
+development as a proof of concept:
 
-* [**Currency Conversion**](currencies), supporting multiple conversion data providers, direct and derived (chained) rates, current, as well as historic conversion.
-Also feed implementations from the European Central Bank (EZB) and the International Monetary Funds (IMF) were available, that support currency conversion back to 1995 for almost every ISO currency.
-* Currency Services, provide a EE styled service, which allows querying currencies available and supports mapping between different currency naming schemes.
+* [**Calculation**](javamoney-calc) finally provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
+* [**Bundles**](bundles) provides easy to use bundles for depend upon:
+  * [**javamoney-all**](bundles/java-money-all) provides a pom that imports everything you need (API, RI and the released JavaMoney libraries).
+* [**Integration**](integration) provides bootstraping extensions that change the JavaMoney runtime capabilities:
+ * [**javamoney-cdi**](integration/javamoney-cdi) Integrates JavaMoney with CDI, so SPIs can as well be loaded from CDI.
+
+Currently the following modules are retired (not actively maintained or released):
+
 * [**Formatting**](format) provides an extendable formatting library that allows to define complex formatters, that can be configured in arbitrary ways using `LocalizationStyle` instances.
 Also available is a flexible Builder for creating arbitrary complex formatters and parsers based on an ordered set of arbitrary tokens.
 * [**Region API**](regions) provides a forest (a set of trees) of regions. This allows to model regional hierarchies in a more flexible and intuitive way, than adding all functionalities into `java.util.Locale`.
@@ -14,12 +24,7 @@ By default the Unicode CLDR region tree, well as ISO countries defined by the 2-
 Of course, the API is fully extendible, so customer related regions such as legal units, customer segments etc can be mapped easily to this API, also.
 * [**Validity API**](validity) This API provides a generic API for accessing historic validity information for arbitrary items, and for relationships between items.
 By default the API provides access to the historic relationship of currencies to countries using the Unicode CLDR data.
-* [**Calculation**](calc) finally provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
 * [**Data**](data) JavaMoney Data
-* [**Bundles for particular Java Environments**](bundles) finally provides the library in different flavors, targeting different execution environments:
-  * [**se-cdi**](bundles/java-se-cdi) CDI SE Standalone Bundle: loading SPIs based on a Weld SE container.
-  * [**ee**](bundles/java-ee) Java EE Functionality: loading SPIs based on CDI in a Java EE environment >= EE6.
-
 
 To use the library you simply have to add the Maven dependency to your project (tbd)
 
