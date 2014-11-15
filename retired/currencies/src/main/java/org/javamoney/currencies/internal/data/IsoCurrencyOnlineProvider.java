@@ -33,6 +33,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
+import java.util.Currency;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -81,7 +82,7 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi{
         if(!query.getCurrencyCodes().isEmpty()){
             for(String code : query.getCurrencyCodes()){
                 CurrencyUnit cu = this.currencies.get(code);
-                if(cu != null){
+                if(cu != null && !isJDKCurrency(code)){
                     currencies.add(cu);
                 }
             }
@@ -89,6 +90,16 @@ public class IsoCurrencyOnlineProvider implements CurrencyProviderSpi{
             currencies.addAll(this.currencies.values());
         }
         return currencies;
+    }
+
+    private boolean isJDKCurrency(String code){
+        try{
+            Currency.getInstance(code);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
     }
 
     public void loadCurrencies(){

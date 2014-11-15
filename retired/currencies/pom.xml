@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>javamoney-data</artifactId>
+            <artifactId>javamoney-cldr-data</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
