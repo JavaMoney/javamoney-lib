@@ -20,6 +20,40 @@ import org.junit.Test;
 
 public class PresentValueTest{
 
+    /**
+     * Method: of(Rate rate, int periods)
+     */
+    @Test
+    public void testOf() throws Exception {
+//TODO: Test goes here...
+    }
+
+    /**
+     * Method: calculate(MonetaryAmount amount, Rate rate, int periods)
+     */
+    @Test
+    public void testCalculate() throws Exception {
+//TODO: Test goes here...
+    }
+
+    /**
+     * Method: apply(MonetaryAmount amount)
+     */
+    @Test
+    public void testApply() throws Exception {
+//TODO: Test goes here...
+    }
+
+    /**
+     * Method: toString()
+     */
+    @Test
+    public void testToString() throws Exception {
+//TODO: Test goes here...
+    }
+
+
+
     @Test
     public void test(){
         Money money = Money.of(100, "CHF");
