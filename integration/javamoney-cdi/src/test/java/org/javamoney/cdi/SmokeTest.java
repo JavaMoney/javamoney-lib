@@ -33,6 +33,8 @@ import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 
 import org.javamoney.moneta.Money;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,10 @@ import org.slf4j.LoggerFactory;
 public class SmokeTest {
     private static final Logger logger = LoggerFactory.getLogger(SmokeTest.class);
 
+    @BeforeClass
+    public static final void startContainer() {
+        SEContainer.start();
+    }
 
     @Test
     public void testCreateAmounts() {
@@ -107,5 +113,12 @@ public class SmokeTest {
         // Creating one
         CurrencyUnit currency = MonetaryCurrencies.getCurrency("INR");
         assertNotNull(currency);
+        currency = MonetaryCurrencies.getCurrency("CDITest");
+        assertNotNull(currency);
+    }
+
+    @AfterClass
+    public static final void stopContainer() {
+        SEContainer.stop();
     }
 }

@@ -18,16 +18,18 @@
  */
 package org.javamoney.cdi;
 
-import java.lang.annotation.Annotation;
-import java.util.Set;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Named;
-
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
-public final class CDIContainer {
+import javax.enterprise.inject.Instance;
+import javax.inject.Named;
+import java.lang.annotation.Annotation;
+import java.util.Set;
+
+/**
+ * Small herlper class for starting CDI for testing.
+ */
+public final class SEContainer {
 
     private static boolean hookRegistered = false;
     private static Weld weld;
@@ -65,7 +67,7 @@ public final class CDIContainer {
                 Runtime.getRuntime().addShutdownHook(new Thread() {
                     @Override
                     public void run() {
-                        CDIContainer.stop();
+                        SEContainer.stop();
                     }
                 });
                 hookRegistered = true;
