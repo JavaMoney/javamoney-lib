@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.javamoney.lib</groupId>
         <artifactId>javamoney-lib</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.6-SNAPSHOT</version>
     </parent>
 
     <groupId>org.javamoney.integration</groupId>
