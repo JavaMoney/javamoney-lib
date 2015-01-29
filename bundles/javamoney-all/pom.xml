@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.javamoney.bundles</groupId>
 		<artifactId>javamoney-bundles</artifactId>
-		<version>0.5-SNAPSHOT</version>
+		<version>0.5</version>
 	</parent>
     <artifactId>javamoney-all</artifactId>
     <name>JavaMoney - Bundle with all JavaMoney Released Libraries</name>
@@ -15,7 +15,7 @@
 		<dependency>
             <groupId>org.javamoney.lib</groupId>
             <artifactId>javamoney-calc</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.5</version>
         </dependency>
 	</dependencies>
 

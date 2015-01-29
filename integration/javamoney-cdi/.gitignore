@@ -1,2 +1,3 @@
 /integration/java-se-cdi/target
 /.classpath
+/.resourceCache

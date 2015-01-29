@@ -5,12 +5,11 @@
     <parent>
         <groupId>org.javamoney.lib</groupId>
         <artifactId>javamoney-lib</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.5</version>
     </parent>
 
     <artifactId>javamoney-calc</artifactId>
     <name>Money and Currency - JavaMoney Calculations</name>
     <packaging>jar</packaging>
     <!-- bundle -->
-
 </project>
