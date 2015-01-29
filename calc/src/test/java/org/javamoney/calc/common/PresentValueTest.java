@@ -58,7 +58,7 @@ public class PresentValueTest{
     public void test(){
         Money money = Money.of(100, "CHF");
         MonetaryRounding rounding = MonetaryRoundings
-                .getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN).build());
+                .getRounding(RoundingQueryBuilder.of().setScale(2).setRoundingName("r1").build());
         assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 1).with(rounding));
         assertEquals(Money.of(new BigDecimal("90.70"), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 2).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 3).with(rounding));

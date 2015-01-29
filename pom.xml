@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <jsr.version>0.9-SNAPSHOT</jsr.version>
+        <jsr.version>1.0-RC1</jsr.version>
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
@@ -31,7 +31,7 @@
     <modules>
         <module>calc</module>
         <module>bundles</module>
-        <module>integration</module>
+        <!-- module>integration</module> -->
     </modules>
 
     <build>

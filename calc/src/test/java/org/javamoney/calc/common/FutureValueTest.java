@@ -63,7 +63,7 @@ public class FutureValueTest{
     public void test(){
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2)
-                .set(RoundingMode.HALF_EVEN)
+                .setRoundingName("r1")
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(90.7), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
