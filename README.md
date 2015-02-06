@@ -1,7 +1,7 @@
 Java Money and Currency - Modules that are not part of JSR 354
 ==============================================================
 
-WARNING: The modules in this area are not production ready. Use them on your own risk. APIs as well as packaging
+WARNING: The modules in this area are subject to change. Use them on your own risk. APIs as well as packaging
          may change at anytime!!
  
 JavaMoney-lib provides extensions built upon JSR 354 (or compatible libraries).
