@@ -9,7 +9,7 @@ Whereas the JSR 354 API and reference implementation provides the fundamentals l
 and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR 
 development as a proof of concept:
 
-* [**Calculation**](javamoney-calc) finally provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
+* [**Calculation**](javamoney-calc) provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
 * [**Bundles**](bundles) provides easy to use bundles for depend upon:
   * [**javamoney-all**](bundles/java-money-all) provides a pom that imports everything you need (API, RI and the released JavaMoney libraries).
 * [**Integration**](integration) provides bootstraping extensions that change the JavaMoney runtime capabilities:
