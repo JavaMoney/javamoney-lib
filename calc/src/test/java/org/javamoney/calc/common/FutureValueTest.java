@@ -15,24 +15,33 @@
  */
 package org.javamoney.calc.common;
 
-import static org.junit.Assert.assertEquals;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import javax.money.*;
-
 import org.javamoney.moneta.Money;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class FutureValueTest{
+import javax.money.MonetaryOperator;
+import javax.money.MonetaryRoundings;
+import javax.money.RoundingQueryBuilder;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Tests for {@link org.javamoney.calc.common.FutureValue} formula.
+ */
+public class FutureValueTest {
 
     /**
      * Method: of(Rate rate, int periods)
      */
     @Test
-    public void testOf() throws Exception {
-//TODO: Test goes here...
+    public void testOfAndApply() throws Exception {
+        Money money = Money.of(100, "CHF");
+        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+                .build());
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), money.with(FutureValue.of(Rate.of(0.07), 11)).with(rounding));
     }
 
     /**
@@ -40,15 +49,12 @@ public class FutureValueTest{
      */
     @Test
     public void testCalculate() throws Exception {
-//TODO: Test goes here...
-    }
-
-    /**
-     * Method: apply(MonetaryAmount amount)
-     */
-    @Test
-    public void testApply() throws Exception {
-//TODO: Test goes here...
+        Money money = Money.of(100, "CHF");
+        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+                .build());
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, Rate.of(0.07), 11).with(rounding));
     }
 
     /**
@@ -56,17 +62,18 @@ public class FutureValueTest{
      */
     @Test
     public void testToString() throws Exception {
-//TODO: Test goes here...
+        assertEquals("FutureValue{rate=Rate[0.05], periods=1}", FutureValue.of(Rate.of(0.05), 1).toString());
+        assertEquals("FutureValue{rate=Rate[0.05], periods=2}", FutureValue.of(Rate.of(0.05), 2).toString());
+        assertEquals("FutureValue{rate=Rate[0.07], periods=11}", FutureValue.of(Rate.of(0.07), 11).toString());
     }
 
     @Test
-    public void test(){
+    public void testFormula() {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2)
-                .setRoundingName("r1")
+        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.7), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 3).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, Rate.of(0.07), 11).with(rounding));
     }
 }

@@ -18,14 +18,22 @@ import javax.money.*;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
+/**
+ * Tests for the {@link org.javamoney.calc.common.PresentValue} formula calculator.
+ */
 public class PresentValueTest{
 
     /**
      * Method: of(Rate rate, int periods)
      */
     @Test
-    public void testOf() throws Exception {
-//TODO: Test goes here...
+    public void testOfAndApply() throws Exception {
+        Money money = Money.of(100, "CHF");
+        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+                .build());
+        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(47.51), "CHF"), money.with(PresentValue.of(Rate.of(0.07), 11)).with(rounding));
     }
 
     /**
@@ -33,15 +41,12 @@ public class PresentValueTest{
      */
     @Test
     public void testCalculate() throws Exception {
-//TODO: Test goes here...
-    }
-
-    /**
-     * Method: apply(MonetaryAmount amount)
-     */
-    @Test
-    public void testApply() throws Exception {
-//TODO: Test goes here...
+        Money money = Money.of(100, "CHF");
+        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+                .build());
+        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 1).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 2).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(47.51), "CHF"), PresentValue.calculate(money, Rate.of(0.07), 11).with(rounding));
     }
 
     /**
@@ -49,18 +54,9 @@ public class PresentValueTest{
      */
     @Test
     public void testToString() throws Exception {
-//TODO: Test goes here...
+        assertEquals("PresentValue{rate=Rate[0.05], periods=1}", PresentValue.of(Rate.of(0.05), 1).toString());
+        assertEquals("PresentValue{rate=Rate[0.05], periods=2}", PresentValue.of(Rate.of(0.05), 2).toString());
+        assertEquals("PresentValue{rate=Rate[0.07], periods=11}", PresentValue.of(Rate.of(0.07), 11).toString());
     }
 
-
-
-    @Test
-    public void test(){
-        Money money = Money.of(100, "CHF");
-        MonetaryRounding rounding = MonetaryRoundings
-                .getRounding(RoundingQueryBuilder.of().setScale(2).setRoundingName("r1").build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 1).with(rounding));
-        assertEquals(Money.of(new BigDecimal("90.70"), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(86.38), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 3).with(rounding));
-    }
 }
