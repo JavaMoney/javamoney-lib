@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
  	<version>0.6-SNAPSHOT</version>
     <properties>
-        <jsr.version>1.0-SNAPSHOT</jsr.version>
+        <jsr.version>1.0-RC2</jsr.version>
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
