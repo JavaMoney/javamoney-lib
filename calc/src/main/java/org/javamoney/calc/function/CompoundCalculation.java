@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
+ *  Copyright (c) 2012, 2015, Credit Suisse (Anatole Tresch), Werner Keil.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ package org.javamoney.calc.function;
  * 
  * @param <T> the result type.
  */
-public interface CompoundCalculation<T> {
+public interface CompoundCalculation<T>{
     /**
      * Access the input type descriptor.
      *
@@ -46,5 +46,4 @@ public interface CompoundCalculation<T> {
      * @throws javax.money.MonetaryException if input validation fails, or an other monetary errors occurring.
      */
     public T calculate(CompoundValue input);
-
 }
