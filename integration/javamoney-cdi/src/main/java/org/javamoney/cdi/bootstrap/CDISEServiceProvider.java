@@ -20,32 +20,22 @@ package org.javamoney.cdi.bootstrap;
 
 import java.util.*;
 
-import javax.enterprise.inject.Instance;
+import javax.annotation.Priority;
 import javax.money.spi.ServiceProvider;
 
 import org.javamoney.moneta.internal.PriorityAwareServiceProvider;
-import org.javamoney.moneta.spi.ServicePriority;
 
 /**
  * Overriding ServiceProvider that actually tries to satisfy component requests from CDI,
  * where possible. Additionally ServiceLoader based service are loaded and are returned
  * ONLY, when not the same service is loaded as well in CDI.
  */
+@Priority(100)
 public class CDISEServiceProvider implements ServiceProvider {
     /**
      * Default provider, using ServiceLoader.
      */
     private ServiceProvider defaultServiceProvider = new PriorityAwareServiceProvider();
-
-    /**
-     * Get the components priority, which returns 100.
-     *
-     * @return 100.
-     */
-    @Override
-    public int getPriority() {
-        return 100;
-    }
 
     @Override
     public <T> List<T> getServices(Class<T> serviceType) {
@@ -63,6 +53,15 @@ public class CDISEServiceProvider implements ServiceProvider {
         }
         instances.sort(PriorityAwareServiceProvider::compareServices);
         return instances;
+    }
+
+    @Override
+    public <T> List<T> getServices(Class<T> serviceType, List<T> defaultList) {
+        List<T> services = getServices(serviceType);
+        if (services.isEmpty()) {
+            return defaultList;
+        }
+        return services;
     }
 
     @Override
