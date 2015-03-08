@@ -117,7 +117,7 @@
 //    }
 //
 //    @Override
-//    public CurrencyContext getCurrencyContext(){
+//    public CurrencyContext getContext(){
 //        return CONTEXT;
 //    }
 //
@@ -273,7 +273,7 @@
 //        }
 //
 //        @Override
-//        public CurrencyContext getCurrencyContext(){
+//        public CurrencyContext getContext(){
 //            return JDK_CONTEXT;
 //        }
 //

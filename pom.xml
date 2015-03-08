@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <version>1.0-RC2</version>
+        <version>1.0-RC3</version>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
     </parent>
@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
  	<version>0.6-SNAPSHOT</version>
     <properties>
-        <jsr.version>1.0-SNAPSHOT</jsr.version>
+        <jsr.version>1.0-RC3</jsr.version>
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
