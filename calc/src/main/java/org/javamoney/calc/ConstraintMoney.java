@@ -325,8 +325,8 @@ final class ConstraintMoney implements
     }
 
     @Override
-    public MonetaryContext getMonetaryContext() {
-        return this.amount.getMonetaryContext();
+    public MonetaryContext getContext() {
+        return this.amount.getContext();
     }
 
     @Override
