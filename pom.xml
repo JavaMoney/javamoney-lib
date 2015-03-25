@@ -18,7 +18,7 @@
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <slf4j.version>1.7.10</slf4j>
+        <slf4j.version>1.7.10</slf4j.version>
     </properties>
 
     <licenses>
