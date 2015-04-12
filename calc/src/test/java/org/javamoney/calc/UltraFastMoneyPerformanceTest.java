@@ -23,7 +23,7 @@ package org.javamoney.calc;
 //import javax.money.CurrencyUnit;
 //import javax.money.MonetaryAmount;
 //import javax.money.MonetaryCurrencies;
-//import javax.money.MonetaryRoundings;
+//import javax.money.Monetary;
 //
 //import org.javamoney.calc.UltraFastMoney;
 //import org.junit.Test;
@@ -71,7 +71,7 @@ package org.javamoney.calc;
 //		b.append("money1 = money1.subtract(UltraFastMoney.of(EURO, 232323));\n");
 //		b.append("money1 = money1.multiply(3.4);\n");
 //		b.append("money1 = money1.divide(5.456);\n");
-//		b.append("money1 = money1.with(MonetaryRoundings.getRounding());\n");
+//		b.append("money1 = money1.with(Monetary.getRounding());\n");
 //		System.out.println(b);
 //		b.setLength(0);
 //		MonetaryAmount adding = UltraFastMoney.of(EURO, 1234567.3444);
@@ -83,7 +83,7 @@ package org.javamoney.calc;
 //			moneyuf = moneyuf.subtract(subtracting);
 //			moneyuf = moneyuf.multiply(3.4);
 //			moneyuf = moneyuf.divide(5.456);
-//			moneyuf = moneyuf.with(MonetaryRoundings.getRounding());
+//			moneyuf = moneyuf.with(Monetary.getRounding());
 //		}
 //		long end = System.currentTimeMillis();
 //		long duration = end - start;

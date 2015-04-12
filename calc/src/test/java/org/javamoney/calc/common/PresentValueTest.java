@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil. Licensed under the Apache
+ * Copyright (c) 2012, 2015, Credit Suisse (Anatole Tresch), Werner Keil. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in compliance with the
  * License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License
@@ -29,7 +29,7 @@ public class PresentValueTest{
     @Test
     public void testOfAndApply() throws Exception {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+        MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 1)).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 2)).with(rounding));
@@ -42,7 +42,7 @@ public class PresentValueTest{
     @Test
     public void testCalculate() throws Exception {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+        MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 1).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), PresentValue.calculate(money, Rate.of(0.05), 2).with(rounding));

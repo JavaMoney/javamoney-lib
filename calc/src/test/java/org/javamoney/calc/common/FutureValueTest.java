@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil.
+ * Copyright (c) 2012, 2015, Credit Suisse (Anatole Tresch), Werner Keil.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,7 +19,7 @@ import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 import javax.money.MonetaryOperator;
-import javax.money.MonetaryRoundings;
+import javax.money.Monetary;
 import javax.money.RoundingQueryBuilder;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -37,7 +37,7 @@ public class FutureValueTest {
     @Test
     public void testOfAndApply() throws Exception {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+        MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 1)).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 2)).with(rounding));
@@ -50,7 +50,7 @@ public class FutureValueTest {
     @Test
     public void testCalculate() throws Exception {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+        MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
@@ -70,7 +70,7 @@ public class FutureValueTest {
     @Test
     public void testFormula() {
         Money money = Money.of(100, "CHF");
-        MonetaryOperator rounding = MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
+        MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
         assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
