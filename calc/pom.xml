@@ -11,11 +11,24 @@
 	<artifactId>javamoney-calc</artifactId>
 	<name>Money and Currency - JavaMoney Calculations</name>
 	<packaging>bundle</packaging>
+	<!-- Try to find workaround for problem attaching sources to bundle, as of now manually switching to "jar" works -->
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
