@@ -4,14 +4,19 @@
     <parent>
         <groupId>org.javamoney.lib</groupId>
         <artifactId>javamoney-lib</artifactId>
-        <version>0.6</version>
+        <version>0.8-SNAPSHOT</version>
     </parent>
 
     <groupId>org.javamoney.bundles</groupId>
     <artifactId>javamoney-bundles</artifactId>
     <name>Money and Currency - JavaMoney Bundles</name>
     <packaging>pom</packaging>
-
+	<properties>
+		<jdkVersion>1.8</jdkVersion>
+		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
+		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+	</properties>
+	
     <modules>
         <module>javamoney-all</module>
     </modules>

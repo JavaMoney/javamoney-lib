@@ -5,13 +5,19 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-lib</artifactId>
-		<version>0.7</version>
+		<version>0.8-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>javamoney-calc</artifactId>
 	<name>Money and Currency - JavaMoney Calculations</name>
 	<packaging>bundle</packaging>
-	<!-- Try to find workaround for problem attaching sources to bundle, as of now manually switching to "jar" works -->
+	<!-- Try to find workaround for problem attaching sources to bundle, as 
+		of now manually switching to "jar" works -->
+	<properties>
+		<jdkVersion>1.8</jdkVersion>
+		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
+		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
