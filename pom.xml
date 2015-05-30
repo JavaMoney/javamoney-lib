@@ -10,7 +10,7 @@
     <groupId>org.javamoney.lib</groupId>
     <name>Money and Currency - JavaMoney Libraries (parent)</name>
     <packaging>pom</packaging>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.8</version>
     <properties>
         <jsr.version>1.0</jsr.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
