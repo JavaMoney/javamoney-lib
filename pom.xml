@@ -29,6 +29,7 @@
         <module>calc</module>
         <!-- module>bundles</module -->
         <!-- module>integration</module> -->
+        <module>incubator</module>
     </modules>
     
     <repositories>
