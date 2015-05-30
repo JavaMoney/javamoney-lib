@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2014, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012, 2015, Werner Keil, Credit Suisse (Anatole Tresch).
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,8 +26,7 @@ import java.util.Locale;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmounts;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 import javax.money.convert.*;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
@@ -54,7 +53,7 @@ public class SmokeTest {
     @Test
     public void testCreateAmounts() {
         // Creating one
-        CurrencyUnit currency = MonetaryCurrencies.getCurrency("CHF");
+        CurrencyUnit currency = Monetary.getCurrency("CHF");
         Money amount1 = Money.of(1.0d, currency);
         Money amount2 = Money.of(1.0d, currency);
         Money amount3 = amount1.add(amount2);
@@ -81,13 +80,13 @@ public class SmokeTest {
         ExchangeRateProvider prov = MonetaryConversions.getExchangeRateProvider("ECB");
         assertNotNull(prov);
         ExchangeRate rate1 =
-                prov.getExchangeRate(MonetaryCurrencies.getCurrency("CHF"), MonetaryCurrencies.getCurrency("EUR"));
+                prov.getExchangeRate(Monetary.getCurrency("CHF"), Monetary.getCurrency("EUR"));
         ExchangeRate rate2 =
-                prov.getExchangeRate(MonetaryCurrencies.getCurrency("EUR"), MonetaryCurrencies.getCurrency("CHF"));
+                prov.getExchangeRate(Monetary.getCurrency("EUR"), Monetary.getCurrency("CHF"));
         ExchangeRate rate3 =
-                prov.getExchangeRate(MonetaryCurrencies.getCurrency("CHF"), MonetaryCurrencies.getCurrency("USD"));
+                prov.getExchangeRate(Monetary.getCurrency("CHF"), Monetary.getCurrency("USD"));
         ExchangeRate rate4 =
-                prov.getExchangeRate(MonetaryCurrencies.getCurrency("USD"), MonetaryCurrencies.getCurrency("CHF"));
+                prov.getExchangeRate(Monetary.getCurrency("USD"), Monetary.getCurrency("CHF"));
         System.out.println(rate1);
         System.out.println(rate2);
         System.out.println(rate3);
@@ -100,7 +99,7 @@ public class SmokeTest {
         // Using parsers
         MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(Locale.GERMANY);
         assertNotNull(format);
-        MonetaryAmount amount = MonetaryAmounts.getDefaultAmountFactory().setCurrency("CHF").setNumber(10.50).create();
+        MonetaryAmount amount = Monetary.getDefaultAmountFactory().setCurrency("CHF").setNumber(10.50).create();
         String formatted = format.format(amount);
         assertNotNull(formatted);
         MonetaryAmount parsed = format.parse(formatted);
@@ -111,9 +110,9 @@ public class SmokeTest {
     @Test
     public void testCurrencyAccess() {
         // Creating one
-        CurrencyUnit currency = MonetaryCurrencies.getCurrency("INR");
+        CurrencyUnit currency = Monetary.getCurrency("INR");
         assertNotNull(currency);
-        currency = MonetaryCurrencies.getCurrency("CDITest");
+        currency = Monetary.getCurrency("CDITest");
         assertNotNull(currency);
     }
 

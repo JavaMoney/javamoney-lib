@@ -19,6 +19,7 @@
 package org.javamoney.cdi.bootstrap;
 
 import javax.money.spi.ServiceProvider;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +45,6 @@ public class DefaultServiceProvider implements ServiceProvider {
      * @param defaultList the list of items returned, if no services were found.
      * @return the items found, never {@code null}.
      */
-    @Override
     public <T> List<T> getServices(final Class<T> serviceType, final List<T> defaultList) {
         @SuppressWarnings("unchecked")
         List<T> found = (List<T>) servicesLoaded.get(serviceType);
@@ -81,5 +81,16 @@ public class DefaultServiceProvider implements ServiceProvider {
             return defaultList;
         }
     }
+
+	@Override
+	public int getPriority() {
+		return 0;
+	}
+
+	@Override
+	public <T> List<T> getServices(Class<T> serviceType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012, 2015, Werner Keil, Credit Suisse (Anatole Tresch).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,8 +15,11 @@
  *
  *
  * Contributors: Anatole Tresch - initial version.
+ * 				 Werner Keil - adjusted to 1.0.
  */
 package org.javamoney.cdi.bootstrap;
+
+import static org.javamoney.cdi.bootstrap.Constants.PRIO;
 
 import java.util.*;
 
@@ -30,8 +33,9 @@ import org.javamoney.moneta.internal.PriorityAwareServiceProvider;
  * where possible. Additionally ServiceLoader based service are loaded and are returned
  * ONLY, when not the same service is loaded as well in CDI.
  */
-@Priority(100)
+@Priority(PRIO)
 public class CDISEServiceProvider implements ServiceProvider {
+		
     /**
      * Default provider, using ServiceLoader.
      */
@@ -55,7 +59,6 @@ public class CDISEServiceProvider implements ServiceProvider {
         return instances;
     }
 
-    @Override
     public <T> List<T> getServices(Class<T> serviceType, List<T> defaultList) {
         List<T> services = getServices(serviceType);
         if (services.isEmpty()) {
@@ -70,4 +73,9 @@ public class CDISEServiceProvider implements ServiceProvider {
                 "defaultServiceProvider=" + defaultServiceProvider +
                 '}';
     }
+
+	@Override
+	public int getPriority() {
+		return PRIO;
+	}
 }
