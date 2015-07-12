@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javamoney.lib</groupId>
+        <artifactId>javamoney-lib</artifactId>
+        <version>0.9-SNAPSHOT</version>
+    </parent>
+    <artifactId>exchange-rate</artifactId>
+    <packaging>pom</packaging>
+    <name>Modules to exchange-rate</name>
+    <description>This parent has all modules to exchange rate on moneta.</description>
+
+     <modules>
+        <module>exchange-rate-ecb</module>
+    </modules>
+    <dependencies>
+	<dependency>
+	  <groupId>org.testng</groupId>
+	  <artifactId>testng</artifactId>
+	  <version>6.9.4</version>
+	</dependency>
+	<dependency>
+            <groupId>org.javamoney</groupId>
+            <artifactId>moneta</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
