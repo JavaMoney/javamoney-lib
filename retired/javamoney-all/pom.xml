@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.javamoney.bundles</groupId>
-		<artifactId>javamoney-bundles</artifactId>
+		<groupId>org.javamoney.lib</groupId>
+		<artifactId>javamoney-lib</artifactId>
 		<version>0.6</version>
 	</parent>
     <artifactId>javamoney-all</artifactId>
-    <name>JavaMoney - Bundle with all JavaMoney Released Libraries</name>
+    <name>JavaMoney - Package with all JavaMoney Released Libraries</name>
     <description>Implementation of JSR 354 Money and Currency and extended functionality.</description>
     <packaging>pom</packaging>
 
