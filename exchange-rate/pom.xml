@@ -6,10 +6,10 @@
         <artifactId>javamoney-lib</artifactId>
         <version>0.9-SNAPSHOT</version>
     </parent>
-    <artifactId>exchange-rate</artifactId>
+    <artifactId>javamoney-exchange-rate</artifactId>
     <packaging>pom</packaging>
     <name>Modules to exchange-rate</name>
-    <description>This parent has all modules to exchange rate on moneta.</description>
+    <description>This parent has contains pluggable modules for JSR 354 exchange rate providers.</description>
 
      <modules>
         <module>exchange-rate-ecb</module>
