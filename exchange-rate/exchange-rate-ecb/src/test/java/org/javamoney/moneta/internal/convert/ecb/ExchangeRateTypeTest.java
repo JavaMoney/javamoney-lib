@@ -23,10 +23,7 @@ import java.util.Objects;
 import javax.money.convert.ExchangeRateProvider;
 import javax.money.convert.MonetaryConversions;
 
-import org.javamoney.moneta.ExchangeRateType;
-import org.javamoney.moneta.internal.convert.ECBCurrentRateProvider;
-import org.javamoney.moneta.internal.convert.ECBHistoric90RateProvider;
-import org.javamoney.moneta.internal.convert.ECBHistoricRateProvider;
+import org.javamoney.moneta.convert.ExchangeRateType;
 import org.javamoney.moneta.internal.convert.IdentityRateProvider;
 import org.testng.annotations.Test;
 
