@@ -13,6 +13,7 @@
 
      <modules>
         <module>exchange-rate-ecb</module>
+        <module>exchange-rate-imf</module>
     </modules>
     <dependencies>
 	<dependency>
