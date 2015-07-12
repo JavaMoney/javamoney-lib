@@ -12,3 +12,4 @@ printf "\n Done. Downloading the IMF resource"
 mv rms_five.aspx?tsvflag=Y rms_five.xls
 mv rms_five.xls exchange-rate-imf/src/main/resources/java-money/defaults/IMF/rms_five.xls
 printf "\n Done. Job finished and all exchange rate resources were updated."
+
