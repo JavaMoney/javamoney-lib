@@ -122,11 +122,13 @@
             <groupId>javax.money</groupId>
             <artifactId>money-api</artifactId>
             <version>${jsr.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.javamoney</groupId>
             <artifactId>moneta</artifactId>
             <version>${jsr.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
