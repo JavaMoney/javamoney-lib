@@ -45,8 +45,9 @@ public class YahooRateProviderTest {
     private ExchangeRateProvider provider;
 
     @BeforeTest
-    public void setup() {
+    public void setup() throws InterruptedException {
         provider = getExchangeRateProvider("YAHOO");
+        Thread.sleep(1_000L);
     }
 
     @Test
