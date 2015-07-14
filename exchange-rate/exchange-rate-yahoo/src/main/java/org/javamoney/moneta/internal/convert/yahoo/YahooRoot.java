@@ -48,4 +48,10 @@ public class YahooRoot {
         this.version = value;
     }
 
+	@Override
+	public String toString() {
+		return "YahooRoot [meta=" + meta + ", resources=" + resources
+				+ ", version=" + version + "]";
+	}
+
 }

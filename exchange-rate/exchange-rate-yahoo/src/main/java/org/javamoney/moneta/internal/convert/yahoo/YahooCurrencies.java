@@ -47,4 +47,11 @@ public class YahooCurrencies {
     public void setCount(Integer value) {
         this.count = value;
     }
+
+	@Override
+	public String toString() {
+		return "YahooCurrencies [resource=" + resource + ", start=" + start
+				+ ", count=" + count + "]";
+	}
+
 }

@@ -53,10 +53,13 @@ public class YahooField {
 
 		if(YahooField.class.isInstance(obj)) {
 			YahooField other = YahooField.class.cast(obj);
-			return Objects.equals(name, other.name)
-					&& Objects.equals(value, other.value);
+			return Objects.equals(name, other.name);
 		}
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "YahooField [name=" + name + ", value=" + value + "]";
+	}
 }

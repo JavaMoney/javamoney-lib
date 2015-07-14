@@ -20,4 +20,9 @@ public class Meta {
 		this.type = value;
 	}
 
+	@Override
+	public String toString() {
+		return "Meta [type=" + type + "]";
+	}
+
 }

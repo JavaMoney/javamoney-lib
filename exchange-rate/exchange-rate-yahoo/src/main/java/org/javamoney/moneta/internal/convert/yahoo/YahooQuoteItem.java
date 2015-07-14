@@ -34,4 +34,10 @@ public class YahooQuoteItem {
 		this.classname = value;
 	}
 
+	@Override
+	public String toString() {
+		return "YahooQuoteItem [field=" + field + ", classname=" + classname
+				+ "]";
+	}
+
 }
