@@ -9,15 +9,18 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class YahooField {
+
 	@XmlAttribute(name = "name")
 	protected String name;
+
 	@XmlValue
 	protected String value;
 
-	public YahooField(){};
+	public YahooField(){}
+
 	public YahooField(final String field){
 		name = field;
-	};
+	}
 
 	public String getName() {
 		return name;
