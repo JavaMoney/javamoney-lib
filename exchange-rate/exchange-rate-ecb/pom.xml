@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-exchange-rate</artifactId>
-		<version>0.9-SNAPSHOT</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>javamoney-exchange-rate-ecb</artifactId>
 	<packaging>jar</packaging>
