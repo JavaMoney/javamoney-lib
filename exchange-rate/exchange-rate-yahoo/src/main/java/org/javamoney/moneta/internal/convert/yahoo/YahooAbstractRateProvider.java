@@ -43,14 +43,8 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 
     private final String DIGIT_FRACTION_KEY = "yahoo.digit.fraction";
 
-    /**
-     * Base currency of the loaded rates is always USD.
-     */
     public static final CurrencyUnit BASE_CURRENCY = Monetary.getCurrency(BASE_CURRENCY_CODE);
 
-    /**
-     * Historic exchange rates, rate timestamp as UTC long.
-     */
     protected final Map<LocalDate, Map<String, ExchangeRate>> rates = new ConcurrentHashMap<>();
 
     private final ProviderContext context;

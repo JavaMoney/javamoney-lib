@@ -18,11 +18,11 @@ import javax.xml.bind.annotation.XmlType;
 public class YahooRoot {
 
     @XmlElement(required = true)
-    protected Meta meta;
+    private Meta meta;
     @XmlElement(required = true)
-    protected YahooCurrencies resources;
+    private YahooCurrencies resources;
     @XmlAttribute(name = "version")
-    protected BigDecimal version;
+    private BigDecimal version;
 
     public Meta getMeta() {
         return meta;
@@ -47,6 +47,5 @@ public class YahooRoot {
     public void setVersion(BigDecimal value) {
         this.version = value;
     }
-
 
 }

@@ -67,21 +67,16 @@ class YahooRateReadingHandler {
 				continue;
 			}
 
-			//NOTE Yahoo responds with <SILVER 1 OZ 999 NY>, <ADIUM 1 OZ> and other similar items which are not currencies
-			//NOTE Yahoo responds with <ECS> - ECUADORIAN_SUCRE which does not exist anymore
-			//NOTE Yahoo responds with <CNH> - Chinese Yuan when trading offshore
-
 			if (currencyName.length() > 7) {
 				tgtCurrency = CurrencyUnitBuilder.of(currencyName, YahooRateProvider.PROVIDER).build();
 			} else {
-				//one currency with ending SPACE symbol was explored
 				tgtCurrency = CurrencyUnitBuilder.of(currencyName.substring(4).trim(), YahooRateProvider.PROVIDER).build();
 			}
 
 			position = quote.getField().indexOf(new YahooField(YAHOO_CURRENCY_UPDATE_TIME));
 			final LocalDate currencyLastUpdateTime = LocalDateTime.ofInstant(
 					utcFormatter.parse(quote.getField().get(position).getValue()).toInstant(),
-					ZoneId.of(CST_ZONE)).toLocalDate();//Central American Time
+					ZoneId.of(CST_ZONE)).toLocalDate();
 
 			position = quote.getField().indexOf(new YahooField(YAHOO_CURRENCY));
 			final YahooField field = quote.getField().get(position);

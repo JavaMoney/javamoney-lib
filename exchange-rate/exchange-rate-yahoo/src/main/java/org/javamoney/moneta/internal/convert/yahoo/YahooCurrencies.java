@@ -27,11 +27,10 @@ public class YahooCurrencies {
 
     public List<YahooQuoteItem> getResource() {
         if (resource == null) {
-            resource = new ArrayList<YahooQuoteItem>();
+            resource = new ArrayList<>();
         }
         return this.resource;
     }
-
 
     public Integer getStart() {
         return start;
@@ -40,7 +39,6 @@ public class YahooCurrencies {
     public void setStart(Integer value) {
         this.start = value;
     }
-
 
     public Integer getCount() {
         return count;

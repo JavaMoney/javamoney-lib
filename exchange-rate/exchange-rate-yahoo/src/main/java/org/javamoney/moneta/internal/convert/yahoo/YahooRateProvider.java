@@ -6,7 +6,7 @@ import javax.money.convert.RateType;
 
 public class YahooRateProvider extends YahooAbstractRateProvider {
 
-	public static final String PROVIDER = "YHOO";
+	public static final String PROVIDER = "YAHOO";
 
 
 	private static final String DATA_ID = YahooRateProvider.class

@@ -3,7 +3,7 @@ package org.javamoney.moneta.internal.convert.yahoo;
 import javax.xml.bind.annotation.XmlRegistry;
 
 @XmlRegistry
-public class ObjectFactory {
+class ObjectFactory {
 
 
     public ObjectFactory() {
