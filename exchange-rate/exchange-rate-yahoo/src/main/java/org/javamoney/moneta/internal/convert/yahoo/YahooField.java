@@ -1,5 +1,7 @@
 package org.javamoney.moneta.internal.convert.yahoo;
 
+import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,10 +13,10 @@ import javax.xml.bind.annotation.XmlValue;
 public class YahooField {
 
 	@XmlAttribute(name = "name")
-	protected String name;
+	private String name;
 
 	@XmlValue
-	protected String value;
+	private String value;
 
 	public YahooField(){}
 
@@ -39,27 +41,21 @@ public class YahooField {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+		return Objects.hashCode(name);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if(this == obj) {
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		YahooField other = (YahooField) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		}
+
+		if(YahooField.class.isInstance(obj)) {
+			YahooField other = YahooField.class.cast(obj);
+			return Objects.equals(name, other.name)
+					&& Objects.equals(value, other.value);
+		}
+		return false;
 	}
 
 }
