@@ -16,7 +16,6 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.money.CurrencyUnit;
-import javax.money.Monetary;
 import javax.money.convert.ConversionContextBuilder;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
@@ -29,23 +28,19 @@ import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.javamoney.moneta.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 
-/**
- * Event Handler which parse rates.
- * <p>
- *
- * @author skosoy@gmail.com
- */
 class YahooRateReadingHandler {
-    private final String YHOO_CURRENCY = "price";
-    private final String YHOO_CURRENCY_PAIR = "name";
-    private final String YHOO_CURRENCY_UPDATE_TIME = "utctime";
-    private final String YHOO_DTO_PACKAGE = "org.javamoney.moneta.extras.yhoo.quote";
+
+    private final String YAHOO_CURRENCY = "price";
+    private final String YAHOO_CURRENCY_PAIR = "name";
+    private final String YAHOO_CURRENCY_UPDATE_TIME = "utctime";
+    private final String YAHOO_DTO_PACKAGE = "org.javamoney.moneta.internal.convert.yahoo";
     private final String UTC_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     private final String CST_ZONE = "America/Chicago";
     private final String USD_CURRENCY = "USD";
 
-    //NOTE: IT MIGHT BE BETTER TO KEEP A TIMESTAMT AS A LONG KEY VALUE HERE
+
 	private final Map<LocalDate, Map<String, ExchangeRate>> excangeRates;
+
 	private final ProviderContext context;
 
 	public YahooRateReadingHandler(final Map<LocalDate, Map<String, ExchangeRate>> excangeRates,
@@ -55,51 +50,48 @@ class YahooRateReadingHandler {
 	}
 
 	void parse(final InputStream stream) throws JAXBException, ParseException {
-		final Unmarshaller u = JAXBContext.newInstance(YHOO_DTO_PACKAGE).createUnmarshaller();
-		final YahooRoot root = (YahooRoot) u.unmarshal(stream);
+		final Unmarshaller unmarshaller = JAXBContext.newInstance(YAHOO_DTO_PACKAGE).createUnmarshaller();
+		final YahooRoot root = (YahooRoot) unmarshaller.unmarshal(stream);
 		final YahooCurrencies currencies = root.getResources();
 
 		final DateFormat utcFormatter = new SimpleDateFormat(UTC_DATE_FORMAT);
 		utcFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		for (YahooQuoteItem quote : currencies.getResource()) {
-			int position = quote.getField().indexOf(new YahooField(YHOO_CURRENCY_PAIR));
+			int position = quote.getField().indexOf(new YahooField(YAHOO_CURRENCY_PAIR));
 			String currencyName = null;
 			CurrencyUnit tgtCurrency = null;
 			currencyName = quote.getField().get(position).getValue();
 
-			if(currencyName.equals(USD_CURRENCY))//in order to not add BASE currency itself
+			if(currencyName.equals(USD_CURRENCY)){
 				continue;
+			}
 
 			//NOTE Yahoo responds with <SILVER 1 OZ 999 NY>, <ADIUM 1 OZ> and other similar items which are not currencies
 			//NOTE Yahoo responds with <ECS> - ECUADORIAN_SUCRE which does not exist anymore
 			//NOTE Yahoo responds with <CNH> - Chinese Yuan when trading offshore
-			if(currencyName.length()>7){
+
+			if (currencyName.length() > 7) {
 				tgtCurrency = CurrencyUnitBuilder.of(currencyName, YahooRateProvider.PROVIDER).build();
 			} else {
 				//one currency with ending SPACE symbol was explored
 				tgtCurrency = CurrencyUnitBuilder.of(currencyName.substring(4).trim(), YahooRateProvider.PROVIDER).build();
 			}
 
-			position = quote.getField().indexOf(new YahooField(YHOO_CURRENCY_UPDATE_TIME));
+			position = quote.getField().indexOf(new YahooField(YAHOO_CURRENCY_UPDATE_TIME));
 			final LocalDate currencyLastUpdateTime = LocalDateTime.ofInstant(
 					utcFormatter.parse(quote.getField().get(position).getValue()).toInstant(),
 					ZoneId.of(CST_ZONE)).toLocalDate();//Central American Time
 
-			position = quote.getField().indexOf(new YahooField(YHOO_CURRENCY));
+			position = quote.getField().indexOf(new YahooField(YAHOO_CURRENCY));
 			final YahooField field = quote.getField().get(position);
 			addRate(tgtCurrency, currencyLastUpdateTime,
 					BigDecimal.valueOf(Double.parseDouble(field.getValue())));
 		}
 	}
 
-    /**
-     * Method to add a currency exchange rate.
-     *
-     * @param term      the term (target) currency, mapped from USD.
-     * @param rate      The rate.
-     */
-    private void addRate(final CurrencyUnit term, final LocalDate localDate, final Number rate) {//TODO it might be generalised with other Provides
+   private void addRate(final CurrencyUnit term, final LocalDate localDate, final Number rate) {
+
         final ExchangeRateBuilder builder = new ExchangeRateBuilder(
         		ConversionContextBuilder.create(context, RateType.DEFERRED).build());
         builder.setBase(YahooAbstractRateProvider.BASE_CURRENCY);
@@ -117,5 +109,4 @@ class YahooRateReadingHandler {
         rateMap.put(term.getCurrencyCode(), exchangeRate);
 
     }
-
 }

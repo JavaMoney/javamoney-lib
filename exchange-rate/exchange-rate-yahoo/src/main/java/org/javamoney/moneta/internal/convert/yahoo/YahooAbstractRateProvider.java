@@ -117,37 +117,42 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 
 	}
 
-    private ExchangeRate createExchangeRate(ConversionQuery query,
-                                            ExchangeRateBuilder builder, ExchangeRate sourceRate,
-                                            ExchangeRate target) {
+	private ExchangeRate createExchangeRate(ConversionQuery query,
+			ExchangeRateBuilder builder, ExchangeRate sourceRate,
+			ExchangeRate target) {
 
-        if (areBothBaseCurrencies(query)) {
-            builder.setFactor(DefaultNumberValue.ONE);
-            return builder.build();
-        } else if (BASE_CURRENCY_CODE.equals(query.getCurrency().getCurrencyCode())) {
-            if (Objects.isNull(sourceRate)) {
-                return null;
-            }
-            return reverse(sourceRate);
-        } else if (BASE_CURRENCY_CODE.equals(query.getBaseCurrency()
-                .getCurrencyCode())) {
-            return target;
-        } else {
+		if (areBothBaseCurrencies(query)) {
+			builder.setFactor(DefaultNumberValue.ONE);
+			return builder.build();
+		} else if (BASE_CURRENCY_CODE.equals(query.getCurrency()
+				.getCurrencyCode())) {
+			if (Objects.isNull(sourceRate)) {
+				return null;
+			}
+			return reverse(sourceRate);
+		} else if (BASE_CURRENCY_CODE.equals(query.getBaseCurrency()
+				.getCurrencyCode())) {
+			return target;
+		} else {
 
-            ExchangeRate rate1 = getExchangeRate(
-                    query.toBuilder().setTermCurrency(Monetary.getCurrency(BASE_CURRENCY_CODE)).build());
-            ExchangeRate rate2 = getExchangeRate(
-                    query.toBuilder().setBaseCurrency(Monetary.getCurrency(BASE_CURRENCY_CODE))
-                            .setTermCurrency(query.getCurrency()).build());
-            if (Objects.nonNull(rate1) && Objects.nonNull(rate2)) {
-                builder.setFactor(multiply(rate1.getFactor(), rate2.getFactor()));
-                builder.setRateChain(rate1, rate2);
-                return builder.build();
-            }
-            throw new CurrencyConversionException(query.getBaseCurrency(),
-                    query.getCurrency(), sourceRate.getContext());
-        }
-    }
+			ExchangeRate rate1 = getExchangeRate(query.toBuilder()
+					.setTermCurrency(Monetary.getCurrency(BASE_CURRENCY_CODE))
+					.build());
+
+			ExchangeRate rate2 = getExchangeRate(query.toBuilder()
+					.setBaseCurrency(Monetary.getCurrency(BASE_CURRENCY_CODE))
+					.setTermCurrency(query.getCurrency()).build());
+
+			if (Objects.nonNull(rate1) && Objects.nonNull(rate2)) {
+				builder.setFactor(multiply(rate1.getFactor(), rate2.getFactor()));
+				builder.setRateChain(rate1, rate2);
+				return builder.build();
+			}
+
+			throw new CurrencyConversionException(query.getBaseCurrency(),
+					query.getCurrency(), sourceRate.getContext());
+		}
+	}
 
     private boolean areBothBaseCurrencies(ConversionQuery query) {
         return BASE_CURRENCY_CODE.equals(query.getBaseCurrency().getCurrencyCode()) &&
@@ -180,6 +185,7 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
     }
 
     private class RateResult {
+
     	private final LocalDate date;
 
     	private final Map<String, ExchangeRate> targets;
