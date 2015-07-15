@@ -11,4 +11,7 @@ printf "\n Done. Downloading the IMF resource. \n"
 wget http://www.imf.org/external/np/fin/data/rms_five.aspx?tsvflag=Y
 mv rms_five.aspx?tsvflag=Y rms_five.xls
 mv rms_five.xls exchange-rate-imf/src/main/resources/java-money/defaults/IMF/rms_five.xls
+printf "\n Done. Downloading the Yahoo resource. \n"
+wget http://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote
+mv quote exchange-rate-yahoo/src/main/resources/java-money/defaults/YAHOO/finance.xml
 printf "\n Done. Job finished and all exchange rate resources were updated. \n"
