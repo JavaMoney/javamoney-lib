@@ -14,7 +14,6 @@
      <modules>
         <module>exchange-rate-ecb</module>
         <module>exchange-rate-imf</module>
-        <module>exchange-rate-yho</module>
         <module>exchange-rate-yahoo</module>
     </modules>
     <dependencies>
