@@ -15,7 +15,8 @@
         <module>exchange-rate-ecb</module>
         <module>exchange-rate-imf</module>
         <module>exchange-rate-yho</module>
-     </modules>
+        <module>exchange-rate-yahoo</module>
+    </modules>
     <dependencies>
 	<dependency>
 	  <groupId>org.testng</groupId>
@@ -29,5 +30,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <version>0.1-SNAPSHOT</version>
 </project>
