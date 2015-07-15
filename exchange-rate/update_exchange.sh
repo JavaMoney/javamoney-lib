@@ -9,8 +9,7 @@ wget http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml
 mv eurofxref-hist.xml exchange-rate-ecb/src/main/resources/java-money/defaults/ECB/eurofxref-hist.xml
 printf "\n Done. Downloading the IMF resource. \n"
 wget http://www.imf.org/external/np/fin/data/rms_five.aspx?tsvflag=Y
-mv rms_five.aspx?tsvflag=Y rms_five.xls
-mv rms_five.xls exchange-rate-imf/src/main/resources/java-money/defaults/IMF/rms_five.xls
+mv rms_five.aspx?tsvflag=Y exchange-rate-imf/src/main/resources/java-money/defaults/IMF/rms_five.xls
 printf "\n Done. Downloading the Yahoo resource. \n"
 wget http://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote
 mv quote exchange-rate-yahoo/src/main/resources/java-money/defaults/YAHOO/finance.xml
