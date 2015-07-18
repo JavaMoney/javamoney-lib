@@ -10,4 +10,5 @@
 	<artifactId>javamoney-exchange-rate-yahoo</artifactId>
 	<packaging>jar</packaging>
 
+	<name>JavaMoney Exchange Libraries Yahoo Provider</name>
 </project>

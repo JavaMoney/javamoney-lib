@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>javamoney-exchange-rate</artifactId>
 	<packaging>pom</packaging>
-	<name>Modules to exchange-rate</name>
+	<name>JavaMoney Exchange Libraries </name>
 	<description>This parent has contains pluggable modules for JSR 354 exchange rate providers.</description>
 
 	<modules>
