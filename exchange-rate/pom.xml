@@ -12,28 +12,23 @@
 	<description>This parent has contains pluggable modules for JSR 354 exchange rate providers.</description>
 
 	<modules>
-		<module>exchange-rate-ecb</module>
-		<module>exchange-rate-imf</module>
 		<module>exchange-rate-yahoo</module>
 	</modules>
-	<dependencies>
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.9.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javamoney</groupId>
-			<artifactId>moneta</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.javamoney.moneta</groupId>
-			<artifactId>moneta-convert</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.9.4</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.javamoney</groupId>
+				<artifactId>moneta</artifactId>
+				<version>1.0.1-RC1</version>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<version>0.2-SNAPSHOT</version>
 </project>

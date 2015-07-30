@@ -11,4 +11,16 @@
 	<packaging>jar</packaging>
 
 	<name>JavaMoney Exchange Libraries Yahoo Provider</name>
+		<dependencies>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.javamoney</groupId>
+				<artifactId>moneta</artifactId>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
 </project>
