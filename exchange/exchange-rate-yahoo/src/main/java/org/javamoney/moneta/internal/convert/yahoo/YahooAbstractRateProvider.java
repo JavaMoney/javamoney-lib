@@ -15,13 +15,17 @@
  */
 package org.javamoney.moneta.internal.convert.yahoo;
 
+//import static org.javamoney.moneta.spi.AbstractCurrencyConversion.KEY_SCALE;
+
 import java.io.InputStream;
 import java.math.MathContext;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,16 +35,19 @@ import java.util.stream.Stream;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryException;
+import javax.money.convert.ConversionContext;
 import javax.money.convert.ConversionQuery;
 import javax.money.convert.CurrencyConversionException;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
+import javax.money.convert.RateType;
 import javax.money.spi.Bootstrap;
 
-import org.javamoney.moneta.convert.ExchangeRateBuilder;
+import org.javamoney.moneta.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.LoaderService;
+import org.javamoney.moneta.spi.MonetaryConfig;
 import org.javamoney.moneta.spi.LoaderService.LoaderListener;
 
 /**
@@ -204,4 +211,40 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
     	}
     }
 
+    // Patch for post 1.0 API  in Moneta
+    private static final String KEY_SCALE = "exchangeRateScale";
+    
+    protected int getScale(String key) {
+		String string = MonetaryConfig.getConfig().getOrDefault(
+				key, "-1");
+		if (string.isEmpty()) {
+			return -1;
+		} else {
+			try {
+				return Integer.valueOf(string);
+			} catch (NumberFormatException e) {
+				return -1;
+			}
+		}
+	}
+    
+    protected ConversionContext getExchangeContext(String key) {
+		int scale = getScale(key);
+        if(scale < 0) {
+          return ConversionContext.of(this.context.getProviderName(), RateType.HISTORIC);
+        } else {
+        	return ConversionContext.of(this.context.getProviderName(), RateType.HISTORIC).toBuilder().set(KEY_SCALE, scale).build();
+        }
+	}
+    
+    protected LocalDate[] getQueryDates(ConversionQuery query) {
+
+        if (Objects.nonNull(query.get(LocalDate.class)) || Objects.nonNull(query.get(LocalDateTime.class))) {
+        	LocalDate localDate = Optional.ofNullable(query.get(LocalDate.class)).orElseGet(() -> query.get(LocalDateTime.class).toLocalDate());
+        	return new LocalDate[]{localDate};
+        } else if(Objects.nonNull(query.get(LocalDate[].class))) {
+        	return query.get(LocalDate[].class);
+        }
+        return null;
+    }
 }

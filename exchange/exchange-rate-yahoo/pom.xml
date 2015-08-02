@@ -20,7 +20,6 @@
 			<dependency>
 				<groupId>org.javamoney</groupId>
 				<artifactId>moneta</artifactId>
-				<type>pom</type>
 			</dependency>
 		</dependencies>
 </project>
