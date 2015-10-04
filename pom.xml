@@ -13,7 +13,7 @@
     <version>0.9-SNAPSHOT</version>
     <properties>
         <jsr.version>1.0</jsr.version>
-        <ri.version>1.0</ri.version>
+        <ri.version>1.0.1-SNAPSHOT</ri.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.10</slf4j.version>
