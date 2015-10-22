@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>exchange-rate-yahoo</module>
+		<module>exchange-rate-frb</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

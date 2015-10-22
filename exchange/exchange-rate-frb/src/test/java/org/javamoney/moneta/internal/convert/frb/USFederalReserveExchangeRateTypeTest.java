@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.moneta.internal.convert.yahoo;
+package org.javamoney.moneta.internal.convert.frb;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -25,23 +25,23 @@ import javax.money.convert.MonetaryConversions;
 
 import org.testng.annotations.Test;
 
-public class ExchangeRateTypeTest {
+public class USFederalReserveExchangeRateTypeTest {
 
 
     @Test
-    public void shouldReturnsYahooRateProvider() {
+    public void shouldReturnsFRBRateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
-                .getExchangeRateProvider("YAHOO");
+                .getExchangeRateProvider("FRB");
         assertTrue(Objects.nonNull(prov));
-        assertEquals(YahooRateProvider.class, prov.getClass());
+        assertEquals(USFederalReserveRateProvider.class, prov.getClass());
     }
 
     @Test
-    public void shouldReturnsYahooRateProviderFromType() {
+    public void shouldReturnsFRBRateProviderFromType() {
         ExchangeRateProvider prov = MonetaryConversions
-                .getExchangeRateProvider(YahooExchangeRateType.YAHOO);
+                .getExchangeRateProvider(USFederalReserveExchangeRateType.FRB);
         assertTrue(Objects.nonNull(prov));
-        assertEquals(YahooRateProvider.class, prov.getClass());
+        assertEquals(USFederalReserveRateProvider.class, prov.getClass());
     }
 
 }
