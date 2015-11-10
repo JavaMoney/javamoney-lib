@@ -144,6 +144,7 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 			if (Objects.isNull(sourceRate)) {
 				return null;
 			}
+
 			return reverse(sourceRate);
 		} else if (BASE_CURRENCY_CODE.equals(query.getBaseCurrency()
 				.getCurrencyCode())) {
@@ -187,7 +188,9 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
         if (Objects.isNull(rate)) {
             throw new IllegalArgumentException("Rate null is not reversible.");
         }
-        return new ExchangeRateBuilder(rate).setRate(rate).setBase(rate.getCurrency()).setTerm(rate.getBaseCurrency())
+
+        return new ExchangeRateBuilder(rate).setRate(rate).setBase(rate.getCurrency())
+        		.setTerm(rate.getBaseCurrency()).setContext(getExchangeContext(DIGIT_FRACTION_KEY))
                 .setFactor(divide(DefaultNumberValue.ONE, rate.getFactor(), MathContext.DECIMAL64)).build();
     }
 
@@ -213,8 +216,9 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 
     // Patch for post 1.0 API  in Moneta
     private static final String KEY_SCALE = "exchangeRateScale";
-    
-    protected int getScale(String key) {
+
+    @Override
+	protected int getScale(String key) {
 		String string = MonetaryConfig.getConfig().getOrDefault(
 				key, "-1");
 		if (string.isEmpty()) {
@@ -227,8 +231,9 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 			}
 		}
 	}
-    
-    protected ConversionContext getExchangeContext(String key) {
+
+    @Override
+	protected ConversionContext getExchangeContext(String key) {
 		int scale = getScale(key);
         if(scale < 0) {
           return ConversionContext.of(this.context.getProviderName(), RateType.HISTORIC);
@@ -236,8 +241,9 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
         	return ConversionContext.of(this.context.getProviderName(), RateType.HISTORIC).toBuilder().set(KEY_SCALE, scale).build();
         }
 	}
-    
-    protected LocalDate[] getQueryDates(ConversionQuery query) {
+
+    @Override
+	protected LocalDate[] getQueryDates(ConversionQuery query) {
 
         if (Objects.nonNull(query.get(LocalDate.class)) || Objects.nonNull(query.get(LocalDateTime.class))) {
         	LocalDate localDate = Optional.ofNullable(query.get(LocalDate.class)).orElseGet(() -> query.get(LocalDateTime.class).toLocalDate());
