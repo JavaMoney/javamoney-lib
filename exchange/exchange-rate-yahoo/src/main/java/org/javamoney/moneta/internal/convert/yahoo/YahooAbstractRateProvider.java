@@ -43,12 +43,12 @@ import javax.money.convert.ProviderContext;
 import javax.money.convert.RateType;
 import javax.money.spi.Bootstrap;
 
-import org.javamoney.moneta.ExchangeRateBuilder;
+import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.LoaderService;
-import org.javamoney.moneta.spi.MonetaryConfig;
 import org.javamoney.moneta.spi.LoaderService.LoaderListener;
+import org.javamoney.moneta.spi.MonetaryConfig;
 
 /**
  * Base of Yahoo provider implementation
