@@ -1,4 +1,4 @@
-Java Money and Currency - Modules that are not part of JSR 354
+Java Money and Currency - Libraries extending JSR 354
 ==============================================================
  
 JavaMoney-lib provides extensions and libraries built upon JSR 354 (or compatible implementations).
