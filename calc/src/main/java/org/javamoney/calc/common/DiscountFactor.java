@@ -38,7 +38,8 @@ public final class DiscountFactor {
         }
         // (1-(1+r)^n)/1-(1+rate)
         BigDecimal div = BigDecimal.ONE.min(BigDecimal.ONE.add(rate.get()));
-        BigDecimal factor = BigDecimal.ONE.subtract(BigDecimal.ONE.add(rate.get()).pow(periods)).divide(div);
+        BigDecimal factor = BigDecimal.ONE.subtract(BigDecimal.ONE.add(rate.get()).pow(periods))
+                .divide(div, BigDecimal.ROUND_HALF_DOWN);
         return BigDecimal.ONE.add(factor);
     }
 

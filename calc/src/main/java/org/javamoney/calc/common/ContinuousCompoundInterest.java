@@ -66,6 +66,14 @@ public final class ContinuousCompoundInterest implements MonetaryOperator {
         return new ContinuousCompoundInterest(rate, periods);
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Performs the calculation.
      *
@@ -77,7 +85,7 @@ public final class ContinuousCompoundInterest implements MonetaryOperator {
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         int power = rate.get().multiply(BigDecimal.valueOf(periods)).intValue();
         BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
-        return amount.multiply(f);
+        return (amount.multiply(f));
     }
 
     @Override
