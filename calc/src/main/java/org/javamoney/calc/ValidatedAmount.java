@@ -38,7 +38,7 @@ import java.util.function.Predicate;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class ConstraintAmount {
+public final class ValidatedAmount {
 
     /**
      * The shared unsigned predicate.
@@ -53,7 +53,7 @@ public final class ConstraintAmount {
      * @return an ansigned instance, that can never be negative.
      */
     public static MonetaryAmount unsignedAmount(MonetaryAmount amount) {
-        return new ConstraintMoney(amount, UNSIGNED_PREDICATE);
+        return new ValidatedMoney(amount, UNSIGNED_PREDICATE);
     }
 
     /**
@@ -66,7 +66,7 @@ public final class ConstraintAmount {
      */
     public static MonetaryAmount of(MonetaryAmount amount,
                                     Predicate<MonetaryAmount> predicate) {
-        return new ConstraintMoney(amount, predicate);
+        return new ValidatedMoney(amount, predicate);
     }
 
     /**

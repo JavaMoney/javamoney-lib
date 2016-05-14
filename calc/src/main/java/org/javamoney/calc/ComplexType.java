@@ -13,27 +13,25 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.calc.function;
+package org.javamoney.calc;
 
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
 
-import org.javamoney.calc.MonetaryConstraintException;
-
 /**
- * Defines a {@link CompoundType} containing several results. Hereby the
+ * Defines a {@link ComplexType} containing several results. Hereby the
  * different results are identified by arbitrary keys. Additionally each
- * {@link CompoundType} has a <i>leading</i> item that identifies the type of
+ * {@link ComplexType} has a <i>leading</i> item that identifies the type of
  * result.<br/>
- * A {@link CompoundType} instance is defined to be implemented as immutable
+ * A {@link ComplexType} instance is defined to be implemented as immutable
  * object and therefore is very useful for modeling multidimensional results
  * objects or input parameters as they are common in financial applications.
  *
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public final class CompoundType implements Serializable {
+public final class ComplexType implements Serializable {
     /**
      * serialVersionUID.
      */
@@ -61,7 +59,7 @@ public final class CompoundType implements Serializable {
      *
      * @param builder the Builder instance used.
      */
-    private CompoundType(Builder builder) {
+    private ComplexType(Builder builder) {
         this.name = builder.name;
         this.typeDef.putAll(builder.typeDef);
         this.typeRequired = builder.typeRequired;
@@ -69,10 +67,10 @@ public final class CompoundType implements Serializable {
     }
 
     /**
-     * A {@link CompoundType}may have a type identifier that helps to identify,
+     * A {@link ComplexType}may have a type identifier that helps to identify,
      * what type of items object is returned.
      *
-     * @return the {@link CompoundType}'s type, never null.
+     * @return the {@link ComplexType}'s type, never null.
      */
     public String getName() {
         return this.name;
@@ -80,7 +78,7 @@ public final class CompoundType implements Serializable {
 
     /**
      * This method allows to check if a key within the {@code CompoundType} is a
-     * required value, so a corresponding {@link CompoundValue} is valid.
+     * required value, so a corresponding {@link ComplexValue} is valid.
      *
      * @param key the key
      * @return true, if the corresponding value is required, false otherwise.
@@ -90,10 +88,10 @@ public final class CompoundType implements Serializable {
     }
 
     /**
-     * Validates if the given {@link CompoundValue} defines all the attributes
-     * as required by this {@link CompoundType} instance.
+     * Validates if the given {@link ComplexValue} defines all the attributes
+     * as required by this {@link ComplexType} instance.
      *
-     * @param compundValueMap the {@link Map} to be validated before a {@link CompoundValue}
+     * @param compundValueMap the {@link Map} to be validated before a {@link ComplexValue}
      *                        is created.
      * @throws IllegalArgumentException if validation fails.
      */
@@ -129,7 +127,7 @@ public final class CompoundType implements Serializable {
     }
 
     /**
-     * Builder for creating new instances of {@link org.javamoney.calc.function.CompoundType}.
+     * Builder for creating new instances of {@link ComplexType}.
      */
     public static final class Builder {
         /**
@@ -195,17 +193,17 @@ public final class CompoundType implements Serializable {
             return this;
         }
 
-        public CompoundType build() {
-            return new CompoundType(this);
+        public ComplexType build() {
+            return new ComplexType(this);
         }
     }
 
-    public void checkInput(CompoundValue input) {
+    public void checkInput(ComplexValue input) {
         if (input == null) {
             throw new IllegalArgumentException("Input missing, required: "
                     + this);
         }
-        if (!this.equals(input.getCompoundType())) {
+        if (!this.equals(input.getComplexType())) {
             throw new IllegalArgumentException("Invalid input, was " + input
                     + ", required: " + this);
         }

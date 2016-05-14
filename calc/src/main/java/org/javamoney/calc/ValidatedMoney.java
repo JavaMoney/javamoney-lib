@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 
 /**
  * Platform RI: This class decorates an arbitrary {@link MonetaryAmount}
- * instance and ensure the given {@link MonetaryPredicate} is always
+ * instance and ensure the given {@link Predicate} is always
  * {@code true}.
  * <p>
  * As required by the {@link MonetaryAmount} interface, this class is
@@ -41,12 +41,12 @@ import java.util.function.Predicate;
  * </ul>
  * <p>
  * As a consequence all this attributes must also be true for the
- * {@link MonetaryPredicate} used.
+ * {@link Predicate} used.
  *
  * @author Anatole Tresch
  * @author Werner Keil
  */
-final class ConstraintMoney implements
+final class ValidatedMoney implements
         MonetaryAmount {
     /**
      * The amount's predicate.
@@ -63,8 +63,8 @@ final class ConstraintMoney implements
      * @param amount the underlying amount, not null and not negative.
      * @throws IllegalArgumentException if the amount passed is negative.
      */
-    ConstraintMoney(MonetaryAmount amount,
-                    Predicate<MonetaryAmount> predicate) {
+    ValidatedMoney(MonetaryAmount amount,
+                   Predicate<MonetaryAmount> predicate) {
         if (amount == null) {
             throw new IllegalArgumentException("Amount required.");
         }
@@ -80,15 +80,15 @@ final class ConstraintMoney implements
     }
 
     /**
-     * Access an {@link ConstraintMoney} based on the given
+     * Access an {@link ValidatedMoney} based on the given
      * {@link MonetaryAmount}.
      *
      * @param amount
      * @return
      */
-    private static ConstraintMoney of(MonetaryAmount amount,
-                                      Predicate<MonetaryAmount> predicate) {
-        return new ConstraintMoney(amount, predicate);
+    private static ValidatedMoney of(MonetaryAmount amount,
+                                     Predicate<MonetaryAmount> predicate) {
+        return new ValidatedMoney(amount, predicate);
     }
 
     /*
@@ -106,7 +106,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#abs()
      */
-    public ConstraintMoney abs() {
+    public ValidatedMoney abs() {
         return of(this.amount.abs(), predicate);
     }
 
@@ -115,7 +115,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#add(javax.money.MonetaryAmount)
      */
-    public ConstraintMoney add(MonetaryAmount augend) {
+    public ValidatedMoney add(MonetaryAmount augend) {
         return of(this.amount.add(augend), predicate);
     }
 
@@ -124,7 +124,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#divide(java.lang.Number)
      */
-    public ConstraintMoney divide(Number divisor) {
+    public ValidatedMoney divide(Number divisor) {
         return of(this.amount.divide(divisor), predicate);
     }
 
@@ -133,9 +133,9 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#divideAndRemainder(java.lang.Number)
      */
-    public ConstraintMoney[] divideAndRemainder(Number divisor) {
+    public ValidatedMoney[] divideAndRemainder(Number divisor) {
         MonetaryAmount[] res = this.amount.divideAndRemainder(divisor);
-        return new ConstraintMoney[]{of(res[0], predicate),
+        return new ValidatedMoney[]{of(res[0], predicate),
                 of(res[1], predicate)};
     }
 
@@ -144,7 +144,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#divideToIntegralValue(java.lang.Number)
      */
-    public ConstraintMoney divideToIntegralValue(Number divisor) {
+    public ValidatedMoney divideToIntegralValue(Number divisor) {
         return of(this.amount.divideToIntegralValue(divisor), predicate);
     }
 
@@ -153,7 +153,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#multiply(java.lang.Number)
      */
-    public ConstraintMoney multiply(Number multiplicand) {
+    public ValidatedMoney multiply(Number multiplicand) {
         return of(this.amount.multiply(multiplicand), predicate);
     }
 
@@ -162,7 +162,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#negate()
      */
-    public ConstraintMoney negate() {
+    public ValidatedMoney negate() {
         return of(this.amount.negate(), predicate);
     }
 
@@ -171,7 +171,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#plus()
      */
-    public ConstraintMoney plus() {
+    public ValidatedMoney plus() {
         return of(this.amount.plus(), predicate);
     }
 
@@ -180,7 +180,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#subtract(javax.money.MonetaryAmount)
      */
-    public ConstraintMoney subtract(Money subtrahend) {
+    public ValidatedMoney subtract(Money subtrahend) {
         return of(this.amount.subtract(subtrahend), predicate);
     }
 
@@ -198,7 +198,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#remainder(java.lang.Number)
      */
-    public ConstraintMoney remainder(Number divisor) {
+    public ValidatedMoney remainder(Number divisor) {
         return of(this.amount.remainder(divisor), predicate);
     }
 
@@ -207,7 +207,7 @@ final class ConstraintMoney implements
      *
      * @see javax.money.MonetaryAmount#scaleByPowerOfTen(int)
      */
-    public ConstraintMoney scaleByPowerOfTen(int n) {
+    public ValidatedMoney scaleByPowerOfTen(int n) {
         return of(this.amount.scaleByPowerOfTen(n), predicate);
     }
 
@@ -262,7 +262,7 @@ final class ConstraintMoney implements
      * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
      */
     @Override
-    public ConstraintMoney with(MonetaryOperator adjuster) {
+    public ValidatedMoney with(MonetaryOperator adjuster) {
         return of(this.amount.with(adjuster), predicate);
     }
 
@@ -340,81 +340,81 @@ final class ConstraintMoney implements
     }
 
     @Override
-    public ConstraintMoney subtract(MonetaryAmount amount) {
-        return new ConstraintMoney(this.amount.subtract(amount),
+    public ValidatedMoney subtract(MonetaryAmount amount) {
+        return new ValidatedMoney(this.amount.subtract(amount),
                 predicate);
     }
 
     @Override
-    public ConstraintMoney multiply(long multiplicand) {
-        return new ConstraintMoney(amount.multiply(multiplicand),
+    public ValidatedMoney multiply(long multiplicand) {
+        return new ValidatedMoney(amount.multiply(multiplicand),
                 predicate);
     }
 
     @Override
-    public ConstraintMoney multiply(double multiplicand) {
-        return new ConstraintMoney(amount.multiply(multiplicand),
+    public ValidatedMoney multiply(double multiplicand) {
+        return new ValidatedMoney(amount.multiply(multiplicand),
                 predicate);
     }
 
     @Override
-    public ConstraintMoney divide(long divisor) {
-        return new ConstraintMoney(amount.divide(divisor), predicate);
+    public ValidatedMoney divide(long divisor) {
+        return new ValidatedMoney(amount.divide(divisor), predicate);
     }
 
     @Override
-    public ConstraintMoney divide(double divisor) {
-        return new ConstraintMoney(amount.divide(divisor), predicate);
+    public ValidatedMoney divide(double divisor) {
+        return new ValidatedMoney(amount.divide(divisor), predicate);
     }
 
     @Override
-    public ConstraintMoney remainder(long divisor) {
-        return new ConstraintMoney(amount.remainder(divisor), predicate);
+    public ValidatedMoney remainder(long divisor) {
+        return new ValidatedMoney(amount.remainder(divisor), predicate);
     }
 
     @Override
-    public ConstraintMoney remainder(double divisor) {
-        return new ConstraintMoney(amount.remainder(divisor), predicate);
+    public ValidatedMoney remainder(double divisor) {
+        return new ValidatedMoney(amount.remainder(divisor), predicate);
     }
 
     @Override
-    public ConstraintMoney[] divideAndRemainder(long divisor) {
+    public ValidatedMoney[] divideAndRemainder(long divisor) {
         MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
-        return new ConstraintMoney[]{
-                new ConstraintMoney(result[0], predicate),
-                new ConstraintMoney(result[1], predicate)};
+        return new ValidatedMoney[]{
+                new ValidatedMoney(result[0], predicate),
+                new ValidatedMoney(result[1], predicate)};
     }
 
     @Override
-    public ConstraintMoney[] divideAndRemainder(double divisor) {
+    public ValidatedMoney[] divideAndRemainder(double divisor) {
         MonetaryAmount[] result = this.amount.divideAndRemainder(divisor);
-        return new ConstraintMoney[]{
-                new ConstraintMoney(result[0], predicate),
-                new ConstraintMoney(result[1], predicate)};
+        return new ValidatedMoney[]{
+                new ValidatedMoney(result[0], predicate),
+                new ValidatedMoney(result[1], predicate)};
     }
 
     @Override
-    public ConstraintMoney divideToIntegralValue(long divisor) {
-        return new ConstraintMoney(
+    public ValidatedMoney divideToIntegralValue(long divisor) {
+        return new ValidatedMoney(
                 amount.divideToIntegralValue(divisor),
                 predicate);
     }
 
     @Override
-    public ConstraintMoney divideToIntegralValue(double divisor) {
-        return new ConstraintMoney(
+    public ValidatedMoney divideToIntegralValue(double divisor) {
+        return new ValidatedMoney(
                 amount.divideToIntegralValue(divisor),
                 predicate);
     }
 
     @Override
-    public ConstraintMoney stripTrailingZeros() {
-        return new ConstraintMoney(amount.stripTrailingZeros(),
+    public ValidatedMoney stripTrailingZeros() {
+        return new ValidatedMoney(amount.stripTrailingZeros(),
                 predicate);
     }
 
     @Override
-    public MonetaryAmountFactory<ConstraintMoney> getFactory() {
+    public MonetaryAmountFactory<ValidatedMoney> getFactory() {
         return null;
         // return new ConstraintMoneyFactory(this);
     }

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javamoney.calc;
+package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,14 +22,14 @@ import java.text.NumberFormat;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
-import org.javamoney.calc.function.CompoundCalculation;
-import org.javamoney.calc.function.CompoundType;
-import org.javamoney.calc.function.CompoundValue;
+import org.javamoney.calc.ComplexCalculation;
+import org.javamoney.calc.ComplexType;
+import org.javamoney.calc.ComplexValue;
 import org.javamoney.moneta.Money;
 
 
 /**
- * This class allows to extract the permil of a {@link MonetaryAmount} instance.
+ * This class allows to extract the BasisPoint of a {@link MonetaryAmount} instance.
  * 
  * @version 0.5
  * @author Anatole Tresch
@@ -38,7 +38,7 @@ import org.javamoney.moneta.Money;
  * @see <a href="http://en.wikipedia.org/wiki/Per_mil">Wikipedia: Per mil</a>
  */
 public final class BasisPoint implements MonetaryOperator,
-        CompoundCalculation<MonetaryAmount> {
+		ComplexCalculation<ComplexType,MonetaryAmount> {
 
 	private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
 	private static final BigDecimal ONE_TENTHOUSAND = new BigDecimal(10000,
@@ -46,13 +46,13 @@ public final class BasisPoint implements MonetaryOperator,
 
 	private final BigDecimal basisPointValue;
 
-	private CompoundType INPUT_TYPE = new CompoundType.Builder("BasisPoint")
+	private ComplexType INPUT_TYPE = new ComplexType.Builder("BasisPoint")
 			.setNameForInput(BasisPoint.class)
 			.addRequiredParameter("basisPoints", Number.class)
 			.addRequiredParameter("amount", MonetaryAmount.class).build();
 
 	/**
-	 * Access the shared instance of {@link org.javamoney.moneta.function.Permil} for use.
+	 * Access the shared instance of {@link BasisPoint} for use.
 	 * 
 	 * @return the shared instance, never {@code null}.
 	 */
@@ -61,7 +61,7 @@ public final class BasisPoint implements MonetaryOperator,
 	}
 
 	/**
-	 * Get {@link MathContext} for {@link org.javamoney.moneta.function.Permil} instances.
+	 * Get {@link MathContext} for {@link BasisPoint} instances.
 	 * 
 	 * @return the {@link MathContext} to be used, by default
 	 *         {@link MathContext#DECIMAL64}.
@@ -155,7 +155,7 @@ public final class BasisPoint implements MonetaryOperator,
 	}
 
 	@Override
-	public CompoundType getInputType() {
+	public ComplexType getInputType() {
 		return INPUT_TYPE;
 	}
 
@@ -165,7 +165,7 @@ public final class BasisPoint implements MonetaryOperator,
 	}
 
 	@Override
-	public MonetaryAmount calculate(CompoundValue input) {
+	public MonetaryAmount calculate(ComplexValue<ComplexType> input) {
 		return Money.from(input.get("amount", MonetaryAmount.class)).multiply(input.get("basisPoints", Number.class));
 	}
 

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.javamoney.calc.function;
+package org.javamoney.calc;
 
 
 /**
@@ -23,13 +23,13 @@ package org.javamoney.calc.function;
  * 
  * @param <T> the result type.
  */
-public interface CompoundCalculation<T>{
+public interface ComplexCalculation<I extends ComplexType,T>{
     /**
      * Access the input type descriptor.
      *
      * @return the input type descriptor, never null.
      */
-    public CompoundType getInputType();
+    public I getInputType();
 
     /**
      * Access the result type.
@@ -45,5 +45,5 @@ public interface CompoundCalculation<T>{
      * @return the result
      * @throws javax.money.MonetaryException if input validation fails, or an other monetary errors occurring.
      */
-    public T calculate(CompoundValue input);
+    public T calculate(ComplexValue<I> input);
 }

@@ -17,11 +17,9 @@ package org.javamoney.calc;
 
 import javax.money.MonetaryException;
 
-import org.javamoney.calc.function.CompoundValue;
-
 /**
- * Exception that is thrown when a {@link CompoundValue} or a value in a
- * {@link CompoundValue} could not be validated successfully.
+ * Exception that is thrown when a {@link ComplexValue} or a value in a
+ * {@link ComplexValue} could not be validated successfully.
  * 
  * @author Anatole Tresch
  */

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.calc.function;
+package org.javamoney.calc.common;
 
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 
-import org.javamoney.calc.BasisPoint;
+import org.javamoney.calc.common.BasisPoint;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
