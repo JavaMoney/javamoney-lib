@@ -67,6 +67,14 @@ public final class FutureValue implements MonetaryOperator {
         this.periods = periods;
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
      *

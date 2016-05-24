@@ -21,7 +21,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by atsticks on 14.05.16.
+ * Tests for continous compouning.
  */
 public class ContinuousCompoundInterestTest {
 
@@ -92,9 +92,13 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void apply() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),2
+                Rate.of(0.1),2
         );
-        assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(0.1025,"CHF"));
+        // Values are confirmed:
+        assertEquals(ci.apply(Money.of(1000,"CHF"))
+                .getNumber().doubleValue(),
+                Money.of(1221.401536766165,"CHF").getNumber().doubleValue(),
+                0.00d);
     }
 
     @Test

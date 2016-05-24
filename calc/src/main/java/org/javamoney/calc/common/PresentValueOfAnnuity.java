@@ -16,20 +16,32 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 /**
- * The formula for the present value of an annuity due,
- * sometimes referred to as an immediate annuity, is used to calculate a series of periodic
- * payments, or cash flows, that start immediately.
+ * The future value of an annuity formula is used to calculate what the value at a future date would
+ * be for a series of periodic payments. The future value of an annuity formula assumes that
  * 
- * @see http://www.financeformulas.net/Present_Value_of_Annuity_Due.html
- * @author Anatole Tresch
+ * <nl>
+ * <li>The rate does not change
+ * <li>The first payment is one period away
+ * <li>The periodic payment does not change
+ * </nl>
+ * If the rate or periodic payment does change, then the sum of the future value of each individual
+ * cash flow would need to be calculated to determine the future value of the annuity. If the first
+ * cash flow, or payment, is made immediately, the future value of annuity due formula would be
+ * used.
+ * 
+ * @see http://www.financeformulas.net/Present_Value_of_Annuity.html
+ * @author Anatole
+ * @author Werner
+ * 
  */
-public final class PresentValueAnnuityDue implements MonetaryOperator {
+public final class PresentValueOfAnnuity implements MonetaryOperator {
 
     /**
      * the target rate, not null.
@@ -46,7 +58,7 @@ public final class PresentValueAnnuityDue implements MonetaryOperator {
      * @param rate    the target rate, not null.
      * @param periods the periods, >= 0.
      */
-    private PresentValueAnnuityDue(Rate rate, int periods) {
+    private PresentValueOfAnnuity(Rate rate, int periods) {
         this.rate = Objects.requireNonNull(rate);
         if (periods < 0) {
             throw new IllegalArgumentException("Periods < 0");
@@ -54,16 +66,23 @@ public final class PresentValueAnnuityDue implements MonetaryOperator {
         this.periods = periods;
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
-    public static PresentValueAnnuityDue of(Rate rate, int periods) {
-        return new PresentValueAnnuityDue(rate, periods);
+    public static PresentValueOfAnnuity of(Rate rate, int periods) {
+        return new PresentValueOfAnnuity(rate, periods);
     }
 
     /**
@@ -77,7 +96,19 @@ public final class PresentValueAnnuityDue implements MonetaryOperator {
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         Objects.requireNonNull(amount, "Amount required");
         Objects.requireNonNull(rate, "Rate required");
-        return PresentValueAnnuity.calculate(amount, rate, periods).add(amount);
+        MonetaryAmount sum = null;
+        for(int i=1;i<=periods;i++){
+            MonetaryAmount temp = PresentValue.calculate(amount, rate, i);
+            if(sum==null){
+                sum = temp;
+            }else {
+                sum = sum.add(temp);
+            }
+        }
+        if(sum==null){
+            return amount.getFactory().setNumber(0).create();
+        }
+        return sum;
     }
 
     @Override
@@ -87,7 +118,7 @@ public final class PresentValueAnnuityDue implements MonetaryOperator {
 
     @Override
     public String toString() {
-        return "PresentValueAnnuityDue{" +
+        return "PresentValueOfAnnuity{" +
                 "rate=" + rate +
                 ", periods=" + periods +
                 '}';

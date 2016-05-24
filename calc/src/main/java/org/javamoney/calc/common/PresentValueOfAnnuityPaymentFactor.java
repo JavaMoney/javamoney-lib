@@ -9,7 +9,10 @@
  */
 package org.javamoney.calc.common;
 
+import javax.money.MonetaryException;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -32,17 +35,21 @@ import java.util.Objects;
  * @see http://www.financeformulas.net/Present_Value_of_Annuity.html
  * @author Anatole Tresch
  */
-public final class PresentValueAnnuityFactor {
+public final class PresentValueOfAnnuityPaymentFactor {
 
-	private PresentValueAnnuityFactor() {
+	private PresentValueOfAnnuityPaymentFactor() {
 	}
 
     public static BigDecimal calculate(Rate rate, int periods) {
         Objects.requireNonNull(rate, "Rate required.");
+		if(periods<0){
+			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
+		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		return BigDecimal.ONE.subtract(
-				BigDecimal.ONE.add(rate.get()).pow(periods * -1))
-				.divide(rate.get());
+		BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
+		BigDecimal subtractor = ONE.divide(ONE.add(rate.get()).pow(periods), RoundingMode.HALF_EVEN);
+		return ONE.subtract(subtractor)
+				.divide(rate.get(), RoundingMode.HALF_EVEN);
 	}
 
 }

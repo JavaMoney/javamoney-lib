@@ -10,6 +10,8 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%20Factor%201.gif" />
@@ -29,8 +31,6 @@ import java.math.BigDecimal;
  */
 public final class FutureValueFactor {
 
-    private static final FutureValueFactor INSTANCE = new FutureValueFactor();
-
     private FutureValueFactor() {
     }
 
@@ -39,8 +39,8 @@ public final class FutureValueFactor {
             throw new IllegalArgumentException("rate required.");
         }
         // 1/((1+r)^n)
-        return BigDecimal.ONE.divide(
-                BigDecimal.ONE.add(rate.get()).pow(periods));
+        BigDecimal base = new BigDecimal(1.0, MathContext.DECIMAL64).add(rate.get());
+        return base.pow(periods, MathContext.DECIMAL64);
     }
 
 }

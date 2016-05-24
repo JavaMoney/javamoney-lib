@@ -43,7 +43,7 @@ import javax.money.MonetaryOperator;
  * @author Werner Keil
  * 
  */
-public final class PresentValueAnnuityPayment implements MonetaryOperator {
+public final class PresentValueOfAnnuityPayment implements MonetaryOperator {
 
     /**
      * the target rate, not null.
@@ -60,7 +60,7 @@ public final class PresentValueAnnuityPayment implements MonetaryOperator {
      * @param rate    the target rate, not null.
      * @param periods the periods, >= 0.
      */
-    private PresentValueAnnuityPayment(Rate rate, int periods) {
+    private PresentValueOfAnnuityPayment(Rate rate, int periods) {
         this.rate = Objects.requireNonNull(rate);
         if (periods < 0) {
             throw new IllegalArgumentException("Periods < 0");
@@ -76,8 +76,8 @@ public final class PresentValueAnnuityPayment implements MonetaryOperator {
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
-    public static PresentValueAnnuityPayment of(Rate rate, int periods) {
-        return new PresentValueAnnuityPayment(rate, periods);
+    public static PresentValueOfAnnuityPayment of(Rate rate, int periods) {
+        return new PresentValueOfAnnuityPayment(rate, periods);
     }
 
     /**

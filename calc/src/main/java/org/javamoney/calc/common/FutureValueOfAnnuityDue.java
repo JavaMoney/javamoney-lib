@@ -12,6 +12,7 @@ package org.javamoney.calc.common;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -59,11 +60,18 @@ public final class FutureValueOfAnnuityDue implements MonetaryOperator {
         this.periods = periods;
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
@@ -81,8 +89,10 @@ public final class FutureValueOfAnnuityDue implements MonetaryOperator {
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         // Am * (((1 + r).pow(n))-1/rate)
-        return PresentValueAnnuity.calculate(amount, rate, periods)
-                .add(amount);
+        BigDecimal base = new BigDecimal(1.0, MathContext.DECIMAL64).add(rate.get());
+        BigDecimal counter = base.pow(periods, MathContext.DECIMAL64).subtract(BigDecimal.ONE);
+        return amount.multiply(
+                counter.divide(rate.get(), MathContext.DECIMAL64).multiply(base));
     }
 
     @Override

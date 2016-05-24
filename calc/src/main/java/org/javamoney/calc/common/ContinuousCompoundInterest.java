@@ -83,9 +83,7 @@ public final class ContinuousCompoundInterest implements MonetaryOperator {
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
-        int power = rate.get().multiply(BigDecimal.valueOf(periods)).intValue();
-        BigDecimal f = BigDecimal.valueOf(Math.E).pow(power);
-        return (amount.multiply(f));
+        return CompoundInterest.calculate(amount, rate, periods, 10000);
     }
 
     @Override

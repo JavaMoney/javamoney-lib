@@ -28,11 +28,12 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link org.javamoney.calc.common.FutureValue} formula.
+ * @see http://www.financeformulas.net/Future_Value.html#calcHeader
  */
 public class FutureValueTest {
 
     /**
-     * Method: of(Rate rate, int periods)
+     * Method: of(Rate ratePerPeriod, int periods).
      */
     @Test
     public void testOfAndApply() throws Exception {

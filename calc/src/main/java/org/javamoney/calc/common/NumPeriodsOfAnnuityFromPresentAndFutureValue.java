@@ -49,7 +49,7 @@ public final class NumPeriodsOfAnnuityFromPresentAndFutureValue {
 
     public static BigDecimal calculate(MonetaryAmount annuity,
                                        MonetaryAmount paymentOrCashFlows, Rate rate, int periods) {
-        MonetaryAmount pvAnnuity = PresentValueAnnuity.calculate(
+        MonetaryAmount pvAnnuity = PresentValueOfAnnuity.calculate(
                 annuity, rate, periods);
         return new BigDecimal(String.valueOf(Math.log(BigDecimal.ONE
 				.subtract(pvAnnuity

@@ -10,9 +10,11 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryException;
 import javax.money.MonetaryOperator;
 
 /**
@@ -68,10 +70,25 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
     private FutureValueGrowingAnnuity(Rate discountRate, Rate growthRate, int periods) {
         this.discountRate = Objects.requireNonNull(discountRate);
         this.growthRate = Objects.requireNonNull(growthRate);
+        if(discountRate.equals(growthRate)){
+            throw new MonetaryException("Discount rate and growth rate cannot be the same.");
+        }
         if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
+            throw new MonetaryException("Periods < 0");
         }
         this.periods = periods;
+    }
+
+    public Rate getDiscountRate() {
+        return discountRate;
+    }
+
+    public Rate getGrowthRate() {
+        return growthRate;
+    }
+
+    public int getPeriods() {
+        return periods;
     }
 
     /**
@@ -90,17 +107,24 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
      * Performs the calculation.
      *
      * @param firstPayment the first payment
-     * @param discountRate The discount rate, not null.
+     * @param discountRate The rate perperiod, not null. If the rate is less than 0, the result will be zero.
      * @param growthRate   The growth rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount firstPayment, Rate discountRate, Rate growthRate,
                                            int periods) {
-        BigDecimal num = BigDecimal.ONE.add(discountRate.get()).pow(periods)
-                .subtract(BigDecimal.ONE.add(growthRate.get()).pow(periods));
+        if(discountRate.equals(growthRate)){
+            throw new MonetaryException("Discount rate and growth rate cannot be the same.");
+        }
+        if(discountRate.get().signum()<0){
+            return firstPayment.getFactory().setNumber(0.0d).create();
+        }
+        BigDecimal ONE = new BigDecimal(1.0, MathContext.DECIMAL64);
+        BigDecimal num = ONE.add(discountRate.get()).pow(periods)
+                .subtract(ONE.add(growthRate.get()).pow(periods));
         BigDecimal denum = discountRate.get().subtract(growthRate.get());
-        return firstPayment.multiply(num.divide(denum));
+        return firstPayment.multiply(num.divide(denum, BigDecimal.ROUND_HALF_EVEN));
     }
 
     @Override

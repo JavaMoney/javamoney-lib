@@ -58,11 +58,17 @@ public final class FutureValueOfAnnuity implements MonetaryOperator {
         this.periods = periods;
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
-     *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate the rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */

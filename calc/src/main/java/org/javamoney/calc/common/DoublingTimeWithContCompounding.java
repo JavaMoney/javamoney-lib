@@ -15,6 +15,7 @@
  */
 package org.javamoney.calc.common;
 
+import javax.money.MonetaryException;
 import java.math.BigDecimal;
 
 
@@ -30,9 +31,9 @@ import java.math.BigDecimal;
  * @author Anatole Tresch
  * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
  */
-public final class DoublingTimeWithCompounding {
+public final class DoublingTimeWithContCompounding {
 
-    private DoublingTimeWithCompounding() {
+    private DoublingTimeWithContCompounding() {
     }
 
     /**
@@ -40,7 +41,10 @@ public final class DoublingTimeWithCompounding {
      * with continous compounding, given a rate.
      */
     public static BigDecimal calculate(Rate rate) {
-        return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get());
+        if(rate.get().signum()==0){
+            throw new MonetaryException("Cannot calculate DoublingTimeWithCompounding with a rate=zero");
+        }
+        return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get(),BigDecimal.ROUND_HALF_EVEN);
     }
 
 }

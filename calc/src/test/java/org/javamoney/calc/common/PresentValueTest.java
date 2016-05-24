@@ -20,6 +20,7 @@ import org.junit.Test;
 
 /**
  * Tests for the {@link org.javamoney.calc.common.PresentValue} formula calculator.
+ * @see http://www.financeformulas.net/Present_Value.html#calcHeader
  */
 public class PresentValueTest{
 
@@ -34,6 +35,13 @@ public class PresentValueTest{
         assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 1)).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 2)).with(rounding));
         assertEquals(Money.of(BigDecimal.valueOf(47.51), "CHF"), money.with(PresentValue.of(Rate.of(0.07), 11)).with(rounding));
+
+        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValue.of(Rate.of(0.05), 0)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValue.of(Rate.of(-0.05), 0)).with(rounding));
+
+        assertEquals(Money.of(BigDecimal.valueOf(105.26), "CHF"), money.with(PresentValue.of(Rate.of(-0.05), 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.80), "CHF"), money.with(PresentValue.of(Rate.of(-0.05), 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(222.17), "CHF"), money.with(PresentValue.of(Rate.of(-0.07), 11)).with(rounding));
     }
 
     /**

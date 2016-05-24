@@ -10,6 +10,7 @@
 package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -42,17 +43,26 @@ public final class CompoundInterest implements MonetaryOperator {
     private final int periods;
 
     /**
+     * The number of compoundings per time period.
+     */
+    private final int timesCompounded;
+
+    /**
      * Private constructor.
      *
      * @param rate    the target rate, not null.
      * @param periods the periods, >= 0.
      */
-    private CompoundInterest(Rate rate, int periods) {
+    private CompoundInterest(Rate rate, int periods, int timesCompounded) {
         this.rate = Objects.requireNonNull(rate);
         if (periods < 0) {
             throw new IllegalArgumentException("Periods < 0");
         }
+        if (timesCompounded < 0) {
+            throw new IllegalArgumentException("TimesCompounded < 0");
+        }
         this.periods = periods;
+        this.timesCompounded = timesCompounded;
     }
 
     public int getPeriods() {
@@ -63,6 +73,10 @@ public final class CompoundInterest implements MonetaryOperator {
         return rate;
     }
 
+    public int getTimesCompounded(){
+        return timesCompounded;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
      *
@@ -70,12 +84,23 @@ public final class CompoundInterest implements MonetaryOperator {
      * @param periods the periods, >= 0.
      * @return the operator, never null.
      */
-    public static CompoundInterest of(Rate rate, int periods) {
-        return new CompoundInterest(rate, periods);
+    public static CompoundInterest of(Rate rate, int periods, int timesCompounded) {
+        return new CompoundInterest(rate, periods, timesCompounded);
     }
 
     /**
-     * Performs the calculation.
+     * Access a MonetaryOperator for calculation, assuming one time compounding per time period.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, >= 0.
+     * @return the operator, never null.
+     */
+    public static CompoundInterest of(Rate rate, int periods) {
+        return new CompoundInterest(rate, periods, 1);
+    }
+
+    /**
+     * Performs the calculation, assuming timesCompounded/period = 1.
      *
      * @param amount  the base amount, not null.
      * @param rate    the target rate, not null.
@@ -83,8 +108,24 @@ public final class CompoundInterest implements MonetaryOperator {
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
-        BigDecimal f = BigDecimal.ONE.add(rate.get()).pow(periods).subtract(BigDecimal.ONE);
-        return amount.multiply(f);
+        return calculate(amount, rate, periods, 1);
+    }
+
+
+        /**
+         * Performs the calculation.
+         *
+         * @param amount  the base amount, not null.
+         * @param rate    the target rate, not null.
+         * @param periods the periods, >= 0.
+         * @return the resulting amount, never null.
+         */
+    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods, int timesCompounded) {
+        final BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
+        BigDecimal part2 = rate.get().divide(BigDecimal.valueOf(timesCompounded));
+        BigDecimal base = ONE.add(part2);
+        BigDecimal multiplicator = base.pow(periods * timesCompounded);
+        return amount.multiply(multiplicator).subtract(amount);
     }
 
     @Override
@@ -97,6 +138,7 @@ public final class CompoundInterest implements MonetaryOperator {
         return "CompoundInterest{" +
                 "rate=" + rate +
                 ", periods=" + periods +
+                ", timesCompounded=" + timesCompounded +
                 '}';
     }
 }

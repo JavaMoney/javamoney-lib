@@ -15,7 +15,9 @@
  */
 package org.javamoney.calc.common;
 
+import javax.money.MonetaryException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 
 /**
@@ -44,8 +46,14 @@ public final class DoublingTime {
      * with continuous compounding, given a rate.
      */
     public static BigDecimal calculate(Rate rate) {
-        return BigDecimal.valueOf(Math.log(2.0d)).divide(
-                BigDecimal.valueOf(Math.log(1.0d)).add(rate.get()));
+        if(rate.get().signum()==0){
+            throw new MonetaryException("Cannot calculate DoublingTime with a rate=zero");
+        }
+        return new BigDecimal(Math.log(2.0d), MathContext.DECIMAL64)
+                .divide(
+                    new BigDecimal(
+                            Math.log(1.0d + rate.get().doubleValue())
+                        ), MathContext.DECIMAL64);
     }
 
 }

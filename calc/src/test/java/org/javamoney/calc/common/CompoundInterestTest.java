@@ -21,7 +21,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by atsticks on 14.05.16.
+ * Tests for compouning, including with multiple compounding rounds.
  */
 public class CompoundInterestTest {
 
@@ -72,7 +72,7 @@ public class CompoundInterestTest {
     @Test
     public void calculate_onePeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
-                Rate.of(0.05),100
+                Rate.of(0.05),1
         );
         assertEquals(Money.of(1,"CHF").with(ci),Money.of(0.05,"CHF"));
         assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
@@ -82,9 +82,9 @@ public class CompoundInterestTest {
     @Test
     public void calculate_twoPeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
-                Rate.of(0.05),100
+                Rate.of(0.05),2
         );
-        assertEquals(Money.of(1,"CHF").with(ci),Money.of(0.1025,"CHF"));
+         assertEquals(Money.of(1,"CHF").with(ci),Money.of(0.1025,"CHF"));
         assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
         assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.1025,"CHF"));
     }
@@ -92,9 +92,17 @@ public class CompoundInterestTest {
     @Test
     public void apply() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
-                Rate.of(0.05),100
+                Rate.of(0.05),2
         );
         assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(0.1025,"CHF"));
+    }
+
+    @Test
+    public void apply_With12compoundings() throws Exception {
+        CompoundInterest ci = CompoundInterest.of(
+                Rate.of(0.1), 10, 24
+        );
+        assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(1.5937424601,"CHF"));
     }
 
     @Test
@@ -102,6 +110,6 @@ public class CompoundInterestTest {
         CompoundInterest ci = CompoundInterest.of(
                 Rate.of(0.05),100
         );
-        assertEquals("CompoundInterest{rate=Rate[0.05], periods=2}", ci.toString());
+        assertEquals("CompoundInterest{rate=Rate[0.05], periods=100, timesCompounded=1}",ci.toString());
     }
 }
