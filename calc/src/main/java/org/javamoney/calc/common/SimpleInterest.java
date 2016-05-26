@@ -49,6 +49,14 @@ public final class SimpleInterest implements MonetaryOperator {
         this.periods = periods;
     }
 
+    public int getPeriods() {
+        return periods;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
     /**
      * Access a MonetaryOperator for calculation.
      *
@@ -72,8 +80,11 @@ public final class SimpleInterest implements MonetaryOperator {
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         Objects.requireNonNull(amount, "Amount required");
         Objects.requireNonNull(rate, "Rate required");
-        BigDecimal factor = BigDecimal.ONE.add(rate.get().multiply(
-                BigDecimal.valueOf(periods)));
+        if(periods==0 || amount.signum()==0){
+            return amount.getFactory().setNumber(0.0).create();
+        }
+        BigDecimal factor = rate.get().multiply(
+                BigDecimal.valueOf(periods));
         return amount.multiply(factor);
     }
 

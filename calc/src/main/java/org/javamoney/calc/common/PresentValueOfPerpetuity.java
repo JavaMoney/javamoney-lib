@@ -37,12 +37,20 @@ import javax.money.MonetaryOperator;
  * @author Werner
  * 
  */
-public final class PresentValuePerpetuity implements MonetaryOperator {
+public final class PresentValueOfPerpetuity implements MonetaryOperator {
 
     private Rate rate;
 
-    private PresentValuePerpetuity(Rate rate) {
+    private PresentValueOfPerpetuity(Rate rate) {
         this.rate = Objects.requireNonNull(rate);
+    }
+
+    /**
+     * Get the rate of this operator instance.
+     * @return the rate, never null.
+     */
+    public Rate getRate() {
+        return rate;
     }
 
     /**
@@ -51,8 +59,8 @@ public final class PresentValuePerpetuity implements MonetaryOperator {
      * @param rate The rate, not null.
      * @return the operator, never null.
      */
-    public static PresentValuePerpetuity of(Rate rate) {
-        return new PresentValuePerpetuity(rate);
+    public static PresentValueOfPerpetuity of(Rate rate) {
+        return new PresentValueOfPerpetuity(rate);
     }
 
     /**
@@ -75,7 +83,7 @@ public final class PresentValuePerpetuity implements MonetaryOperator {
 
     @Override
     public String toString() {
-        return "PresentValuePerpetuity{" +
+        return "PresentValueOfPerpetuity{" +
                 "rate=" + rate +
                 '}';
     }
