@@ -12,8 +12,8 @@ package org.javamoney.calc.common;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
-import com.ibm.icu.math.BigDecimal;
-
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -97,10 +97,10 @@ public final class PresentValueContinuousCompounding implements MonetaryOperator
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         Objects.requireNonNull(amount, "Amount required");
         Objects.requireNonNull(rate, "Rate required");
-        MonetaryAmount pv = PresentValue.calculate(amount, rate, periods);
-        BigDecimal fact = new BigDecimal(String.valueOf(Math.pow(Math.E, rate
-                .get().doubleValue() * periods)));
-        return pv.multiply(fact);
+        BigDecimal fact = new BigDecimal(1.0, MathContext.DECIMAL64).divide(
+                new BigDecimal(Math.pow(Math.E, rate
+                .get().doubleValue() * periods), MathContext.DECIMAL64), MathContext.DECIMAL64);
+        return amount.multiply(fact);
     }
 
     @Override

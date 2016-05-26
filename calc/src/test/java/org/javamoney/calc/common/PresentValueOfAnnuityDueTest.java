@@ -62,7 +62,7 @@ public class PresentValueOfAnnuityDueTest {
 
     @Test
     public void calculate_Periods0() throws Exception {
-        Money m = Money.of(0, "CHF");
+        Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
                 Rate.of(0.05), 0
         );
@@ -70,36 +70,36 @@ public class PresentValueOfAnnuityDueTest {
         val = PresentValueOfAnnuityDue.of(
                 Rate.of(-0.05), 0
         );
-        assertEquals(Money.of(10,"CHF"), m.with(val));
+        assertEquals(Money.of(0,"CHF"), m.with(val));
     }
 
 
     @Test
     public void calculate_Periods1() throws Exception {
-        Money m = Money.of(10, "CHF");
+        Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
                 Rate.of(0.05), 1
         );
-        assertEquals(Money.of(10,"CHF"), m.with(val));
+        assertEquals(Money.of(100,"CHF"), m.with(val));
         val = PresentValueOfAnnuityDue.of(
                 Rate.of(-0.05), 1
         );
-        assertEquals(Money.of(20,"CHF"), m.with(val));
+        assertEquals(Money.of(100,"CHF"), m.with(val));
     }
 
     @Test
     public void calculate_PeriodsN() throws Exception {
-        Money m = Money.of(10, "CHF");
+        Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
                 Rate.of(0.05), 10
         );
-        assertEquals(Money.of(81.08,"CHF").getNumber().numberValue(BigDecimal.class)
+        assertEquals(Money.of(810.7821675644053,"CHF").getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), m.with(val).getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), 0.00000000000001d);
         val = PresentValueOfAnnuityDue.of(
                 Rate.of(-0.05), 10
         );
-        assertEquals(Money.of(127.33,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
+        assertEquals(Money.of(1273.3468832186768,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
     }
 
@@ -108,7 +108,7 @@ public class PresentValueOfAnnuityDueTest {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
                 Rate.of(0.08), 10
         );
-        Money m = Money.of(10, "CHF");
+        Money m = Money.of(100, "CHF");
         assertEquals(val.apply(m), m.with(val));
     }
 

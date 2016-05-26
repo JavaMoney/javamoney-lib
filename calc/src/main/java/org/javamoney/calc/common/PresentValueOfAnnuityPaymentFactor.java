@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -34,6 +36,7 @@ import java.util.Objects;
  * 
  * @see http://www.financeformulas.net/Present_Value_of_Annuity.html
  * @author Anatole Tresch
+ * // TODO Check the correctness here og the above as well as the code in the class...
  */
 public final class PresentValueOfAnnuityPaymentFactor {
 
@@ -45,11 +48,14 @@ public final class PresentValueOfAnnuityPaymentFactor {
 		if(periods<0){
 			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
 		}
+		if(periods==0){
+			return BigDecimal.ZERO;
+		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
-		BigDecimal subtractor = ONE.divide(ONE.add(rate.get()).pow(periods), RoundingMode.HALF_EVEN);
-		return ONE.subtract(subtractor)
-				.divide(rate.get(), RoundingMode.HALF_EVEN);
+		BigDecimal ONE = new BigDecimal(1.00000000, MathContext.DECIMAL64);
+		BigDecimal fact1 = ONE.add(rate.get()).pow(-periods, MathContext.DECIMAL64);
+		BigDecimal counter = ONE.subtract(fact1);
+		return counter.divide(rate.get(), MathContext.DECIMAL64);
 	}
 
 }

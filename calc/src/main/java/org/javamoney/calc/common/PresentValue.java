@@ -11,6 +11,7 @@ package org.javamoney.calc.common;
 
 import com.ibm.icu.math.BigDecimal;
 
+import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;

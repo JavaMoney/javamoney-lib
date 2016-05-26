@@ -15,6 +15,7 @@
  */
 package org.javamoney.calc.common;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -84,7 +85,13 @@ public final class PresentValueOfAnnuityDue implements MonetaryOperator {
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         Objects.requireNonNull(amount, "Amount required");
         Objects.requireNonNull(rate, "Rate required");
-        return PresentValueOfAnnuity.calculate(amount, rate, periods).add(amount);
+        if(periods==0){
+            return amount.getFactory().setNumber(0.0).create();
+        }else if(periods==1){
+            return amount;
+        }
+        return PresentValueOfAnnuity.calculate(amount, rate, periods)
+                .multiply(rate.get().add(new BigDecimal(1.00000)));
     }
 
     @Override

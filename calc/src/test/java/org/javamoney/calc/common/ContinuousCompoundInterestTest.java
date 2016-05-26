@@ -74,9 +74,12 @@ public class ContinuousCompoundInterestTest {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
                 Rate.of(0.05),1
         );
-        assertEquals(Money.of(1,"CHF").with(ci),Money.of(0.05,"CHF"));
-        assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
-        assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.05,"CHF"));
+        assertEquals(Money.of(1,"CHF").with(ci).getNumber().doubleValue(),
+                0.0512d, 0.0001d);
+        assertEquals(Money.of(0,"CHF").with(ci).getNumber().doubleValue(),
+                0.0d, 0.000d);
+        assertEquals(Money.of(-1,"CHF").with(ci).getNumber().doubleValue(),
+                -0.0512d, 0.0001d);
     }
 
     @Test
@@ -84,9 +87,11 @@ public class ContinuousCompoundInterestTest {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
                 Rate.of(0.05),2
         );
-        assertEquals(Money.of(1,"CHF").with(ci),Money.of(0.1025,"CHF"));
-        assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
-        assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.1025,"CHF"));
+        assertEquals(Money.of(1,"CHF").with(ci).getNumber().doubleValue(),
+                0.10517064178387361, 0.000000001d);
+        assertEquals(Money.of(0,"CHF").with(ci).getNumber().doubleValue(),0d, 0.0d);
+        assertEquals(Money.of(-1,"CHF").with(ci).getNumber().doubleValue(),
+                -0.10517064178387361, 0.000000001d);
     }
 
     @Test
@@ -97,7 +102,7 @@ public class ContinuousCompoundInterestTest {
         // Values are confirmed:
         assertEquals(ci.apply(Money.of(1000,"CHF"))
                 .getNumber().doubleValue(),
-                Money.of(1221.401536766165,"CHF").getNumber().doubleValue(),
+                Money.of(221.40153676616498,"CHF").getNumber().doubleValue(),
                 0.00d);
     }
 
