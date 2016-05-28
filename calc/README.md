@@ -38,4 +38,7 @@ Additional there are operators for calculating
 
 * BasePoints
 
-and a ConstraintMoney instance that can have arbitrary constraints applied on it.
+And a system for multi parameter/type structures for modelling complex
+product calculations.
+
+and a ValidatedAmount instance that can have arbitrary constraints applied on it.
