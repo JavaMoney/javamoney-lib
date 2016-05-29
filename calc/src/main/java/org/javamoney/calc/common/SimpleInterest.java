@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -84,7 +86,7 @@ public final class SimpleInterest implements MonetaryOperator {
             return amount.getFactory().setNumber(0.0).create();
         }
         BigDecimal factor = rate.get().multiply(
-                BigDecimal.valueOf(periods));
+                BigDecimal.valueOf(periods), CalculationContext.mathContext());
         return amount.multiply(factor);
     }
 

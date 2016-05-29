@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -39,8 +41,8 @@ public final class FutureValueFactor {
             throw new IllegalArgumentException("rate required.");
         }
         // 1/((1+r)^n)
-        BigDecimal base = new BigDecimal(1.0, MathContext.DECIMAL64).add(rate.get());
-        return base.pow(periods, MathContext.DECIMAL64);
+        BigDecimal base = CalculationContext.one().add(rate.get());
+        return base.pow(periods, CalculationContext.mathContext());
     }
 
 }

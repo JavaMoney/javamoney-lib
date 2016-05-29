@@ -15,6 +15,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -49,11 +51,11 @@ public final class DoublingTime {
         if(rate.get().signum()==0){
             throw new MonetaryException("Cannot calculate DoublingTime with a rate=zero");
         }
-        return new BigDecimal(Math.log(2.0d), MathContext.DECIMAL64)
+        return new BigDecimal(Math.log(2.0d), CalculationContext.mathContext())
                 .divide(
                     new BigDecimal(
                             Math.log(1.0d + rate.get().doubleValue())
-                        ), MathContext.DECIMAL64);
+                        ), CalculationContext.mathContext());
     }
 
 }

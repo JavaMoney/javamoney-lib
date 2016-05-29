@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryException;
@@ -52,10 +54,10 @@ public final class PresentValueOfAnnuityPaymentFactor {
 			return BigDecimal.ZERO;
 		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		BigDecimal ONE = new BigDecimal(1.00000000, MathContext.DECIMAL64);
-		BigDecimal fact1 = ONE.add(rate.get()).pow(-periods, MathContext.DECIMAL64);
+		BigDecimal ONE = CalculationContext.one();
+		BigDecimal fact1 = ONE.add(rate.get()).pow(-periods, CalculationContext.mathContext());
 		BigDecimal counter = ONE.subtract(fact1);
-		return counter.divide(rate.get(), MathContext.DECIMAL64);
+		return counter.divide(rate.get(), CalculationContext.mathContext());
 	}
 
 }

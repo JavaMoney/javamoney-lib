@@ -15,6 +15,7 @@
  */
 package org.javamoney.calc.common;
 
+import com.sun.prism.shader.DrawCircle_LinearGradient_REFLECT_AlphaTest_Loader;
 import org.javamoney.moneta.spi.MoneyUtils;
 
 import java.math.BigDecimal;
@@ -35,10 +36,26 @@ import javax.money.MonetaryOperator;
 public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
     /** The rate factor. */
 	private BigDecimal rate;
+	/** An optional rate info. */
+	private String info;
 
-    private Rate(BigDecimal rate) {
-        this.rate = Objects.requireNonNull(rate);
+	/** A general zero rate. */
+	public static final Rate ZERO = new Rate(BigDecimal.ZERO, null);
+
+    private Rate(BigDecimal rate, String info) {
+		this.rate = Objects.requireNonNull(rate);
+		this.info = info;
     }
+
+	/**
+	 * Creates a new zero rate instance.
+	 *
+	 * @param info
+	 *            the (optional) rate info.
+	 */
+	public static Rate zero(String info){
+		return of(BigDecimal.ZERO, info);
+	}
 
 	/**
 	 * Creates a new rate instance.
@@ -47,8 +64,18 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	 *            the rate, not {@code null}.
 	 */
     public static Rate of(BigDecimal rate) {
-        return new Rate(rate);
+        return new Rate(rate, null);
     }
+
+	/**
+	 * Creates a new rate instance.
+	 * @param info the (optional) info String
+	 * @param rate
+	 *            the rate, not {@code null}.
+	 */
+	public static Rate of(BigDecimal rate, String info) {
+		return new Rate(rate, info);
+	}
 
 	/**
 	 * Creates a new rate instance.
@@ -57,8 +84,18 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	 *            the rate, not {@code null}.
 	 */
     public static Rate of(Number rate) {
-        return new Rate(MoneyUtils.getBigDecimal(rate));
+        return new Rate(MoneyUtils.getBigDecimal(rate), null);
     }
+
+	/**
+	 * Creates a new rate instance.
+	 *
+	 * @param rate
+	 *            the rate, not {@code null}.
+	 */
+	public static Rate of(Number rate, String info) {
+		return new Rate(MoneyUtils.getBigDecimal(rate), info);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -69,6 +106,7 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
+		result = prime * result + ((info == null) ? 0 : info.hashCode());
 		return result;
 	}
 
@@ -90,6 +128,11 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 				return false;
 		} else if (!rate.equals(other.rate))
 			return false;
+		if (info == null) {
+			if (other.info != null)
+				return false;
+		} else if (!info.equals(other.info))
+			return false;
 		return true;
 	}
 
@@ -103,12 +146,23 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
         return this.rate;
 	}
 
+	/**
+	 * Access the additional rate info.
+	 * @return the additional rate info, or null.
+     */
+	public String getInfo(){
+		return info;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
+		if(info!=null){
+			return "Rate[rate=" + rate + ",info="+info+"]";
+		}
 		return "Rate[" + rate + "]";
 	}
 

@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
@@ -72,8 +74,7 @@ public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOp
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
@@ -95,8 +96,8 @@ public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOp
         // FVofA/CC = CF * [ (e.pow(r*n) - 1) / ((e.pow(r) - 1)) ]
         double num = Math.pow(Math.E, rate.get().doubleValue() * periods) - 1.0;
         double denum = Math.pow(Math.E, rate.get().doubleValue()) - 1.0;
-        BigDecimal factor = new BigDecimal(num, MathContext.DECIMAL64)
-                .divide(new BigDecimal(denum, MathContext.DECIMAL64));
+        BigDecimal factor = new BigDecimal(num, CalculationContext.mathContext())
+                .divide(new BigDecimal(denum, CalculationContext.mathContext()));
         return amount.multiply(factor);
     }
 

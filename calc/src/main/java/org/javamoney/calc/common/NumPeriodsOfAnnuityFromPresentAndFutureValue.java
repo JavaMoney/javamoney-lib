@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
@@ -48,7 +50,8 @@ public final class NumPeriodsOfAnnuityFromPresentAndFutureValue {
     }
 
     public static BigDecimal calculate(MonetaryAmount annuity,
-                                       MonetaryAmount paymentOrCashFlows, Rate rate, int periods) {
+                                       MonetaryAmount paymentOrCashFlows,
+                                       Rate rate, int periods) {
         MonetaryAmount pvAnnuity = PresentValueOfAnnuity.calculate(
                 annuity, rate, periods);
         return new BigDecimal(String.valueOf(Math.log(BigDecimal.ONE

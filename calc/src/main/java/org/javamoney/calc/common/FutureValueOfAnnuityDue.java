@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
@@ -89,10 +91,10 @@ public final class FutureValueOfAnnuityDue implements MonetaryOperator {
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         // Am * (((1 + r).pow(n))-1/rate)
-        BigDecimal base = new BigDecimal(1.0, MathContext.DECIMAL64).add(rate.get());
-        BigDecimal counter = base.pow(periods, MathContext.DECIMAL64).subtract(BigDecimal.ONE);
+        BigDecimal base = CalculationContext.one().add(rate.get());
+        BigDecimal counter = base.pow(periods, CalculationContext.mathContext()).subtract(BigDecimal.ONE);
         return amount.multiply(
-                counter.divide(rate.get(), MathContext.DECIMAL64).multiply(base));
+                counter.divide(rate.get(), CalculationContext.mathContext()).multiply(base));
     }
 
     @Override

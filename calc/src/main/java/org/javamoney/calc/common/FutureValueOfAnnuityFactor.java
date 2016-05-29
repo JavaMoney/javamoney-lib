@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -46,10 +48,10 @@ public final class FutureValueOfAnnuityFactor {
 			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
 		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
-		BigDecimal subtractor = ONE.divide(ONE.add(rate.get()).pow(periods), RoundingMode.HALF_EVEN);
+		final BigDecimal ONE = CalculationContext.one();
+		BigDecimal subtractor = ONE.divide(ONE.add(rate.get()).pow(periods), CalculationContext.mathContext());
 		return ONE.subtract(subtractor)
-				.divide(rate.get(), RoundingMode.HALF_EVEN);
+				.divide(rate.get(), CalculationContext.mathContext());
 	}
 
 }

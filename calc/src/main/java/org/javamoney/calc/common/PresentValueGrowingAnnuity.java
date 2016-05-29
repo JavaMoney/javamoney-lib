@@ -61,7 +61,6 @@ public final class PresentValueGrowingAnnuity implements MonetaryOperator {
      *
      * @param discountRate The discount rate, not null.
      * @param growthRate   The growth rate, not null.
-     * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
     public static PresentValueGrowingAnnuity of(Rate discountRate, Rate growthRate) {

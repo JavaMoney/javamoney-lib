@@ -15,6 +15,14 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+import org.javamoney.calc.ComplexCalculation;
+import org.javamoney.calc.ComplexType;
+import org.javamoney.calc.ComplexValue;
+import org.javamoney.moneta.spi.MoneyUtils;
+
+import javax.money.MonetaryAmount;
+import javax.money.MonetaryQuery;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -39,22 +47,34 @@ import java.math.MathContext;
  * @see http://www.financeformulas.net/Average-Collection-Period.html
  * @author Anatole Tresch
  */
-public final class AverageCollectionPeriod {
+public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
 
 	private static final BigDecimal BD72 = BigDecimal.valueOf(72);
 
-	private AverageCollectionPeriod() {
+	private BigDecimal avgAccountsReceivable;
+
+
+	private AverageCollectionPeriod(Number avgAccountsReceivable) {
+		this.avgAccountsReceivable = MoneyUtils.getBigDecimal(avgAccountsReceivable);
+	}
+
+	/**
+	 * Get the current average accounts receivable value for this query.
+	 * @return the current average accounts receivable value, never null.
+     */
+	public BigDecimal getAvgAccountsReceivable() {
+		return avgAccountsReceivable;
 	}
 
 	/**
 	 * Calculates the average collection period.
-	 * @param receivableTurnover this equals to {@code salesRevenue / average Accounts receivable};
-	 * @see #receivablesTurnover(BigDecimal, BigDecimal)
+	 * @param receivablesTurnover this equals to {@code salesRevenue / average Accounts receivable};
+	 * @see #receivablesTurnover(MonetaryAmount, Number)
 	 * @return the average collection period, never null.
      */
-    public static BigDecimal calculate(BigDecimal receivableTurnover) {
-        return new BigDecimal(365, MathContext.DECIMAL32)
-				.divide(receivableTurnover, MathContext.DECIMAL32);
+    public static BigDecimal calculate(Number receivablesTurnover) {
+        return new BigDecimal(365, CalculationContext.mathContext())
+				.divide(MoneyUtils.getBigDecimal(receivablesTurnover), CalculationContext.mathContext());
 	}
 
 	/**
@@ -63,13 +83,31 @@ public final class AverageCollectionPeriod {
 	 * @param avgAccountsReceivable the average accounts receivable
      * @return the receivables turnover, never null.
      */
-	public static BigDecimal receivablesTurnover(BigDecimal revenue, BigDecimal avgAccountsReceivable){
-		return avgAccountsReceivable.divide(revenue, MathContext.DECIMAL64);
+	public static BigDecimal receivablesTurnover(MonetaryAmount revenue, Number avgAccountsReceivable){
+		return MoneyUtils.getBigDecimal(avgAccountsReceivable).divide(
+				revenue.getNumber().numberValue(BigDecimal.class), MathContext.DECIMAL64);
 	}
 
-
-	public static BigDecimal calculate(BigDecimal revenue, BigDecimal avgAccountsReceivale){
+	/**
+	 * Calculates the average collection period, based on the revenue and average accounts receivable.
+	 * @param revenue the revenues
+	 * @param avgAccountsReceivable the average accounts receivable
+     * @return the average collection period
+     */
+	public static BigDecimal calculate(MonetaryAmount revenue, Number avgAccountsReceivable){
 		return new BigDecimal(365, MathContext.DECIMAL32).multiply(
-				receivablesTurnover(revenue, avgAccountsReceivale), MathContext.DECIMAL64);
+				receivablesTurnover(revenue, avgAccountsReceivable), MathContext.DECIMAL64);
+	}
+
+	@Override
+	public BigDecimal queryFrom(MonetaryAmount amount) {
+		return calculate(amount, avgAccountsReceivable);
+	}
+
+	@Override
+	public String toString() {
+		return "AverageCollectionPeriod{" +
+				"avgAccountsReceivable=" + avgAccountsReceivable +
+				'}';
 	}
 }

@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -63,8 +65,7 @@ final class FutureValueOfAnnuityPayment implements MonetaryOperator {
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
@@ -81,9 +82,10 @@ final class FutureValueOfAnnuityPayment implements MonetaryOperator {
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+        final BigDecimal ONE = CalculationContext.one();
         return FutureValue.calculate(amount, rate, periods).divide(
-                BigDecimal.ONE.add(rate.get()).pow(periods)
-                        .subtract(BigDecimal.ONE)
+                ONE.add(rate.get()).pow(periods)
+                        .subtract(ONE)
         );
     }
 

@@ -15,6 +15,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -47,6 +49,6 @@ public final class RuleOf72 {
 
     public static BigDecimal calculate(Rate input) {
         return BD72.divide(input.get().multiply(BigDecimal.valueOf(100)),
-				MathContext.DECIMAL64);
+				CalculationContext.mathContext());
 	}
 }

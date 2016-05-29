@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
@@ -120,11 +122,11 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
         if(discountRate.get().signum()<0){
             return firstPayment.getFactory().setNumber(0.0d).create();
         }
-        BigDecimal ONE = new BigDecimal(1.0, MathContext.DECIMAL64);
+        final BigDecimal ONE = CalculationContext.one();
         BigDecimal num = ONE.add(discountRate.get()).pow(periods)
                 .subtract(ONE.add(growthRate.get()).pow(periods));
         BigDecimal denum = discountRate.get().subtract(growthRate.get());
-        return firstPayment.multiply(num.divide(denum, BigDecimal.ROUND_HALF_EVEN));
+        return firstPayment.multiply(num.divide(denum, CalculationContext.mathContext()));
     }
 
     @Override

@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
@@ -77,8 +79,7 @@ public final class PresentValueContinuousCompounding implements MonetaryOperator
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
@@ -97,9 +98,10 @@ public final class PresentValueContinuousCompounding implements MonetaryOperator
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         Objects.requireNonNull(amount, "Amount required");
         Objects.requireNonNull(rate, "Rate required");
-        BigDecimal fact = new BigDecimal(1.0, MathContext.DECIMAL64).divide(
+        BigDecimal fact = CalculationContext.one().divide(
                 new BigDecimal(Math.pow(Math.E, rate
-                .get().doubleValue() * periods), MathContext.DECIMAL64), MathContext.DECIMAL64);
+                .get().doubleValue() * periods), CalculationContext.mathContext()),
+                CalculationContext.mathContext());
         return amount.multiply(fact);
     }
 

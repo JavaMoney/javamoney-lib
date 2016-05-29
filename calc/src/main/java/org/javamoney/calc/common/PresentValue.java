@@ -66,8 +66,7 @@ public final class PresentValue implements MonetaryOperator {
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */

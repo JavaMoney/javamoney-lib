@@ -15,6 +15,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
 
@@ -44,7 +46,7 @@ public final class DoublingTimeWithContCompounding {
         if(rate.get().signum()==0){
             throw new MonetaryException("Cannot calculate DoublingTimeWithCompounding with a rate=zero");
         }
-        return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get(),BigDecimal.ROUND_HALF_EVEN);
+        return BigDecimal.valueOf(Math.log(2.0d)).divide(rate.get(), CalculationContext.mathContext());
     }
 
 }

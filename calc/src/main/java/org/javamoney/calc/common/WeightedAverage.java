@@ -15,6 +15,7 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
 import org.javamoney.calc.ComplexCalculation;
 import org.javamoney.calc.ComplexType;
 import org.javamoney.calc.ComplexValue;
@@ -41,6 +42,10 @@ import java.util.*;
  * average of one of their variable expenses, the company could use the weighted average formula with
  * sales as the weight to gain a better understanding of their expenses compared to how much they
  * produce or sell.
+ *
+ * This class does - other as the example referenced above - not require that all weights sum up to {@code 1.0}.
+ * Instead of it calculates the overall sum of weights and uses this as the overall reference value
+ * to be used for determining the effective weights given.
  *
  * @author Anatole Tresch
  *
@@ -135,12 +140,12 @@ public final class WeightedAverage {
 	public static BigDecimal calculateWeightedAverage(Collection<WeightedValue> values){
 		BigDecimal totalWeight = new BigDecimal(0, MathContext.DECIMAL64);
 		for(WeightedValue val:values){
-			totalWeight = totalWeight.add(val.getWeight());
+			totalWeight = totalWeight.add(val.getWeight(), CalculationContext.mathContext());
 		}
-		BigDecimal total = new BigDecimal(0, MathContext.DECIMAL64);
+		BigDecimal total = CalculationContext.zero();
 		for(WeightedValue val:values){
-			BigDecimal weight = val.getWeight().divide(totalWeight, MathContext.DECIMAL64);
-			total = total.add(val.getValue().multiply(weight, MathContext.DECIMAL64));
+			BigDecimal weight = val.getWeight().divide(totalWeight, CalculationContext.mathContext());
+			total = total.add(val.getValue().multiply(weight, CalculationContext.mathContext()));
 		}
 		return total;
 	}

@@ -15,6 +15,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -44,8 +46,8 @@ public final class DoublingTimeSimple {
         if(rate.get().signum()==0){
             throw new MonetaryException("Cannot calculate DoublingTimeSimple with a rate=zero");
         }
-        return new BigDecimal(1.0, MathContext.DECIMAL64).
-                divide(rate.get(), MathContext.DECIMAL64);
+        return CalculationContext.one().
+                divide(rate.get(), CalculationContext.mathContext());
     }
 
 }

@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -75,7 +77,7 @@ public final class PresentValueGrowingAnnuityPayment implements MonetaryOperator
     /**
      * Performs the calculation.
      *
-     * @param dividend     the dividend payment
+     * @param amount     the dividend payment
      * @param discountRate The discount rate, not null.
      * @param growthRate   The growth rate, not null.
      * @return the resulting amount, never null.
@@ -88,8 +90,9 @@ public final class PresentValueGrowingAnnuityPayment implements MonetaryOperator
         BigDecimal numerator = discountRate.get().subtract(growthRate.get());
         BigDecimal denum = BigDecimal.ONE.subtract(BigDecimal.ONE
                 .add(growthRate.get())
-                .divide(BigDecimal.ONE.add(discountRate.get())).pow(periods));
-        return amount.multiply(numerator.divide(denum));
+                .divide(BigDecimal.ONE.add(discountRate.get()), CalculationContext.mathContext())
+                .pow(periods, CalculationContext.mathContext()));
+        return amount.multiply(numerator.divide(denum, CalculationContext.mathContext()));
     }
 
     @Override

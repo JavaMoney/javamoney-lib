@@ -69,6 +69,15 @@ public final class ComplexValue<T extends ComplexType> {
 		return t;
 	}
 
+	/**
+	 * Allows to check if a given key is present in the value map.
+	 * @param key the target key, not null.
+	 * @return true if the given key is present.
+     */
+	public boolean isPresent(String key) {
+		return this.args.containsKey(key);
+	}
+
 	public static final class Builder {
 		private ComplexType type;
 		private Map<String, Object> args = new HashMap<String, Object>();

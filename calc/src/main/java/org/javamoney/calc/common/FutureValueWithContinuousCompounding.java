@@ -19,6 +19,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 import com.ibm.icu.math.BigDecimal;
+import org.javamoney.calc.CalculationContext;
 
 import java.math.MathContext;
 import java.util.Objects;
@@ -87,8 +88,7 @@ public final class FutureValueWithContinuousCompounding implements MonetaryOpera
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */

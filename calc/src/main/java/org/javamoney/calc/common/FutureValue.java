@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -95,7 +97,7 @@ public final class FutureValue implements MonetaryOperator {
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
-        BigDecimal f = (BigDecimal.ONE.add(rate.get())).pow(periods);
+        BigDecimal f = (CalculationContext.one().add(rate.get())).pow(periods);
         return amount.multiply(f);
     }
 

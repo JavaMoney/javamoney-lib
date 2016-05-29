@@ -9,6 +9,10 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.ComplexCalculation;
+import org.javamoney.calc.ComplexType;
+import org.javamoney.calc.ComplexValue;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 

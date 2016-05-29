@@ -9,6 +9,11 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+import org.javamoney.calc.ComplexCalculation;
+import org.javamoney.calc.ComplexType;
+import org.javamoney.calc.ComplexValue;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
@@ -121,7 +126,7 @@ public final class CompoundInterest implements MonetaryOperator {
          * @return the resulting amount, never null.
          */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods, int timesCompounded) {
-        final BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
+        final BigDecimal ONE = CalculationContext.one();
         BigDecimal part2 = rate.get().divide(BigDecimal.valueOf(timesCompounded));
         BigDecimal base = ONE.add(part2);
         BigDecimal multiplicator = base.pow(periods * timesCompounded);

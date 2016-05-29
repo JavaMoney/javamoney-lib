@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -71,8 +73,7 @@ public final class PresentValueOfAnnuityPayment implements MonetaryOperator {
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param rate The discount rate, not null.
      * @param periods      the target periods, >= 0.
      * @return the operator, never null.
      */
@@ -94,7 +95,8 @@ public final class PresentValueOfAnnuityPayment implements MonetaryOperator {
         // AP(m) = PV(m,r,n) / [ (1-((1 + r).pow(-n))) / r ]
         return PresentValue.calculate(amount, rate, periods).divide(
                 BigDecimal.ONE.subtract((BigDecimal.ONE.add(rate.get())
-                        .pow(-1 * periods).divide(rate.get())
+                        .pow(-1 * periods, CalculationContext.mathContext()).
+                                divide(rate.get(), CalculationContext.mathContext())
                 )));
     }
 

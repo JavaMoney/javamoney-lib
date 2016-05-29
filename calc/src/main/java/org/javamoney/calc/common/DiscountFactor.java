@@ -9,6 +9,8 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.calc.CalculationContext;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -37,10 +39,11 @@ public final class DiscountFactor {
             throw new IllegalArgumentException("Periods < 0");
         }
         // (1-(1+r)^n)/1-(1+rate)
-        BigDecimal div = BigDecimal.ONE.min(BigDecimal.ONE.add(rate.get()));
-        BigDecimal factor = BigDecimal.ONE.subtract(BigDecimal.ONE.add(rate.get()).pow(periods))
-                .divide(div, BigDecimal.ROUND_HALF_DOWN);
-        return BigDecimal.ONE.add(factor);
+        final BigDecimal ONE = CalculationContext.one();
+        BigDecimal div = ONE.min(ONE.add(rate.get()));
+        BigDecimal factor = ONE.subtract(ONE.add(rate.get()).pow(periods))
+                .divide(div, CalculationContext.mathContext());
+        return ONE.add(factor);
     }
 
 }
