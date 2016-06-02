@@ -115,7 +115,7 @@ public class FutureValueGrowingAnnuityTest {
         val = FutureValueGrowingAnnuity.of(
                 Rate.of(0.05), Rate.of(-0.05), 10
         );
-        assertEquals(Money.of(103.01576875390625,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
+        assertEquals(Money.of(103.0157687539062,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
     }
 

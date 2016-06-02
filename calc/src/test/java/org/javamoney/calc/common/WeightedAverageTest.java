@@ -68,6 +68,16 @@ public class WeightedAverageTest {
     }
 
     @Test
+    public void calculateWeightedAverage_3_Distributed() throws Exception {
+        WeightedAverage.Builder builder = WeightedAverage.newBuilder();
+        builder.add(50,0.5);
+        builder.add(100,0.5);
+        assertEquals(builder.calculate().doubleValue(), new BigDecimal(75).doubleValue(), 0.0d);
+        assertEquals(builder.build().calculateWeightedAverage().doubleValue(),
+                75.0, 0.0d);
+    }
+
+    @Test
     public void calculateWeightedAverage_Multiple_NonDistributed() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();
         builder.add(2334, 0.1);

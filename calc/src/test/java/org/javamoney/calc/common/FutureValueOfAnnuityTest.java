@@ -93,7 +93,7 @@ public class FutureValueOfAnnuityTest {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
                 Rate.of(0.05), 10
         );
-        assertEquals(Money.of(125.77892535548828,"CHF").getNumber().numberValue(BigDecimal.class)
+        assertEquals(Money.of(125.7789253554883,"CHF").getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), m.with(val).getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), 0.00000000000001d);
         val = FutureValueOfAnnuity.of(

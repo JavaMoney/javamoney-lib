@@ -33,9 +33,9 @@ public class DoublingTimeWithContCompoundingTest {
     @Test
     public void calculate() throws Exception {
         assertEquals(8.30116383904126, DoublingTimeWithContCompounding.calculate(Rate.of(0.0835)).doubleValue(), 0.0d);
-        assertEquals(1.3862943611198906, DoublingTimeWithContCompounding.calculate(Rate.of(0.5)).doubleValue(), 0.0d);
+        assertEquals(1.386294361119891, DoublingTimeWithContCompounding.calculate(Rate.of(0.5)).doubleValue(), 0.0d);
         assertEquals(0.6931471805599453, DoublingTimeWithContCompounding.calculate(Rate.of(1)).doubleValue(), 0.0d);
-        assertEquals(15.403270679109896, DoublingTimeWithContCompounding.calculate(Rate.of(0.045)).doubleValue(), 0.0d);
+        assertEquals(15.4032706791099, DoublingTimeWithContCompounding.calculate(Rate.of(0.045)).doubleValue(), 0.0d);
     }
 
     @Test(expected = MonetaryException.class)

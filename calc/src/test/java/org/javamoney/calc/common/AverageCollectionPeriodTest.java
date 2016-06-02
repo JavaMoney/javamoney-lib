@@ -15,6 +15,7 @@
  */
 package org.javamoney.calc.common;
 
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -29,23 +30,24 @@ public class AverageCollectionPeriodTest {
 
     @Test
     public void calculate_POSITIVE() throws Exception {
-        assertEquals(BigDecimal.valueOf(99.23872), AverageCollectionPeriod.calculate(BigDecimal.valueOf(3.678)));
+        assertEquals(99.23871669385536, AverageCollectionPeriod.calculate(BigDecimal.valueOf(3.678)).doubleValue(), 0.0000001d);
     }
 
     @Test
     public void calculate_NEGATIVE() throws Exception {
-        assertEquals(BigDecimal.valueOf(-99.23872), AverageCollectionPeriod.calculate(BigDecimal.valueOf(-3.678)));
+        assertEquals(-99.23871669385536, AverageCollectionPeriod.calculate(BigDecimal.valueOf(-3.678)).doubleValue(), 0.0000001d);
     }
 
     @Test
     public void calculate_Explicit() throws Exception {
-        assertEquals(BigDecimal.valueOf(1042.006525285481), AverageCollectionPeriod.calculate(BigDecimal.valueOf(3.678), BigDecimal.valueOf(10.5)));
+        assertEquals(BigDecimal.valueOf(1042.006525285481), AverageCollectionPeriod.calculate(Money.of(3.678, "CHF"),
+                BigDecimal.valueOf(10.5)));
     }
 
     @Test
     public void receivableTurnover() throws Exception {
         assertEquals(BigDecimal.valueOf(2.854812398042414), AverageCollectionPeriod.receivablesTurnover(
-                BigDecimal.valueOf(3.678), BigDecimal.valueOf(10.5)));
+                Money.of(3.678, "CHF"), BigDecimal.valueOf(10.5)));
     }
 
 

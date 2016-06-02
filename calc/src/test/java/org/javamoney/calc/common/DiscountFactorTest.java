@@ -29,7 +29,7 @@ public class DiscountFactorTest {
     @Test
     public void calculate_Negative() throws Exception {
         assertEquals(1, DiscountFactor.calculate(Rate.of(-0.05),0).doubleValue(), 0.0d);
-        assertEquals(1.05, DiscountFactor.calculate(Rate.of(-0.05),1).doubleValue(), 0.0d);
+        assertEquals(1.0526315789473684, DiscountFactor.calculate(Rate.of(-0.05),1).doubleValue(), 0.0d);
         assertEquals(1.422382169222759, DiscountFactor.calculate(Rate.of(-0.05),10).doubleValue(), 0.0d);
     }
 
