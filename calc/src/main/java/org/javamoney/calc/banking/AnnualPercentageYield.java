@@ -15,7 +15,6 @@ import org.javamoney.calc.ComplexValue;
 import org.javamoney.calc.common.Rate;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryException;
 import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -45,7 +44,7 @@ import java.util.Objects;
  */
 public final class AnnualPercentageYield implements MonetaryOperator {
 
-    private static final ComplexType INPUT_TYPE = new ComplexType.Builder("BalloonLoanPayment:IN")
+    private static final ComplexType INPUT_TYPE = new ComplexType.Builder("AnnualPercentageYield:IN")
             .addRequiredParameter("amount", MonetaryAmount.class)
             .addRequiredParameter("rate", Rate.class)
             .addRequiredParameter("periods", Number.class).build();
