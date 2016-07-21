@@ -24,6 +24,12 @@ import java.math.BigDecimal;
 public class DilutedEarningsPerShare {
 
     /**
+     * Private constructor.
+     */
+    private DilutedEarningsPerShare() {
+    }
+
+    /**
      * Calculates the diluted earnings per share.
      *
      * @param netIncome                   the firm's net income
