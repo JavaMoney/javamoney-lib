@@ -23,7 +23,7 @@ public class EarningsPerShare {
     /**
      * Calculates the earnings per share.
      *
-     * @param netIncome                          the annual netIncome paid
+     * @param netIncome the company's net income
      * @param weightedAverageOfOutstandingShares the weighted average of outstanding shares of common stock
      * @return the earnings per share
      */
