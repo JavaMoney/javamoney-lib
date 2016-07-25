@@ -24,10 +24,9 @@ public class GeometricMeanReturn {
      * Calculates geometric mean return.
      *
      * @param ratesOfReturn   the rates of return
-     * @param numberOfPeriods the number of periods
      * @return the geometric mean return
      */
-    public static double calculate(List<BigDecimal> ratesOfReturn, int numberOfPeriods) {
+    public static double calculate(List<BigDecimal> ratesOfReturn) {
         BigDecimal product = BigDecimal.ONE;
         for (BigDecimal rateOfReturn : ratesOfReturn) {
             if (rateOfReturn == null) {
@@ -35,6 +34,6 @@ public class GeometricMeanReturn {
             }
             product = product.multiply(rateOfReturn.add(BigDecimal.ONE));
         }
-        return Math.pow(product.doubleValue(), 1 / (double) numberOfPeriods) - 1;
+        return Math.pow(product.doubleValue(), 1 / (double) ratesOfReturn.size()) - 1;
     }
 }
