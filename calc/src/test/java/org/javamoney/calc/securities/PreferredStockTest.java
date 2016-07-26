@@ -1,5 +1,6 @@
 package org.javamoney.calc.securities;
 
+import org.javamoney.calc.common.Rate;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import static junit.framework.Assert.assertEquals;
 public class PreferredStockTest {
 
     private static final Money DIVIDEND = Money.of(20, "GBP");
-    private static final double DISCOUNT_RATE = 0.05;
+    private static final Rate DISCOUNT_RATE = Rate.of(0.05);
 
     @Test
     public void testCalculate() {

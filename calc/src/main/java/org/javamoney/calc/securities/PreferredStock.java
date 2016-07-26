@@ -1,5 +1,7 @@
 package org.javamoney.calc.securities;
 
+import org.javamoney.calc.common.Rate;
+
 import javax.money.MonetaryAmount;
 
 /**
@@ -26,7 +28,7 @@ public class PreferredStock {
      * @param discountRate the discount rate
      * @return the preferred stock
      */
-    public static MonetaryAmount calculate(MonetaryAmount dividend, double discountRate) {
-        return dividend.divide(discountRate);
+    public static MonetaryAmount calculate(MonetaryAmount dividend, Rate discountRate) {
+        return dividend.divide(discountRate.get());
     }
 }
