@@ -1,8 +1,8 @@
 package org.javamoney.calc.securities;
 
+import org.javamoney.calc.common.Rate;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class GeometricMeanReturnTest {
 
-    private static final List<BigDecimal> RATES_OF_RETURN = Arrays.asList(BigDecimal.valueOf(0.2), BigDecimal.valueOf(0.06), BigDecimal.valueOf(0.01));
+    private static final List<Rate> RATES_OF_RETURN = Arrays.asList(Rate.of(0.2), Rate.of(0.06), Rate.of(0.01));
 
     @Test
     public void testCalculate() {
@@ -22,6 +22,6 @@ public class GeometricMeanReturnTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCalculateWithNullRatesThrowsException() {
-        GeometricMeanReturn.calculate(Arrays.asList(BigDecimal.valueOf(0.1), BigDecimal.valueOf(0.1), null, BigDecimal.valueOf(0.5)));
+        GeometricMeanReturn.calculate(Arrays.asList(Rate.of(0.1), Rate.of(0.1), null, Rate.of(0.5)));
     }
 }

@@ -1,6 +1,8 @@
 package org.javamoney.calc.securities;
 
 
+import org.javamoney.calc.common.Rate;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -26,13 +28,13 @@ public class GeometricMeanReturn {
      * @param ratesOfReturn   the rates of return
      * @return the geometric mean return
      */
-    public static double calculate(List<BigDecimal> ratesOfReturn) {
+    public static double calculate(List<Rate> ratesOfReturn) {
         BigDecimal product = BigDecimal.ONE;
-        for (BigDecimal rateOfReturn : ratesOfReturn) {
+        for (Rate rateOfReturn : ratesOfReturn) {
             if (rateOfReturn == null) {
                 throw new IllegalArgumentException("The list of rates cannot contain null elements");
             }
-            product = product.multiply(rateOfReturn.add(BigDecimal.ONE));
+            product = product.multiply(rateOfReturn.get().add(BigDecimal.ONE));
         }
         return Math.pow(product.doubleValue(), 1 / (double) ratesOfReturn.size()) - 1;
     }
