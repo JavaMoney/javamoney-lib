@@ -25,25 +25,25 @@ public class CapitalAssetPricingModelFormula {
     /**
      * Calculates the expected return using the CAPM model.
      *
-     * @param riskfreeRate the risk-free rate
+     * @param riskFreeRate the risk-free rate
      * @param beta         a scalar
      * @param marketReturn the return on the market
      * @return the expected return
      */
-    public static Rate calculate(Rate riskfreeRate, BigDecimal beta, Rate marketReturn) {
-        return calculate(riskfreeRate, beta, marketReturn, BigDecimal.ZERO);
+    public static Rate calculate(Rate riskFreeRate, BigDecimal beta, Rate marketReturn) {
+        return calculate(riskFreeRate, beta, marketReturn, BigDecimal.ZERO);
     }
 
     /**
      * Calculates the expected return using the CAPM model with regression analysis.
      *
-     * @param riskfreeRate the risk-free rate
+     * @param riskFreeRate the risk-free rate
      * @param beta         a scalar
      * @param marketReturn the return on the market
      * @param epsilon      error in regression
      * @return the expected return
      */
-    public static Rate calculate(Rate riskfreeRate, BigDecimal beta, Rate marketReturn, BigDecimal epsilon) {
-        return Rate.of(epsilon.add(riskfreeRate.get().add(beta.multiply(marketReturn.get().subtract(riskfreeRate.get())))));
+    public static Rate calculate(Rate riskFreeRate, BigDecimal beta, Rate marketReturn, BigDecimal epsilon) {
+        return Rate.of(epsilon.add(riskFreeRate.get().add(beta.multiply(marketReturn.get().subtract(riskFreeRate.get())))));
     }
 }
