@@ -1,6 +1,8 @@
 package org.javamoney.calc.securities;
 
 
+import org.javamoney.calc.common.Rate;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,13 +27,13 @@ public class HoldingPeriodReturn {
      * @param returns the list of returns per periods
      * @return the holding period return
      */
-    public static BigDecimal calculate(List<BigDecimal> returns) {
+    public static BigDecimal calculate(List<Rate> returns) {
         BigDecimal product = BigDecimal.ONE;
-        for (BigDecimal rateOfReturn : returns) {
+        for (Rate rateOfReturn : returns) {
             if (rateOfReturn == null) {
                 throw new IllegalArgumentException("The list of returns cannot contain null elements");
             }
-            product = product.multiply(rateOfReturn.add(BigDecimal.ONE));
+            product = product.multiply(rateOfReturn.get().add(BigDecimal.ONE));
         }
         return product.subtract(BigDecimal.ONE);
     }
@@ -43,7 +45,7 @@ public class HoldingPeriodReturn {
      * @param numberOfPeriods the number of periods
      * @return the holding period return
      */
-    public static BigDecimal calculateForSameReturn(BigDecimal periodicRate, int numberOfPeriods) {
+    public static BigDecimal calculateForSameReturn(Rate periodicRate, int numberOfPeriods) {
         if (periodicRate == null) {
             throw new IllegalArgumentException("The list of returns cannot contain null elements");
         }
@@ -51,7 +53,7 @@ public class HoldingPeriodReturn {
             throw new IllegalArgumentException("The number of periods should be positive");
         }
         BigDecimal product = BigDecimal.ONE;
-        final BigDecimal multiplicand = periodicRate.add(BigDecimal.ONE);
+        final BigDecimal multiplicand = periodicRate.get().add(BigDecimal.ONE);
         for (int i = 0; i < numberOfPeriods; i++) {
             product = product.multiply(multiplicand);
         }
