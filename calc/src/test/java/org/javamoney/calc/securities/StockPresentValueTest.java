@@ -1,10 +1,10 @@
 package org.javamoney.calc.securities;
 
+import static junit.framework.Assert.assertEquals;
+
 import org.javamoney.calc.common.Rate;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Manuela Grindei
@@ -23,5 +23,11 @@ public class StockPresentValueTest {
     @Test
     public void testCalculateForZeroGrowth() {
         assertEquals(Money.of(680, "GBP"), StockPresentValue.calculateForZeroGrowth(ESTIMATED_DIVIDENDS, REQUIRED_RATE_OF_RETURN));
+	}
+	
+	@Test
+	public void testApply() {
+		assertEquals(Money.of(1700, "GBP"),
+		    ESTIMATED_DIVIDENDS.with(StockPresentValue.of(REQUIRED_RATE_OF_RETURN, GROWTH_RATE)));
     }
 }

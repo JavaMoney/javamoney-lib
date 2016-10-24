@@ -1,8 +1,9 @@
 package org.javamoney.calc.securities;
 
-import org.javamoney.calc.common.Rate;
-
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
+
+import org.javamoney.calc.common.Rate;
 
 /**
  * <img src="http://www.financeformulas.net/formulaimages/PV%20of%20Stock%20-%20Constant%20Growth%201.gif" />
@@ -14,14 +15,40 @@ import javax.money.MonetaryAmount;
  * @see http://www.financeformulas.net/Present-Value-of-Stock-with-Constant-Growth.html
  * @see http://www.financeformulas.net/Present-Value-of-Stock-with-Zero-Growth.html
  */
-public class StockPresentValue {
+public class StockPresentValue implements MonetaryOperator {
 
+	
+	private Rate requiredRateOfReturn;
+	
+	private Rate growthRate;
+	
     /**
      * Private constructor.
      */
-    private StockPresentValue() {
+	private StockPresentValue(Rate requiredRateOfReturn, Rate growthRate) {
+		this.requiredRateOfReturn = requiredRateOfReturn;
+		this.growthRate = growthRate;
     }
 
+	public Rate getRequiredRateOfReturn() {
+		return requiredRateOfReturn;
+	}
+	
+	public Rate getGrowthRate() {
+		return growthRate;
+	}
+	
+	/**
+	 * Access a MonetaryOperator for calculation.
+	 *
+	 * @param requiredRateOfReturn the required rate of return
+	 * @param growthRate the growth rate
+	 * @return the operator
+	 */
+	public static StockPresentValue of(Rate requiredRateOfReturn, Rate growthRate) {
+		return new StockPresentValue(requiredRateOfReturn, growthRate);
+	}
+	
     /**
      * Calculates the present value of a stock for constant growth.
      *
@@ -43,5 +70,35 @@ public class StockPresentValue {
      */
     public static MonetaryAmount calculateForZeroGrowth(MonetaryAmount estimatedDividends, Rate requiredRateOfReturn) {
         return calculateForConstantGrowth(estimatedDividends, requiredRateOfReturn, Rate.ZERO);
+	}
+	
+	@Override
+	public MonetaryAmount apply(MonetaryAmount estimatedDividends) {
+		return calculateForConstantGrowth(estimatedDividends, requiredRateOfReturn, growthRate);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		
+		StockPresentValue that = (StockPresentValue) o;
+		
+		return requiredRateOfReturn.equals(that.requiredRateOfReturn) && growthRate.equals(that.growthRate);
+		
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = requiredRateOfReturn.hashCode();
+		result = 31 * result + growthRate.hashCode();
+		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return "StockPresentValue{" + "requiredRateOfReturn=" + requiredRateOfReturn + ", growthRate=" + growthRate + '}';
     }
 }

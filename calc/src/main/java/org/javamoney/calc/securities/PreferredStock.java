@@ -1,8 +1,9 @@
 package org.javamoney.calc.securities;
 
-import org.javamoney.calc.common.Rate;
-
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
+
+import org.javamoney.calc.common.Rate;
 
 /**
  * <img src="http://www.financeformulas.net/formulaimages/PreferredStock1.gif" />
@@ -13,14 +14,31 @@ import javax.money.MonetaryAmount;
  * @author Manuela Grindei
  * @see http://www.financeformulas.net/Preferred_Stock.html
  */
-public class PreferredStock {
+public class PreferredStock implements MonetaryOperator {
 
+	
+	private Rate discountRate;
+	
     /**
      * Private constructor.
      */
-    private PreferredStock() {
+	private PreferredStock(Rate discountRate) {
+		this.discountRate = discountRate;
     }
 
+	public Rate getDiscountRate() {
+		return discountRate;
+	}
+	
+	/**
+	 * Access a MonetaryOperator for calculation.
+	 *
+	 * @param discountRate the discount rate
+	 * @return the operator
+	 */
+	public static PreferredStock of(Rate discountRate) {
+		return new PreferredStock(discountRate);
+	}
     /**
      * Calculates the preferred stock.
      *
@@ -30,5 +48,33 @@ public class PreferredStock {
      */
     public static MonetaryAmount calculate(MonetaryAmount dividend, Rate discountRate) {
         return dividend.divide(discountRate.get());
+	}
+	
+	@Override
+	public MonetaryAmount apply(MonetaryAmount dividend) {
+		return calculate(dividend, discountRate);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		
+		PreferredStock that = (PreferredStock) o;
+		
+		return !(discountRate != null ? !discountRate.equals(that.discountRate) : that.discountRate != null);
+		
+	}
+	
+	@Override
+	public int hashCode() {
+		return discountRate != null ? discountRate.hashCode() : 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "PreferredStock{" + "discountRate=" + discountRate + '}';
     }
 }

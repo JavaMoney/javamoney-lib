@@ -1,10 +1,10 @@
 package org.javamoney.calc.securities;
 
+import static junit.framework.Assert.assertEquals;
+
 import org.javamoney.calc.common.Rate;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Manuela Grindei
@@ -17,5 +17,10 @@ public class PreferredStockTest {
     @Test
     public void testCalculate() {
         assertEquals(Money.of(400, "GBP"), PreferredStock.calculate(DIVIDEND, DISCOUNT_RATE));
+	}
+	
+	@Test
+	public void testApply() {
+		assertEquals(Money.of(400, "GBP"), DIVIDEND.with(PreferredStock.of(DISCOUNT_RATE)));
     }
 }
