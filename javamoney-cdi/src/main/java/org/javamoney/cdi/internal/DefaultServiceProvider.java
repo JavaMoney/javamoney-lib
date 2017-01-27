@@ -16,7 +16,7 @@
  *
  * Contributors: Anatole Tresch - initial version.
  */
-package org.javamoney.cdi.bootstrap;
+package org.javamoney.cdi.internal;
 
 import javax.money.spi.ServiceProvider;
 

@@ -28,8 +28,7 @@
 
     <modules>
         <module>calc</module>
-        <!-- module>bundles</module -->
-        <module>integration</module>
+        <module>javamoney-cdi</module>
         <module>exchange</module>
     </modules>
     

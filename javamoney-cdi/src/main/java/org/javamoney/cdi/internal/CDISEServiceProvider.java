@@ -17,11 +17,13 @@
  * Contributors: Anatole Tresch - initial version.
  * 				 Werner Keil - adjusted to 1.0.
  */
-package org.javamoney.cdi.bootstrap;
+package org.javamoney.cdi.internal;
 
-import static org.javamoney.cdi.bootstrap.Constants.PRIO;
+import static org.javamoney.cdi.internal.Constants.PRIO;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.money.spi.ServiceProvider;
@@ -35,7 +37,9 @@ import org.javamoney.moneta.internal.PriorityAwareServiceProvider;
  */
 @Priority(PRIO)
 public class CDISEServiceProvider implements ServiceProvider {
-		
+
+    private static final Logger LOG = Logger.getLogger(CDISEServiceProvider.class.getName());
+
     /**
      * Default provider, using ServiceLoader.
      */
@@ -45,10 +49,15 @@ public class CDISEServiceProvider implements ServiceProvider {
     public <T> List<T> getServices(Class<T> serviceType) {
         List<T> instances = new ArrayList<T>();
         Set<String> types = new HashSet<>();
-        for (T t : CDIAccessor
-                .getInstances(serviceType)) {
-            instances.add(t);
-            types.add(t.getClass().getName());
+        try {
+            for (T t : CDIAccessor
+                    .getInstances(serviceType)) {
+                instances.add(t);
+                types.add(t.getClass().getName());
+            }
+        }catch(Exception e){
+            // OK, component is not registered in CDI...
+            LOG.log(Level.FINEST, "No such component in CDI context: " + serviceType.getName(), e);
         }
         for (T t : defaultServiceProvider.getServices(serviceType)) {
             if (!types.contains(t.getClass().getName())) {
