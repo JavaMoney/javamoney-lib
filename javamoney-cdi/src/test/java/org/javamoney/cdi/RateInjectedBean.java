@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012-2017 Anatole Tresch.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -12,27 +12,23 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- *
- *
- * Contributors: Anatole Tresch - initial version.
  */
 package org.javamoney.cdi;
 
 import org.javamoney.cdi.api.ConversionSpec;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.convert.CurrencyConversion;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ExchangeRateProvider;
 import javax.money.convert.RateType;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Test bean for injection of rate related beans and providers.
  */
-@RequestScoped
+@Dependent
 public class RateInjectedBean {
 
     @Inject @ConversionSpec(rateTypes = RateType.DEFERRED)

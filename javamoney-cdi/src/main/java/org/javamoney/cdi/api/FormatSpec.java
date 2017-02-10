@@ -18,11 +18,13 @@
  */
 package org.javamoney.cdi.api;
 
-import java.lang.annotation.Documented;
+import java.lang.annotation.*;
 
 /**
  * Created by atsticks on 26.01.17.
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
 public @interface FormatSpec {
 

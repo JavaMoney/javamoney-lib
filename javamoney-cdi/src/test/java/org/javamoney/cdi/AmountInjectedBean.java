@@ -21,16 +21,15 @@ package org.javamoney.cdi;
 import org.javamoney.cdi.api.AmountSpec;
 import org.javamoney.moneta.Money;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.MonetaryAmountFactory;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Test bean for injection of amount related beans and providers.
  */
-@RequestScoped
+@Dependent
 public class AmountInjectedBean {
 
     @Inject @AmountSpec(Money.class)

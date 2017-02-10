@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2013, Werner Keil, Credit Suisse (Anatole Tresch).
+ * Copyright (c) 2012-2017 Anatole Tresch.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -12,28 +12,27 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- *
- *
- * Contributors: Anatole Tresch - initial version.
  */
 package org.javamoney.cdi;
 
 import org.javamoney.cdi.api.CurrencySpec;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.CurrencyUnit;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Test bean for injection of currency related beans and providers.
  */
-@RequestScoped
+@Dependent
 public class CurrencyInjectedBean {
 
-    @Inject @CurrencySpec(codes="CHF")
-    CurrencyUnit chfCurrency;
+    @Inject
+    CurrencyUnit defaultCurrency;
+
+    @Inject @CurrencySpec(codes="EUR")
+    CurrencyUnit eurCurrency;
 
     @Inject @CurrencySpec(
             attributes = "validAt=01.01.1995",
@@ -41,7 +40,7 @@ public class CurrencyInjectedBean {
     CurrencyUnit historicCurrency;
 
     @Inject @CurrencySpec(numericCodes = 11)
-    CurrencyUnit numericCurrency;
+    Collection<CurrencyUnit> numericCurrencies;
 
     @Inject @CurrencySpec(providers = "ISO")
     Collection<CurrencyUnit> isoCurrencies;

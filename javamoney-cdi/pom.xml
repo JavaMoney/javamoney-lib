@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <groupId>org.javamoney.integration</groupId>
-        <artifactId>javamoney-integration</artifactId>
+        <artifactId>javamoney-lib</artifactId>
+        <groupId>org.javamoney.lib</groupId>
         <version>0.9-SNAPSHOT</version>
 	</parent>
     <artifactId>javamoney-cdi</artifactId>

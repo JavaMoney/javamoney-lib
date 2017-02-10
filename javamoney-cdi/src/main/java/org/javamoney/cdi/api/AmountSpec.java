@@ -19,12 +19,14 @@
 package org.javamoney.cdi.api;
 
 import javax.money.MonetaryAmount;
-import java.lang.annotation.Documented;
+import java.lang.annotation.*;
 
 /**
  * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory}
  * or an {@link MonetaryAmount} to be injected.
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
 public @interface AmountSpec {
 

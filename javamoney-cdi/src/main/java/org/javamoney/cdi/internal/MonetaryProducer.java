@@ -23,43 +23,51 @@ import org.javamoney.cdi.api.CurrencySpec;
 import org.javamoney.cdi.api.FormatSpec;
 import org.javamoney.cdi.api.ConversionSpec;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Singleton;
 import javax.money.*;
 import javax.money.convert.*;
 import javax.money.format.AmountFormatQuery;
 import javax.money.format.AmountFormatQueryBuilder;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Producer bean that bridges to the javamoney API.
  */
-@Singleton
 public final class MonetaryProducer {
 
     private static final Logger LOG = Logger.getLogger(MonetaryProducer.class.getName());
 
-    @Produces
-    public CurrencyUnit currencyUnit(InjectionPoint ip){
-        CurrencySpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(CurrencySpec.class):null;
+    /**
+     * Class is not instanciatable.
+     */
+    private MonetaryProducer(){}
+
+    @Produces @Dependent
+    public static CurrencyUnit currencyUnit(InjectionPoint ip){
+        CurrencySpec specAnnot = ip.getAnnotated()!=null?
+                ip.getAnnotated().getAnnotation(CurrencySpec.class):
+                null;
         if(specAnnot==null){
-            throw new IllegalArgumentException("@CurrencySpec is required.");
+            Currency jdkDefault = Currency.getInstance(Locale.getDefault());
+            if(jdkDefault!=null) {
+                return Monetary.getCurrency(jdkDefault.getCurrencyCode());
+            }else{
+                throw new MonetaryException("No default currency found.");
+            }
         }
         return Monetary.getCurrency(createCurrencyQuery(specAnnot));
     }
 
 
-    @Produces
-    public Collection<CurrencyUnit> currencyUnits(InjectionPoint ip){
+    @Produces @Dependent
+    public static Collection<CurrencyUnit> currencyUnits(InjectionPoint ip){
         CurrencySpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(CurrencySpec.class):null;
         if(specAnnot!=null){
             return Monetary.getCurrencies(createCurrencyQuery(specAnnot));
@@ -68,17 +76,17 @@ public final class MonetaryProducer {
     }
 
 
-    @Produces
-    public ExchangeRateProvider rateProvider(InjectionPoint ip){
+    @Produces @Dependent
+    public static ExchangeRateProvider rateProvider(InjectionPoint ip){
         ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
         if(specAnnot!=null){
-            return MonetaryConversions.getExchangeRateProvider(createRateQuery(specAnnot));
+            return MonetaryConversions.getExchangeRateProvider(createConversionQuery(specAnnot));
         }
         return MonetaryConversions.getExchangeRateProvider();
     }
 
-    @Produces
-    public Collection<ExchangeRateProvider> rateProviders(InjectionPoint ip){
+    @Produces @Dependent
+    public static Collection<ExchangeRateProvider> rateProviders(InjectionPoint ip){
         List<ExchangeRateProvider> providers = new ArrayList<>();
         ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
         if(specAnnot!=null && specAnnot.providers().length>0){
@@ -94,33 +102,33 @@ public final class MonetaryProducer {
     }
 
 
-    @Produces
-    public CurrencyConversion currencyConversion(InjectionPoint ip){
+    @Produces @Dependent
+    public static CurrencyConversion currencyConversion(InjectionPoint ip){
         ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
         if(specAnnot==null){
             throw new IllegalArgumentException("@RateSpec is required.");
         }
-        return MonetaryConversions.getConversion(createRateQuery(specAnnot));
+        return MonetaryConversions.getConversion(createConversionQuery(specAnnot));
     }
 
-    @Produces
-    public ExchangeRate exchangeRate(InjectionPoint ip){
+    @Produces @Dependent
+    public static ExchangeRate exchangeRate(InjectionPoint ip){
         ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
         if(specAnnot==null){
             throw new IllegalArgumentException("@RateSpec is required.");
         }
-        ConversionQuery query = createRateQuery(specAnnot);
+        ConversionQuery query = createConversionQuery(specAnnot);
         return MonetaryConversions.getExchangeRateProvider(query)
                 .getExchangeRate(query);
     }
 
-    @Produces
-    public Collection<ExchangeRate> exchangeRates(InjectionPoint ip){
+    @Produces @Dependent
+    public static Collection<ExchangeRate> exchangeRates(InjectionPoint ip){
         ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
         if(specAnnot==null){
             throw new IllegalArgumentException("@RateSpec is required.");
         }
-        ConversionQuery query = createRateQuery(specAnnot);
+        ConversionQuery query = createConversionQuery(specAnnot);
         Collection<String> providers = query.getProviderNames();
         if(providers.isEmpty()){
             providers = MonetaryConversions.getConversionProviderNames();
@@ -143,32 +151,32 @@ public final class MonetaryProducer {
     }
 
 
-    @Produces
-    public MonetaryAmountFormat amountFormat(InjectionPoint ip){
+    @Produces @Dependent
+    public static MonetaryAmountFormat amountFormat(InjectionPoint ip){
         FormatSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(FormatSpec.class):null;
         if(specAnnot==null){
             throw new IllegalArgumentException("@FormatName is required.");
         }
-        return MonetaryFormats.getAmountFormat(createFormatQuery(
+        return MonetaryFormats.getAmountFormat(createAmountFormatQuery(
                 specAnnot,
                 ip.getAnnotated().getAnnotation(AmountSpec.class)));
     }
 
 
-    @Produces
-    public Collection<MonetaryAmountFormat> amountFormats(InjectionPoint ip){
+    @Produces @Dependent
+    public static Collection<MonetaryAmountFormat> amountFormats(InjectionPoint ip){
         FormatSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(FormatSpec.class):null;
         if(specAnnot==null){
             throw new IllegalArgumentException("@FormatName is required.");
         }
-        return MonetaryFormats.getAmountFormats(createFormatQuery(
+        return MonetaryFormats.getAmountFormats(createAmountFormatQuery(
                 specAnnot,
                 ip.getAnnotated().getAnnotation(AmountSpec.class)));
     }
 
 
-    @Produces
-    public MonetaryAmountFactory amountFactory(InjectionPoint ip){
+    @Produces @Dependent
+    public static MonetaryAmountFactory amountFactory(InjectionPoint ip){
         AmountSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(AmountSpec.class):null;
         if(specAnnot!=null){
             return Monetary.getAmountFactory(createAmountQuery(specAnnot));
@@ -177,8 +185,8 @@ public final class MonetaryProducer {
     }
 
 
-    @Produces
-    public Collection<MonetaryAmountFactory> amountFactories(InjectionPoint ip){
+    @Produces @Dependent
+    public static Collection<MonetaryAmountFactory> amountFactories(InjectionPoint ip){
         AmountSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(AmountSpec.class):null;
         if(specAnnot!=null){
             return Collection.class.cast(Monetary.getAmountFactories(createAmountQuery(specAnnot)));
@@ -186,8 +194,44 @@ public final class MonetaryProducer {
         return Collection.class.cast(Monetary.getAmountFactories());
     }
 
+    @Produces @Dependent
+    public static CurrencyQuery currencyQuery(InjectionPoint ip){
+        CurrencySpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(CurrencySpec.class):null;
+        if(specAnnot==null){
+            return null;
+        }
+        return createCurrencyQuery(specAnnot);
+    }
 
-    private CurrencyQuery createCurrencyQuery(CurrencySpec specAnnot) {
+    @Produces @Dependent
+    public static ConversionQuery conversionQuery(InjectionPoint ip){
+        ConversionSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(ConversionSpec.class):null;
+        if(specAnnot==null){
+            return null;
+        }
+        return createConversionQuery(specAnnot);
+    }
+
+    @Produces @Dependent
+    public static AmountFormatQuery amountFormatQuery(InjectionPoint ip){
+        FormatSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(FormatSpec.class):null;
+        if(specAnnot==null){
+            return null;
+        }
+        AmountSpec amountSpec = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(AmountSpec.class):null;
+        return createAmountFormatQuery(specAnnot, amountSpec);
+    }
+
+    @Produces @Dependent
+    public static MonetaryAmountFactoryQuery amountFactoryQuery(InjectionPoint ip){
+        AmountSpec amountSpec = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(AmountSpec.class):null;
+        if(amountSpec==null){
+            return null;
+        }
+        return createAmountQuery(amountSpec);
+    }
+
+    private static CurrencyQuery createCurrencyQuery(CurrencySpec specAnnot) {
         CurrencyQueryBuilder b = CurrencyQueryBuilder.of();
         b.setCountries(convertToCountries(specAnnot.countries()));
         b.setCurrencyCodes(specAnnot.codes());
@@ -201,7 +245,7 @@ public final class MonetaryProducer {
         return b.build();
     }
 
-    private Locale[] convertToCountries(String[] codes) {
+    private static Locale[] convertToCountries(String[] codes) {
         Locale[] locales = new Locale[codes.length];
         for(int i=0;i<codes.length;i++){
             locales[i] = new Locale("", codes[i]);
@@ -209,7 +253,7 @@ public final class MonetaryProducer {
         return locales;
     }
 
-    private ConversionQuery createRateQuery(ConversionSpec specAnnot) {
+    private static ConversionQuery createConversionQuery(ConversionSpec specAnnot) {
         ConversionQueryBuilder b = ConversionQueryBuilder.of();
         if(!specAnnot.baseCurrency().isEmpty()){
             b.setBaseCurrency(specAnnot.baseCurrency());
@@ -229,7 +273,7 @@ public final class MonetaryProducer {
         return b.build();
     }
 
-    private AmountFormatQuery createFormatQuery(FormatSpec specAnnot, AmountSpec amountSpec) {
+    private static AmountFormatQuery createAmountFormatQuery(FormatSpec specAnnot, AmountSpec amountSpec) {
         AmountFormatQueryBuilder b = AmountFormatQueryBuilder.of(specAnnot.name());
         if(specAnnot.providers().length>0){
             b.setProviderNames(specAnnot.providers());
@@ -237,8 +281,11 @@ public final class MonetaryProducer {
         if(specAnnot.attributes().length>0){
             applyAttributes(specAnnot.attributes(), b);
         }
-        if(specAnnot.locale().isEmpty()){
+        if(!specAnnot.locale().isEmpty()){
             b.setLocale(createLocale(specAnnot.locale()));
+        }else{
+            // Required to avoid NOE, see https://github.com/JavaMoney/jsr354-ri/issues/156
+            b.setLocale(Locale.getDefault());
         }
         if(amountSpec!=null){
             b.setMonetaryAmountFactory(Monetary.getAmountFactory(createAmountQuery(amountSpec)));
@@ -246,7 +293,7 @@ public final class MonetaryProducer {
         return b.build();
     }
 
-    private Locale createLocale(String locale) {
+    private static Locale createLocale(String locale) {
         String[] parts = locale.split("\\_", 3);
         switch(parts.length){
             case 1:
@@ -258,7 +305,7 @@ public final class MonetaryProducer {
         }
     }
 
-    private MonetaryAmountFactoryQuery createAmountQuery(AmountSpec specAnnot) {
+    private static MonetaryAmountFactoryQuery createAmountQuery(AmountSpec specAnnot) {
         MonetaryAmountFactoryQueryBuilder b = MonetaryAmountFactoryQueryBuilder.of();
         if(specAnnot.value()!=MonetaryAmount.class){
             b.setTargetType(specAnnot.value());
@@ -281,7 +328,7 @@ public final class MonetaryProducer {
         return b.build();
     }
 
-    private void applyAttributes(String[] attributes, AbstractQueryBuilder b) {
+    private static void applyAttributes(String[] attributes, AbstractQueryBuilder b) {
         for(String attr:attributes){
             String[] parts = attr.split("=", 2);
             b.set(parts[0], parts[1]);

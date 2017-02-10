@@ -18,12 +18,14 @@
  */
 package org.javamoney.cdi.api;
 
-import java.lang.annotation.Documented;
+import java.lang.annotation.*;
 
 /**
  * Annotation that allows to optionally refine a {@link javax.money.CurrencySupplier}
  * or an {@link javax.money.CurrencyUnit} to be injected.
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
 public @interface CurrencySpec {
 

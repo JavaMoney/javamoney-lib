@@ -19,12 +19,14 @@
 package org.javamoney.cdi.api;
 
 import javax.money.convert.RateType;
-import java.lang.annotation.Documented;
+import java.lang.annotation.*;
 
 /**
  * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory}
  * to be injected.
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
 public @interface ConversionSpec {
 
