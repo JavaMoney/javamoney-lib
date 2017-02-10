@@ -22,8 +22,8 @@ import javax.money.MonetaryAmount;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory}
- * or an {@link MonetaryAmount} to be injected.
+ * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory},
+ * {@link MonetaryAmount} or {@link javax.money.MonetaryAmountFactoryQuery} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})

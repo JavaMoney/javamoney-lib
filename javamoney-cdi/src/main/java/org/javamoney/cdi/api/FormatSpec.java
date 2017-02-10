@@ -21,7 +21,8 @@ package org.javamoney.cdi.api;
 import java.lang.annotation.*;
 
 /**
- * Created by atsticks on 26.01.17.
+ * Annotation that allows to define a {@link javax.money.format.MonetaryAmountFormat} or
+ * {@link javax.money.format.AmountFormatQuery} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})

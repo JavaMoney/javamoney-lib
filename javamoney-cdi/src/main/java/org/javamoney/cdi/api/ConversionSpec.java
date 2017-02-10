@@ -22,7 +22,8 @@ import javax.money.convert.RateType;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory}
+ * Annotation that allows to optionally refine a {@link javax.money.convert.CurrencyConversion},
+ * {@link javax.money.convert.ExchangeRateProvider} or {@link javax.money.convert.ConversionQuery}
  * to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)

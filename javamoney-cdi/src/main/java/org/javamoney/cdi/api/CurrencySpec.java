@@ -21,7 +21,7 @@ package org.javamoney.cdi.api;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.CurrencySupplier}
+ * Annotation that allows to define a {@link  javax.money.CurrencyQuery}
  * or an {@link javax.money.CurrencyUnit} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
