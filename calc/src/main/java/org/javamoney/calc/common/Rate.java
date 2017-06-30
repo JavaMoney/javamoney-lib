@@ -15,7 +15,6 @@
  */
 package org.javamoney.calc.common;
 
-import com.sun.prism.shader.DrawCircle_LinearGradient_REFLECT_AlphaTest_Loader;
 import org.javamoney.moneta.spi.MoneyUtils;
 
 import java.math.BigDecimal;
