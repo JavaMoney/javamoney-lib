@@ -7,8 +7,8 @@ and interfaces for interoperation this library adds additional powerful APIs and
 development as a proof of concept:
 
 * [**Calculation**](calc) provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
-* [**Integration**](integration) provides bootstraping extensions that change the JavaMoney runtime capabilities:
- * [**javamoney-cdi**](integration/javamoney-cdi) Integrates JavaMoney with CDI, so SPIs can as well be loaded from CDI.
+* [**Exchange**](exchange) provides further conversion exchange resources such as FRD and Yahoo.
+* [**javamoney-cdi**](integration/javamoney-cdi) Integrates JavaMoney with CDI, so SPIs can as well be loaded from CDI.
 
 Currently the following modules are retired (or archived, not actively maintained):
 * [**Formatting**](retired/format) provides an extendble formatting library that allows to define complex formatters, that can be configured in arbitrary ways using `LocalizationStyle` instances.
