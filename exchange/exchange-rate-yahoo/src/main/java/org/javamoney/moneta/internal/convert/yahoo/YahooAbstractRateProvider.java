@@ -15,18 +15,15 @@
  */
 package org.javamoney.moneta.internal.convert.yahoo;
 
-//import static org.javamoney.moneta.spi.AbstractCurrencyConversion.KEY_SCALE;
-
 import java.io.InputStream;
 import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -42,6 +39,7 @@ import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
 import javax.money.convert.RateType;
 import javax.money.spi.Bootstrap;
+import javax.xml.parsers.SAXParser;
 
 import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
@@ -62,13 +60,17 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 
     private static final String BASE_CURRENCY_CODE = "USD";
 
-    private final String DIGIT_FRACTION_KEY = "yahoo.digit.fraction";
+    private static final String DIGIT_FRACTION_KEY = "yahoo.digit.fraction";
 
-    public static final CurrencyUnit BASE_CURRENCY = Monetary.getCurrency(BASE_CURRENCY_CODE);
+    static final CurrencyUnit BASE_CURRENCY = Monetary.getCurrency(BASE_CURRENCY_CODE);
 
-    protected final Map<LocalDate, Map<String, ExchangeRate>> rates = new ConcurrentHashMap<>();
+    private final Map<LocalDate, Map<String, ExchangeRate>> rates = new ConcurrentHashMap<>();
 
     private final ProviderContext context;
+
+	protected volatile String loadState;
+
+	protected volatile CountDownLatch loadLock = new CountDownLatch(1);
 
     protected abstract String getDataId();
 
@@ -87,28 +89,43 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
         	final YahooRateReadingHandler parser =
         			new YahooRateReadingHandler(rates, getContext());
             parser.parse(is);
-
+			int newSize = this.rates==null?0:this.rates.size();
+			loadState = "Loaded " + resourceId + " exchange rates for days:" + (newSize - oldSize);
+			LOG.info(loadState);
         } catch (Exception e) {
-        	LOG.log(Level.FINEST, "Error during data load.", e);
-        }
-        int newSize = this.rates.size();
-        LOG.info("Loaded " + resourceId + " exchange rates for days:" + (newSize - oldSize));
+			loadState = "Last Error during data load: " + e.getMessage();
+			LOG.log(Level.FINEST, "Error during data load.", e);
+		} finally{
+			loadLock.countDown();
+		}
     }
 
     @Override
     public ExchangeRate getExchangeRate(ConversionQuery conversionQuery) {
         Objects.requireNonNull(conversionQuery);
-        if (rates.isEmpty()) {
-            return null;
-        }
-        RateResult result = findExchangeRate(conversionQuery);
+		try {
+			if (loadLock.await(30, TimeUnit.SECONDS)) {
+				if (rates.isEmpty()) {
+					return null;
+				}
+				if (rates.isEmpty()) {
+					return null;
+				}
+				RateResult result = findExchangeRate(conversionQuery);
 
-        ExchangeRateBuilder builder = getBuilder(conversionQuery, result.date);
-        ExchangeRate sourceRate = result.targets.get(conversionQuery.getBaseCurrency()
-                .getCurrencyCode());
-        ExchangeRate target = result.targets
-                .get(conversionQuery.getCurrency().getCurrencyCode());
-        return createExchangeRate(conversionQuery, builder, sourceRate, target);
+				ExchangeRateBuilder builder = getBuilder(conversionQuery, result.date);
+				ExchangeRate sourceRate = result.targets.get(conversionQuery.getBaseCurrency()
+						.getCurrencyCode());
+				ExchangeRate target = result.targets
+						.get(conversionQuery.getCurrency().getCurrencyCode());
+				return createExchangeRate(conversionQuery, builder, sourceRate, target);
+			}else{
+				throw new MonetaryException("Failed to load currency conversion data: " + loadState);
+			}
+		}
+		catch(InterruptedException e){
+			throw new MonetaryException("Failed to load currency conversion data: Load task has been interrupted.", e);
+		}
     }
 
 	private RateResult findExchangeRate(ConversionQuery conversionQuery) {
@@ -196,10 +213,8 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getClass().getName()).append('{')
-    	.append(" context: ").append(context).append('}');
-    	return sb.toString();
+        return getClass().getName() + '{' +
+                " context: " + context + '}';
     }
 
     private class RateResult {

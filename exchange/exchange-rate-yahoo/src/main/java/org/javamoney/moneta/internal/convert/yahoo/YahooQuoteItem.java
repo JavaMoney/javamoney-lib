@@ -21,7 +21,7 @@ public class YahooQuoteItem {
 
 	public List<YahooField> getField() {
 		if (field == null) {
-			field = new ArrayList<YahooField>();
+			field = new ArrayList<>();
 		}
 		return this.field;
 	}

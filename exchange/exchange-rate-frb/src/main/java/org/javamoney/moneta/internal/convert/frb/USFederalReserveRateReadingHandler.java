@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -132,14 +131,14 @@ class USFederalReserveRateReadingHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         if (this.descriptionNode) {
             this.description = new String(ch, start, length);
         } else if (this.dcDateNode) {
             this.localDate = OffsetDateTime.parse(new String(ch, start, length)).toLocalDate();
         } else if (this.cbValueNode && this.currencyCode != null) {
             String rateStr = new String(ch, start, length);
-            CurrencyUnit currencyUnit = null;
+            CurrencyUnit currencyUnit;
             boolean inverse = false;
 			if (USFederalReserveRateProvider.BASE_CURRENCY_CODE.equals(this.currencyCode)) {
                 currencyUnit = CURRENCIES_BY_NAME.get(description);
@@ -147,10 +146,8 @@ class USFederalReserveRateReadingHandler extends DefaultHandler {
                 currencyUnit = Monetary.getCurrency(this.currencyCode);
                 inverse = true;
             }
-			if (currencyUnit != null) {
-				if(!"ND".equals(rateStr)) {
-					addRate(currencyUnit, this.localDate, BigDecimal.valueOf(Double.parseDouble(rateStr)), inverse);
-				}
+			if (currencyUnit != null && !"ND".equals(rateStr)) {
+                addRate(currencyUnit, this.localDate, BigDecimal.valueOf(Double.parseDouble(rateStr)), inverse);
             }
             this.currencyCode = null;
             this.localDate = null;

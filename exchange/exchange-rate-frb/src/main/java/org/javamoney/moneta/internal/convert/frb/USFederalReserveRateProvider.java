@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -58,6 +60,12 @@ public class USFederalReserveRateProvider extends AbstractRateProvider implement
     public static final CurrencyUnit BASE_CURRENCY = Monetary.getCurrency(BASE_CURRENCY_CODE);
 
     /**
+     * The {@link ConversionContext} of this provider.
+     */
+    private static final ProviderContext CONTEXT = ProviderContextBuilder.of("FRB", RateType.HISTORIC)
+            .set("providerDescription", "Federal Reserve Bank of the United States").build();
+
+    /**
      * Historic exchange rates, rate timestamp as UTC long.
      */
     private final Map<LocalDate, Map<String, ExchangeRate>> rates = new ConcurrentHashMap<>();
@@ -67,11 +75,10 @@ public class USFederalReserveRateProvider extends AbstractRateProvider implement
      */
     private final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
-    /**
-     * The {@link ConversionContext} of this provider.
-     */
-    private static final ProviderContext CONTEXT = ProviderContextBuilder.of("FRB", RateType.HISTORIC)
-        .set("providerDescription", "Federal Reserve Bank of the United States").build();
+    protected volatile String loadState;
+
+    protected volatile CountDownLatch loadLock = new CountDownLatch(1);
+
 
     public USFederalReserveRateProvider() {
         super(CONTEXT);
@@ -101,14 +108,23 @@ public class USFederalReserveRateProvider extends AbstractRateProvider implement
     @Override
     public ExchangeRate getExchangeRate(ConversionQuery conversionQuery) {
         Objects.requireNonNull(conversionQuery);
-        if (rates.isEmpty()) {
-            return null;
+        try {
+            if (loadLock.await(30, TimeUnit.SECONDS)) {
+                if (rates.isEmpty()) {
+                    return null;
+                }
+                RateResult result = findExchangeRate(conversionQuery);
+                ExchangeRateBuilder builder = getBuilder(conversionQuery, result.date);
+                ExchangeRate sourceRate = result.targets.get(conversionQuery.getBaseCurrency().getCurrencyCode());
+                ExchangeRate target = result.targets.get(conversionQuery.getCurrency().getCurrencyCode());
+                return createExchangeRate(conversionQuery, builder, sourceRate, target);
+            }else{
+                throw new MonetaryException("Failed to load currency conversion data: " + loadState);
+            }
         }
-        RateResult result = findExchangeRate(conversionQuery);
-        ExchangeRateBuilder builder = getBuilder(conversionQuery, result.date);
-        ExchangeRate sourceRate = result.targets.get(conversionQuery.getBaseCurrency().getCurrencyCode());
-        ExchangeRate target = result.targets.get(conversionQuery.getCurrency().getCurrencyCode());
-        return createExchangeRate(conversionQuery, builder, sourceRate, target);
+        catch(InterruptedException e){
+            throw new MonetaryException("Failed to load currency conversion data: Load task has been interrupted.", e);
+        }
     }
 
     private ExchangeRateBuilder getBuilder(ConversionQuery query, LocalDate localDate) {
@@ -134,13 +150,15 @@ public class USFederalReserveRateProvider extends AbstractRateProvider implement
                     rates.remove(ld);
                 }
             }
-
+            int newSize = this.rates==null?0:this.rates.size();
+            loadState = "Loaded " + resourceId + " exchange rates for days:" + (newSize - oldSize);
+            LOG.info(loadState);
         } catch (Exception e) {
-            LOG.log(Level.WARNING, "Error during data load.", e);
+            loadState = "Last Error during data load: " + e.getMessage();
+            LOG.log(Level.FINEST, "Error during data load.", e);
+        } finally{
+            loadLock.countDown();
         }
-        int newSize = this.rates.size();
-        LOG.info("Loaded " + resourceId + " exchange rates for days:" + (newSize - oldSize));
-
     }
 
     private RateResult findExchangeRate(ConversionQuery conversionQuery) {
@@ -169,7 +187,6 @@ public class USFederalReserveRateProvider extends AbstractRateProvider implement
             throw new MonetaryException("There is not exchange on day " + datesOnErros + " to rate to  rate on "
                 + getDataId() + ".");
         }
-
     }
 
     private ExchangeRate createExchangeRate(ConversionQuery query, ExchangeRateBuilder builder,

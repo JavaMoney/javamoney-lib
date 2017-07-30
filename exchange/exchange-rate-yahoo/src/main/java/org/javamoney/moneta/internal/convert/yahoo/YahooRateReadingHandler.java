@@ -22,8 +22,6 @@ import org.javamoney.moneta.spi.DefaultNumberValue;
 
 class YahooRateReadingHandler {
 
-    private final String YAHOO_DTO_PACKAGE = "org.javamoney.moneta.internal.convert.yahoo";
-
 	private final Map<LocalDate, Map<String, ExchangeRate>> excangeRates;
 
 	private final ProviderContext context;
@@ -35,7 +33,8 @@ class YahooRateReadingHandler {
 	}
 
 	void parse(final InputStream stream) throws JAXBException, ParseException {
-		final Unmarshaller unmarshaller = JAXBContext.newInstance(YAHOO_DTO_PACKAGE).createUnmarshaller();
+		final String yahooDtoPackage = "org.javamoney.moneta.internal.convert.yahoo";
+		final Unmarshaller unmarshaller = JAXBContext.newInstance(yahooDtoPackage).createUnmarshaller();
 		final YahooRoot root = (YahooRoot) unmarshaller.unmarshal(stream);
 		final YahooCurrencies currencies = root.getResources();
 
