@@ -26,7 +26,7 @@ To use the library you simply have to add the Maven dependency to your project (
 ```xml
 <dependency>
   <groupId>org.javamoney</groupId>
-  <artifactId>javamoney-${module}<artifactId>
+  <artifactId>javamoney-${module}</artifactId>
   <versionId>the current version</version>
 </dependency>
 ```
