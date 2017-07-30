@@ -116,6 +116,7 @@ final class CDIAccessor {
     public static <T> Instance<T> getInstances(Class<T> instanceType,
                                                Annotation... qualifiers) {
         try {
+            //noinspection ConstantConditions
             return getInstance(Instance.class).get().select(instanceType, qualifiers);
         } catch (Exception e) {
             LOG.info("Failed to load instances from CDI.", e);
@@ -201,6 +202,7 @@ final class CDIAccessor {
 
         @Override
         public void destroy(T t) {
+            // unsupported
         }
 
         @Override

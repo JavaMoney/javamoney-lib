@@ -47,7 +47,7 @@ public class CDISEServiceProvider implements ServiceProvider {
 
     @Override
     public <T> List<T> getServices(Class<T> serviceType) {
-        List<T> instances = new ArrayList<T>();
+        List<T> instances = new ArrayList<>();
         Set<String> types = new HashSet<>();
         try {
             for (T t : CDIAccessor

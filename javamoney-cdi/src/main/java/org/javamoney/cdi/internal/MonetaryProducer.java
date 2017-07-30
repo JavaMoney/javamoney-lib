@@ -24,7 +24,6 @@ import org.javamoney.cdi.api.FormatSpec;
 import org.javamoney.cdi.api.ConversionSpec;
 
 import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.money.*;
