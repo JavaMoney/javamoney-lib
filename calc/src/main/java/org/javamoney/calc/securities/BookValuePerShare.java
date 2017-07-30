@@ -12,7 +12,7 @@ import javax.money.MonetaryAmount;
  * total stockholder's equity is used.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Book-Value-per-Share.html
+ * @link http://www.financeformulas.net/Book-Value-per-Share.html
  */
 public class BookValuePerShare {
 

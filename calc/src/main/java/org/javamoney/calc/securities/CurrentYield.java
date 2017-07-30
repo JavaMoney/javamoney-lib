@@ -12,7 +12,7 @@ import java.math.MathContext;
  * The formula for current yield is a bond's annual coupons divided by its current price.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Current-Yield.html
+ * @link http://www.financeformulas.net/Current-Yield.html
  */
 public class CurrentYield {
 

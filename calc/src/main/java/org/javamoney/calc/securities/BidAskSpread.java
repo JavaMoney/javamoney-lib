@@ -9,7 +9,7 @@ import javax.money.MonetaryAmount;
  * The bid ask spread may be used for various investments and is primarily used in investments that sell on an exchange.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Bid-Ask-Spread.html
+ * @link http://www.financeformulas.net/Bid-Ask-Spread.html
  */
 public final class BidAskSpread {
 

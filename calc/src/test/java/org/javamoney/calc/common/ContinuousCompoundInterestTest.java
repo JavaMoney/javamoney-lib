@@ -102,7 +102,7 @@ public class ContinuousCompoundInterestTest {
         // Values are confirmed:
         assertEquals(ci.apply(Money.of(1000,"CHF"))
                 .getNumber().doubleValue(),
-                Money.of(221.40153676616498,"CHF").getNumber().doubleValue(),
+                Money.of(221.401536766165,"CHF").getNumber().doubleValue(),
                 0.00d);
     }
 

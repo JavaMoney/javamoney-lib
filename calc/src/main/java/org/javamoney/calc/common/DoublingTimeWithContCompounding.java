@@ -31,7 +31,7 @@ import java.math.BigDecimal;
  * answer will then reflect the number of years to double.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
+ * @link http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
  */
 public final class DoublingTimeWithContCompounding {
 

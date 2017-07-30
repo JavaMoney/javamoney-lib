@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the {@link PresentValue} formula calculator.
- * @see http://www.financeformulas.net/Present_Value.html#calcHeader
+ * @link http://www.financeformulas.net/Present_Value.html#calcHeader
  */
 public class PresentValueContinuousCompoundingTest {
 

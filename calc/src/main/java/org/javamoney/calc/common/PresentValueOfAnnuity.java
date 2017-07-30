@@ -15,8 +15,6 @@
  */
 package org.javamoney.calc.common;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -36,7 +34,7 @@ import javax.money.MonetaryOperator;
  * cash flow, or payment, is made immediately, the future value of annuity due formula would be
  * used.
  * 
- * @see http://www.financeformulas.net/Present_Value_of_Annuity.html
+ * @link http://www.financeformulas.net/Present_Value_of_Annuity.html
  * @author Anatole
  * @author Werner
  * 

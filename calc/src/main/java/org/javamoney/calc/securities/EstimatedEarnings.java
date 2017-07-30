@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * <p> The formula for estimated earnings is forecasted sales minus forecasted expenses.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Estimated-Earnings.html
+ * @link http://www.financeformulas.net/Estimated-Earnings.html
  */
 public class EstimatedEarnings {
 

@@ -42,11 +42,6 @@ public final class BasisPoint implements MonetaryOperator {
 
 	private final BigDecimal basisPointValue;
 
-	/**
-	 * Access the shared instance of {@link BasisPoint} for use.
-	 * 
-	 * @return the shared instance, never {@code null}.
-	 */
 	private BasisPoint(final Number decimal) {
 		basisPointValue = calcBasisPoint(decimal);
 	}
@@ -113,7 +108,7 @@ public final class BasisPoint implements MonetaryOperator {
 	 * @param number
 	 *            the basis points number, 10'000-ends.
 	 */
-	private static final BigDecimal calcBasisPoint(Number number) {
+	private static BigDecimal calcBasisPoint(Number number) {
 		return MoneyUtils.getBigDecimal(number).divide(
 				ONE_TENTHOUSAND, CalculationContext.mathContext());
 	}

@@ -16,6 +16,7 @@
 package org.javamoney.calc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,9 +48,7 @@ public class CompositeMonetaryOperator implements MonetaryOperator {
 
     public CompositeMonetaryOperator(String name, MonetaryOperator... operations) {
         Objects.requireNonNull(name);
-        for (MonetaryOperator monetaryOperator : operations) {
-            functions.add(monetaryOperator);
-        }
+        Collections.addAll(functions, operations);
     }
 
     @Override

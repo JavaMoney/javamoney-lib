@@ -14,7 +14,6 @@ import org.javamoney.calc.CalculationContext;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -35,7 +34,7 @@ import java.util.Objects;
  * the future value of annuity due would be used.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Future-Value-of-Annuity-Due.html
+ * @link http://www.financeformulas.net/Future-Value-of-Annuity-Due.html
  */
 public final class FutureValueOfAnnuityDue implements MonetaryOperator {
 

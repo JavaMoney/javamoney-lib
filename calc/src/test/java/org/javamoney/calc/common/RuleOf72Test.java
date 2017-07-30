@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by atsticks on 27.05.16.
- * @see http://www.financeformulas.net/Rule_of_72.html
+ * @link http://www.financeformulas.net/Rule_of_72.html
  */
 public class RuleOf72Test {
 

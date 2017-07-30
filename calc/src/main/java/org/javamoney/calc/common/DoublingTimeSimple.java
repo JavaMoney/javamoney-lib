@@ -19,7 +19,6 @@ import org.javamoney.calc.CalculationContext;
 
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 
 /**
@@ -31,7 +30,7 @@ import java.math.MathContext;
  * principle along with prior interest earned.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
+ * @link http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
  */
 public final class DoublingTimeSimple {
 

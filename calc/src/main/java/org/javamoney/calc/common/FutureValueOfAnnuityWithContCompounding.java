@@ -12,7 +12,6 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -47,7 +46,7 @@ import javax.money.MonetaryOperator;
  * </p>
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
+ * @link http://www.financeformulas.net/Future_Value_of_Annuity.html
  */
 public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOperator {
 
@@ -97,7 +96,7 @@ public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOp
         double num = Math.pow(Math.E, rate.get().doubleValue() * periods) - 1.0;
         double denum = Math.pow(Math.E, rate.get().doubleValue()) - 1.0;
         BigDecimal factor = new BigDecimal(num, CalculationContext.mathContext())
-                .divide(new BigDecimal(denum, CalculationContext.mathContext()));
+                .divide(new BigDecimal(denum, CalculationContext.mathContext()), CalculationContext.mathContext().getRoundingMode());
         return amount.multiply(factor);
     }
 

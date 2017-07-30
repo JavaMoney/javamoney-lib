@@ -13,7 +13,7 @@ import java.math.MathContext;
  * The book value per share is considered to be the total equity for common stockholders which can be found on a company's balance sheet.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Price_to_Book_Value.html
+ * @link http://www.financeformulas.net/Price_to_Book_Value.html
  */
 public class PriceToBookValue {
 

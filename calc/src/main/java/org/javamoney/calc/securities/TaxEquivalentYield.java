@@ -10,7 +10,7 @@ import java.math.MathContext;
  * <p> The tax equivalent yield formula is used to compare the yield between a tax-free investment and an investment that is taxed.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Tax_Equivalent_Yield.html
+ * @link http://www.financeformulas.net/Tax_Equivalent_Yield.html
  */
 public class TaxEquivalentYield {
 

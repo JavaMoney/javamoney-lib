@@ -49,7 +49,7 @@ import javax.money.MonetaryAmount;
  * This can be checked by putting these variables into the present value formula and confirming that
  * in fact there will be a $2000 balance after 57.68 months based on a monthly rate of .5%.
  * 
- * @see http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
+ * @link http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
  * @author Anatole Tresch
  * @author Werner Keil
  */
@@ -59,7 +59,7 @@ public final class NumPeriodsFromPresentValue {
     }
 
     public static BigDecimal calculate(MonetaryAmount presentValue,
-                                       MonetaryAmount futureValue, Rate rate, int periods) {
+                                       MonetaryAmount futureValue, Rate rate) {
 		double result = Math.log(futureValue.divide(presentValue.getNumber())
 				.getNumber().doubleValue())
 				/ Math.log(1 + rate.get().doubleValue());

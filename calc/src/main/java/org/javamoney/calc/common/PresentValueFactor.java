@@ -24,7 +24,7 @@ import java.util.Objects;
  * now may be okay if the individual wants $100 today, assuming that the individual can earn 5%
  * otherwise in one year.
  * 
- * @see http://www.financeformulas.net/Present_Value_Factor.html
+ * @link http://www.financeformulas.net/Present_Value_Factor.html
  * @author Anatole Tresch
  */
 public final class PresentValueFactor {

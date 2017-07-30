@@ -12,8 +12,8 @@ import org.javamoney.calc.common.Rate;
  * <p> The formula for the present value of a stock with zero growth is dividends per period divided by the required return per period. The present value of stock formulas are not to be considered an exact or guaranteed approach to valuing a stock but is a more theoretical approach.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Present-Value-of-Stock-with-Constant-Growth.html
- * @see http://www.financeformulas.net/Present-Value-of-Stock-with-Zero-Growth.html
+ * @link http://www.financeformulas.net/Present-Value-of-Stock-with-Constant-Growth.html
+ * @link http://www.financeformulas.net/Present-Value-of-Stock-with-Zero-Growth.html
  */
 public class StockPresentValue implements MonetaryOperator {
 

@@ -40,7 +40,7 @@ import javax.money.MonetaryOperator;
  * This can be rewritten as:<br/>
  * http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%203.gif
  * 
- * @see http://www.financeformulas.net/Annuity_Payment_Formula.html
+ * @link http://www.financeformulas.net/Annuity_Payment_Formula.html
  * @author Anatole Tresch
  * @author Werner Keil
  * 

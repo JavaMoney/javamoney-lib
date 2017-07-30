@@ -16,9 +16,6 @@
 package org.javamoney.calc.common;
 
 import org.javamoney.calc.CalculationContext;
-import org.javamoney.calc.ComplexCalculation;
-import org.javamoney.calc.ComplexType;
-import org.javamoney.calc.ComplexValue;
 import org.javamoney.moneta.spi.MoneyUtils;
 
 import javax.money.MonetaryAmount;
@@ -44,19 +41,13 @@ import java.math.MathContext;
  * shorter time period is considered due to having a larger portion of its revenues awaiting
  * receipt in the short run.
  * 
- * @see http://www.financeformulas.net/Average-Collection-Period.html
+ * @link http://www.financeformulas.net/Average-Collection-Period.html
  * @author Anatole Tresch
  */
 public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
 
-	private static final BigDecimal BD72 = BigDecimal.valueOf(72);
-
 	private BigDecimal avgAccountsReceivable;
 
-
-	private AverageCollectionPeriod(Number avgAccountsReceivable) {
-		this.avgAccountsReceivable = MoneyUtils.getBigDecimal(avgAccountsReceivable);
-	}
 
 	/**
 	 * Get the current average accounts receivable value for this query.

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * capital asset pricing model is the risk free rate plus beta times the difference of the return on the market and the risk free rate.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Capital-Asset-Pricing-Model.html
+ * @link http://www.financeformulas.net/Capital-Asset-Pricing-Model.html
  */
 public class CapitalAssetPricingModelFormula {
 

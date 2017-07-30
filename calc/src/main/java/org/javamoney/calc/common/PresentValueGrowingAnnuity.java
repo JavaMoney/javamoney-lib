@@ -9,8 +9,6 @@
  */
 package org.javamoney.calc.common;
 
-import com.ibm.icu.math.BigDecimal;
-
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -35,7 +33,7 @@ import javax.money.MonetaryOperator;
  * sections. In theory, if the growth rate is higher than the discount rate, the growing perpetuity
  * would have an infinite value.
  * 
- * @see http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html
+ * @link http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html
  * @author Anatole
  * @author Werner
  * 

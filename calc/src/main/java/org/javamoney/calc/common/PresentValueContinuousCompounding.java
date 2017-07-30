@@ -15,7 +15,6 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 /**

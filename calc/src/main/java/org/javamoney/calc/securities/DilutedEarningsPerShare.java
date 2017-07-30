@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  * are many others and anything than has the availability to be converted to a common share could be included.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Diluted-EPS.html
+ * @link http://www.financeformulas.net/Diluted-EPS.html
  */
 public class DilutedEarningsPerShare {
 

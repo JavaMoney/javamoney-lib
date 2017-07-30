@@ -10,7 +10,7 @@ import java.math.MathContext;
  * a company's use of debt to purchase assets.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Equity_Multiplier.html
+ * @link http://www.financeformulas.net/Equity_Multiplier.html
  */
 public class EquityMultiplier {
 

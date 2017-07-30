@@ -32,7 +32,7 @@ import javax.money.MonetaryOperator;
  * <p>
  * It should be noted that the formula shown supposes that the cash flows per period never change.
  * 
- * @see http://www.financeformulas.net/Perpetuity.html
+ * @link http://www.financeformulas.net/Perpetuity.html
  * @author Anatole
  * @author Werner
  * 

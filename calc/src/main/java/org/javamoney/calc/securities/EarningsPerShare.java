@@ -11,7 +11,7 @@ import javax.money.MonetaryAmount;
  * subtracted from the net income, if applicable.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Earnings_Per_Share.html
+ * @link http://www.financeformulas.net/Earnings_Per_Share.html
  */
 public class EarningsPerShare {
     /**

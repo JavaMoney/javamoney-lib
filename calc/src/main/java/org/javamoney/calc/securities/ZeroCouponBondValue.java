@@ -12,7 +12,7 @@ import org.javamoney.calc.common.Rate;
  * <p> A zero coupon bond, sometimes referred to as a pure discount bond or simply discount bond, is a bond that does not pay coupon payments and instead pays one lump sum at maturity. The amount paid at maturity is called the face value. The term discount bond is used to reference how it is sold originally at a discount from its face value instead of standard pricing with periodic dividend payments as seen otherwise.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Zero_Coupon_Bond_Value.html
+ * @link http://www.financeformulas.net/Zero_Coupon_Bond_Value.html
  */
 public class ZeroCouponBondValue implements MonetaryOperator {
 

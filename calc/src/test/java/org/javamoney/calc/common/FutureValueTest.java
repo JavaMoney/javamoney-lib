@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link org.javamoney.calc.common.FutureValue} formula.
- * @see http://www.financeformulas.net/Future_Value.html#calcHeader
+ * @link http://www.financeformulas.net/Future_Value.html#calcHeader
  */
 public class FutureValueTest {
 

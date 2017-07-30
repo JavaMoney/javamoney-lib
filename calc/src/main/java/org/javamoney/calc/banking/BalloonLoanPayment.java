@@ -9,6 +9,7 @@
  */
 package org.javamoney.calc.banking;
 
+import static org.javamoney.calc.CalculationContext.one;
 import org.javamoney.calc.ComplexCalculation;
 import org.javamoney.calc.ComplexType;
 import org.javamoney.calc.ComplexValue;
@@ -45,7 +46,7 @@ import java.util.Objects;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @see http://www.financeformulas.net/Compound_Interest.html
+ * @link http://www.financeformulas.net/Compound_Interest.html
  */
 public final class BalloonLoanPayment implements MonetaryOperator{
 
@@ -81,22 +82,6 @@ public final class BalloonLoanPayment implements MonetaryOperator{
      */
     private final Rate rate;
 
-    /**@Override
-        public ComplexType getInputType() {
-            return INPUT_TYPE;
-        }
-
-        @Override
-        public Class<MonetaryAmount> getResultType() {
-            return MonetaryAmount.class;
-        }
-
-        @Override
-        public MonetaryAmount calculate(ComplexValue<ComplexType> input) {
-            return ;
-        }
-     * the periods, >= 0.
-     */
     private final int periods;
 
     /** The balloon amount. */
@@ -172,14 +157,14 @@ public final class BalloonLoanPayment implements MonetaryOperator{
         if (periods < 0) {
             throw new IllegalArgumentException("Periods < 0");
         }
-        final BigDecimal ONE = new BigDecimal(1, MathContext.DECIMAL64);
+
         BigDecimal factor2 = rate.get().divide(
-                ONE.subtract(
-                        ONE.add(rate.get()).pow(-periods, MathContext.DECIMAL64)), MathContext.DECIMAL64);
+                one().subtract(
+                        one().add(rate.get()).pow(-periods, MathContext.DECIMAL64)), MathContext.DECIMAL64);
         MonetaryAmount factor1 = amountPV.subtract(
                 balloonAmount.getFactory().setNumber(
                         balloonAmount.getNumber().numberValue(BigDecimal.class).divide(
-                        ONE.add(rate.get()).pow(periods, MathContext.DECIMAL64), MathContext.DECIMAL64)).create());
+                        one().add(rate.get()).pow(periods, MathContext.DECIMAL64), MathContext.DECIMAL64)).create());
         return factor1.multiply(factor2);
     }
 

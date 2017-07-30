@@ -18,7 +18,6 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 /**
  * <p>
@@ -37,7 +36,7 @@ import java.math.MathContext;
  * that it will take approximately 12 years to double the current balance.
  * </p>
  * 
- * @see http://www.financeformulas.net/Rule_of_72.html
+ * @link http://www.financeformulas.net/Rule_of_72.html
  * @author Anatole Tresch
  */
 public final class RuleOf72 {

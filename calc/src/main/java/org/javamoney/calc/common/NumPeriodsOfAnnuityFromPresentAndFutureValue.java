@@ -9,8 +9,6 @@
  */
 package org.javamoney.calc.common;
 
-import org.javamoney.calc.CalculationContext;
-
 import java.math.BigDecimal;
 
 import javax.money.MonetaryAmount;
@@ -40,7 +38,7 @@ import javax.money.MonetaryAmount;
  * <p>
  * After solving, the number of $1,000 payments needed is 22.
  * 
- * @see http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Present-Value.html
+ * @link http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Present-Value.html
  * @author Anatole Tresch
  * @author Werner Keil
  */

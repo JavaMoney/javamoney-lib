@@ -12,7 +12,7 @@ import java.math.MathContext;
  * is the combination of dividends and appreciation of a stock.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Dividend_Yield.html
+ * @link http://www.financeformulas.net/Dividend_Yield.html
  */
 public class DividendYield {
     /**

@@ -34,7 +34,7 @@ import javax.money.MonetaryOperator;
  * It is important to keep in mind that the formula shown above will only calculate the first
  * payment.
  * 
- * @see http://www.financeformulas.net/Growing-Annuity-Payment.html
+ * @link http://www.financeformulas.net/Growing-Annuity-Payment.html
  * @author Anatole
  * @author Werner
  */

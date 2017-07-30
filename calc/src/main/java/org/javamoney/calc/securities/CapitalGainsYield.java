@@ -16,7 +16,7 @@ import java.math.MathContext;
  * stock price. The rate of change can be found by subtracting an ending amount from the original amount then divided by the original amount.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Capital-Gains-Yield.html
+ * @link http://www.financeformulas.net/Capital-Gains-Yield.html
  */
 public class CapitalGainsYield {
 
@@ -34,8 +34,8 @@ public class CapitalGainsYield {
      * @return the capital gains yield
      */
     public static BigDecimal calculate(MonetaryAmount initialStockPrice, MonetaryAmount stockPriceAfterFirstPeriod) {
-        BigDecimal initialStockPriceValue = new BigDecimal(initialStockPrice.getNumber().doubleValueExact());
-        BigDecimal stockValueAfterFirstPeriod = new BigDecimal(stockPriceAfterFirstPeriod.getNumber().doubleValueExact());
+        BigDecimal initialStockPriceValue = BigDecimal.valueOf(initialStockPrice.getNumber().doubleValueExact());
+        BigDecimal stockValueAfterFirstPeriod = BigDecimal.valueOf(stockPriceAfterFirstPeriod.getNumber().doubleValueExact());
 
         return stockValueAfterFirstPeriod.subtract(initialStockPriceValue).divide(initialStockPriceValue, MathContext.DECIMAL64);
     }

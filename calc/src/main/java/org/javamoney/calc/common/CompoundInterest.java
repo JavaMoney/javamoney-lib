@@ -9,13 +9,10 @@
  */
 package org.javamoney.calc.common;
 
-import org.javamoney.calc.CalculationContext;
-import org.javamoney.calc.ComplexCalculation;
-import org.javamoney.calc.ComplexType;
-import org.javamoney.calc.ComplexValue;
+import static org.javamoney.calc.CalculationContext.mathContext;
+import static org.javamoney.calc.CalculationContext.one;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -34,7 +31,7 @@ import javax.money.MonetaryOperator;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @see http://www.financeformulas.net/Compound_Interest.html
+ * @link http://www.financeformulas.net/Compound_Interest.html
  */
 public final class CompoundInterest implements MonetaryOperator {
 
@@ -126,10 +123,9 @@ public final class CompoundInterest implements MonetaryOperator {
          * @return the resulting amount, never null.
          */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods, int timesCompounded) {
-        final BigDecimal ONE = CalculationContext.one();
-        BigDecimal part2 = rate.get().divide(BigDecimal.valueOf(timesCompounded));
-        BigDecimal base = ONE.add(part2);
-        BigDecimal multiplicator = base.pow(periods * timesCompounded);
+        BigDecimal part2 = rate.get().divide(BigDecimal.valueOf(timesCompounded), mathContext());
+        BigDecimal base = one().add(part2);
+        BigDecimal multiplicator = base.pow(periods * timesCompounded, mathContext());
         return amount.multiply(multiplicator).subtract(amount);
     }
 

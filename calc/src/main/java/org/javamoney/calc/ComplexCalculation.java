@@ -29,14 +29,14 @@ public interface ComplexCalculation<I extends ComplexType,T>{
      *
      * @return the input type descriptor, never null.
      */
-    public I getInputType();
+    I getInputType();
 
     /**
      * Access the result type.
      *
      * @return the result type, never null.
      */
-    public Class<T> getResultType();
+    Class<T> getResultType();
 
     /**
      * Calulates the result.
@@ -45,5 +45,5 @@ public interface ComplexCalculation<I extends ComplexType,T>{
      * @return the result
      * @throws javax.money.MonetaryException if input validation fails, or an other monetary errors occurring.
      */
-    public T calculate(ComplexValue<I> input);
+    T calculate(ComplexValue<I> input);
 }

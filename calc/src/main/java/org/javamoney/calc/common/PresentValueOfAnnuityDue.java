@@ -17,7 +17,6 @@ package org.javamoney.calc.common;
 
 import org.javamoney.calc.CalculationContext;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -28,7 +27,7 @@ import javax.money.MonetaryOperator;
  * sometimes referred to as an immediate annuity, is used to calculate a series of periodic
  * payments, or cash flows, that start immediately.
  * 
- * @see http://www.financeformulas.net/Present_Value_of_Annuity_Due.html
+ * @link http://www.financeformulas.net/Present_Value_of_Annuity_Due.html
  * @author Anatole Tresch
  * TODO Check test values!!!
  */

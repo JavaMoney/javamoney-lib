@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by atsticks on 27.05.16.
- * @see http://www.financeformulas.net/Average-Collection-Period.html#calcHeader
+ * @link http://www.financeformulas.net/Average-Collection-Period.html#calcHeader
  */
 public class AverageCollectionPeriodTest {
 

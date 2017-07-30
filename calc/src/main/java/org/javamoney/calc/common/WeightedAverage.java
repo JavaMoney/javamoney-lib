@@ -16,16 +16,10 @@
 package org.javamoney.calc.common;
 
 import org.javamoney.calc.CalculationContext;
-import org.javamoney.calc.ComplexCalculation;
-import org.javamoney.calc.ComplexType;
-import org.javamoney.calc.ComplexValue;
-import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.text.NumberFormat;
 import java.util.*;
 
 

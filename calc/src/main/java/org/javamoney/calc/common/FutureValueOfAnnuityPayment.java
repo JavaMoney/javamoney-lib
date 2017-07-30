@@ -9,9 +9,7 @@
  */
 package org.javamoney.calc.common;
 
-import org.javamoney.calc.CalculationContext;
-
-import java.math.BigDecimal;
+import static org.javamoney.calc.CalculationContext.one;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -35,7 +33,7 @@ import javax.money.MonetaryOperator;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @see http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
+ * @link http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
  */
 final class FutureValueOfAnnuityPayment implements MonetaryOperator {
 
@@ -82,10 +80,9 @@ final class FutureValueOfAnnuityPayment implements MonetaryOperator {
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
-        final BigDecimal ONE = CalculationContext.one();
         return FutureValue.calculate(amount, rate, periods).divide(
-                ONE.add(rate.get()).pow(periods)
-                        .subtract(ONE)
+                one().add(rate.get()).pow(periods)
+                        .subtract(one())
         );
     }
 

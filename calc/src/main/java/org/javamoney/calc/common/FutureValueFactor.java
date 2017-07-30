@@ -12,8 +12,6 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%20Factor%201.gif" />
@@ -29,7 +27,7 @@ import java.math.RoundingMode;
  * otherwise in one year.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Future-Value-Factor.html
+ * @link http://www.financeformulas.net/Future-Value-Factor.html
  */
 public final class FutureValueFactor {
 

@@ -11,7 +11,7 @@ import java.util.List;
  * <p> The formula for the holding period return is used for calculating the return on an investment over multiple periods.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Holding_Period_Return.html
+ * @link http://www.financeformulas.net/Holding_Period_Return.html
  */
 public class HoldingPeriodReturn {
 

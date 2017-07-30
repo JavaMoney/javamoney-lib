@@ -10,7 +10,7 @@ import javax.money.MonetaryAmount;
  * grouping in this manner is to minimize risk by diversifying.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Net_Asset_Value.html
+ * @link http://www.financeformulas.net/Net_Asset_Value.html
  */
 public class NetAssetValue {
 

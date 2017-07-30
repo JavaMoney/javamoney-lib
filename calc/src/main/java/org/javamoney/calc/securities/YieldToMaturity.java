@@ -11,7 +11,7 @@ import java.math.MathContext;
  * at the effective yield of a bond based on compounding as opposed to the simple yield which is found using the dividend yield formula.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Yield_to_Maturity.html
+ * @link http://www.financeformulas.net/Yield_to_Maturity.html
  */
 public class YieldToMaturity {
 
@@ -31,9 +31,9 @@ public class YieldToMaturity {
      * @return the yield to maturity
      */
     public static BigDecimal calculate(MonetaryAmount couponPaymentAmount, MonetaryAmount faceAmount, MonetaryAmount priceAmount, int numberOfYearsToMaturity) {
-        final BigDecimal coupon = new BigDecimal(couponPaymentAmount.getNumber().doubleValueExact());
-        final BigDecimal face = new BigDecimal(faceAmount.getNumber().doubleValueExact());
-        final BigDecimal price = new BigDecimal(priceAmount.getNumber().doubleValueExact());
+        final BigDecimal coupon = BigDecimal.valueOf(couponPaymentAmount.getNumber().doubleValueExact());
+        final BigDecimal face = BigDecimal.valueOf(faceAmount.getNumber().doubleValueExact());
+        final BigDecimal price = BigDecimal.valueOf(priceAmount.getNumber().doubleValueExact());
 
         final BigDecimal averagedDifference = face.subtract(price).divide(BigDecimal.valueOf(numberOfYearsToMaturity), MathContext.DECIMAL64);
         final BigDecimal averagePrice = face.add(price).divide(BigDecimal.valueOf(2), MathContext.DECIMAL64);

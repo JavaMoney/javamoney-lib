@@ -9,12 +9,11 @@
  */
 package org.javamoney.calc.common;
 
-import org.javamoney.calc.CalculationContext;
+import static org.javamoney.calc.CalculationContext.one;
+import static org.javamoney.calc.CalculationContext.mathContext;
 
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -34,7 +33,7 @@ import java.util.Objects;
  * An example would be an annuity that has a 12% annual rate and payments are made monthly. The
  * monthly rate of 1% would need to be used in the formula.
  * 
- * @see http://www.financeformulas.net/Present_Value_of_Annuity.html
+ * @link http://www.financeformulas.net/Present_Value_of_Annuity.html
  * @author Anatole Tresch
  */
 public final class FutureValueOfAnnuityFactor {
@@ -48,10 +47,9 @@ public final class FutureValueOfAnnuityFactor {
 			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
 		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		final BigDecimal ONE = CalculationContext.one();
-		BigDecimal subtractor = ONE.divide(ONE.add(rate.get()).pow(periods), CalculationContext.mathContext());
-		return ONE.subtract(subtractor)
-				.divide(rate.get(), CalculationContext.mathContext());
+		BigDecimal subtractor = one().divide(one().add(rate.get()).pow(periods), mathContext());
+		return one().subtract(subtractor)
+				.divide(rate.get(), mathContext());
 	}
 
 }

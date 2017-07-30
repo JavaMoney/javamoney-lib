@@ -35,7 +35,7 @@ import javax.money.MonetaryOperator;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @see http://www.financeformulas.net/Future_Value.html
+ * @link http://www.financeformulas.net/Future_Value.html
  * <p>
  * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%201.gif" />
  * <p>

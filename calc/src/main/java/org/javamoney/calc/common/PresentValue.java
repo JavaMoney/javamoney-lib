@@ -9,9 +9,6 @@
  */
 package org.javamoney.calc.common;
 
-import com.ibm.icu.math.BigDecimal;
-
-import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -35,8 +32,8 @@ import javax.money.MonetaryOperator;
  * alterantively this can be written also as (which is much easier to implement):<br/>
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Present_Value.html
- * @see http://www.financeformulas.net/Present_Value.html
+ * @link http://www.financeformulas.net/Present_Value.html
+ * @link http://www.financeformulas.net/Present_Value.html
  */
 public final class PresentValue implements MonetaryOperator {
 

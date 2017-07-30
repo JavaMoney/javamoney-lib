@@ -12,7 +12,7 @@ import org.javamoney.calc.common.Rate;
  * The formula for the present value of a preferred stock uses the perpetuity formula. A perpetuity is a type of annuity that pays periodic payments infinitely. As previously stated, preferred stocks in most circumstances receive their dividends prior to any dividends paid to common stocks and the dividends tend to be fixed. With this, its value can be calculated using the perpetuity formula.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Preferred_Stock.html
+ * @link http://www.financeformulas.net/Preferred_Stock.html
  */
 public class PreferredStock implements MonetaryOperator {
 

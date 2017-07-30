@@ -34,7 +34,7 @@ import javax.money.MonetaryOperator;
  * relation to one another. If the time is in months, then the rate would need to be the monthly
  * rate and not the annual rate.
  * 
- * @see http://www.financeformulas.net/Simple_Interest.html
+ * @link http://www.financeformulas.net/Simple_Interest.html
  * @author Anatole Tresch
  */
 public final class SimpleInterest implements MonetaryOperator {
@@ -102,10 +102,10 @@ public final class SimpleInterest implements MonetaryOperator {
 
         SimpleInterest that = (SimpleInterest) o;
 
-        if (periods != that.periods) return false;
-        if (!rate.equals(that.rate)) return false;
-
-        return true;
+        if (periods != that.periods){
+            return false;
+        }
+        return rate.equals(that.rate);
     }
 
     @Override

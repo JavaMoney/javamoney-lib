@@ -11,6 +11,7 @@ package org.javamoney.calc.common;
 
 import java.math.BigDecimal;
 
+import static org.javamoney.calc.CalculationContext.one;
 import javax.money.MonetaryAmount;
 
 /**
@@ -38,7 +39,7 @@ import javax.money.MonetaryAmount;
  * <p>
  * Example of Solving for n results in 14 semi-annual periods.
  * 
- * @see http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Future-Value.html
+ * @link http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Future-Value.html
  * @author Anatole Tresch
  * @author Werner Keil
  */
@@ -53,16 +54,15 @@ public final class NumPeriodsOfAnnuityFromFutureValue {
      * @param paymentOrCashFlows the payment or cash flows.
      * @param futureValue        the future value
      * @param rate               the target rate
-     * @param periods            the number of periods
      * @return the number of periods.
      */
     public static BigDecimal calculate(MonetaryAmount paymentOrCashFlows,
-                                       MonetaryAmount futureValue, Rate rate, int periods) {
-		double num = Math.log(BigDecimal.ONE.add(
+                                       MonetaryAmount futureValue, Rate rate) {
+		double num = Math.log(one().add(
 				futureValue.multiply(rate.get()).divide(
 						paymentOrCashFlows.getNumber()).getNumber()
 						.numberValue(BigDecimal.class)).doubleValue());
-		double denum = Math.log(BigDecimal.ONE.add(rate.get()).doubleValue());
+		double denum = Math.log(one().add(rate.get()).doubleValue());
 		return new BigDecimal(String.valueOf(num / denum));
 	}
 }

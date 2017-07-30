@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by atsticks on 15.05.16.
- * @see http://www.financeformulas.net/Perpetuity.html#calcHeader
+ * @link http://www.financeformulas.net/Perpetuity.html#calcHeader
  * shows incorrect values in this case.
  */
 public class PresentValueOfPerpetuityTest {

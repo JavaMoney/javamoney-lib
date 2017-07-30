@@ -40,7 +40,7 @@ import java.util.Objects;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @see http://www.financeformulas.net/Compound_Interest.html
+ * @link http://www.financeformulas.net/Compound_Interest.html
  */
 public final class AnnualPercentageYield implements MonetaryOperator {
 

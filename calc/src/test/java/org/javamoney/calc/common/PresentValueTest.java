@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Tests for the {@link org.javamoney.calc.common.PresentValue} formula calculator.
- * @see http://www.financeformulas.net/Present_Value.html#calcHeader
+ * @link http://www.financeformulas.net/Present_Value.html#calcHeader
  */
 public class PresentValueTest{
 

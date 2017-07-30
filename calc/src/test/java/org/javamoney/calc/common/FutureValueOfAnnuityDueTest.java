@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by atsticks on 15.05.16.
- * @see http://www.financeformulas.net/Future-Value-of-Annuity-Due.html#calcHeader
+ * @link http://www.financeformulas.net/Future-Value-of-Annuity-Due.html#calcHeader
  */
 public class FutureValueOfAnnuityDueTest {
 

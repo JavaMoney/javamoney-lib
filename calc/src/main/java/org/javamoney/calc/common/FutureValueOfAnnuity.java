@@ -13,7 +13,7 @@ import org.javamoney.calc.CalculationContext;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
-import java.math.BigDecimal;
+import static org.javamoney.calc.CalculationContext.one;
 import java.util.Objects;
 
 /**
@@ -34,7 +34,7 @@ import java.util.Objects;
  *
  * @author Anatole
  * @author Werner
- * @see http://www.financeformulas.net/Future_Value_of_Annuity.html
+ * @link http://www.financeformulas.net/Future_Value_of_Annuity.html
  */
 public final class FutureValueOfAnnuity implements MonetaryOperator {
     /**
@@ -88,8 +88,7 @@ public final class FutureValueOfAnnuity implements MonetaryOperator {
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
         // Am * (((1 + r).pow(n))-1/rate)
-        final BigDecimal ONE = CalculationContext.one();
-        return amount.multiply(ONE.add(rate.get()).pow(periods).subtract(ONE).divide(
+        return amount.multiply(one().add(rate.get()).pow(periods).subtract(one()).divide(
                 rate.get(),CalculationContext.mathContext()));
     }
 

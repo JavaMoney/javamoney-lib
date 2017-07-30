@@ -19,7 +19,6 @@ import org.javamoney.calc.CalculationContext;
 
 import javax.money.MonetaryException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 
 /**
@@ -36,7 +35,7 @@ import java.math.MathContext;
  * percentage yield, as r in the doubling time formula.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Doubling_Time.html
+ * @link http://www.financeformulas.net/Doubling_Time.html
  */
 public final class DoublingTime {
 
@@ -53,7 +52,7 @@ public final class DoublingTime {
         }
         return new BigDecimal(Math.log(2.0d), CalculationContext.mathContext())
                 .divide(
-                    new BigDecimal(
+                        BigDecimal.valueOf(
                             Math.log(1.0d + rate.get().doubleValue())
                         ), CalculationContext.mathContext());
     }

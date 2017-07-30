@@ -10,7 +10,7 @@ import java.math.MathContext;
  * <p> The bond equivalent yield formula is used to determine the annual yield on a discount, or zero coupon, bond.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Bond_Equivalent_Yield.html
+ * @link http://www.financeformulas.net/Bond_Equivalent_Yield.html
  */
 public final class BondEquivalentYield {
 
@@ -29,8 +29,8 @@ public final class BondEquivalentYield {
      * @return the bond equivalent yield
      */
     public static BigDecimal calculate(MonetaryAmount faceValue, MonetaryAmount priceAmount, int numberOfDaysToMaturity) {
-        BigDecimal face = new BigDecimal(faceValue.getNumber().doubleValueExact());
-        BigDecimal price = new BigDecimal(priceAmount.getNumber().doubleValueExact());
+        BigDecimal face = BigDecimal.valueOf(faceValue.getNumber().doubleValueExact());
+        BigDecimal price = BigDecimal.valueOf(priceAmount.getNumber().doubleValueExact());
         BigDecimal returnOnInvestment = (face.subtract(price)).divide(price, MathContext.DECIMAL64);
         BigDecimal maturity = BigDecimal.valueOf(365).divide(BigDecimal.valueOf(numberOfDaysToMaturity), MathContext.DECIMAL64);
 

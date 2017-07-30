@@ -11,7 +11,7 @@ import java.math.MathContext;
  * is not paid out in dividends to stockholders is held by the company for growth. The amount that is kept by the company is called retained earnings.
  *
  * @author Manuela Grindei
- * @see http://www.financeformulas.net/Dividend_Payout_Ratio.html
+ * @link http://www.financeformulas.net/Dividend_Payout_Ratio.html
  */
 public class DividendPayoutRatio {
 

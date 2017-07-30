@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by atsticks on 15.05.16.
- * @see http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html#calcHeader
+ * @link http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html#calcHeader
  */
 public class FutureValueGrowingAnnuityTest {
 

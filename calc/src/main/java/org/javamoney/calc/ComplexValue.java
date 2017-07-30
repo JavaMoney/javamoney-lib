@@ -33,7 +33,7 @@ import java.util.Map;
 public final class ComplexValue<T extends ComplexType> {
 
 	private T type;
-	private Map<String, Object> args = new HashMap<String, Object>();
+	private Map<String, Object> args = new HashMap<>();
 
 	private ComplexValue(T type, Map<String, Object> args) {
 		if (type == null) {
@@ -56,13 +56,13 @@ public final class ComplexValue<T extends ComplexType> {
 		return this.type;
 	}
 
-	public <T> T get(String key, Class<T> type) {
+	public <P> P get(String key, Class<P> type) {
 		return get(key, type, null);
 	}
 
-	public <T> T get(String key, Class<T> type, T defaultValue) {
+	public <P> P get(String key, Class<P> type, P defaultValue) {
 		@SuppressWarnings("unchecked")
-		T t = (T) this.args.get(key);
+		P t = (P) this.args.get(key);
 		if (t == null) {
 			return defaultValue;
 		}
@@ -80,7 +80,7 @@ public final class ComplexValue<T extends ComplexType> {
 
 	public static final class Builder {
 		private ComplexType type;
-		private Map<String, Object> args = new HashMap<String, Object>();
+		private Map<String, Object> args = new HashMap<>();
 
 		public Builder() {
 		}

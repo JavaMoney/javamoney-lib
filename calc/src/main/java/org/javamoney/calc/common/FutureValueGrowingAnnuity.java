@@ -12,7 +12,6 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
@@ -46,7 +45,7 @@ import javax.money.MonetaryOperator;
  * After solving this equation, the amount after the 5th cash flow would be $11,700.75.
  *
  * @author Anatole Tresch
- * @see http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html
+ * @link http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html
  */
 public final class FutureValueGrowingAnnuity implements MonetaryOperator {
     /**
@@ -122,9 +121,8 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
         if(discountRate.get().signum()<0){
             return firstPayment.getFactory().setNumber(0.0d).create();
         }
-        final BigDecimal ONE = CalculationContext.one();
-        BigDecimal num = ONE.add(discountRate.get()).pow(periods)
-                .subtract(ONE.add(growthRate.get()).pow(periods));
+        BigDecimal num = CalculationContext.one().add(discountRate.get()).pow(periods)
+                .subtract(CalculationContext.one().add(growthRate.get()).pow(periods));
         BigDecimal denum = discountRate.get().subtract(growthRate.get());
         return firstPayment.multiply(num.divide(denum, CalculationContext.mathContext()));
     }

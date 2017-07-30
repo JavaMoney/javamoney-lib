@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by atsticks on 15.05.16.
- * @see http://www.mrzeno.com/Present-Value-Annuity-Factor-PVAF.php
+ * @link http://www.mrzeno.com/Present-Value-Annuity-Factor-PVAF.php
  * Note: {@code http://www.financeformulas.net/Present-Value-Annuity-Factor.html#calcHeader}
  * shows incorrect values in this case.
  */
