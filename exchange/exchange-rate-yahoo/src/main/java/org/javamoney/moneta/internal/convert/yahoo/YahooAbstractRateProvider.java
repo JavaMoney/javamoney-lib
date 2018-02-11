@@ -108,9 +108,6 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
 				if (rates.isEmpty()) {
 					return null;
 				}
-				if (rates.isEmpty()) {
-					return null;
-				}
 				RateResult result = findExchangeRate(conversionQuery);
 
 				ExchangeRateBuilder builder = getBuilder(conversionQuery, result.date);
@@ -266,6 +263,12 @@ abstract class YahooAbstractRateProvider extends AbstractRateProvider implements
         } else if(Objects.nonNull(query.get(LocalDate[].class))) {
         	return query.get(LocalDate[].class);
         }
+        // Return latest dates in data
+		List<LocalDate> keys = new ArrayList<>(this.rates.keySet());
+        if(!keys.isEmpty()) {
+			keys.sort(Comparator.reverseOrder());
+			return new LocalDate[]{keys.get(0)};
+		}
         return null;
     }
 }
