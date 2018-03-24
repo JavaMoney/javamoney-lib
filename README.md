@@ -2,15 +2,16 @@ Java Money and Currency - Libraries extending JSR 354
 ==============================================================
  
 JavaMoney-lib provides extensions and libraries built upon JSR 354 (compatible implementations).
-Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts, customizable currencies 
-and interfaces for interoperation this library adds additional powerful APIs and SPIs that were implemented during JSR 
-development as a proof of concept:
+Whereas the JSR 354 API and reference implementation provides the fundamentals like monetary amounts,
+customizable currencies and interfaces for interoperation this library adds additional powerful
+APIs and SPIs that were implemented during JSR development as a proof of concept:
 
 * [**Calculation**](calc) provides a set of monetary calculations and formulas. The idea here is to provide a comprehensive set of algorithms and tools to perform complex financial mathematics.
 * [**Exchange**](exchange) provides further conversion exchange resources such as FRD and Yahoo.
 * [**javamoney-cdi**](integration/javamoney-cdi) Integrates JavaMoney with CDI, so SPIs can as well be loaded from CDI.
 
-Currently the following modules are retired (or archived, not actively maintained):
+Currently the following modules are retired (or archived, this means they are not actively maintained.
+They even may not compile):
 * [**Formatting**](retired/format) provides an extendble formatting library that allows to define complex formatters, that can be configured in arbitrary ways using `LocalizationStyle` instances.
 Also available is a flexible Builder for creating arbitrary complex formatters and parsers based on an ordered set of arbitrary tokens.
 * [**javamoney-all**](retired/javamoney-all) provides a pom that imports everything you need (API, RI and the released JavaMoney libraries).
@@ -20,20 +21,23 @@ Of course, the API is fully extendible, so customer related regions such as lega
 * [**Validity API**](retired/validity) This API provides a generic API for accessing historic validity information for arbitrary items, and for relationships between items.
 By default the API provides access to the historic relationship of currencies to countries using the Unicode CLDR data.
 * [**Data**](retired/cldr-data) JavaMoney Data
+* [**Currencies**](retired/currencies) ISO Online Currency Provider
 
-To use the library you simply have to add the Maven dependency to your project (tbd)
+To use the library you simply have to add the Maven dependency to your project:
 
 ```xml
 <dependency>
   <groupId>org.javamoney</groupId>
   <artifactId>javamoney-${module}</artifactId>
-  <versionId>the current version</version>
+  <versionId>the current library version</version>
 </dependency>
 ```
 
 Authors and Contributors
 ------------------------
-Different people have contributed to this project. During the development of JSR 354, @atsticks and @keilw founded this project and were also the main contributors. Nevertheless everybody is really welcome to help us, to make this library more feasible and add features.
+Different people have contributed to this project. During the development of JSR 354, @atsticks and @keilw
+founded this project and were also the main contributors. Nevertheless everybody is really welcome to help
+us, to make this library more feasible and add features.
 
 javamoney-shelter
 -----------------
