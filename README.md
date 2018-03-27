@@ -10,19 +10,6 @@ APIs and SPIs that were implemented during JSR development as a proof of concept
 * [**Exchange**](exchange) provides further conversion exchange resources such as FRD and Yahoo.
 * [**javamoney-cdi**](integration/javamoney-cdi) Integrates JavaMoney with CDI, so SPIs can as well be loaded from CDI.
 
-Currently the following modules are retired (or archived, this means they are not actively maintained.
-They even may not compile):
-* [**Formatting**](retired/format) provides an extendble formatting library that allows to define complex formatters, that can be configured in arbitrary ways using `LocalizationStyle` instances.
-Also available is a flexible Builder for creating arbitrary complex formatters and parsers based on an ordered set of arbitrary tokens.
-* [**javamoney-all**](retired/javamoney-all) provides a pom that imports everything you need (API, RI and the released JavaMoney libraries).
-* [**Region API**](retired/regions) provides a forest (a set of trees) of regions. This allows to model regional hierarchies in a more flexible and intuitive way, than adding all functionalities into `java.util.Locale`.
-By default the Unicode CLDR region tree, well as ISO countries defined by the 2- or 3-letter country code are available.
-Of course, the API is fully extendible, so customer related regions such as legal units, customer segments etc can be mapped easily to this API, also.
-* [**Validity API**](retired/validity) This API provides a generic API for accessing historic validity information for arbitrary items, and for relationships between items.
-By default the API provides access to the historic relationship of currencies to countries using the Unicode CLDR data.
-* [**Data**](retired/cldr-data) JavaMoney Data
-* [**Currencies**](retired/currencies) ISO Online Currency Provider
-
 To use the library you simply have to add the Maven dependency to your project:
 
 ```xml
@@ -41,7 +28,8 @@ us, to make this library more feasible and add features.
 
 javamoney-shelter
 -----------------
-The javamoney [shelter module](http://javamoney.github.io/shelter.html) is for testing out new features or modules before they may enter the official javamoney library.
+The javamoney [shelter module](http://javamoney.github.io/shelter.html) is for testing out new features or
+modules before they may enter the official javamoney library.
 
 Support or Contact
 ------------------
