@@ -48,50 +48,38 @@ import javax.money.MonetaryOperator;
  * @author Anatole Tresch
  * @link http://www.financeformulas.net/Future_Value_of_Annuity.html
  */
-public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class FutureValueOfAnnuityWithContCompounding extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private FutureValueOfAnnuityWithContCompounding(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        this.periods = periods;
+    private FutureValueOfAnnuityWithContCompounding(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The discount rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The discount rate and periods, not null.
      * @return the operator, never null.
      */
-    public static FutureValueOfAnnuityWithContCompounding of(Rate rate, int periods) {
-        return new FutureValueOfAnnuityWithContCompounding(rate, periods);
+    public static FutureValueOfAnnuityWithContCompounding of(RateAndPeriods rateAndPeriods) {
+        return new FutureValueOfAnnuityWithContCompounding(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
+        Rate rate = Objects.requireNonNull(rateAndPeriods.getRate(), "Rate required");
+        int periods = rateAndPeriods.getPeriods();
         // FVofA/CC = CF * [ (e.pow(r*n) - 1) / ((e.pow(r) - 1)) ]
         double num = Math.pow(Math.E, rate.get().doubleValue() * periods) - 1.0;
         double denum = Math.pow(Math.E, rate.get().doubleValue()) - 1.0;
@@ -102,7 +90,7 @@ public final class FutureValueOfAnnuityWithContCompounding implements MonetaryOp
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
 }

@@ -29,7 +29,7 @@ public class SimpleInterestTest {
     @Test
     public void of_notNull() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertNotNull(ci);
     }
@@ -37,12 +37,12 @@ public class SimpleInterestTest {
     @Test
     public void of_correctRate() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.0234),1
+                RateAndPeriods.of(0.0234,1)
         );
         assertNotNull(ci.getRate());
         assertEquals(ci.getRate(),  Rate.of(0.0234));
         ci = SimpleInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertNotNull(ci.getRate());
         assertEquals(ci.getRate(),  Rate.of(0.05));
@@ -51,11 +51,11 @@ public class SimpleInterestTest {
     @Test
     public void of_correctPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertEquals(ci.getPeriods(),  1);
         ci = SimpleInterest.of(
-                Rate.of(0.05),234
+                RateAndPeriods.of(0.05,234)
         );
         assertEquals(ci.getPeriods(),  234);
     }
@@ -63,7 +63,7 @@ public class SimpleInterestTest {
     @Test
     public void calculate_zeroPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),0
+                RateAndPeriods.of(0.05,0)
         );
         assertEquals(Money.of(0,"CHF").with(ci), Money.of(0,"CHF"));
         assertEquals(Money.of(-100,"CHF").with(ci), Money.of(0,"CHF"));
@@ -73,7 +73,7 @@ public class SimpleInterestTest {
     @Test
     public void calculate_onePeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertEquals(Money.of(100,"CHF").with(ci),Money.of(5,"CHF"));
         assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
@@ -83,7 +83,7 @@ public class SimpleInterestTest {
     @Test
     public void calculate_twoPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),2
+                RateAndPeriods.of(0.05,2)
         );
          assertEquals(Money.of(100,"CHF").with(ci),Money.of(10,"CHF"));
         assertEquals(Money.of(0,"CHF").with(ci),Money.of(0,"CHF"));
@@ -93,7 +93,7 @@ public class SimpleInterestTest {
     @Test
     public void apply() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),7
+                RateAndPeriods.of(0.05,7)
         );
         assertEquals(ci.apply(Money.of(100,"CHF")),Money.of(35,"CHF"));
     }
@@ -101,8 +101,11 @@ public class SimpleInterestTest {
     @Test
     public void test_toString() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
-                Rate.of(0.05),100
+                RateAndPeriods.of(0.05,100)
         );
-        assertEquals("SimpleInterest{rate=Rate[0.05], periods=100}",ci.toString());
+        assertEquals("SimpleInterest{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=100}}",ci.toString());
     }
 }

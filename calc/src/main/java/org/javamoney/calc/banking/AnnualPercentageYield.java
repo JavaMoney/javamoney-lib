@@ -9,9 +9,6 @@
  */
 package org.javamoney.calc.banking;
 
-import org.javamoney.calc.ComplexCalculation;
-import org.javamoney.calc.ComplexType;
-import org.javamoney.calc.ComplexValue;
 import org.javamoney.calc.common.Rate;
 
 import javax.money.MonetaryAmount;
@@ -43,31 +40,6 @@ import java.util.Objects;
  * @link http://www.financeformulas.net/Compound_Interest.html
  */
 public final class AnnualPercentageYield implements MonetaryOperator {
-
-    private static final ComplexType INPUT_TYPE = new ComplexType.Builder("AnnualPercentageYield:IN")
-            .addRequiredParameter("amount", MonetaryAmount.class)
-            .addRequiredParameter("rate", Rate.class)
-            .addRequiredParameter("periods", Number.class).build();
-
-    public static final ComplexCalculation<ComplexType, MonetaryAmount> CALCULATION = new ComplexCalculation<ComplexType, MonetaryAmount>() {
-        @Override
-        public ComplexType getInputType() {
-            return INPUT_TYPE;
-        }
-
-        @Override
-        public Class<MonetaryAmount> getResultType() {
-            return MonetaryAmount.class;
-        }
-
-        @Override
-        public MonetaryAmount calculate(ComplexValue<ComplexType> input) {
-            return AnnualPercentageYield.calculate(input.get("amount", MonetaryAmount.class),
-                    input.get("rate", Rate.class),
-                    input.get("periods", Number.class).intValue()
-            );
-        }
-    };
 
     /**
      * the target rate, not null.

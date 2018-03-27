@@ -36,60 +36,38 @@ import java.util.Objects;
  * @author Anatole Tresch
  * @link http://www.financeformulas.net/Future-Value-of-Annuity-Due.html
  */
-public final class FutureValueOfAnnuityDue implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class FutureValueOfAnnuityDue extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private FutureValueOfAnnuityDue(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
-    }
-
-    public int getPeriods() {
-        return periods;
-    }
-
-    public Rate getRate() {
-        return rate;
+    private FutureValueOfAnnuityDue(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the operator, never null.
      */
-    public static FutureValueOfAnnuityDue of(Rate rate, int periods) {
-        return new FutureValueOfAnnuityDue(rate, periods);
+    public static FutureValueOfAnnuityDue of(RateAndPeriods rateAndPeriods) {
+        return new FutureValueOfAnnuityDue(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         // Am * (((1 + r).pow(n))-1/rate)
+        Rate rate = rateAndPeriods.getRate();
+        int periods = rateAndPeriods.getPeriods();
         BigDecimal base = CalculationContext.one().add(rate.get());
         BigDecimal counter = base.pow(periods, CalculationContext.mathContext()).subtract(BigDecimal.ONE);
         return amount.multiply(
@@ -98,14 +76,13 @@ public final class FutureValueOfAnnuityDue implements MonetaryOperator {
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "FutureValueOfAnnuityDue{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "\n " + rateAndPeriods +
                 '}';
     }
 }

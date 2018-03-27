@@ -12,7 +12,6 @@ package org.javamoney.calc.common;
 import static org.javamoney.calc.CalculationContext.one;
 import static org.javamoney.calc.CalculationContext.mathContext;
 
-import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -41,12 +40,11 @@ public final class FutureValueOfAnnuityFactor {
 	private FutureValueOfAnnuityFactor() {
 	}
 
-    public static BigDecimal calculate(Rate rate, int periods) {
-        Objects.requireNonNull(rate, "Rate required.");
-		if(periods<0){
-			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
-		}
+    public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods, "RateAndPeriods required.");
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
+		Rate rate = rateAndPeriods.getRate();
+		int periods = rateAndPeriods.getPeriods();
 		BigDecimal subtractor = one().divide(one().add(rate.get()).pow(periods), mathContext());
 		return one().subtract(subtractor)
 				.divide(rate.get(), mathContext());

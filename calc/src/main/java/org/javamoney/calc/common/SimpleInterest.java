@@ -37,54 +37,37 @@ import javax.money.MonetaryOperator;
  * @link http://www.financeformulas.net/Simple_Interest.html
  * @author Anatole Tresch
  */
-public final class SimpleInterest implements MonetaryOperator {
+public final class SimpleInterest extends AbstractRateAndPeriodBasedOperator {
 
-    private Rate rate;
-    private int periods;
-
-    private SimpleInterest(Rate rate,
-                           int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
-    }
-
-    public int getPeriods() {
-        return periods;
-    }
-
-    public Rate getRate() {
-        return rate;
+    private SimpleInterest(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param discountRate The discount rate, not null.
-     * @param growthRate   The growth rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the operator, never null.
      */
-    public static SimpleInterest of(Rate rate, int periods) {
-        return new SimpleInterest(rate, periods);
+    public static SimpleInterest of(RateAndPeriods rateAndPeriods) {
+        return new SimpleInterest(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
+        Objects.requireNonNull(rateAndPeriods, "Rate required");
+        int periods = rateAndPeriods.getPeriods();
         if(periods==0 || amount.signum()==0){
             return amount.getFactory().setNumber(0.0).create();
         }
+        Rate rate = rateAndPeriods.getRate();
         BigDecimal factor = rate.get().multiply(
                 BigDecimal.valueOf(periods), CalculationContext.mathContext());
         return amount.multiply(factor);
@@ -92,34 +75,14 @@ public final class SimpleInterest implements MonetaryOperator {
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SimpleInterest that = (SimpleInterest) o;
-
-        if (periods != that.periods){
-            return false;
-        }
-        return rate.equals(that.rate);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = rate.hashCode();
-        result = 31 * result + periods;
-        return result;
-    }
 
     @Override
     public String toString() {
         return "SimpleInterest{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "\n " + rateAndPeriods +
                 '}';
     }
 }

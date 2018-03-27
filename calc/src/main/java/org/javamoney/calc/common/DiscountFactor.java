@@ -29,19 +29,15 @@ public final class DiscountFactor {
     /**
      * Calculates the discount factor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      * @return the factor calculated.
      */
-    public static BigDecimal calculate(Rate rate, int periods) {
-        Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
+    public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods);
         // (1-(1+r)^n)/1-(1+rate)
         final BigDecimal ONE = CalculationContext.one();
-        BigDecimal div = ONE.min(ONE.add(rate.get()));
-        BigDecimal factor = ONE.subtract(ONE.add(rate.get()).pow(periods))
+        BigDecimal div = ONE.min(ONE.add(rateAndPeriods.getRate().get()));
+        BigDecimal factor = ONE.subtract(ONE.add(rateAndPeriods.getRate().get()).pow(rateAndPeriods.getPeriods()))
                 .divide(div, CalculationContext.mathContext());
         return ONE.add(factor);
     }

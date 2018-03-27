@@ -9,18 +9,17 @@
  */
 package org.javamoney.calc.banking;
 
-import static org.javamoney.calc.CalculationContext.one;
-import org.javamoney.calc.ComplexCalculation;
-import org.javamoney.calc.ComplexType;
-import org.javamoney.calc.ComplexValue;
+import org.javamoney.calc.common.AbstractRateAndPeriodBasedOperator;
 import org.javamoney.calc.common.Rate;
+import org.javamoney.calc.common.RateAndPeriods;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryException;
-import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
+
+import static org.javamoney.calc.CalculationContext.one;
 
 /**
  * <img src= "http://www.financeformulas.net/formulaimages/Balloon%20Loan%20Payment%201.gif" />
@@ -48,41 +47,18 @@ import java.util.Objects;
  * @author Werner Keil
  * @link http://www.financeformulas.net/Compound_Interest.html
  */
-public final class BalloonLoanPayment implements MonetaryOperator{
+public final class BalloonLoanPayment extends AbstractRateAndPeriodBasedOperator{
 
-    private static final ComplexType INPUT_TYPE = new ComplexType.Builder("BalloonLoanPayment:IN")
-            .addRequiredParameter("balancePV", MonetaryAmount.class)
-            .addRequiredParameter("balloonAmount", MonetaryAmount.class)
-            .addRequiredParameter("rate", Rate.class)
-            .addRequiredParameter("periods", Number.class).build();
-
-    public static final ComplexCalculation<ComplexType, MonetaryAmount> CALCULATION = new ComplexCalculation<ComplexType, MonetaryAmount>() {
-        @Override
-        public ComplexType getInputType() {
-            return INPUT_TYPE;
-        }
-
-        @Override
-        public Class<MonetaryAmount> getResultType() {
-            return MonetaryAmount.class;
-        }
-
-        @Override
-        public MonetaryAmount calculate(ComplexValue<ComplexType> input) {
-            return BalloonLoanPayment.calculate(input.get("balancePV", MonetaryAmount.class),
-                    input.get("balloonAmount", MonetaryAmount.class),
-                    input.get("rate", Rate.class),
-                    input.get("periods", Number.class).intValue()
-            );
-        }
-    };
-
-    /**
-     * the target rate, not null.
-     */
-    private final Rate rate;
-
-    private final int periods;
+//    private static final ValidatedMultiValue INPUT_TYPE = new ValidatedMultiValue.Builder("BalloonLoanPayment:IN")
+//            .addRequiredParameter("balancePV", MonetaryAmount.class)
+//            .addRequiredParameter("balloonAmount", MonetaryAmount.class)
+//            .addRequiredParameter("rateAndPeriods", RateAndPeriods.class)
+//            .build();
+//
+//    public static final ComplexCalculation<MultiValue, MonetaryAmount> CALCULATION = input ->
+//            BalloonLoanPayment.calculate(input.get("balancePV", MonetaryAmount.class),
+//                    input.get("balloonAmount", MonetaryAmount.class),
+//                    input.get("rateAndPeriods", RateAndPeriods.class));
 
     /** The balloon amount. */
     private MonetaryAmount balloonAmount;
@@ -90,24 +66,14 @@ public final class BalloonLoanPayment implements MonetaryOperator{
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private BalloonLoanPayment(Rate rate, int periods, MonetaryAmount balloonAmount) {
-        if (periods <= 0) {
-            throw new MonetaryException("Periods for BalloonLoanPayment calculation <= 0");
+    private BalloonLoanPayment(RateAndPeriods rateAndPeriods, MonetaryAmount balloonAmount) {
+        super(rateAndPeriods);
+        if(rateAndPeriods.getPeriods()==0){
+            throw new MonetaryException("Period cannot be 0.");
         }
-        this.rate = Objects.requireNonNull(rate);
-        this.periods = periods;
         this.balloonAmount = Objects.requireNonNull(balloonAmount);
-    }
-
-    public int getPeriods() {
-        return periods;
-    }
-
-    public Rate getRate() {
-        return rate;
     }
 
     public MonetaryAmount getBalloonAmount(){
@@ -117,12 +83,11 @@ public final class BalloonLoanPayment implements MonetaryOperator{
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      * @return the operator, never null.
      */
-    public static BalloonLoanPayment of(Rate rate, int periods, MonetaryAmount balloonAmount){
-        return new BalloonLoanPayment(rate, periods, balloonAmount);
+    public static BalloonLoanPayment of(RateAndPeriods rateAndPeriods, MonetaryAmount balloonAmount){
+        return new BalloonLoanPayment(rateAndPeriods, balloonAmount);
     }
 
     @Override
@@ -131,15 +96,14 @@ public final class BalloonLoanPayment implements MonetaryOperator{
             throw new MonetaryException("Currency mismatch: " + balloonAmount.getCurrency() +
                     " <> "+amountPV.getCurrency());
         }
-        return calculate(amountPV, balloonAmount, rate, periods);
+        return calculate(amountPV, balloonAmount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "BalloonLoanPayment{" +
-                "rate=" + rate +
-                ", periods=" + periods +
-                ", balloonAmount=" + balloonAmount +
+                "\n " + rateAndPeriods +
+                ",\n balloonAmount=" + balloonAmount +
                 '}';
     }
 
@@ -148,15 +112,14 @@ public final class BalloonLoanPayment implements MonetaryOperator{
      *
      * @param amountPV  the present value, not null.
      * @param balloonAmount the balloon amount, not null and currency compatible with {@code amountPV}.
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amountPV, MonetaryAmount balloonAmount,
-                                           Rate rate, int periods) {
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
+                                           RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods);
+        Rate rate = rateAndPeriods.getRate();
+        int periods = rateAndPeriods.getPeriods();
 
         BigDecimal factor2 = rate.get().divide(
                 one().subtract(

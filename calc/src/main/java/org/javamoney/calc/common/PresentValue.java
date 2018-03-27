@@ -35,66 +35,49 @@ import javax.money.MonetaryOperator;
  * @link http://www.financeformulas.net/Present_Value.html
  * @link http://www.financeformulas.net/Present_Value.html
  */
-public final class PresentValue implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class PresentValue extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private PresentValue(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
+    private PresentValue(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The discount rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The discount rate and periods, not null.
      * @return the operator, never null.
      */
-    public static PresentValue of(Rate rate, int periods) {
-        return new PresentValue(rate, periods);
+    public static PresentValue of(RateAndPeriods rateAndPeriods) {
+        return new PresentValue(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods){
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods){
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
-        return amount.divide(PresentValueFactor.calculate(rate, periods));
+        Objects.requireNonNull(rateAndPeriods, "RateAndPeriods required");
+        return amount.divide(PresentValueFactor.calculate(rateAndPeriods));
     }
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "PresentValue{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "\n " + rateAndPeriods +
                 '}';
     }
 }

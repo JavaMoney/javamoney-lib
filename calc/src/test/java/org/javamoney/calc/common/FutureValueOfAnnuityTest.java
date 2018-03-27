@@ -32,7 +32,7 @@ public class FutureValueOfAnnuityTest {
     @Test
     public void getRate() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-               Rate.of(0.03),1
+                RateAndPeriods.of(0.03,1)
         );
         assertEquals(val.getRate(), Rate.of(0.03));
     }
@@ -40,7 +40,7 @@ public class FutureValueOfAnnuityTest {
     @Test
     public void getPeriods() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.03),3654
+                RateAndPeriods.of(0.03,3654)
         );
         assertEquals(val.getPeriods(), 3654);
     }
@@ -48,14 +48,14 @@ public class FutureValueOfAnnuityTest {
     @Test
     public void of_Period1() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.05), 1
+                RateAndPeriods.of(0.05, 1)
         );
         assertNotNull(val);
     }
     @Test
     public void of_Period0() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.08),0
+                RateAndPeriods.of(0.08,0)
         );
         assertNotNull(val);
     }
@@ -64,11 +64,11 @@ public class FutureValueOfAnnuityTest {
     public void calculate_Periods0() throws Exception {
         Money m = Money.of(10, "CHF");
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.05), 0
+                RateAndPeriods.of(0.05, 0)
         );
         assertEquals(Money.of(0,"CHF"), m.with(val));
         val = FutureValueOfAnnuity.of(
-                Rate.of(-0.05), 0
+                RateAndPeriods.of(-0.05, 0)
         );
         assertEquals(Money.of(0,"CHF"), m.with(val));
     }
@@ -78,11 +78,11 @@ public class FutureValueOfAnnuityTest {
     public void calculate_Periods1() throws Exception {
         Money m = Money.of(10, "CHF");
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.05), 1
+                RateAndPeriods.of(0.05, 1)
         );
         assertEquals(Money.of(10,"CHF"), m.with(val));
         val = FutureValueOfAnnuity.of(
-                Rate.of(-0.05), 1
+                RateAndPeriods.of(-0.05, 1)
         );
         assertEquals(Money.of(10,"CHF"), m.with(val));
     }
@@ -91,13 +91,13 @@ public class FutureValueOfAnnuityTest {
     public void calculate_PeriodsN() throws Exception {
         Money m = Money.of(10, "CHF");
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.05), 10
+                RateAndPeriods.of(0.05, 10)
         );
         assertEquals(Money.of(125.7789253554883,"CHF").getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), m.with(val).getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), 0.00000000000001d);
         val = FutureValueOfAnnuity.of(
-                Rate.of(-0.05), 10
+                RateAndPeriods.of(-0.05, 10)
         );
         assertEquals(Money.of(80.25261215232422,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
@@ -106,7 +106,7 @@ public class FutureValueOfAnnuityTest {
     @Test
     public void apply() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.08), 10
+                RateAndPeriods.of(0.08, 10)
         );
         Money m = Money.of(10, "CHF");
         assertEquals(val.apply(m), m.with(val));
@@ -115,9 +115,12 @@ public class FutureValueOfAnnuityTest {
     @Test
     public void toStringTest() throws Exception {
         FutureValueOfAnnuity val = FutureValueOfAnnuity.of(
-                Rate.of(0.05), 10
+                RateAndPeriods.of(0.05, 10)
         );
-        assertEquals("FutureValueOfAnnuity{rate=Rate[0.05], periods=10}", val.toString());
+        assertEquals("FutureValueOfAnnuity{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=10}}", val.toString());
     }
 
 }

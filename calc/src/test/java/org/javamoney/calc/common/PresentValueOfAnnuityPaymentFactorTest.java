@@ -31,21 +31,21 @@ public class PresentValueOfAnnuityPaymentFactorTest {
 
     @Test
     public void calculate_periods0() throws Exception {
-        assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(0.05), 0));
-        assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(-0.05), 0));
+        assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(0.05, 0)));
+        assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(-0.05, 0)));
     }
 
     @Test
     public void calculate_periods1() throws Exception {
-        assertEquals(BigDecimal.valueOf(0.952380952380952), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(0.05), 1));
-        assertEquals(BigDecimal.valueOf(1.05263157894736), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(-0.05), 1));
+        assertEquals(BigDecimal.valueOf(0.952380952380952), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(0.05, 1)));
+        assertEquals(BigDecimal.valueOf(1.05263157894736), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(-0.05, 1)));
     }
 
     @Test
     public void calculate_periods10() throws Exception {
         // Values are correct due to
         // http://www.mrzeno.com/Present-Value-Annuity-Factor-PVAF.php
-        assertEquals(BigDecimal.valueOf(7.721734929184812), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(0.05), 10));
-        assertEquals(BigDecimal.valueOf(13.40365140230186), PresentValueOfAnnuityPaymentFactor.calculate(Rate.of(-0.05), 10));
+        assertEquals(BigDecimal.valueOf(7.721734929184812), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(0.05, 10)));
+        assertEquals(BigDecimal.valueOf(13.40365140230186), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(-0.05, 10)));
     }
 }

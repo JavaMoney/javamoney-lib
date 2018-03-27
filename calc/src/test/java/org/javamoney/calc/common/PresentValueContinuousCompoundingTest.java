@@ -34,16 +34,16 @@ public class PresentValueContinuousCompoundingTest {
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.12), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(0.05), 1)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.48), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(0.05), 2)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(46.3), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(0.07), 11)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(95.12), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(0.05, 1))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(90.48), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(0.05, 2))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(46.3), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(0.07, 11))).with(rounding));
 
-        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(0.05), 0)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(-0.05), 0)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(0.05, 0))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(-0.05, 0))).with(rounding));
 
-        assertEquals(Money.of(BigDecimal.valueOf(105.13), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(-0.05), 1)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(110.52), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(-0.05), 2)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(215.98), "CHF"), money.with(PresentValueContinuousCompounding.of(Rate.of(-0.07), 11)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(105.13), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(-0.05, 1))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.52), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(-0.05, 2))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(215.98), "CHF"), money.with(PresentValueContinuousCompounding.of(RateAndPeriods.of(-0.07, 11))).with(rounding));
     }
 
     /**
@@ -54,9 +54,9 @@ public class PresentValueContinuousCompoundingTest {
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.12), "CHF"), PresentValueContinuousCompounding.calculate(money, Rate.of(0.05), 1).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.48), "CHF"), PresentValueContinuousCompounding.calculate(money, Rate.of(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(46.3), "CHF"), PresentValueContinuousCompounding.calculate(money, Rate.of(0.07), 11).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(95.12), "CHF"), PresentValueContinuousCompounding.calculate(money, RateAndPeriods.of(0.05, 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(90.48), "CHF"), PresentValueContinuousCompounding.calculate(money, RateAndPeriods.of(0.05, 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(46.3), "CHF"), PresentValueContinuousCompounding.calculate(money, RateAndPeriods.of(0.07, 11)).with(rounding));
     }
 
     /**
@@ -64,9 +64,18 @@ public class PresentValueContinuousCompoundingTest {
      */
     @Test
     public void testToString() throws Exception {
-        assertEquals("PresentValueContinuousCompounding{rate=Rate[0.05], periods=1}", PresentValueContinuousCompounding.of(Rate.of(0.05), 1).toString());
-        assertEquals("PresentValueContinuousCompounding{rate=Rate[0.05], periods=2}", PresentValueContinuousCompounding.of(Rate.of(0.05), 2).toString());
-        assertEquals("PresentValueContinuousCompounding{rate=Rate[0.07], periods=11}", PresentValueContinuousCompounding.of(Rate.of(0.07), 11).toString());
+        assertEquals("PresentValueContinuousCompounding{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=1}}", PresentValueContinuousCompounding.of(RateAndPeriods.of(0.05, 1)).toString());
+        assertEquals("PresentValueContinuousCompounding{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=2}}", PresentValueContinuousCompounding.of(RateAndPeriods.of(0.05, 2)).toString());
+        assertEquals("PresentValueContinuousCompounding{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.07]\n" +
+                "  periods=11}}", PresentValueContinuousCompounding.of(RateAndPeriods.of(0.07, 11)).toString());
     }
 
 }

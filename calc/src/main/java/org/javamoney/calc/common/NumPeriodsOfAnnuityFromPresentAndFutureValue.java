@@ -49,14 +49,14 @@ public final class NumPeriodsOfAnnuityFromPresentAndFutureValue {
 
     public static BigDecimal calculate(MonetaryAmount annuity,
                                        MonetaryAmount paymentOrCashFlows,
-                                       Rate rate, int periods) {
+                                       RateAndPeriods rateAndPeriods) {
         MonetaryAmount pvAnnuity = PresentValueOfAnnuity.calculate(
-                annuity, rate, periods);
+                annuity, rateAndPeriods);
         return new BigDecimal(String.valueOf(Math.log(BigDecimal.ONE
 				.subtract(pvAnnuity
 						.divide(paymentOrCashFlows.getNumber()).getNumber()
 						.numberValue(BigDecimal.class)).pow(-1).doubleValue())
-				/ Math.log(1 + rate.get().doubleValue())));
+				/ Math.log(1 + rateAndPeriods.getRate().get().doubleValue())));
 
 	}
 }

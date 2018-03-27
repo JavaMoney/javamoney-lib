@@ -58,68 +58,52 @@ import java.util.Objects;
  *
  * @author Anatole Tresch
  */
-public final class FutureValueWithContinuousCompounding implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class FutureValueWithContinuousCompounding extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private FutureValueWithContinuousCompounding(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
+    private FutureValueWithContinuousCompounding(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The discount rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The discount rate and periods, not null.
      * @return the operator, never null.
      */
-    public static FutureValueWithContinuousCompounding of(Rate rate, int periods) {
-        return new FutureValueWithContinuousCompounding(rate, periods);
+    public static FutureValueWithContinuousCompounding of(RateAndPeriods rateAndPeriods) {
+        return new FutureValueWithContinuousCompounding(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
-        MonetaryAmount pv = PresentValue.calculate(amount, rate, periods);
+        Rate rate = Objects.requireNonNull(rateAndPeriods.getRate(), "Rate required");
+        int periods = rateAndPeriods.getPeriods();
+        MonetaryAmount pv = PresentValue.calculate(amount, rateAndPeriods);
         BigDecimal fact = new BigDecimal(String.valueOf(Math.pow(Math.E, rate.get().doubleValue() * periods)));
         return pv.multiply(fact);
     }
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "FutureValueWithContinuousCompounding{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "rateAndPeriods=" + rateAndPeriods +
                 '}';
     }
 }

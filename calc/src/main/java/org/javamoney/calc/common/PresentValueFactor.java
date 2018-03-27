@@ -32,10 +32,10 @@ public final class PresentValueFactor {
 	private PresentValueFactor() {
 	}
 
-    public static BigDecimal calculate(Rate rate, int periods) {
-        Objects.requireNonNull(rate, "rate required.");
+    public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods, "rate required.");
 		// (1+r)^n
-		return BigDecimal.ONE.add(rate.get()).pow(periods);
+		return BigDecimal.ONE.add(rateAndPeriods.getRate().get()).pow(rateAndPeriods.getPeriods());
 	}
 
 }

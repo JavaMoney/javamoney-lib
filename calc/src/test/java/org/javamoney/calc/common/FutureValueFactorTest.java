@@ -32,9 +32,9 @@ public class FutureValueFactorTest {
      */
     @Test
     public void calculate_PositiveRates() throws Exception {
-        assertEquals(1.0, FutureValueFactor.calculate(Rate.of(0.05),0).doubleValue(), 0.0d);
-        assertEquals(1.0500, FutureValueFactor.calculate(Rate.of(0.05),1).doubleValue(), 0.0d);
-        assertEquals(1.628894626777441, FutureValueFactor.calculate(Rate.of(0.05),10).doubleValue(), 0.0d);
+        assertEquals(1.0, FutureValueFactor.calculate(RateAndPeriods.of(0.05,0)).doubleValue(), 0.0d);
+        assertEquals(1.0500, FutureValueFactor.calculate(RateAndPeriods.of(0.05,1)).doubleValue(), 0.0d);
+        assertEquals(1.628894626777441, FutureValueFactor.calculate(RateAndPeriods.of(0.05,10)).doubleValue(), 0.0d);
     }
 
     /**
@@ -43,14 +43,14 @@ public class FutureValueFactorTest {
      */
     @Test
     public void calculate_NegativeRates() throws Exception {
-        assertEquals(1.0, FutureValueFactor.calculate(Rate.of(-0.05),0).doubleValue(), 0.0d);
-        assertEquals(0.9500, FutureValueFactor.calculate(Rate.of(-0.05),1).doubleValue(), 0.0d);
-        assertEquals(0.5987369392383789, FutureValueFactor.calculate(Rate.of(-0.05),10).doubleValue(), 0.0d);
+        assertEquals(1.0, FutureValueFactor.calculate(RateAndPeriods.of(-0.05,0)).doubleValue(), 0.0d);
+        assertEquals(0.9500, FutureValueFactor.calculate(RateAndPeriods.of(-0.05,1)).doubleValue(), 0.0d);
+        assertEquals(0.5987369392383789, FutureValueFactor.calculate(RateAndPeriods.of(-0.05,10)).doubleValue(), 0.0d);
     }
 
     @Test
     public void calculate_Invalid(){
-        assertEquals(1.0, FutureValueFactor.calculate(Rate.of(0),0).doubleValue(), 0.0d);
+        assertEquals(1.0, FutureValueFactor.calculate(RateAndPeriods.of(0,0)).doubleValue(), 0.0d);
     }
 
 }

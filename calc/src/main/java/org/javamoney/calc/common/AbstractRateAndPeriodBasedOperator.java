@@ -9,9 +9,11 @@
  */
 package org.javamoney.calc.common;
 
-import static org.javamoney.calc.CalculationContext.one;
-
 import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
+import java.util.Objects;
+
+import static org.javamoney.calc.CalculationContext.one;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20Payment%20(FV)%201.gif" />
@@ -33,49 +35,52 @@ import javax.money.MonetaryAmount;
  * @author Werner Keil
  * @link http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
  */
-final class FutureValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
+public abstract class AbstractRateAndPeriodBasedOperator implements MonetaryOperator {
+
+    /**
+     * the target rate, not null.
+     */
+    protected RateAndPeriods rateAndPeriods;
 
     /**
      * Private constructor.
      *
      * @param rateAndPeriods    the target rate and periods, not null.
      */
-    FutureValueOfAnnuityPayment(RateAndPeriods rateAndPeriods) {
-        super(rateAndPeriods);
+    protected AbstractRateAndPeriodBasedOperator(RateAndPeriods rateAndPeriods) {
+        this.rateAndPeriods = Objects.requireNonNull(rateAndPeriods);
     }
 
-    /**
-     * Access a MonetaryOperator for calculation.
-     *
-     * @param rateAndPeriods The discount rate and periods, not null.
-     * @return the operator, never null.
-     */
-    public static FutureValueOfAnnuityPayment of(RateAndPeriods rateAndPeriods) {
-        return new FutureValueOfAnnuityPayment(rateAndPeriods);
+    public RateAndPeriods getRateAndPeriods() {
+        return rateAndPeriods;
     }
 
-    /**
-     * Performs the calculation.
-     *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
-     * @return the resulting amount, never null.
-     */
-    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
-        return FutureValue.calculate(amount, rateAndPeriods).divide(
-                one().add(rateAndPeriods.getRate().get()).pow(rateAndPeriods.getPeriods())
-                        .subtract(one())
-        );
+    public Rate getRate(){
+        return rateAndPeriods.getRate();
+    }
+
+    public int getPeriods(){
+        return rateAndPeriods.getPeriods();
     }
 
     @Override
-    public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rateAndPeriods);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(getClass().equals(o.getClass()))) return false;
+
+        AbstractRateAndPeriodBasedOperator that = (AbstractRateAndPeriodBasedOperator) o;
+
+        return rateAndPeriods.equals(that.rateAndPeriods);
+    }
+
+    @Override
+    public int hashCode() {
+        return rateAndPeriods.hashCode();
     }
 
     @Override
     public String toString() {
-        return "FutureValueOfAnnuityPayment{" +
+        return "AbstractRateAndPeriodBasedOperator{" +
                 "rateAndPeriods=" + rateAndPeriods +
                 '}';
     }

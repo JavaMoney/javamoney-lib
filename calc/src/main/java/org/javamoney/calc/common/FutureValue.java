@@ -45,72 +45,48 @@ import javax.money.MonetaryOperator;
  * FV(&lt;amount>)  = &lt;amount> * ((1 + &lt;rate>).pow(&lt;periods>))
  * </pre>
  */
-public final class FutureValue implements MonetaryOperator {
-    /**
-     * the target rate, not null.
-     */
-    private final Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private final int periods;
+public final class FutureValue extends AbstractRateAndPeriodBasedOperator{
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private FutureValue(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
-    }
-
-    public int getPeriods() {
-        return periods;
-    }
-
-    public Rate getRate() {
-        return rate;
+    private FutureValue(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      * @return the operator, never null.
      */
-    public static FutureValue of(Rate rate, int periods) {
-        return new FutureValue(rate, periods);
+    public static FutureValue of(RateAndPeriods rateAndPeriods) {
+        return new FutureValue(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the base amount, not null.
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
-        BigDecimal f = (CalculationContext.one().add(rate.get())).pow(periods);
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
+        BigDecimal f = (CalculationContext.one().add(rateAndPeriods.getRate().get())).pow(rateAndPeriods.getPeriods());
         return amount.multiply(f);
     }
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "FutureValue{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "\n " + rateAndPeriods +
                 '}';
     }
 }

@@ -12,7 +12,6 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -50,53 +49,39 @@ import java.util.Objects;
  * 
  * @author Anatole Tresch
  */
-public final class PresentValueContinuousCompounding implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class PresentValueContinuousCompounding extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private PresentValueContinuousCompounding(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
+    private PresentValueContinuousCompounding(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The discount rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The discount rate and periods, not null.
      * @return the operator, never null.
      */
-    public static PresentValueContinuousCompounding of(Rate rate, int periods) {
-        return new PresentValueContinuousCompounding(rate, periods);
+    public static PresentValueContinuousCompounding of(RateAndPeriods rateAndPeriods) {
+        return new PresentValueContinuousCompounding(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
+        Objects.requireNonNull(rateAndPeriods, "Rate required");
+        Rate rate = rateAndPeriods.getRate();
+        int periods = rateAndPeriods.getPeriods();
         BigDecimal fact = CalculationContext.one().divide(
                 new BigDecimal(Math.pow(Math.E, rate
                 .get().doubleValue() * periods), CalculationContext.mathContext()),
@@ -106,14 +91,13 @@ public final class PresentValueContinuousCompounding implements MonetaryOperator
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "PresentValueContinuousCompounding{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "\n " + rateAndPeriods +
                 '}';
     }
 }

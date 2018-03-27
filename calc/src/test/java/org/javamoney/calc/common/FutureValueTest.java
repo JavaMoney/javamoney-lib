@@ -40,9 +40,9 @@ public class FutureValueTest {
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 1)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), money.with(FutureValue.of(Rate.of(0.05), 2)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), money.with(FutureValue.of(Rate.of(0.07), 11)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), money.with(FutureValue .of(RateAndPeriods.of(0.05, 1))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), money.with(FutureValue.of(RateAndPeriods.of(0.05, 2))).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), money.with(FutureValue.of(RateAndPeriods.of(0.07, 11))).with(rounding));
     }
 
     /**
@@ -53,9 +53,9 @@ public class FutureValueTest {
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, Rate.of(0.07), 11).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.05, 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.05, 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.07, 11)).with(rounding));
     }
 
     /**
@@ -63,9 +63,18 @@ public class FutureValueTest {
      */
     @Test
     public void testToString() throws Exception {
-        assertEquals("FutureValue{rate=Rate[0.05], periods=1}", FutureValue.of(Rate.of(0.05), 1).toString());
-        assertEquals("FutureValue{rate=Rate[0.05], periods=2}", FutureValue.of(Rate.of(0.05), 2).toString());
-        assertEquals("FutureValue{rate=Rate[0.07], periods=11}", FutureValue.of(Rate.of(0.07), 11).toString());
+        assertEquals("FutureValue{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=1}}", FutureValue.of(RateAndPeriods.of(0.05, 1)).toString());
+        assertEquals("FutureValue{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=2}}", FutureValue.of(RateAndPeriods.of(0.05, 2)).toString());
+        assertEquals("FutureValue{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.07]\n" +
+                "  periods=11}}", FutureValue.of(RateAndPeriods.of(0.07, 11)).toString());
     }
 
     @Test
@@ -73,8 +82,8 @@ public class FutureValueTest {
         Money money = Money.of(100, "CHF");
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 1).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, Rate.of(0.05), 2).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, Rate.of(0.07), 11).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(105.00), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.05, 1)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(110.25), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.05, 2)).with(rounding));
+        assertEquals(Money.of(BigDecimal.valueOf(210.49), "CHF"), FutureValue.calculate(money, RateAndPeriods.of(0.07, 11)).with(rounding));
     }
 }

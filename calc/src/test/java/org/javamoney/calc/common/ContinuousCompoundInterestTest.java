@@ -28,7 +28,7 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void of_notNull() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertNotNull(ci);
     }
@@ -36,12 +36,12 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void of_correctRate() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.0234),1
+                RateAndPeriods.of(0.0234,1)
         );
         assertNotNull(ci.getRate());
         assertEquals(ci.getRate(),  Rate.of(0.0234));
         ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertNotNull(ci.getRate());
         assertEquals(ci.getRate(),  Rate.of(0.05));
@@ -50,11 +50,11 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void of_correctPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertEquals(ci.getPeriods(),  1);
         ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),234
+                RateAndPeriods.of(0.05,234)
         );
         assertEquals(ci.getPeriods(),  234);
     }
@@ -62,7 +62,7 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void calculate_zeroPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),0
+                RateAndPeriods.of(0.05,0)
         );
         assertEquals(Money.of(10.03,"CHF").with(ci), Money.of(0,"CHF"));
         assertEquals(Money.of(0,"CHF").with(ci), Money.of(0,"CHF"));
@@ -72,7 +72,7 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void calculate_onePeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),1
+                RateAndPeriods.of(0.05,1)
         );
         assertEquals(Money.of(1,"CHF").with(ci).getNumber().doubleValue(),
                 0.0512d, 0.0001d);
@@ -85,7 +85,7 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void calculate_twoPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),2
+                RateAndPeriods.of(0.05,2)
         );
         assertEquals(Money.of(1,"CHF").with(ci).getNumber().doubleValue(),
                 0.10517064178387361, 0.000000001d);
@@ -97,7 +97,7 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void apply() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.1),2
+                RateAndPeriods.of(0.1,2)
         );
         // Values are confirmed:
         assertEquals(ci.apply(Money.of(1000,"CHF"))
@@ -109,8 +109,11 @@ public class ContinuousCompoundInterestTest {
     @Test
     public void test_toString() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
-                Rate.of(0.05),2
+                RateAndPeriods.of(0.05,2)
         );
-        assertEquals("ContinuousCompoundInterest{rate=Rate[0.05], periods=2}", ci.toString());
+        assertEquals("ContinuousCompoundInterest{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=2}}", ci.toString());
     }
 }

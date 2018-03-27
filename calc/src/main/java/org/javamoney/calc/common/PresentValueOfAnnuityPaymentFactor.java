@@ -42,18 +42,15 @@ public final class PresentValueOfAnnuityPaymentFactor {
 	private PresentValueOfAnnuityPaymentFactor() {
 	}
 
-    public static BigDecimal calculate(Rate rate, int periods) {
-        Objects.requireNonNull(rate, "Rate required.");
-		if(periods<0){
-			throw new MonetaryException("Can only caclulate PresentValueOfAnnuityFactor with period >= 0.");
-		}
-		if(periods==0){
+    public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods, "Rate required.");
+		if(rateAndPeriods.getPeriods()==0){
 			return BigDecimal.ZERO;
 		}
 		// PVofA = P * [ (1 - (1 + r).pow(-n)) / r ]
-		BigDecimal fact1 = one().add(rate.get()).pow(-periods, mathContext());
+		BigDecimal fact1 = one().add(rateAndPeriods.getRate().get()).pow(-rateAndPeriods.getPeriods(), mathContext());
 		BigDecimal counter = one().subtract(fact1);
-		return counter.divide(rate.get(), mathContext());
+		return counter.divide(rateAndPeriods.getRate().get(), mathContext());
 	}
 
 }

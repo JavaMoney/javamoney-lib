@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%201.gif" />
@@ -45,55 +44,41 @@ import javax.money.MonetaryOperator;
  * @author Werner Keil
  * 
  */
-public final class PresentValueOfAnnuityPayment implements MonetaryOperator {
-
-    /**
-     * the target rate, not null.
-     */
-    private Rate rate;
-    /**
-     * the periods, >= 0.
-     */
-    private int periods;
+public final class PresentValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param rateAndPeriods    the target rate and periods, not null.
      */
-    private PresentValueOfAnnuityPayment(Rate rate, int periods) {
-        this.rate = Objects.requireNonNull(rate);
-        if (periods < 0) {
-            throw new IllegalArgumentException("Periods < 0");
-        }
-        this.periods = periods;
+    private PresentValueOfAnnuityPayment(RateAndPeriods rateAndPeriods) {
+        super(rateAndPeriods);
     }
 
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rate The discount rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param rateAndPeriods The discount rate and periods, not null.
      * @return the operator, never null.
      */
-    public static PresentValueOfAnnuityPayment of(Rate rate, int periods) {
-        return new PresentValueOfAnnuityPayment(rate, periods);
+    public static PresentValueOfAnnuityPayment of(RateAndPeriods rateAndPeriods) {
+        return new PresentValueOfAnnuityPayment(rateAndPeriods);
     }
 
     /**
      * Performs the calculation.
      *
      * @param amount  the first payment
-     * @param rate    The rate, not null.
-     * @param periods the target periods, >= 0.
+     * @param rateAndPeriods    The rate and periods, not null.
      * @return the resulting amount, never null.
      */
-    public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {
+    public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(amount, "Amount required");
-        Objects.requireNonNull(rate, "Rate required");
+        Objects.requireNonNull(rateAndPeriods, "Rate required");
+        Rate rate = rateAndPeriods.getRate();
+        int periods = rateAndPeriods.getPeriods();
         // AP(m) = PV(m,r,n) / [ (1-((1 + r).pow(-n))) / r ]
-        return PresentValue.calculate(amount, rate, periods).divide(
+        return PresentValue.calculate(amount, rateAndPeriods).divide(
                 BigDecimal.ONE.subtract((BigDecimal.ONE.add(rate.get())
                         .pow(-1 * periods, CalculationContext.mathContext()).
                                 divide(rate.get(), CalculationContext.mathContext())
@@ -102,14 +87,13 @@ public final class PresentValueOfAnnuityPayment implements MonetaryOperator {
 
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
-        return calculate(amount, rate, periods);
+        return calculate(amount, rateAndPeriods);
     }
 
     @Override
     public String toString() {
         return "PresentValueAnnuityPayment{" +
-                "rate=" + rate +
-                ", periods=" + periods +
+                "rateAndPeriods=" + rateAndPeriods +
                 '}';
     }
 }

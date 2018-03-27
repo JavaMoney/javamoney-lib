@@ -32,7 +32,7 @@ public class PresentValueOfAnnuityDueTest {
     @Test
     public void getRate() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-               Rate.of(0.03),1
+                RateAndPeriods.of(0.03,1)
         );
         assertEquals(val.getRate(), Rate.of(0.03));
     }
@@ -40,7 +40,7 @@ public class PresentValueOfAnnuityDueTest {
     @Test
     public void getPeriods() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.03),3654
+                RateAndPeriods.of(0.03,3654)
         );
         assertEquals(val.getPeriods(), 3654);
     }
@@ -48,14 +48,14 @@ public class PresentValueOfAnnuityDueTest {
     @Test
     public void of_Period1() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.05), 1
+                RateAndPeriods.of(0.05, 1)
         );
         assertNotNull(val);
     }
     @Test
     public void of_Period0() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.08),0
+                RateAndPeriods.of(0.08,0)
         );
         assertNotNull(val);
     }
@@ -64,11 +64,11 @@ public class PresentValueOfAnnuityDueTest {
     public void calculate_Periods0() throws Exception {
         Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.05), 0
+                RateAndPeriods.of(0.05, 0)
         );
         assertEquals(Money.of(0,"CHF"), m.with(val));
         val = PresentValueOfAnnuityDue.of(
-                Rate.of(-0.05), 0
+                RateAndPeriods.of(-0.05, 0)
         );
         assertEquals(Money.of(0,"CHF"), m.with(val));
     }
@@ -78,11 +78,11 @@ public class PresentValueOfAnnuityDueTest {
     public void calculate_Periods1() throws Exception {
         Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.05), 1
+                RateAndPeriods.of(0.05, 1)
         );
         assertEquals(Money.of(100,"CHF"), m.with(val));
         val = PresentValueOfAnnuityDue.of(
-                Rate.of(-0.05), 1
+                RateAndPeriods.of(-0.05, 1)
         );
         assertEquals(Money.of(100,"CHF"), m.with(val));
     }
@@ -91,13 +91,13 @@ public class PresentValueOfAnnuityDueTest {
     public void calculate_PeriodsN() throws Exception {
         Money m = Money.of(100, "CHF");
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.05), 10
+                RateAndPeriods.of(0.05, 10)
         );
         assertEquals(Money.of(810.7821675644053,"CHF").getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), m.with(val).getNumber().numberValue(BigDecimal.class)
                 .doubleValue(), 0.00000000000001d);
         val = PresentValueOfAnnuityDue.of(
-                Rate.of(-0.05), 10
+                RateAndPeriods.of(-0.05, 10)
         );
         assertEquals(Money.of(1273.3468832186768,"CHF").getNumber().numberValue(BigDecimal.class).doubleValue(),
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
@@ -106,7 +106,7 @@ public class PresentValueOfAnnuityDueTest {
     @Test
     public void apply() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.08), 10
+                RateAndPeriods.of(0.08, 10)
         );
         Money m = Money.of(100, "CHF");
         assertEquals(val.apply(m), m.with(val));
@@ -115,9 +115,12 @@ public class PresentValueOfAnnuityDueTest {
     @Test
     public void toStringTest() throws Exception {
         PresentValueOfAnnuityDue val = PresentValueOfAnnuityDue.of(
-                Rate.of(0.05), 10
+                RateAndPeriods.of(0.05, 10)
         );
-        assertEquals("PresentValueOfAnnuityDue{rate=Rate[0.05], periods=10}", val.toString());
+        assertEquals("PresentValueOfAnnuityDue{\n" +
+                " RateAndPeriods{\n" +
+                "  rate=Rate[0.05]\n" +
+                "  periods=10}}", val.toString());
     }
 
 }

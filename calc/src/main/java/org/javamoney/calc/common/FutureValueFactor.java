@@ -12,6 +12,7 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%20Factor%201.gif" />
@@ -34,13 +35,11 @@ public final class FutureValueFactor {
     private FutureValueFactor() {
     }
 
-    public static BigDecimal calculate(Rate rate, int periods) {
-        if (rate == null) {
-            throw new IllegalArgumentException("rate required.");
-        }
+    public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
+        Objects.requireNonNull(rateAndPeriods);
         // 1/((1+r)^n)
-        BigDecimal base = CalculationContext.one().add(rate.get());
-        return base.pow(periods, CalculationContext.mathContext());
+        BigDecimal base = CalculationContext.one().add(rateAndPeriods.getRate().get());
+        return base.pow(rateAndPeriods.getPeriods(), CalculationContext.mathContext());
     }
 
 }
