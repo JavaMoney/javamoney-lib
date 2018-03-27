@@ -15,7 +15,7 @@
 # the License.
 #
 #
-# Contributors: Anatole Tresch - initial version.
+# Contributors: @atsticks, @keilw, @otjava
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:s="urn:java:ee" xmlns:t="urn:java:org.jboss.seam.transaction"
