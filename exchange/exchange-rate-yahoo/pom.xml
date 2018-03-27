@@ -11,6 +11,31 @@
 	<packaging>jar</packaging>
 
 	<name>JavaMoney Exchange Yahoo Rate Provider</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<configuration>
+					<uri>https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote</uri>
+					<overwrite>true</overwrite>
+					<outputDirectory>src/main/resources/java-money/defaults/YAHOO</outputDirectory>
+					<outputFileName>finance.xml</outputFileName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>get-fallback-resource</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 		<dependencies>
 			<dependency>
 				<groupId>org.testng</groupId>

@@ -11,15 +11,40 @@
 	<packaging>jar</packaging>
 
 	<name>JavaMoney Exchange Federal Reserve Bank Rate Provider</name>
-		<dependencies>
-			<dependency>
-				<groupId>org.testng</groupId>
-				<artifactId>testng</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.javamoney</groupId>
-				<artifactId>moneta</artifactId>
-			</dependency>
-		</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<configuration>
+					<uri>https://www.federalreserve.gov/feeds/data/H10_H10.XML</uri>
+					<overwrite>true</overwrite>
+					<outputDirectory>src/main/resources/java-money/defaults/FRB</outputDirectory>
+					<outputFile>H10_H10.XML</outputFile>
+				</configuration>
+				<executions>
+					<execution>
+						<id>get-fallback-resource</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+		</dependency>
+	</dependencies>
 </project>
