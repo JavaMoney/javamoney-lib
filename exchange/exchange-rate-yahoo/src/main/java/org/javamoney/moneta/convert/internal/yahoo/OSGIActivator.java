@@ -34,7 +34,7 @@ public class OSGIActivator implements BundleActivator {
     @Override
     public void start(BundleContext context) {
         LOG.info("Registering JavaMoney services...");
-        OSGIServiceHelper.registerService(context.getBundle(), ExchangeRateProvider.class, YahooRateProvider .class);
+        OSGIServiceHelper.registerService(context.getBundle(), ExchangeRateProvider.class, YahooRateProvider .class, 20);
         LOG.info("Registered JavaMoney services...");
     }
 
