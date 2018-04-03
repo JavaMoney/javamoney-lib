@@ -15,38 +15,24 @@
  *
  * Contributors: @atsticks, @keilw, @otjava
  */
-package org.javamoney.cdi.api;
+package org.javamoney.cdi;
 
-import javax.money.convert.RateType;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.convert.CurrencyConversion},
- * {@link javax.money.convert.ExchangeRateProvider} or {@link javax.money.convert.ConversionQuery}
- * to be injected.
+ * Annotation that allows to define a {@link javax.money.format.MonetaryAmountFormat} or
+ * {@link javax.money.format.AmountFormatQuery} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface ConversionSpec {
+public @interface FormatSpec {
 
     /**
-     * The type of rates to be created/accessed.
-     * @return the rate type, not null.
+     * The format's name.
+     * @return the format's name, not null.
      */
-    RateType[] rateTypes() default {};
-
-    /**
-     * The base currency.
-     * @return the base currency.
-     */
-    String baseCurrency() default "";
-
-    /**
-     * The target/terminating currency.
-     * @return the target/terminating currency.
-     */
-    String termCurrency() default "";
+    String name();
 
     /**
      * The provider names.
@@ -59,6 +45,12 @@ public @interface ConversionSpec {
      * @return any addtiional attributes.
      */
     String[] attributes() default {};
+
+    /**
+     * The target locale  in the format as created by {@link java.util.Locale#toString()}.
+     * @return the target local code.
+     */
+    String locale() default "";
 }
 
 

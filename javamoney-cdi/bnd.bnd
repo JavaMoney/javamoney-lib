@@ -1,0 +1,29 @@
+-buildpath: \
+	osgi.annotation; version=6.0.0,\
+	osgi.core; version=6.0,\
+	osgi.cmpn; version=6.0
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Automatic-Module-Name: org.javamoney.moneta.cdi
+Bundle-Version: ${version}.${tstamp}
+Bundle-Name: JavaMoney Moneta CDI Support
+Bundle-SymbolicName: org.javamoney.moneta.cdi
+Bundle-Description: JavaMoney - CDI Integration
+Bundle-Category: Implementation
+Bundle-Copyright: (C) Credit Suisse AG
+Bundle-License: Apache License, Version 2.0
+Bundle-Vendor: Credit Suisse AG
+Bundle-DocURL: http://www.javamoney.org
+Import-Package: \
+	javax.money,\
+    javax.money.spi,\
+    org.javamoney.moneta
+Export-Package: \
+	org.javamoney.cdi
+Private-Package: \
+    org.javamoney.cdi.internal

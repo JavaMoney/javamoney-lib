@@ -15,24 +15,43 @@
  *
  * Contributors: @atsticks, @keilw, @otjava
  */
-package org.javamoney.cdi.api;
+package org.javamoney.cdi;
 
+import javax.money.MonetaryAmount;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to define a {@link javax.money.format.MonetaryAmountFormat} or
- * {@link javax.money.format.AmountFormatQuery} to be injected.
+ * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory},
+ * {@link MonetaryAmount} or {@link javax.money.MonetaryAmountFactoryQuery} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface FormatSpec {
+public @interface AmountSpec {
 
     /**
-     * The format's name.
-     * @return the format's name, not null.
+     * The implemention type required, normally this does overrule all other settings.
+     * @return the implementation type to be created by the factory.
      */
-    String name();
+    Class value() default MonetaryAmount.class;
+
+    /**
+     * Should the amount created have always the same, fixed scale?
+     * @return the fixedScale flag.
+     */
+    boolean fixedScale() default false;
+
+    /**
+     * The maximum scale required.
+     * @return the maximum scale.
+     */
+    int maxScale() default -1;
+
+    /**
+     * The required precision.
+     * @return the required precision.
+     */
+    int precision() default -1;
 
     /**
      * The provider names.
@@ -45,12 +64,4 @@ public @interface FormatSpec {
      * @return any addtiional attributes.
      */
     String[] attributes() default {};
-
-    /**
-     * The target locale  in the format as created by {@link java.util.Locale#toString()}.
-     * @return the target local code.
-     */
-    String locale() default "";
 }
-
-

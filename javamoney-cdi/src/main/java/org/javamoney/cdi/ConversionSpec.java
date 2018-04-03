@@ -15,30 +15,38 @@
  *
  * Contributors: @atsticks, @keilw, @otjava
  */
-package org.javamoney.cdi.api;
+package org.javamoney.cdi;
 
+import javax.money.convert.RateType;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to define a {@link  javax.money.CurrencyQuery}
- * or an {@link javax.money.CurrencyUnit} to be injected.
+ * Annotation that allows to optionally refine a {@link javax.money.convert.CurrencyConversion},
+ * {@link javax.money.convert.ExchangeRateProvider} or {@link javax.money.convert.ConversionQuery}
+ * to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface CurrencySpec {
+public @interface ConversionSpec {
 
     /**
-     * The currency's code.
-     * @return the format's name, not null.
+     * The type of rates to be created/accessed.
+     * @return the rate type, not null.
      */
-    String[] codes() default {};
+    RateType[] rateTypes() default {};
 
     /**
-     * The currency's numeric code.
-     * @return the format's name, not null.
+     * The base currency.
+     * @return the base currency.
      */
-    int[] numericCodes() default {};
+    String baseCurrency() default "";
+
+    /**
+     * The target/terminating currency.
+     * @return the target/terminating currency.
+     */
+    String termCurrency() default "";
 
     /**
      * The provider names.
@@ -51,12 +59,6 @@ public @interface CurrencySpec {
      * @return any addtiional attributes.
      */
     String[] attributes() default {};
-
-    /**
-     * Return the country codes for the currency/currencies requested.
-     * @return the country codes.
-     */
-    String[] countries() default{};
 }
 
 

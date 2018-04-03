@@ -15,43 +15,30 @@
  *
  * Contributors: @atsticks, @keilw, @otjava
  */
-package org.javamoney.cdi.api;
+package org.javamoney.cdi;
 
-import javax.money.MonetaryAmount;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory},
- * {@link MonetaryAmount} or {@link javax.money.MonetaryAmountFactoryQuery} to be injected.
+ * Annotation that allows to define a {@link  javax.money.CurrencyQuery}
+ * or an {@link javax.money.CurrencyUnit} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface AmountSpec {
+public @interface CurrencySpec {
 
     /**
-     * The implemention type required, normally this does overrule all other settings.
-     * @return the implementation type to be created by the factory.
+     * The currency's code.
+     * @return the format's name, not null.
      */
-    Class value() default MonetaryAmount.class;
+    String[] codes() default {};
 
     /**
-     * Should the amount created have always the same, fixed scale?
-     * @return the fixedScale flag.
+     * The currency's numeric code.
+     * @return the format's name, not null.
      */
-    boolean fixedScale() default false;
-
-    /**
-     * The maximum scale required.
-     * @return the maximum scale.
-     */
-    int maxScale() default -1;
-
-    /**
-     * The required precision.
-     * @return the required precision.
-     */
-    int precision() default -1;
+    int[] numericCodes() default {};
 
     /**
      * The provider names.
@@ -64,4 +51,12 @@ public @interface AmountSpec {
      * @return any addtiional attributes.
      */
     String[] attributes() default {};
+
+    /**
+     * Return the country codes for the currency/currencies requested.
+     * @return the country codes.
+     */
+    String[] countries() default{};
 }
+
+
