@@ -41,7 +41,7 @@ public class CDISEServiceProvider implements ServiceProvider {
     /**
      * Default provider, using ServiceLoader.
      */
-    private ServiceProvider defaultServiceProvider = new PriorityAwareServiceProvider();
+    private final ServiceProvider defaultServiceProvider = new PriorityAwareServiceProvider();
 
     @Override
     public <T> List<T> getServices(Class<T> serviceType) {

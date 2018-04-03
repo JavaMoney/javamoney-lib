@@ -183,6 +183,7 @@ public final class MonetaryProducer {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Produces @Dependent
     public static Collection<MonetaryAmountFactory> amountFactories(InjectionPoint ip){
         AmountSpec specAnnot = ip.getAnnotated()!=null?ip.getAnnotated().getAnnotation(AmountSpec.class):null;
