@@ -211,7 +211,11 @@
             <groupId>javax.money</groupId>
             <artifactId>money-api</artifactId>
             <version>${jsr.version}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.javamoney</groupId>
@@ -248,17 +252,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.money</groupId>
-            <artifactId>money-api</artifactId>
-            <version>${jsr.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>
