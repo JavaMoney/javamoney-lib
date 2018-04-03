@@ -40,15 +40,15 @@
 					<outputDirectory>src/main/resources/java-money/defaults/FRB</outputDirectory>
 					<outputFile>H10_H10.XML</outputFile>
 				</configuration>
-				<executions>
-					<execution>
-						<id>get-fallback-resource</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>wget</goal>
-						</goals>
-					</execution>
-				</executions>
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>get-fallback-resource</id>-->
+						<!--<phase>process-resources</phase>-->
+						<!--<goals>-->
+							<!--<goal>wget</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
 			</plugin>
 		</plugins>
 	</build>
