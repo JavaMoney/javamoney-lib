@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Simple%20Interest%201.gif" />

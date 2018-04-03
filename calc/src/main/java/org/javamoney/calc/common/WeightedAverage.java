@@ -54,8 +54,8 @@ public final class WeightedAverage {
 	 * A weighted value is a value also with a weight attached.
 	 */
 	public static final class WeightedValue{
-		private BigDecimal value;
-		private BigDecimal weight;
+		private final BigDecimal value;
+		private final BigDecimal weight;
 		private WeightedValue(BigDecimal value, BigDecimal weight){
 			this.value = Objects.requireNonNull(value);
 			this.weight = Objects.requireNonNull(weight);

@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * <p>
@@ -48,14 +47,13 @@ import javax.money.MonetaryOperator;
  */
 public final class PresentValueGrowingAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
-    private Rate growthRate;
+    private final Rate growthRate;
 
     /**
      * Constructor.
      *
      * @param discountRateAndPeriods The discount rate and target periods, not null.
      * @param growthRate   The growth rate, not null.
-     * @return the operator, never null.
      */
     private PresentValueGrowingAnnuityPayment(RateAndPeriods discountRateAndPeriods, Rate growthRate) {
         super(discountRateAndPeriods);

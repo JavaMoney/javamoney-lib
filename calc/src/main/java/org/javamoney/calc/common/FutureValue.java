@@ -20,10 +20,8 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * Future Value (FV) is a formula used in finance to calculate the value of a cash flow at a later

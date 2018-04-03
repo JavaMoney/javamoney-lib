@@ -36,9 +36,9 @@ import javax.money.MonetaryOperator;
  */
 public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
     /** The rate factor. */
-	private BigDecimal rate;
+	private final BigDecimal rate;
 	/** An optional rate info. */
-	private String info;
+	private final String info;
 
 	/** A general zero rate. */
 	public static final Rate ZERO = new Rate(BigDecimal.ZERO, null);
@@ -140,7 +140,7 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	/**
 	 * Access the rate, never {@code null}.
 	 * 
-	 * @return
+	 * @return the converson rate, not null.
 	 */
     @Override
     public BigDecimal get() {

@@ -34,7 +34,7 @@ import org.javamoney.calc.common.Rate;
 public class PreferredStock implements MonetaryOperator {
 
 	
-	private Rate discountRate;
+	private final Rate discountRate;
 	
     /**
      * Private constructor.

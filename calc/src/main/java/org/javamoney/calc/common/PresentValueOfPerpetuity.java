@@ -47,7 +47,7 @@ import javax.money.MonetaryOperator;
  */
 public final class PresentValueOfPerpetuity implements MonetaryOperator {
 
-    private Rate rate;
+    private final Rate rate;
 
     private PresentValueOfPerpetuity(Rate rate) {
         this.rate = Objects.requireNonNull(rate);

@@ -51,7 +51,7 @@ public final class ValidatedAmount {
      * Creates an unsigned {@link MonetaryAmount} based on the given
      * {@link MonetaryAmount}.
      *
-     * @param amount
+     * @param amount the amount to be decorated to be unsigned, not null
      * @return an ansigned instance, that can never be negative.
      */
     public static MonetaryAmount unsignedAmount(MonetaryAmount amount) {

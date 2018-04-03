@@ -35,7 +35,7 @@ import javax.money.MonetaryOperator;
  */
 public class CompositeMonetaryOperator implements MonetaryOperator {
 
-    private List<MonetaryOperator> functions = new ArrayList<>();
+    private final List<MonetaryOperator> functions = new ArrayList<>();
 
     @SafeVarargs
     public CompositeMonetaryOperator(Iterable<MonetaryOperator>... operations) {

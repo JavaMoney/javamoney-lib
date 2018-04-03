@@ -20,7 +20,6 @@ package org.javamoney.calc.common;
 import static org.javamoney.calc.CalculationContext.mathContext;
 import static org.javamoney.calc.CalculationContext.one;
 
-import javax.money.MonetaryException;
 import java.math.BigDecimal;
 import java.util.Objects;
 

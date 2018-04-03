@@ -84,9 +84,9 @@ final class ValidatedMoney implements
     /**
      * Access an {@link ValidatedMoney} based on the given
      * {@link MonetaryAmount}.
-     *
-     * @param amount
-     * @return
+     * @param predicate the validation function, not null.
+     * @param amount the amount to decorate
+     * @return the decorated (validated) amount instance.
      */
     private static ValidatedMoney of(MonetaryAmount amount,
                                      Predicate<MonetaryAmount> predicate) {

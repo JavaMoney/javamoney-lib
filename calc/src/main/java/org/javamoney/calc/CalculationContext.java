@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 public final class CalculationContext {
 
-    private static CalculationContext instance = new CalculationContext();
+    private static final CalculationContext instance = new CalculationContext();
 
     private MathContext mathContext;
     private BigDecimal one;

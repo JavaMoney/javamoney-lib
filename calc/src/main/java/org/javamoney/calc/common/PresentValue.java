@@ -20,7 +20,6 @@ package org.javamoney.calc.common;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%203.gif" />

@@ -20,9 +20,7 @@ package org.javamoney.calc.common;
 import org.javamoney.calc.CalculationContext;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * <img src="http://www.financeformulas.net/Formula%20Images/Annuity%20Due%20-%20FV%201.gif" />

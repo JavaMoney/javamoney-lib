@@ -22,7 +22,6 @@ import org.javamoney.calc.CalculationContext;
 import java.util.Objects;
 
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
 
 /**
  * The formula for the present value of an annuity due,

@@ -35,9 +35,9 @@ import org.javamoney.calc.common.Rate;
 public class StockPresentValue implements MonetaryOperator {
 
 	
-	private Rate requiredRateOfReturn;
+	private final Rate requiredRateOfReturn;
 	
-	private Rate growthRate;
+	private final Rate growthRate;
 	
     /**
      * Private constructor.
@@ -71,7 +71,6 @@ public class StockPresentValue implements MonetaryOperator {
      *
      * @param estimatedDividends   the estimated dividends for next period
      * @param requiredRateOfReturn the required rate of return
-     * @param the                  growth rate
      * @return the present value of the stock
      */
     public static MonetaryAmount calculateForConstantGrowth(MonetaryAmount estimatedDividends, Rate requiredRateOfReturn, Rate growthRate) {

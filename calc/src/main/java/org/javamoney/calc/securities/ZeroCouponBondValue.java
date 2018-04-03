@@ -34,9 +34,9 @@ import org.javamoney.calc.common.Rate;
 public class ZeroCouponBondValue implements MonetaryOperator {
 
 	
-	private Rate rate;
+	private final Rate rate;
 	
-	private int numberOfYearsToMaturity;
+	private final int numberOfYearsToMaturity;
 	
     /**
      * Private constructor.
