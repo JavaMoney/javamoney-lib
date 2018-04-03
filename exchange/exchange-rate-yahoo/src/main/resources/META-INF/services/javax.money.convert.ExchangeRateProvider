@@ -14,4 +14,4 @@
 #
 #
 # Contributors: @atsticks, @keilw, @otjava
-org.javamoney.moneta.internal.convert.yahoo.YahooRateProvider
+org.javamoney.moneta.convert.internal.yahoo.YahooRateProvider

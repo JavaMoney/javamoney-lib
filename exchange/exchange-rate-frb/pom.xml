@@ -63,5 +63,21 @@
 			<groupId>org.javamoney</groupId>
 			<artifactId>moneta</artifactId>
 		</dependency>
+		<!-- OSGI support -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.annotation</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,0 +1,32 @@
+-buildpath: \
+	osgi.annotation; version=6.0.0,\
+	osgi.core; version=6.0,\
+	osgi.cmpn; version=6.0
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Automatic-Module-Name: org.javamoney.moneta.convert.frb
+Bundle-Version: ${version}.${tstamp}
+Bundle-Name: JavaMoney Moneta FRB Conversion
+Bundle-Activator: org.javamoney.moneta.convert.internal.frb.OSGIActivator
+Bundle-SymbolicName: org.javamoney.moneta.convert.frb
+Bundle-Description: JavaMoney - Moneta Reference Implementation - FRB Conversion
+Bundle-Category: Implementation
+Bundle-Copyright: (C) Credit Suisse AG
+Bundle-License: Apache License, Version 2.0
+Bundle-Vendor: Credit Suisse AG
+Bundle-DocURL: http://www.javamoney.org
+Import-Package: \
+	javax.money,\
+    javax.money.spi,\
+    javax.money.convert,\
+    org.javamoney.moneta,\
+    org.javamoney.moneta.convert
+Private-Package: \
+	org.javamoney.moneta.convert.internal.frb
+Export-Service: \
+    javax.money.convert.ExchangeRateProvider
