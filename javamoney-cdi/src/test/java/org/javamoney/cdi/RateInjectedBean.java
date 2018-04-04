@@ -17,8 +17,6 @@
  */
 package org.javamoney.cdi;
 
-import org.javamoney.cdi.api.ConversionSpec;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.convert.CurrencyConversion;
@@ -33,29 +31,29 @@ import java.util.Collection;
 @Dependent
 public class RateInjectedBean {
 
-    @Inject @ConversionSpec(rateTypes = RateType.DEFERRED)
+    @Inject @AmountConversion(rateTypes = RateType.DEFERRED)
     ExchangeRateProvider deferredProvider;
 
-    @Inject @ConversionSpec(providers = "ECB")
+    @Inject @AmountConversion(providers = "ECB")
     ExchangeRateProvider ecbProvider;
 
-    @Inject @ConversionSpec(termCurrency = "EUR")
+    @Inject @AmountConversion(termCurrency = "EUR")
     CurrencyConversion euroConverter;
 
     @Inject
     Collection<ExchangeRateProvider> allProviders;
 
-    @Inject @ConversionSpec(providers = "ECB")
+    @Inject @AmountConversion(providers = "ECB")
     Collection<ExchangeRateProvider> ecbProviderAsList;
 
-    @Inject @ConversionSpec(rateTypes = RateType.HISTORIC)
+    @Inject @AmountConversion(rateTypes = RateType.HISTORIC)
     Collection<ExchangeRateProvider> allHistoricProviders;
 
-    @Inject @ConversionSpec(baseCurrency = "CHF", termCurrency = "EUR",
+    @Inject @AmountConversion(baseCurrency = "CHF", termCurrency = "EUR",
     rateTypes = RateType.DEFERRED)
     ExchangeRate chfEurRate;
 
-    @Inject @ConversionSpec(baseCurrency = "CHF", termCurrency = "EUR")
+    @Inject @AmountConversion(baseCurrency = "CHF", termCurrency = "EUR")
     Collection<ExchangeRate> allChfEurRates;
 
 }

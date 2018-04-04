@@ -17,8 +17,6 @@
  */
 package org.javamoney.cdi;
 
-import org.javamoney.cdi.api.CurrencySpec;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.CurrencyUnit;
@@ -33,21 +31,21 @@ public class CurrencyInjectedBean {
     @Inject
     CurrencyUnit defaultCurrency;
 
-    @Inject @CurrencySpec(codes="EUR")
+    @Inject @AmountCurrency(codes="EUR")
     CurrencyUnit eurCurrency;
 
-    @Inject @CurrencySpec(
+    @Inject @AmountCurrency(
             attributes = "validAt=01.01.1995",
             countries = "IT")
     CurrencyUnit historicCurrency;
 
-    @Inject @CurrencySpec(numericCodes = 11)
+    @Inject @AmountCurrency(numericCodes = 11)
     Collection<CurrencyUnit> numericCurrencies;
 
-    @Inject @CurrencySpec(providers = "ISO")
+    @Inject @AmountCurrency(providers = "ISO")
     Collection<CurrencyUnit> isoCurrencies;
 
-    @Inject @CurrencySpec(codes={"CHF", "USD"})
+    @Inject @AmountCurrency(codes={"CHF", "USD"})
     Collection<CurrencyUnit> currencies;
 
 }

@@ -17,41 +17,36 @@
  */
 package org.javamoney.cdi;
 
-import javax.money.MonetaryAmount;
+import javax.money.convert.RateType;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.MonetaryAmountFactory},
- * {@link MonetaryAmount} or {@link javax.money.MonetaryAmountFactoryQuery} to be injected.
+ * Annotation that allows to optionally refine a {@link javax.money.convert.CurrencyConversion},
+ * {@link javax.money.convert.ExchangeRateProvider} or {@link javax.money.convert.ConversionQuery}
+ * to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface AmountSpec {
+public @interface AmountConversion {
 
     /**
-     * The implemention type required, normally this does overrule all other settings.
-     * @return the implementation type to be created by the factory.
+     * The type of rates to be created/accessed.
+     * @return the rate type, not null.
      */
-    Class value() default MonetaryAmount.class;
+    RateType[] rateTypes() default {};
 
     /**
-     * Should the amount created have always the same, fixed scale?
-     * @return the fixedScale flag.
+     * The base currency.
+     * @return the base currency.
      */
-    boolean fixedScale() default false;
+    String baseCurrency() default "";
 
     /**
-     * The maximum scale required.
-     * @return the maximum scale.
+     * The target/terminating currency.
+     * @return the target/terminating currency.
      */
-    int maxScale() default -1;
-
-    /**
-     * The required precision.
-     * @return the required precision.
-     */
-    int precision() default -1;
+    String termCurrency() default "";
 
     /**
      * The provider names.
@@ -65,3 +60,5 @@ public @interface AmountSpec {
      */
     String[] attributes() default {};
 }
+
+

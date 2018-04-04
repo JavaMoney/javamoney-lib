@@ -17,9 +17,6 @@
  */
 package org.javamoney.cdi;
 
-import org.javamoney.cdi.api.AmountSpec;
-import org.javamoney.cdi.api.CurrencySpec;
-import org.javamoney.cdi.api.FormatSpec;
 import org.javamoney.moneta.Money;
 
 import javax.enterprise.context.Dependent;
@@ -34,20 +31,20 @@ import javax.money.format.AmountFormatQuery;
 @Dependent
 public class QueryInjectedBean {
 
-    @Inject @CurrencySpec(codes={"CHF", "USD"},
+    @Inject @AmountCurrency(codes={"CHF", "USD"},
             attributes = "validAt=01.01.1995",
             countries = "IT",
             numericCodes = {1,2,3,11},
             providers = {"p1", "p2"})
     CurrencyQuery currencyQuery;
 
-    @Inject @FormatSpec(name="default23",
+    @Inject @AmountFormat(name="default23",
             attributes = "separator=-",
             locale="de_DE",
             providers = {"p1", "p2"})
     AmountFormatQuery formatQuery;
 
-    @Inject @AmountSpec(value=Money.class,
+    @Inject @Amount(value=Money.class,
             attributes = "foo=bar",
             precision = 10,
             maxScale = 2,

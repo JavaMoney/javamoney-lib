@@ -17,36 +17,28 @@
  */
 package org.javamoney.cdi;
 
-import javax.money.convert.RateType;
 import java.lang.annotation.*;
 
 /**
- * Annotation that allows to optionally refine a {@link javax.money.convert.CurrencyConversion},
- * {@link javax.money.convert.ExchangeRateProvider} or {@link javax.money.convert.ConversionQuery}
- * to be injected.
+ * Annotation that allows to define a {@link  javax.money.CurrencyQuery}
+ * or an {@link javax.money.CurrencyUnit} to be injected.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface ConversionSpec {
+public @interface AmountCurrency {
 
     /**
-     * The type of rates to be created/accessed.
-     * @return the rate type, not null.
+     * The currency's code.
+     * @return the format's name, not null.
      */
-    RateType[] rateTypes() default {};
+    String[] codes() default {};
 
     /**
-     * The base currency.
-     * @return the base currency.
+     * The currency's numeric code.
+     * @return the format's name, not null.
      */
-    String baseCurrency() default "";
-
-    /**
-     * The target/terminating currency.
-     * @return the target/terminating currency.
-     */
-    String termCurrency() default "";
+    int[] numericCodes() default {};
 
     /**
      * The provider names.
@@ -59,6 +51,12 @@ public @interface ConversionSpec {
      * @return any addtiional attributes.
      */
     String[] attributes() default {};
+
+    /**
+     * Return the country codes for the currency/currencies requested.
+     * @return the country codes.
+     */
+    String[] countries() default{};
 }
 
 

@@ -17,7 +17,6 @@
  */
 package org.javamoney.cdi;
 
-import org.javamoney.cdi.api.AmountSpec;
 import org.javamoney.moneta.Money;
 
 import javax.enterprise.context.Dependent;
@@ -31,19 +30,19 @@ import java.util.Collection;
 @Dependent
 public class AmountInjectedBean {
 
-    @Inject @AmountSpec(Money.class)
+    @Inject @Amount(Money.class)
     MonetaryAmountFactory moneyFactory;
 
-    @Inject @AmountSpec(precision = 10)
+    @Inject @Amount(precision = 10)
     MonetaryAmountFactory precisionFactory;
 
-    @Inject @AmountSpec(maxScale = 2)
+    @Inject @Amount(maxScale = 2)
     MonetaryAmountFactory scaledFactory;
 
-    @Inject @AmountSpec(providers = "ISO")
+    @Inject @Amount(providers = "ISO")
     Collection<MonetaryAmountFactory> providerFactories;
 
-    @Inject @AmountSpec(fixedScale = true, precision = 12)
+    @Inject @Amount(fixedScale = true, precision = 12)
     Collection<MonetaryAmountFactory> fixedScaleFactories;
 
 }

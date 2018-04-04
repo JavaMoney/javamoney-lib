@@ -17,8 +17,6 @@
  */
 package org.javamoney.cdi;
 
-import org.javamoney.cdi.api.FormatSpec;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.money.format.MonetaryAmountFormat;
@@ -30,19 +28,19 @@ import java.util.Collection;
 @Dependent
 public class FormatInjectedBean {
 
-    @Inject @FormatSpec(name="default")
+    @Inject @AmountFormat(name="default")
     MonetaryAmountFormat defaultFormat;
 
-    @Inject @FormatSpec(name="default", providers = "default")
+    @Inject @AmountFormat(name="default", providers = "default")
     MonetaryAmountFormat isoProviderFormat;
 
-    @Inject @FormatSpec(name="default", attributes = "separator=-")
+    @Inject @AmountFormat(name="default", attributes = "separator=-")
     MonetaryAmountFormat defaultWithCustomSeparator;
 
-    @Inject @FormatSpec(name="default", locale="DE")
+    @Inject @AmountFormat(name="default", locale="DE")
     Collection<MonetaryAmountFormat> germanFormats;
 
-    @Inject @FormatSpec(name="default")
+    @Inject @AmountFormat(name="default")
     Collection<MonetaryAmountFormat> defaultFormats;
 
 }
