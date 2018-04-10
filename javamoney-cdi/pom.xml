@@ -4,7 +4,7 @@
 	<parent>
         <artifactId>javamoney-lib</artifactId>
         <groupId>org.javamoney.lib</groupId>
-        <version>0.9-SNAPSHOT</version>
+        <version>1.0</version>
 	</parent>
     <artifactId>javamoney-cdi</artifactId>
     <name>Money and Currency - JavaMoney CDI Integration</name>

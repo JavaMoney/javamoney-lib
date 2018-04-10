@@ -26,8 +26,6 @@ import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.money.spi.ServiceProvider;
 
-import org.javamoney.moneta.internal.PriorityAwareServiceProvider;
-
 /**
  * Overriding ServiceProvider that actually tries to satisfy component requests from CDI,
  * where possible. Additionally ServiceLoader based service are loaded and are returned

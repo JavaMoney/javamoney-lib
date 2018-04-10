@@ -19,8 +19,6 @@ package org.javamoney.calc;
 
 import javax.money.MonetaryAmount;
 
-import org.javamoney.moneta.Money;
-
 import java.util.function.Predicate;
 
 
@@ -79,7 +77,7 @@ public final class ValidatedAmount {
     private static final class UnsignedPredicate implements
             Predicate<MonetaryAmount> {
         public boolean test(MonetaryAmount amount) {
-            return Money.from(amount).signum() >= 0;
+            return amount.signum() >= 0;
         }
     }
 }

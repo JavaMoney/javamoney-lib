@@ -17,8 +17,6 @@
  */
 package org.javamoney.calc.common;
 
-import org.javamoney.moneta.spi.MoneyUtils;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -85,7 +83,7 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	 *            the rate, not {@code null}.
 	 */
     public static Rate of(Number rate) {
-        return new Rate(MoneyUtils.getBigDecimal(rate), null);
+        return new Rate(new BigDecimal(rate.toString()), null);
     }
 
 	/**
@@ -95,7 +93,7 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	 *            the rate, not {@code null}.
 	 */
 	public static Rate of(Number rate, String info) {
-		return new Rate(MoneyUtils.getBigDecimal(rate), info);
+		return new Rate(new BigDecimal(rate.toString()), info);
 	}
 
 	/*

@@ -88,8 +88,17 @@ public class DefaultServiceProvider implements ServiceProvider {
 
 	@Override
 	public <T> List<T> getServices(Class<T> serviceType) {
-		// TODO Auto-generated method stub
-		return null;
+        try {
+            List<T> services = new ArrayList<>();
+            for (T t : ServiceLoader.load(serviceType)) {
+                services.add(t);
+            }
+            @SuppressWarnings("unchecked")
+            final List<T> previousServices = (List<T>) servicesLoaded.putIfAbsent(serviceType, (List<Object>) services);
+            return Collections.unmodifiableList(previousServices != null ? previousServices : services);
+        } catch (Exception e) {
+            throw new IllegalStateException("Error loading services of type " + serviceType, e);
+        }
 	}
 
 }

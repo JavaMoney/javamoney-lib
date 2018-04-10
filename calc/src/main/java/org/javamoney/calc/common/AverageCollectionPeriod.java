@@ -18,7 +18,6 @@
 package org.javamoney.calc.common;
 
 import org.javamoney.calc.CalculationContext;
-import org.javamoney.moneta.spi.MoneyUtils;
 
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
@@ -67,7 +66,7 @@ public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
      */
     public static BigDecimal calculate(Number receivablesTurnover) {
         return new BigDecimal(365, CalculationContext.mathContext())
-				.divide(MoneyUtils.getBigDecimal(receivablesTurnover), CalculationContext.mathContext());
+				.divide(new BigDecimal(receivablesTurnover.toString()), CalculationContext.mathContext());
 	}
 
 	/**
@@ -77,7 +76,7 @@ public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
      * @return the receivables turnover, never null.
      */
 	public static BigDecimal receivablesTurnover(MonetaryAmount revenue, Number avgAccountsReceivable){
-		return MoneyUtils.getBigDecimal(avgAccountsReceivable).divide(
+		return new BigDecimal(avgAccountsReceivable.toString()).divide(
 				revenue.getNumber().numberValue(BigDecimal.class), MathContext.DECIMAL64);
 	}
 

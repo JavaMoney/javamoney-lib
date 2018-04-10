@@ -17,15 +17,7 @@
  */
 package org.javamoney.calc;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
-import javax.money.NumberValue;
-
-import org.javamoney.moneta.Money;
+import javax.money.*;
 
 import java.util.function.Predicate;
 
@@ -176,24 +168,6 @@ final class ValidatedMoney implements
     public ValidatedMoney plus() {
         return of(this.amount.plus(), predicate);
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.money.MonetaryAmount#subtract(javax.money.MonetaryAmount)
-     */
-    public ValidatedMoney subtract(Money subtrahend) {
-        return of(this.amount.subtract(subtrahend), predicate);
-    }
-
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see javax.money.MonetaryAmount#ulp()
-    // */
-    // public ConstraintMoney ulp() {
-    // return of(this.amount.ulp(), predicate);
-    // }
 
     /*
      * (non-Javadoc)
@@ -417,13 +391,79 @@ final class ValidatedMoney implements
 
     @Override
     public MonetaryAmountFactory<ValidatedMoney> getFactory() {
-        return null;
-        // return new ConstraintMoneyFactory(this);
+        return new ValidatedAmountFactory(this);
     }
 
     @Override
     public int compareTo(MonetaryAmount o) {
         return this.amount.compareTo(o);
+    }
+
+    /**
+     * Amount factory, which validates the amount created, based on the default amount factory.
+     */
+    private final class ValidatedAmountFactory implements MonetaryAmountFactory<ValidatedMoney>{
+        private Predicate<MonetaryAmount> predicate;
+        private MonetaryAmountFactory<?> factory = Monetary.getDefaultAmountFactory();
+
+        public ValidatedAmountFactory(ValidatedMoney amount){
+            this.predicate = amount.predicate;
+        }
+
+        @Override
+        public Class<? extends MonetaryAmount> getAmountType() {
+            return ValidatedMoney.class;
+        }
+
+        @Override
+        public MonetaryAmountFactory setCurrency(CurrencyUnit currency) {
+            factory.setCurrency(currency);
+            return this;
+        }
+
+        @Override
+        public MonetaryAmountFactory setNumber(double number) {
+            factory.setNumber(number);
+            return this;
+        }
+
+        @Override
+        public MonetaryAmountFactory setNumber(long number) {
+            factory.setNumber(number);
+            return this;
+        }
+
+        @Override
+        public MonetaryAmountFactory setNumber(Number number) {
+            factory.setNumber(number);
+            return this;
+        }
+
+        @Override
+        public NumberValue getMaxNumber() {
+            return factory.getMaxNumber();
+        }
+
+        @Override
+        public NumberValue getMinNumber() {
+            return factory.getMinNumber();
+        }
+
+        @Override
+        public MonetaryAmountFactory setContext(MonetaryContext monetaryContext) {
+            factory.setContext(monetaryContext);
+            return this;
+        }
+
+        @Override
+        public ValidatedMoney create() {
+            return new ValidatedMoney(factory.create(), predicate);
+        }
+
+        @Override
+        public MonetaryContext getDefaultMonetaryContext() {
+            return factory.getDefaultMonetaryContext();
+        }
     }
 
 }

@@ -60,8 +60,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney</groupId>
-			<artifactId>moneta</artifactId>
+			<groupId>org.javamoney.moneta</groupId>
+			<artifactId>moneta-core</artifactId>
+			<version>${ri.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney.moneta</groupId>
+			<artifactId>moneta-convert</artifactId>
+			<version>${ri.version}</version>
 		</dependency>
 		<!-- OSGI support -->
 		<dependency>

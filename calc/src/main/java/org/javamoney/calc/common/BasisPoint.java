@@ -24,8 +24,6 @@ import javax.money.MonetaryOperator;
 import javax.money.MonetaryAmount;
 
 import org.javamoney.calc.CalculationContext;
-import org.javamoney.moneta.Money;
-import org.javamoney.moneta.spi.MoneyUtils;
 
 
 /**
@@ -69,7 +67,7 @@ public final class BasisPoint implements MonetaryOperator {
 	 */
 	@Override
 	public MonetaryAmount apply(MonetaryAmount amount) {
-		return Money.from(amount).multiply(basisPointValue);
+		return amount.multiply(basisPointValue);
 	}
 
 	/*
@@ -111,7 +109,7 @@ public final class BasisPoint implements MonetaryOperator {
 	 *            the basis points number, 10'000-ends.
 	 */
 	private static BigDecimal calcBasisPoint(Number number) {
-		return MoneyUtils.getBigDecimal(number).divide(
+		return new BigDecimal(number.toString()).divide(
 				ONE_TENTHOUSAND, CalculationContext.mathContext());
 	}
 
