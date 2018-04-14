@@ -27,7 +27,6 @@
     <groupId>org.javamoney.lib</groupId>
     <name>Money and Currency - JavaMoney Libraries (parent)</name>
     <packaging>pom</packaging>
-    <version>1.0</version>
     <properties>
         <jsr.version>1.0.2</jsr.version>
         <ri.version>1.2</ri.version>
