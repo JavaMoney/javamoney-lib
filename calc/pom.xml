@@ -30,11 +30,6 @@
 	<packaging>jar</packaging>
 	<!-- Try to find workaround for problem attaching sources to bundle, as 
 		of now manually switching to "jar" works -->
-	<properties>
-		<jdkVersion>1.8</jdkVersion>
-		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
-		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
-	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -57,7 +52,7 @@
 					<source>9</source>
 					<target>9</target>
 					<excludes>
-						<exclude>org.javamoney.calc/module-info.java</exclude>
+						<exclude>module-info.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -79,14 +74,30 @@
 						</goals>
 						<!-- recompile everything for target VM except the module-info.java -->
 						<configuration>
+							<source>${maven.compile.sourceLevel}</source>
+							<target>${maven.compile.targetLevel}</target>
 							<excludes>
-								<exclude>javax.money/module-info.java</exclude>
+								<exclude>org/javamoney/calc/module-info.java</exclude>
 							</excludes>
 						</configuration>
 					</execution>
 				</executions>
-
 			</plugin>
         </plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.money</groupId>
+			<artifactId>money-api</artifactId>
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.javamoney.moneta</groupId>-->
+			<!--<artifactId>moneta-core</artifactId>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
+	</dependencies>
 </project>

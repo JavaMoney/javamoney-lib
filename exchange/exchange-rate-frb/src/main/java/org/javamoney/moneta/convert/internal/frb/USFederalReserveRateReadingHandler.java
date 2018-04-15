@@ -48,15 +48,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * SAX Event Handler that reads the quotes.
- * <p>
- * RDF format: <item rdf:about="http://www.federalreserve.gov/releases/H10#16"> <title>US: H10 0.7100 2015-08-31 FRB
- * Australia Dollar (USD per AUD)</title> <link>http://www.federalreserve.gov/releases/H10#16</link>
- * <description>Australia Dollar (USD per AUD)</description> <dc:date>2015-08-31T12:00:00-05:00</dc:date>
- * <dc:language>en</dc:language> <dc:creator>FRB</dc:creator> <cb:statistics> <cb:country>US</cb:country>
- * <cb:institutionAbbrev>FRB</cb:institutionAbbrev> <cb:otherStatistic> <cb:value decimals="4" unit_mult="1"
- * units="Currency:_Per_AUD">0.7100</cb:value> <cb:topic>H10</cb:topic> <cb:coverage>Australia Dollar (USD per
- * AUD)</cb:coverage> <cb:observationPeriod frequency="business">2015-08-31</cb:observationPeriod> <cb:dataType/>
- * </cb:otherStatistic> </cb:statistics> </item>
  */
 class USFederalReserveRateReadingHandler extends DefaultHandler {
     private LocalDate localDate;

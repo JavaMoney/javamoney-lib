@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-exchange</artifactId>
-		<version>0.2-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 	<artifactId>javamoney-exchange-rate-yahoo</artifactId>
 	<packaging>jar</packaging>
@@ -40,50 +40,88 @@
 					<outputDirectory>src/main/resources/java-money/defaults/YAHOO</outputDirectory>
 					<outputFileName>finance.xml</outputFileName>
 				</configuration>
-				<!--<executions>-->
-					<!--<execution>-->
-						<!--<id>get-fallback-resource</id>-->
-						<!--<phase>process-resources</phase>-->
-						<!--<goals>-->
-							<!--<goal>wget</goal>-->
-						<!--</goals>-->
-					<!--</execution>-->
-				<!--</executions>-->
 			</plugin>
-		</plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>9</source>
+					<target>9</target>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<!-- compile everything to ensure module-info contains right entries -->
+							<!-- required when JAVA_HOME is JDK 8 or below -->
+							<jdkToolchain>
+								<version>9</version>
+							</jdkToolchain>
+							<release>9</release>
+						</configuration>
+					</execution>
+					<execution>
+						<id>base-compile</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<!-- recompile everything for target VM except the module-info.java -->
+						<configuration>
+							<source>${maven.compile.sourceLevel}</source>
+							<target>${maven.compile.targetLevel}</target>
+							<excludes>
+								<exclude>module-info.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
 	</build>
 
 	<dependencies>
+		<!-- API and RI -->
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<scope>test</scope>
+			<groupId>javax.money</groupId>
+			<artifactId>money-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.javamoney.moneta</groupId>
 			<artifactId>moneta-core</artifactId>
-			<version>${ri.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.javamoney.moneta</groupId>
 			<artifactId>moneta-convert</artifactId>
-			<version>${ri.version}</version>
 		</dependency>
+
 		<!-- OSGI support -->
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.annotation</artifactId>
+			<scope>provided</scope>
+			<version>${osgi.annotation.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+			<version>${osgi.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
+			<version>${osgi.version}</version>
+			<scope>provided</scope>
 			<optional>true</optional>
+		</dependency>
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

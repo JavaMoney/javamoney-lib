@@ -110,7 +110,7 @@ final class OSGIServiceHelper {
         public Object getService(Bundle bundle, ServiceRegistration registration) {
             try {
                 LOG.fine("Creating Service...:" + serviceClass.getName());
-                return serviceClass.newInstance();
+                return serviceClass.getConstructor().newInstance();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 throw new IllegalStateException("Failed to create service: " + serviceClass.getName(), ex);

@@ -54,18 +54,37 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.javamoney</groupId>
-				<artifactId>moneta</artifactId>
+				<groupId>javax.money</groupId>
+				<artifactId>money-api</artifactId>
+				<version>${jsr.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javamoney.moneta</groupId>
+				<artifactId>moneta-core</artifactId>
 				<version>${ri.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.javamoney</groupId>
-				<artifactId>moneta-bp</artifactId>
+				<groupId>org.javamoney.moneta</groupId>
+				<artifactId>moneta-convert</artifactId>
 				<version>${ri.version}</version>
+			</dependency>
+			<!-- OSGI support -->
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.annotation</artifactId>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.compendium</artifactId>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<optional>true</optional>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<version>0.2-SNAPSHOT</version>
-
 
 </project>
