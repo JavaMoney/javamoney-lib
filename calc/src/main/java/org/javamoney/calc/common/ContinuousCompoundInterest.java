@@ -20,8 +20,6 @@ package org.javamoney.calc.common;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/Continuous%20Compounding%201.gif" />
- * <p>
  * The continuous compounding formula is used to determine the interest earned on an account that is
  * constantly compounded, essentially leading to an infinite amount of compounding periods. The
  * effect of compounding is earning interest on an investment, or at times paying interest on a
@@ -48,7 +46,7 @@ public final class ContinuousCompoundInterest extends AbstractRateAndPeriodBased
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the operator, never null.
      */
     public static ContinuousCompoundInterest of(RateAndPeriods rateAndPeriods) {
@@ -58,8 +56,8 @@ public final class ContinuousCompoundInterest extends AbstractRateAndPeriodBased
     /**
      * Performs the calculation.
      *
-     * @param amount  the base amount, not null.
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param amount         the base amount, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

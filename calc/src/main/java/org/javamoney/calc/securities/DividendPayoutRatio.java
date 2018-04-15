@@ -23,12 +23,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Dividend%20Payout%20Ratio%201.gif" />
- * <p> The dividend payout ratio is the amount of dividends paid to stockholders relative to the amount of total net income of a company. The amount that
+ * The dividend payout ratio is the amount of dividends paid to stockholders relative to the amount of total net income of a company. The amount that
  * is not paid out in dividends to stockholders is held by the company for growth. The amount that is kept by the company is called retained earnings.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Dividend_Payout_Ratio.html
+ * @see <a href="http://www.financeformulas.net/Dividend_Payout_Ratio.html">http://www.financeformulas.net/Dividend_Payout_Ratio.html</a>
  */
 public class DividendPayoutRatio {
 

@@ -30,12 +30,15 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the {@link PresentValue} formula calculator.
- * @link http://www.financeformulas.net/Present_Value.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Present_Value.html#calcHeader
  */
 public class PresentValueContinuousCompoundingTest {
 
     /**
      * Method: of(Rate rate, int periods)
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testOfAndApply() throws Exception {
@@ -56,6 +59,8 @@ public class PresentValueContinuousCompoundingTest {
 
     /**
      * Method: calculate(MonetaryAmount amount, Rate rate, int periods)
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testCalculate() throws Exception {
@@ -69,6 +74,8 @@ public class PresentValueContinuousCompoundingTest {
 
     /**
      * Method: toString()
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testToString() throws Exception {

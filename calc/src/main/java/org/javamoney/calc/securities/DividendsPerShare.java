@@ -21,12 +21,10 @@ package org.javamoney.calc.securities;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Dividends%20Per%20Share%201.gif" />
- * <p>
- * <p> The formula for dividends per share, or DPS, is the annual dividends paid divided by the number of shares outstanding.
+ * The formula for dividends per share, or DPS, is the annual dividends paid divided by the number of shares outstanding.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Dividends_Per_Share.html
+ * @see <a href="http://www.financeformulas.net/Dividends_Per_Share.html">http://www.financeformulas.net/Dividends_Per_Share.html</a>
  */
 public class DividendsPerShare {
 

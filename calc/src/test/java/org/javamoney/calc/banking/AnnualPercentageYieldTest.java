@@ -28,6 +28,11 @@ import static org.junit.Assert.*;
  */
 public class AnnualPercentageYieldTest {
 
+    /**
+     * Of not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_notNull() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -36,6 +41,11 @@ public class AnnualPercentageYieldTest {
         assertNotNull(ci);
     }
 
+    /**
+     * Of correct rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctRate() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -50,6 +60,11 @@ public class AnnualPercentageYieldTest {
         assertEquals(ci.getRate(),  Rate.of(0.05));
     }
 
+    /**
+     * Of correct periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctPeriods() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -62,6 +77,11 @@ public class AnnualPercentageYieldTest {
         assertEquals(ci.getPeriods(),  234);
     }
 
+    /**
+     * Calculate zero periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_zeroPeriods() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -69,6 +89,11 @@ public class AnnualPercentageYieldTest {
         );
     }
 
+    /**
+     * Calculate one periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_onePeriods() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -81,6 +106,11 @@ public class AnnualPercentageYieldTest {
         assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.05,"CHF"));
     }
 
+    /**
+     * Calculate two periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_twoPeriods() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -91,6 +121,11 @@ public class AnnualPercentageYieldTest {
         assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.050625,"CHF"));
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(
@@ -99,6 +134,11 @@ public class AnnualPercentageYieldTest {
         assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(0.050625,"CHF"));
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void test_toString() throws Exception {
         AnnualPercentageYield ci = AnnualPercentageYield.of(

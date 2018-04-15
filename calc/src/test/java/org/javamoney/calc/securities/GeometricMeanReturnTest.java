@@ -26,17 +26,25 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Geometric mean return test.
+ *
  * @author Manuela Grindei
  */
 public class GeometricMeanReturnTest {
 
     private static final List<Rate> RATES_OF_RETURN = Arrays.asList(Rate.of(0.2), Rate.of(0.06), Rate.of(0.01));
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(0.0871, GeometricMeanReturn.calculate(RATES_OF_RETURN), 0.0001);
     }
 
+    /**
+     * Test calculate with null rates throws exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testCalculateWithNullRatesThrowsException() {
         GeometricMeanReturn.calculate(Arrays.asList(Rate.of(0.1), Rate.of(0.1), null, Rate.of(0.5)));

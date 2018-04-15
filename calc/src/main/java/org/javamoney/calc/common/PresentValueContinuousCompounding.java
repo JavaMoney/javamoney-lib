@@ -25,17 +25,12 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * <p>
- * <img src="http://www.financeformulas.net/Formula%20Images/PV%20-%20Cont%20Compounding%201.gif" />
- * </p>
- * <p>
  * The present value with continuous compounding formula is used to calculate the current value of a
  * future amount that has earned at a continuously compounded rate. There are 3 concepts to consider
  * in the present value with continuous compounding formula: time value of money, present value, and
  * continuous compounding.
- * </p>
- * <h3>Time Value of Money, Present Value, and Continuous Compounding</h3>
- * <p>
+ *
+ * <b>Time Value of Money, Present Value, and Continuous Compounding</b>
  * <ul>
  * <li>Time Value of Money - The present value with continuous compounding formula relies on the
  * concept of time value of money. Time value of money is the idea that a specific amount today is
@@ -51,10 +46,10 @@ import java.util.Objects;
  * forth. However, continuous compounding is nonstop, effectively having an infinite amount of
  * compounding for a given time.
  * </ul>
+ *
  * The present value with continuous compounding formula uses the last 2 of these concepts for its
  * actual calculations. The cash flow is discounted by the continuously compounded rate factor.
- * </p>
- * 
+ *
  * @author Anatole Tresch
  */
 public final class PresentValueContinuousCompounding extends AbstractRateAndPeriodBasedOperator {
@@ -81,8 +76,8 @@ public final class PresentValueContinuousCompounding extends AbstractRateAndPeri
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

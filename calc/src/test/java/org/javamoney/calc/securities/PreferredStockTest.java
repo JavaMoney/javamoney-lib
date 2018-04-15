@@ -24,6 +24,8 @@ import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**
+ * The type Preferred stock test.
+ *
  * @author Manuela Grindei
  */
 public class PreferredStockTest {
@@ -31,12 +33,18 @@ public class PreferredStockTest {
     private static final Money DIVIDEND = Money.of(20, "GBP");
     private static final Rate DISCOUNT_RATE = Rate.of(0.05);
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Money.of(400, "GBP"), PreferredStock.calculate(DIVIDEND, DISCOUNT_RATE));
 	}
-	
-	@Test
+
+    /**
+     * Test apply.
+     */
+    @Test
 	public void testApply() {
 		assertEquals(Money.of(400, "GBP"), DIVIDEND.with(PreferredStock.of(DISCOUNT_RATE)));
     }

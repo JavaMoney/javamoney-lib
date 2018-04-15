@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Capital asset pricing model formula test.
+ *
  * @author Manuela Grindei
  */
 public class CapitalAssetPricingModelFormulaTest {
@@ -35,11 +37,17 @@ public class CapitalAssetPricingModelFormulaTest {
     private static final Rate MARKET_RETURN = Rate.of(0.2);
     private static final BigDecimal EPSILON = BigDecimal.valueOf(0.001);
 
+    /**
+     * Test calculate with regression.
+     */
     @Test
     public void testCalculateWithRegression() {
         assertEquals(Rate.of(0.301), CapitalAssetPricingModelFormula.calculate(RISKFREE_RATE, BETA, MARKET_RETURN, EPSILON));
     }
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Rate.of(0.3), CapitalAssetPricingModelFormula.calculate(RISKFREE_RATE, BETA, MARKET_RETURN));

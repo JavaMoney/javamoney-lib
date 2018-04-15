@@ -21,8 +21,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * <img src="http://www.financeformulas.net/Formula%20Images/Present%20Value%20Factor%201.gif"/>
- * </p>The formula for the future value factor is used to calculate the future value of an amount
+ * The formula for the future value factor is used to calculate the future value of an amount
  * per dollar of its present value. The future value factor is generally found on a table which is
  * used to simplify calculations for amounts greater than one dollar (see example below). The future
  * value factor formula is based on the concept of time value of money. The concept of time value of
@@ -31,15 +30,21 @@ import java.util.Objects;
  * waiting to receive the same amount with no earnings. An amount of $105 to be received a year from
  * now may be okay if the individual wants $100 today, assuming that the individual can earn 5%
  * otherwise in one year.
- * 
- * @link http://www.financeformulas.net/Present_Value_Factor.html
+ *
  * @author Anatole Tresch
+ * @see <a href="http://www.financeformulas.net/Present_Value_Factor.html">http://www.financeformulas.net/Present_Value_Factor.html</a>
  */
 public final class PresentValueFactor {
 
 	private PresentValueFactor() {
 	}
 
+    /**
+     * Calculate big decimal.
+     *
+     * @param rateAndPeriods the rate and periods
+     * @return the big decimal
+     */
     public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(rateAndPeriods, "rate required.");
 		// (1+r)^n

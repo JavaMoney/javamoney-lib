@@ -30,7 +30,8 @@ public class FutureValueFactorTest {
 
     /**
      * Values compared with {@code http://www.financeformulas.net/Future-Value-Factor.html#calcHeader}.
-     * @throws Exception
+     *
+     * @throws Exception the exception
      */
     @Test
     public void calculate_PositiveRates() throws Exception {
@@ -41,7 +42,8 @@ public class FutureValueFactorTest {
 
     /**
      * Values compared with {@code http://www.financeformulas.net/Future-Value-Factor.html#calcHeader}.
-     * @throws Exception
+     *
+     * @throws Exception the exception
      */
     @Test
     public void calculate_NegativeRates() throws Exception {
@@ -50,6 +52,9 @@ public class FutureValueFactorTest {
         assertEquals(0.5987369392383789, FutureValueFactor.calculate(RateAndPeriods.of(-0.05,10)).doubleValue(), 0.0d);
     }
 
+    /**
+     * Calculate invalid.
+     */
     @Test
     public void calculate_Invalid(){
         assertEquals(1.0, FutureValueFactor.calculate(RateAndPeriods.of(0,0)).doubleValue(), 0.0d);

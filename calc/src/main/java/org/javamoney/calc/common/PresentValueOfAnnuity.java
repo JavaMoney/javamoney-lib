@@ -24,21 +24,21 @@ import javax.money.MonetaryAmount;
 /**
  * The future value of an annuity formula is used to calculate what the value at a future date would
  * be for a series of periodic payments. The future value of an annuity formula assumes that
- * 
- * <nl>
+ *
+ * <ul>
  * <li>The rate does not change
  * <li>The first payment is one period away
  * <li>The periodic payment does not change
- * </nl>
+ * </ul>
+ *
  * If the rate or periodic payment does change, then the sum of the future value of each individual
  * cash flow would need to be calculated to determine the future value of the annuity. If the first
  * cash flow, or payment, is made immediately, the future value of annuity due formula would be
  * used.
- * 
- * @link http://www.financeformulas.net/Present_Value_of_Annuity.html
+ *
  * @author Anatole
  * @author Werner
- * 
+ * @see <a href="http://www.financeformulas.net/Present_Value_of_Annuity.html">http://www.financeformulas.net/Present_Value_of_Annuity.html</a>
  */
 public final class PresentValueOfAnnuity extends AbstractRateAndPeriodBasedOperator {
 
@@ -64,8 +64,8 @@ public final class PresentValueOfAnnuity extends AbstractRateAndPeriodBasedOpera
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

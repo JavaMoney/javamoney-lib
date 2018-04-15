@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Diluted earnings per share test.
+ *
  * @author Manuela Grindei
  */
 public class DilutedEarningsPerShareTest {
@@ -33,6 +35,9 @@ public class DilutedEarningsPerShareTest {
     private static final BigDecimal AVERAGE_SHARES = BigDecimal.valueOf(100.6);
     private static final BigDecimal OTHER_CONVERTIBLE_INSTRUMENTS = BigDecimal.valueOf(4.4);
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Money.of(11, "GBP"), DilutedEarningsPerShare.calculate(NET_INCOME, AVERAGE_SHARES, OTHER_CONVERTIBLE_INSTRUMENTS));

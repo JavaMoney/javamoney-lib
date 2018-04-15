@@ -39,17 +39,11 @@ import javax.money.MonetaryAmount;
  * earns interest of $40 in month one, the next month will earn interest on the original balance
  * plus the $40 from the previous month. This is known as compound interest.
  *
+ * {@code FV(<amount>)  = <amount> * ((1 + <rate>).pow(<periods>)) }
+ *
  * @author Anatole Tresch
  * @author Werner Keil
- * @link http://www.financeformulas.net/Future_Value.html
- * <p>
- * <img src= "http://www.financeformulas.net/Formula%20Images/Future%20Value%201.gif" />
- * <p>
- * or...
- * <p>
- * <pre>
- * FV(&lt;amount>)  = &lt;amount> * ((1 + &lt;rate>).pow(&lt;periods>))
- * </pre>
+ * @see <a href="http://www.financeformulas.net/Future_Value.html">http://www.financeformulas.net/Future_Value.html</a>
  */
 public final class FutureValue extends AbstractRateAndPeriodBasedOperator{
 
@@ -65,7 +59,7 @@ public final class FutureValue extends AbstractRateAndPeriodBasedOperator{
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the operator, never null.
      */
     public static FutureValue of(RateAndPeriods rateAndPeriods) {
@@ -75,8 +69,8 @@ public final class FutureValue extends AbstractRateAndPeriodBasedOperator{
     /**
      * Performs the calculation.
      *
-     * @param amount  the base amount, not null.
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param amount         the base amount, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

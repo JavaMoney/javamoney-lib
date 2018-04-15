@@ -33,7 +33,7 @@ import java.math.BigDecimal;
  * answer will then reflect the number of years to double.
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html
+ * @see <a href="http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html">http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html</a>
  */
 public final class DoublingTimeWithContCompounding {
 
@@ -43,6 +43,9 @@ public final class DoublingTimeWithContCompounding {
     /**
      * This function returnes the number of periods required to double an amount
      * with continous compounding, given a rate.
+     *
+     * @param rate the rate
+     * @return the big decimal
      */
     public static BigDecimal calculate(Rate rate) {
         if(rate.get().signum()==0){

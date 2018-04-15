@@ -30,7 +30,8 @@ public class DoublingTimeWithContCompoundingTest {
 
     /**
      * Values compared with {@code http://www.financeformulas.net/Doubling-Time-Continuous-Compounding.html#calcHeader}.
-     * @throws Exception
+     *
+     * @throws Exception the exception
      */
     @Test
     public void calculate() throws Exception {
@@ -40,6 +41,9 @@ public class DoublingTimeWithContCompoundingTest {
         assertEquals(15.4032706791099, DoublingTimeWithContCompounding.calculate(Rate.of(0.045)).doubleValue(), 0.0d);
     }
 
+    /**
+     * Calculate invalid.
+     */
     @Test(expected = MonetaryException.class)
     public void calculate_Invalid(){
         DoublingTimeWithContCompounding.calculate(Rate.of(0));

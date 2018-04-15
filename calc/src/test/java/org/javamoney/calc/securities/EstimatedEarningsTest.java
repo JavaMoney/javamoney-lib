@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ * The type Estimated earnings test.
+ *
  * @author Manuela Grindei
  */
 public class EstimatedEarningsTest {
@@ -35,11 +37,17 @@ public class EstimatedEarningsTest {
     private static final Money PROJECTED_SALES = Money.of(100, "GBP");
     private static final BigDecimal PROJECTED_NET_PROFIT_MARGIN = BigDecimal.valueOf(0.02);
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Money.of(200, "GBP"), EstimatedEarnings.calculate(FORECASTED_SALES, FORECASTED_EXPENSES));
     }
 
+    /**
+     * Test calculate with profit margin formula.
+     */
     @Test
     public void testCalculateWithProfitMarginFormula() {
         assertEquals(Money.of(2, "GBP"), EstimatedEarnings.calculate(PROJECTED_SALES, PROJECTED_NET_PROFIT_MARGIN));

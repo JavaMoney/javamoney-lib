@@ -25,8 +25,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <p>
- * <img src="http://www.financeformulas.net/formulaimages/Average%20Collection%20Period%201.gif"/> <br/>
  * The average collection period formula is the number of days in a period divided by the
  * receivables turnover ratio.
  *
@@ -41,9 +39,9 @@ import java.math.MathContext;
  * By the nature of the formula, a company will have a lower receivables turnover when a
  * shorter time period is considered due to having a larger portion of its revenues awaiting
  * receipt in the short run.
- * 
- * @link http://www.financeformulas.net/Average-Collection-Period.html
+ *
  * @author Anatole Tresch
+ * @see <a href="http://www.financeformulas.net/Average-Collection-Period.html">http://www.financeformulas.net/Average-Collection-Period.html</a>
  */
 public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
 
@@ -52,29 +50,32 @@ public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
 
 	/**
 	 * Get the current average accounts receivable value for this query.
+	 *
 	 * @return the current average accounts receivable value, never null.
-     */
+	 */
 	public BigDecimal getAvgAccountsReceivable() {
 		return avgAccountsReceivable;
 	}
 
 	/**
 	 * Calculates the average collection period.
+	 *
 	 * @param receivablesTurnover this equals to {@code salesRevenue / average Accounts receivable};
-	 * @see #receivablesTurnover(MonetaryAmount, Number)
 	 * @return the average collection period, never null.
-     */
-    public static BigDecimal calculate(Number receivablesTurnover) {
+	 * @see #receivablesTurnover(MonetaryAmount, Number) #receivablesTurnover(MonetaryAmount, Number)
+	 */
+	public static BigDecimal calculate(Number receivablesTurnover) {
         return new BigDecimal(365, CalculationContext.mathContext())
 				.divide(new BigDecimal(receivablesTurnover.toString()), CalculationContext.mathContext());
 	}
 
 	/**
 	 * Calculates the receivable turnover defined as {@code salesRevenue / average Accounts receivable};
-	 * @param revenue the sales revenues.
+	 *
+	 * @param revenue               the sales revenues.
 	 * @param avgAccountsReceivable the average accounts receivable
-     * @return the receivables turnover, never null.
-     */
+	 * @return the receivables turnover, never null.
+	 */
 	public static BigDecimal receivablesTurnover(MonetaryAmount revenue, Number avgAccountsReceivable){
 		return new BigDecimal(avgAccountsReceivable.toString()).divide(
 				revenue.getNumber().numberValue(BigDecimal.class), MathContext.DECIMAL64);
@@ -82,10 +83,11 @@ public final class AverageCollectionPeriod implements MonetaryQuery<BigDecimal>{
 
 	/**
 	 * Calculates the average collection period, based on the revenue and average accounts receivable.
-	 * @param revenue the revenues
+	 *
+	 * @param revenue               the revenues
 	 * @param avgAccountsReceivable the average accounts receivable
-     * @return the average collection period
-     */
+	 * @return the average collection period
+	 */
 	public static BigDecimal calculate(MonetaryAmount revenue, Number avgAccountsReceivable){
 		return new BigDecimal(365, MathContext.DECIMAL32).multiply(
 				receivablesTurnover(revenue, avgAccountsReceivable), MathContext.DECIMAL64);

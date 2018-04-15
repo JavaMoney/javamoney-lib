@@ -23,11 +23,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Price%20to%20Sales%201.gif" />
- * <p> The formula for price to sales ratio, sometimes referenced as the P/S Ratio, is the perceived value of a stock by the market compared to the revenues of the company. The price to sales ratio is calculated by dividing the stock price by sales per share. Sales per share uses the weighted average of shares for the time period evaluated, which is generally one year.
+ * The formula for price to sales ratio, sometimes referenced as the P/S Ratio, is the perceived value of a stock by the market compared to the revenues of the company. The price to sales ratio is calculated by dividing the stock price by sales per share. Sales per share uses the weighted average of shares for the time period evaluated, which is generally one year.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Price-to-Sales-Ratio.html
+ * @see <a href="http://www.financeformulas.net/Price-to-Sales-Ratio.html">http://www.financeformulas.net/Price-to-Sales-Ratio.html</a>
  */
 public class PriceToSalesRatio {
 

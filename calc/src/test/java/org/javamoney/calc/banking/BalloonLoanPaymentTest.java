@@ -32,6 +32,11 @@ import static org.junit.Assert.*;
  */
 public class BalloonLoanPaymentTest {
 
+    /**
+     * Of not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_notNull() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -40,6 +45,11 @@ public class BalloonLoanPaymentTest {
         assertNotNull(ci);
     }
 
+    /**
+     * Of correct rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctRate() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -54,6 +64,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(ci.getRate(),  Rate.of(0.05));
     }
 
+    /**
+     * Of correct periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctPeriods() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -66,6 +81,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(ci.getPeriods(),  234);
     }
 
+    /**
+     * Of correct balloon amount.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctBalloonAmount() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -78,6 +98,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(ci.getBalloonAmount(),  Money.of(11, "CHF"));
     }
 
+    /**
+     * Calculate zero periods.
+     *
+     * @throws Exception the exception
+     */
     @Test(expected=MonetaryException.class)
     public void calculate_zeroPeriods() throws Exception {
         BalloonLoanPayment.of(
@@ -85,6 +110,11 @@ public class BalloonLoanPaymentTest {
         );
     }
 
+    /**
+     * Calculate one periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_onePeriods() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -95,6 +125,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(Money.of(-1,"CHF").with(ci).with(Monetary.getDefaultRounding()),Money.of(-6.05,"CHF"));
     }
 
+    /**
+     * Calculate two periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_twoPeriods() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -105,6 +140,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(Money.of(-1,"CHF").with(ci).with(Monetary.getDefaultRounding()),Money.of(-2.98,"CHF"));
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(
@@ -113,6 +153,11 @@ public class BalloonLoanPaymentTest {
         assertEquals(ci.apply(Money.of(1,"CHF")).with(Monetary.getDefaultRounding()),Money.of(-1.9,"CHF"));
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void test_toString() throws Exception {
         BalloonLoanPayment ci = BalloonLoanPayment.of(

@@ -28,12 +28,15 @@ import org.junit.Test;
 
 /**
  * Tests for the {@link org.javamoney.calc.common.PresentValue} formula calculator.
- * @link http://www.financeformulas.net/Present_Value.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Present_Value.html#calcHeader
  */
 public class PresentValueTest{
 
     /**
      * Method: of(Rate rate, int periods)
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testOfAndApply() throws Exception {
@@ -54,6 +57,8 @@ public class PresentValueTest{
 
     /**
      * Method: calculate(MonetaryAmount amount, Rate rate, int periods)
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testCalculate() throws Exception {
@@ -67,6 +72,8 @@ public class PresentValueTest{
 
     /**
      * Method: toString()
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testToString() throws Exception {

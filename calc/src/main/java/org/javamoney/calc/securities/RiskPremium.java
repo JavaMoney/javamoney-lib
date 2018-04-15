@@ -22,13 +22,12 @@ import org.javamoney.calc.common.Rate;
 import java.math.BigDecimal;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Risk%20Premium%201.gif" />
- * <img src="http://www.financeformulas.net/formulaimages/CAPM%202.gif" />
- * <p>
- * <p> The formula for risk premium, sometimes referred to as default risk premium, is the return on an investment minus the return that would be earned on a risk free investment. The risk premium is the amount that an investor would like to earn for the risk involved with a particular investment.
+ * The formula for risk premium, sometimes referred to as default risk premium, is the return on an investment minus
+ * the return that would be earned on a risk free investment. The risk premium is the amount that an investor would like
+ * to earn for the risk involved with a particular investment.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Risk-Premium.html
+ * @see <a href="http://www.financeformulas.net/Risk-Premium.html">http://www.financeformulas.net/Risk-Premium.html</a>
  */
 public class RiskPremium {
     /**

@@ -23,11 +23,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Price%20Earnings%20Ratio%201.gif" />
- * <p> The formula for the price to earnings ratio, also referred to as the P/E Ratio, is the price per share divided by earnings per share. The price to earnings ratio is used as a quick calculation for how a company's stock is perceived by the market to be worth relative to the company's earnings. A higher price to earnings ratio implies that the market values the stock as a better investment than if there was a lower price to earnings ratio, ceteris paribus. The increased perceived worth is due to news, speculation, or analysis from investors that the stock has a higher growth potential for the future.
+ * The formula for the price to earnings ratio, also referred to as the P/E Ratio, is the price per share divided by earnings per share. The price to earnings ratio is used as a quick calculation for how a company's stock is perceived by the market to be worth relative to the company's earnings. A higher price to earnings ratio implies that the market values the stock as a better investment than if there was a lower price to earnings ratio, ceteris paribus. The increased perceived worth is due to news, speculation, or analysis from investors that the stock has a higher growth potential for the future.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Price_Earnings_Ratio.html
+ * @see <a href="http://www.financeformulas.net/Price_Earnings_Ratio.html">http://www.financeformulas.net/Price_Earnings_Ratio.html</a>
  */
 public class PriceToEarningsRatio {
 

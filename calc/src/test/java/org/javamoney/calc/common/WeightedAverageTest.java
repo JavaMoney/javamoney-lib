@@ -28,6 +28,11 @@ import static org.junit.Assert.*;
  */
 public class WeightedAverageTest {
 
+    /**
+     * Of weighted value.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void ofWeightedValue() throws Exception {
         WeightedAverage.WeightedValue val = WeightedAverage.ofWeightedValue(
@@ -37,11 +42,21 @@ public class WeightedAverageTest {
         assertEquals(val.getWeight(), new BigDecimal(243));
     }
 
+    /**
+     * Gets values.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getValues() throws Exception {
 
     }
 
+    /**
+     * Calculate weighted average none.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculateWeightedAverage_None() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();
@@ -50,6 +65,11 @@ public class WeightedAverageTest {
                 new BigDecimal(0));
     }
 
+    /**
+     * Calculate weighted average 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculateWeightedAverage_1() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();
@@ -59,6 +79,11 @@ public class WeightedAverageTest {
                 new BigDecimal(100));
     }
 
+    /**
+     * Calculate weighted average 2 distributed.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculateWeightedAverage_2_Distributed() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();
@@ -69,6 +94,11 @@ public class WeightedAverageTest {
                 75.0, 0.0d);
     }
 
+    /**
+     * Calculate weighted average 3 distributed.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculateWeightedAverage_3_Distributed() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();
@@ -79,6 +109,11 @@ public class WeightedAverageTest {
                 75.0, 0.0d);
     }
 
+    /**
+     * Calculate weighted average multiple non distributed.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculateWeightedAverage_Multiple_NonDistributed() throws Exception {
         WeightedAverage.Builder builder = WeightedAverage.newBuilder();

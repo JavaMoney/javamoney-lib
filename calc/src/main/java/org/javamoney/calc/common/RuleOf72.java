@@ -22,24 +22,21 @@ import org.javamoney.calc.CalculationContext;
 import java.math.BigDecimal;
 
 /**
- * <p>
- * <img src="http://www.financeformulas.net/Formula%20Images/Rule%20of%2072%201.gif"/> <br/>
  * The Rule of 72 is a simple formula used to estimate the length of time required to double an
  * investment. The rule of 72 is primarily used in off the cuff situations where an individual needs
  * to make a quick calculation instead of working out the exact time it takes to double an
  * investment. Also, one is more likely to remember the rule of 72 than the exact formula for
  * doubling time or may not have access to a calculator that allows logarithms.
- * </p>
- * <h2>Example of Rule of 72</h2>
- * <p>
+ *
+ * <b>Example of Rule of 72</b>
+ *
  * An individual is earning 6% on their money market account would like to estimate how long it
  * would take to double their current balance. In order for this estimation to be remotely accurate,
  * we must assume that there will be no withdrawals nor deposits into this account. We can estimate
  * that it will take approximately 12 years to double the current balance.
- * </p>
- * 
- * @link http://www.financeformulas.net/Rule_of_72.html
+ *
  * @author Anatole Tresch
+ * @see <a href="http://www.financeformulas.net/Rule_of_72.html">http://www.financeformulas.net/Rule_of_72.html</a>
  */
 public final class RuleOf72 {
 
@@ -48,6 +45,12 @@ public final class RuleOf72 {
 	private RuleOf72() {
 	}
 
+    /**
+     * Calculate big decimal.
+     *
+     * @param input the input
+     * @return the big decimal
+     */
     public static BigDecimal calculate(Rate input) {
         return BD72.divide(input.get().multiply(BigDecimal.valueOf(100)),
 				CalculationContext.mathContext());

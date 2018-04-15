@@ -23,12 +23,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/Formula%20Images/Yield%20to%20Maturity%201.gif" />
- * <p>The yield to maturity formula is used to calculate the yield on a bond based on its current price on the market. The yield to maturity formula looks
+ * The yield to maturity formula is used to calculate the yield on a bond based on its current price on the market. The yield to maturity formula looks
  * at the effective yield of a bond based on compounding as opposed to the simple yield which is found using the dividend yield formula.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Yield_to_Maturity.html
+ * @see <a href="http://www.financeformulas.net/Yield_to_Maturity.html">http://www.financeformulas.net/Yield_to_Maturity.html</a>
  */
 public class YieldToMaturity {
 

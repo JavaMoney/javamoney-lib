@@ -27,10 +27,9 @@ import javax.money.MonetaryAmount;
  * The formula for the present value of an annuity due,
  * sometimes referred to as an immediate annuity, is used to calculate a series of periodic
  * payments, or cash flows, that start immediately.
- * 
- * @link http://www.financeformulas.net/Present_Value_of_Annuity_Due.html
- * @author Anatole Tresch
- * TODO Check test values!!!
+ *
+ * @author Anatole Tresch TODO Check test values!!!
+ * @see <a href="http://www.financeformulas.net/Present_Value_of_Annuity_Due.html">http://www.financeformulas.net/Present_Value_of_Annuity_Due.html</a>
  */
 public final class PresentValueOfAnnuityDue extends AbstractRateAndPeriodBasedOperator {
 
@@ -56,8 +55,8 @@ public final class PresentValueOfAnnuityDue extends AbstractRateAndPeriodBasedOp
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

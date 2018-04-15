@@ -23,14 +23,13 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Price%20to%20Book%20Value%201.gif" />
- * <p>The Price to Book Ratio formula, sometimes referred to as the market to book ratio, is used to compare a company's net assets available to common shareholders relative to the sale price of its stock. The formula for price to book value is the stock price per share divided by the book value per share.
+ * The Price to Book Ratio formula, sometimes referred to as the market to book ratio, is used to compare a company's net assets available to common shareholders relative to the sale price of its stock. The formula for price to book value is the stock price per share divided by the book value per share.
  * The stock price per share can be found as the amount listed as such through the secondary stock market.
- * <p>
+ *
  * The book value per share is considered to be the total equity for common stockholders which can be found on a company's balance sheet.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Price_to_Book_Value.html
+ * @see <a href="http://www.financeformulas.net/Price_to_Book_Value.html">http://www.financeformulas.net/Price_to_Book_Value.html</a>
  */
 public class PriceToBookValue {
 

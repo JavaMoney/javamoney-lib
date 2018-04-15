@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Dividend payout ratio test.
+ *
  * @author Manuela Grindei
  */
 public class DividendPayoutRatioTest {
@@ -33,6 +35,9 @@ public class DividendPayoutRatioTest {
     private static final Money DIVIDENDS = Money.of(120, "GBP");
     private static final Money NET_INCOME = Money.of(150, "GBP");
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(BigDecimal.valueOf(0.8), DividendPayoutRatio.calculate(DIVIDENDS, NET_INCOME));

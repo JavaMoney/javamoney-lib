@@ -22,12 +22,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Equity%20Multiplier%201.gif" />
- * <p> The formula for equity multiplier is total assets divided by stockholder's equity. Equity multiplier is a financial leverage ratio that evaluates
+ * The formula for equity multiplier is total assets divided by stockholder's equity. Equity multiplier is a financial leverage ratio that evaluates
  * a company's use of debt to purchase assets.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Equity_Multiplier.html
+ * @see <a href="http://www.financeformulas.net/Equity_Multiplier.html">http://www.financeformulas.net/Equity_Multiplier.html</a>
  */
 public class EquityMultiplier {
 

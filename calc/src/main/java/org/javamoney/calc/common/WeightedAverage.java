@@ -29,7 +29,6 @@ import java.util.*;
  * This class allows to extract the Weighted Average of a collection of {@link MonetaryAmount} or
  * number instances.
  *
- *
  * The concept of weighted average is used in various financial formulas. Weighted average cost of
  * capital (WACC) and weighted average beta are two examples that use this formula.
  *
@@ -44,16 +43,14 @@ import java.util.*;
  * to be used for determining the effective weights given.
  *
  * @author Anatole Tresch
- *
- * @see <a href="http://www.financeformulas.net/Weighted_Average.html#Calc-Header">
- *     http://www.financeformulas.net/Weighted_Average.html#Calc-Header</a>
+ * @see <a href="http://www.financeformulas.net/Weighted_Average.html#Calc-Header">http://www.financeformulas.net/Weighted_Average.html#Calc-Header</a>
  */
 public final class WeightedAverage {
 
-	/**
-	 * A weighted value is a value also with a weight attached.
-	 */
-	public static final class WeightedValue{
+    /**
+     * A weighted value is a value also with a weight attached.
+     */
+    public static final class WeightedValue{
 		private final BigDecimal value;
 		private final BigDecimal weight;
 		private WeightedValue(BigDecimal value, BigDecimal weight){
@@ -61,19 +58,21 @@ public final class WeightedAverage {
 			this.weight = Objects.requireNonNull(weight);
 		}
 
-		/**
-		 * Access the value.
-		 * @return the value, not null.
-		 */
-		public BigDecimal getValue() {
+        /**
+         * Access the value.
+         *
+         * @return the value, not null.
+         */
+        public BigDecimal getValue() {
 			return value;
 		}
 
-		/**
-		 * Access the weight.
-		 * @return the weight, not null.
+        /**
+         * Access the weight.
+         *
+         * @return the weight, not null.
          */
-		public BigDecimal getWeight() {
+        public BigDecimal getWeight() {
 			return weight;
 		}
 
@@ -90,13 +89,14 @@ public final class WeightedAverage {
 		this.values.addAll(values);
 	}
 
-	/**
-	 * Allows to create a weighted value.
-	 * @param value the value, not null.
-	 * @param weight the weight, not null
+    /**
+     * Allows to create a weighted value.
+     *
+     * @param value  the value, not null.
+     * @param weight the weight, not null
      * @return the new instance, never null.
      */
-	public static WeightedValue ofWeightedValue(BigDecimal value, BigDecimal weight){
+    public static WeightedValue ofWeightedValue(BigDecimal value, BigDecimal weight){
 		return new WeightedValue(value, weight);
 	}
 
@@ -105,35 +105,40 @@ public final class WeightedAverage {
 	 */
 	private final List<WeightedValue> values = new ArrayList<>();
 
-	/**
-	 * Creates a new builder instance.
-	 * @return a new builder, never null.
+    /**
+     * Creates a new builder instance.
+     *
+     * @return a new builder, never null.
      */
-	public static Builder newBuilder() {
+    public static Builder newBuilder() {
 		return new Builder();
 	}
 
-	/**
-	 * Access the weighted values of thgis calculation.
-	 * @return the weighted values
+    /**
+     * Access the weighted values of thgis calculation.
+     *
+     * @return the weighted values
      */
-	public Collection<WeightedValue> getValues() {
+    public Collection<WeightedValue> getValues() {
 		return Collections.unmodifiableCollection(values);
 	}
 
-	/**
-	 * Get the weighted average for the current weigted values.
-	 * @return the weighted average, not null.
+    /**
+     * Get the weighted average for the current weigted values.
+     *
+     * @return the weighted average, not null.
      */
-	public BigDecimal calculateWeightedAverage(){
+    public BigDecimal calculateWeightedAverage(){
 		return calculateWeightedAverage(this.values);
 	}
 
-	/**
-	 * Get the weighted average for the current weigted values.
-	 * @return the weighted average, not null.
-	 */
-	public static BigDecimal calculateWeightedAverage(Collection<WeightedValue> values){
+    /**
+     * Get the weighted average for the current weigted values.
+     *
+     * @param values the values
+     * @return the weighted average, not null.
+     */
+    public static BigDecimal calculateWeightedAverage(Collection<WeightedValue> values){
 		BigDecimal totalWeight = new BigDecimal(0, MathContext.DECIMAL64);
 		for(WeightedValue val:values){
 			totalWeight = totalWeight.add(val.getWeight(), CalculationContext.mathContext());
@@ -146,7 +151,10 @@ public final class WeightedAverage {
 		return total;
 	}
 
-	public static final class Builder{
+    /**
+     * The type Builder.
+     */
+    public static final class Builder{
 		/**
 		 * List of values to be used to calculate the overal weighted average.
 		 */
@@ -154,25 +162,57 @@ public final class WeightedAverage {
 
 		private Builder(){}
 
-		public Builder add(WeightedValue val){
+        /**
+         * Add builder.
+         *
+         * @param val the val
+         * @return the builder
+         */
+        public Builder add(WeightedValue val){
 			this.values.add(val);
 			return this;
 		}
-		public Builder add(BigDecimal value, BigDecimal weight){
+
+        /**
+         * Add builder.
+         *
+         * @param value  the value
+         * @param weight the weight
+         * @return the builder
+         */
+        public Builder add(BigDecimal value, BigDecimal weight){
 			this.values.add(ofWeightedValue(value, weight));
 			return this;
 		}
-		public Builder add(Number value, Number weight){
+
+        /**
+         * Add builder.
+         *
+         * @param value  the value
+         * @param weight the weight
+         * @return the builder
+         */
+        public Builder add(Number value, Number weight){
 			this.values.add(ofWeightedValue(
 					new BigDecimal(value.toString()), new BigDecimal(weight.toString())));
 			return this;
 		}
 
-		public BigDecimal calculate(){
+        /**
+         * Calculate big decimal.
+         *
+         * @return the big decimal
+         */
+        public BigDecimal calculate(){
 			return WeightedAverage.calculateWeightedAverage(this.values);
 		}
 
-		public WeightedAverage build(){
+        /**
+         * Build weighted average.
+         *
+         * @return the weighted average
+         */
+        public WeightedAverage build(){
 			return new WeightedAverage(this.values);
 		}
 

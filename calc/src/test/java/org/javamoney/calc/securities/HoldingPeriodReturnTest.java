@@ -26,6 +26,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Holding period return test.
+ *
  * @author Manuela Grindei
  */
 public class HoldingPeriodReturnTest {
@@ -34,26 +36,41 @@ public class HoldingPeriodReturnTest {
     private static final Rate PERIODIC_RATE = Rate.of(0.2);
     private static final int NUMBER_OF_PERIODS = 3;
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(0.1319, HoldingPeriodReturn.calculate(RATES_OF_RETURN).doubleValue(), 0.00001);
     }
 
+    /**
+     * Test calculate with null returns throws exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testCalculateWithNullReturnsThrowsException() {
         HoldingPeriodReturn.calculate(Arrays.asList(Rate.of(0.1), Rate.of(0.1), null, Rate.of(0.5)));
     }
 
+    /**
+     * Test calculate for same return.
+     */
     @Test
     public void testCalculateForSameReturn() {
         assertEquals(0.728, HoldingPeriodReturn.calculateForSameReturn(PERIODIC_RATE, NUMBER_OF_PERIODS).doubleValue(), 0.0001);
     }
 
+    /**
+     * Test calculate for same return with null rate throws exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testCalculateForSameReturnWithNullRateThrowsException() {
         HoldingPeriodReturn.calculateForSameReturn(null, NUMBER_OF_PERIODS);
     }
 
+    /**
+     * Test calculate for same return with negative number of periods throws exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testCalculateForSameReturnWithNegativeNumberOfPeriodsThrowsException() {
         HoldingPeriodReturn.calculateForSameReturn(PERIODIC_RATE, -1);

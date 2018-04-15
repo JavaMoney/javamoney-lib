@@ -24,27 +24,23 @@ import javax.money.MonetaryOperator;
 
 
 /**
- * <p>
- * <img
- * src="http://www.financeformulas.net/Formula%20Images/PV%20of%20Growing%20Perpetuity%201.gif"/> <br/>
  * The present value of a growing perpetuity formula is the cash flow after the first period divided
  * by the difference between the discount rate and the growth rate.
- * <p>
+ *
  * A growing perpetuity is a series of periodic payments that grow at a proportionate rate and are
  * received for an infinite amount of time. An example of when the present value of a growing
  * perpetuity formula may be used is commercial real estate. The rental cash flows could be
  * considered indefinite and will grow over time.
- * <p>
+ *
  * It is important to note that the discount rate must be higher than the growth rate when using the
  * present value of a growing perpetuity formula. This is due to the present value of a growing
  * perpetuity formula being an infinite geometric series as explained in one of the following
  * sections. In theory, if the growth rate is higher than the discount rate, the growing perpetuity
  * would have an infinite value.
- * 
- * @link http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html
+ *
  * @author Anatole
  * @author Werner
- * 
+ * @see <a href="http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html">http://www.financeformulas.net/Present_Value_of_Growing_Perpetuity.html</a>
  */
 public final class PresentValueGrowingAnnuity implements MonetaryOperator {
 

@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ * The type Risk premium test.
+ *
  * @author Manuela Grindei
  */
 public class RiskPremiumTest {
@@ -34,11 +36,17 @@ public class RiskPremiumTest {
     private static final BigDecimal BETA = BigDecimal.valueOf(0.5);
     private static final Rate MARKET_RETURN = Rate.of(0.07);
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(BigDecimal.valueOf(0.04), RiskPremium.calculate(ASSET_RETURN, RISK_FREE_RETURN));
     }
 
+    /**
+     * Test calculate with capm.
+     */
     @Test
     public void testCalculateWithCAPM() {
         assertEquals(BigDecimal.valueOf(0.025), RiskPremium.calculateWithCAPM(BETA, MARKET_RETURN, RISK_FREE_RETURN));

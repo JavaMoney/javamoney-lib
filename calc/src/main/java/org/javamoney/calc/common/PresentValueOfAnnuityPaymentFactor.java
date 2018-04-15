@@ -24,31 +24,34 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/PV%20of%20Annuity%201.gif" />
- * <p>
  * The present value of annuity formula determines the value of a series of future periodic payments
  * at a given time. The present value of annuity formula relies on the concept of time value of
  * money, in that one dollar present day is worth more than that same dollar at a future date.
- * <p>
- * <h3>Rate Per Period</h3>
- * <p>
+ *
+ * <b>Rate Per Period</b>
+ *
  * As with any financial formula that involves a rate, it is important to make sure that the rate is
  * consistent with the other variables in the formula. If the payment is per month, then the rate
  * needs to be per month, and similarly, the rate would need to be the annual rate if the payment is
  * annual.
- * <p>
+ *
  * An example would be an annuity that has a 12% annual rate and payments are made monthly. The
  * monthly rate of 1% would need to be used in the formula.
- * 
- * @link http://www.financeformulas.net/Present_Value_of_Annuity.html
- * @author Anatole Tresch
- * // TODO Check the correctness here og the above as well as the code in the class...
+ *
+ * @author Anatole Tresch // TODO Check the correctness here og the above as well as the code in the class...
+ * @see <a href="http://www.financeformulas.net/Present_Value_of_Annuity.html">http://www.financeformulas.net/Present_Value_of_Annuity.html</a>
  */
 public final class PresentValueOfAnnuityPaymentFactor {
 
 	private PresentValueOfAnnuityPaymentFactor() {
 	}
 
+    /**
+     * Calculate big decimal.
+     *
+     * @param rateAndPeriods the rate and periods
+     * @return the big decimal
+     */
     public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {
         Objects.requireNonNull(rateAndPeriods, "Rate required.");
 		if(rateAndPeriods.getPeriods()==0){

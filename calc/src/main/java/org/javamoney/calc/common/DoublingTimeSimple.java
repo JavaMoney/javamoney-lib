@@ -32,7 +32,7 @@ import java.math.BigDecimal;
  * principle along with prior interest earned.
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Doubling-Time-Simple-Interest.html
+ * {}@linkplain http://www.financeformulas.net/Doubling-Time-Simple-Interest.html}
  */
 public final class DoublingTimeSimple {
 
@@ -42,6 +42,9 @@ public final class DoublingTimeSimple {
     /**
      * This function returns the number of periods required to double an amount
      * with continuous compounding, given a rate.
+     *
+     * @param rate the rate
+     * @return the big decimal
      */
     public static BigDecimal calculate(Rate rate) {
         if(rate.get().signum()==0){

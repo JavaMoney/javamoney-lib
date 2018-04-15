@@ -25,11 +25,10 @@ import javax.money.MonetaryOperator;
 import org.javamoney.calc.common.Rate;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Zero%20Coupon%20Bond%201.gif" />
- * <p> A zero coupon bond, sometimes referred to as a pure discount bond or simply discount bond, is a bond that does not pay coupon payments and instead pays one lump sum at maturity. The amount paid at maturity is called the face value. The term discount bond is used to reference how it is sold originally at a discount from its face value instead of standard pricing with periodic dividend payments as seen otherwise.
+ * A zero coupon bond, sometimes referred to as a pure discount bond or simply discount bond, is a bond that does not pay coupon payments and instead pays one lump sum at maturity. The amount paid at maturity is called the face value. The term discount bond is used to reference how it is sold originally at a discount from its face value instead of standard pricing with periodic dividend payments as seen otherwise.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Zero_Coupon_Bond_Value.html
+ * @see <a href="http://www.financeformulas.net/Zero_Coupon_Bond_Value.html">http://www.financeformulas.net/Zero_Coupon_Bond_Value.html</a>
  */
 public class ZeroCouponBondValue implements MonetaryOperator {
 
@@ -46,25 +45,35 @@ public class ZeroCouponBondValue implements MonetaryOperator {
 		this.numberOfYearsToMaturity = numberOfYearsToMaturity;
     }
 
-	public Rate getRate() {
+    /**
+     * Gets rate.
+     *
+     * @return the rate
+     */
+    public Rate getRate() {
 		return rate;
 	}
-	
-	public int getNumberOfYearsToMaturity() {
+
+    /**
+     * Gets number of years to maturity.
+     *
+     * @return the number of years to maturity
+     */
+    public int getNumberOfYearsToMaturity() {
 		return numberOfYearsToMaturity;
 	}
-	
-	/**
-	 * Access a MonetaryOperator for calculation.
-	 *
-	 * @param rate the rate
-	 * @param numberOfYearsToMaturity the number of years to maturity
-	 * @return the operator
-	 */
-	public static ZeroCouponBondValue of(Rate rate, int numberOfYearsToMaturity) {
+
+    /**
+     * Access a MonetaryOperator for calculation.
+     *
+     * @param rate                    the rate
+     * @param numberOfYearsToMaturity the number of years to maturity
+     * @return the operator
+     */
+    public static ZeroCouponBondValue of(Rate rate, int numberOfYearsToMaturity) {
 		return new ZeroCouponBondValue(rate, numberOfYearsToMaturity);
 	}
-	
+
     /**
      * Calculates the zero coupon bond value.
      *

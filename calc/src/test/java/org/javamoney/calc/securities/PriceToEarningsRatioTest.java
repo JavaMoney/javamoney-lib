@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Price to earnings ratio test.
+ *
  * @author Manuela Grindei
  */
 public class PriceToEarningsRatioTest {
@@ -33,6 +35,9 @@ public class PriceToEarningsRatioTest {
     private static final Money PRICE_PER_SHARE = Money.of(100, "GBP");
     private static final Money EARNINGS_PER_SHARE = Money.of(400, "GBP");
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(BigDecimal.valueOf(0.25), PriceToEarningsRatio.calculate(PRICE_PER_SHARE, EARNINGS_PER_SHARE));

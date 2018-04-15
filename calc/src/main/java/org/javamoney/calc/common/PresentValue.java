@@ -22,25 +22,18 @@ import java.util.Objects;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%203.gif" />
- * <p>
  * Present Value (PV) is a formula used in Finance that calculates the present day value of an
  * amount that is received at a future date. The premise of the equation is that there is
  * "time value of money".
- * <p>
+ *
  * Time value of money is the concept that receiving something today is worth more than receiving
  * the same item at a future date. The presumption is that it is preferable to receive $100 today
  * than it is to receive the same amount one year from today, but what if the choice is between $100
  * present day or $106 a year from today? A formula is needed to provide a quantifiable comparison
  * between an amount today and an amount at a future time, in terms of its present day value.
- * <p>
- * <img src= "http://www.financeformulas.net/Formula%20Images/Present%20Value%201.gif" />
- * <p>
- * alterantively this can be written also as (which is much easier to implement):<br/>
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Present_Value.html
- * @link http://www.financeformulas.net/Present_Value.html
+ * @see <a href="http://www.financeformulas.net/Present_Value.html">http://www.financeformulas.net/Present_Value.html</a>
  */
 public final class PresentValue extends AbstractRateAndPeriodBasedOperator {
 
@@ -66,8 +59,8 @@ public final class PresentValue extends AbstractRateAndPeriodBasedOperator {
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods){

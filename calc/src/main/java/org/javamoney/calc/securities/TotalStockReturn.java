@@ -22,11 +22,14 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Total%20Stock%20Return%201.gif" />
- * <p> The formula for the total stock return is the appreciation in the price plus any dividends paid, divided by the original price of the stock. The income sources from a stock is dividends and its increase in value. The first portion of the numerator of the total stock return formula looks at how much the value has increased (P1 - P0). The denominator of the formula to calculate a stock's total return is the original price of the stock which is used due to being the original amount invested.
+ * The formula for the total stock return is the appreciation in the price plus any dividends paid, divided by the
+ * original price of the stock. The income sources from a stock is dividends and its increase in value. The first
+ * portion of the numerator of the total stock return formula looks at how much the value has increased (P1 - P0). The
+ * denominator of the formula to calculate a stock's total return is the original price of the stock which is used due to
+ * being the original amount invested.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Total-Stock-Return.html
+ * @see <a href="http://www.financeformulas.net/Total-Stock-Return.html">http://www.financeformulas.net/Total-Stock-Return.html</a>
  */
 public class TotalStockReturn {
     /**

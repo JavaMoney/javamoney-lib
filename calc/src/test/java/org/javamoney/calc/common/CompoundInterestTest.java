@@ -27,6 +27,11 @@ import static org.junit.Assert.*;
  */
 public class CompoundInterestTest {
 
+    /**
+     * Of not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_notNull() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -35,6 +40,11 @@ public class CompoundInterestTest {
         assertNotNull(ci);
     }
 
+    /**
+     * Of correct rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctRate() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -49,6 +59,11 @@ public class CompoundInterestTest {
         assertEquals(ci.getRate(),  Rate.of(0.05));
     }
 
+    /**
+     * Of correct periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctPeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -61,6 +76,11 @@ public class CompoundInterestTest {
         assertEquals(ci.getPeriods(),  234);
     }
 
+    /**
+     * Calculate zero periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_zeroPeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -71,6 +91,11 @@ public class CompoundInterestTest {
         assertEquals(Money.of(-20.45,"CHF").with(ci), Money.of(0,"CHF"));
     }
 
+    /**
+     * Calculate one periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_onePeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -81,6 +106,11 @@ public class CompoundInterestTest {
         assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.05,"CHF"));
     }
 
+    /**
+     * Calculate two periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_twoPeriods() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -91,6 +121,11 @@ public class CompoundInterestTest {
         assertEquals(Money.of(-1,"CHF").with(ci),Money.of(-0.1025,"CHF"));
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -99,6 +134,11 @@ public class CompoundInterestTest {
         assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(0.1025,"CHF"));
     }
 
+    /**
+     * Apply with 12 compoundings.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply_With12compoundings() throws Exception {
         CompoundInterest ci = CompoundInterest.of(
@@ -107,6 +147,11 @@ public class CompoundInterestTest {
         assertEquals(ci.apply(Money.of(1,"CHF")),Money.of(1.5937424601,"CHF"));
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void test_toString() throws Exception {
         CompoundInterest ci = CompoundInterest.of(

@@ -23,13 +23,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Dividend%20Yield%201.gif" />
- * <p>
- * <p> The formula for the dividend yield is used to calculate the percentage return on a stock based solely on dividends. The total return on a stock
+ * The formula for the dividend yield is used to calculate the percentage return on a stock based solely on dividends. The total return on a stock
  * is the combination of dividends and appreciation of a stock.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Dividend_Yield.html
+ * @see <a href="http://www.financeformulas.net/Dividend_Yield.html">http://www.financeformulas.net/Dividend_Yield.html</a>
  */
 public class DividendYield {
     /**

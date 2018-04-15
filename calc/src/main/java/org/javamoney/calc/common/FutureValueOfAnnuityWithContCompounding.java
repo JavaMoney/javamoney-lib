@@ -25,17 +25,14 @@ import java.util.Objects;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src=
- * "http://www.financeformulas.net/Formula%20Images/FV%20of%20Annuity%20-%20Continuous%20Compounding%201.gif"
- * />
- * <p>
  * The future value (FV) of an annuity with continuous compounding formula is used to calculate the
  * ending balance on a series of periodic payments that are compounded continuously. Understanding
  * the future value of annuity with continuous compounding formula requires the understanding of two
  * specific financial and mathematical concepts, which are future value of an annuity and continuous
  * compounding.
- * <h3>Future Value of Annuity, Continuous Compounding, and Geometric Series</h3>
- * <p>
+ *
+ * <b>Future Value of Annuity, Continuous Compounding, and Geometric Series</b>
+ *
  * Future Value of Annuity - The future value of an annuity is the sum of a series of periodic
  * payments and typically involves compounding of interest as the balance increases. The formula for
  * future value of annuity alone generally solves the question
@@ -45,15 +42,14 @@ import javax.money.MonetaryAmount;
  * to daily, monthly, quarterly, or annually. The question a few sentences above regarding 'How much
  * will I have saved' must also take into consideration how often interest is compounded in the
  * interest bearing account. The formula for continuous compounding is
- * </p>
- * <h3>Continuous Compounding Formula</h3>
- * <p>
+ *
+ * <b>Continuous Compounding Formula</b>
+ *
  * The future value of annuity with continuous compounding formula applies both of these concepts
  * for one saving in an account that has continuous compounding.
- * </p>
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Future_Value_of_Annuity.html
+ * @see <a href="http://www.financeformulas.net/Future_Value_of_Annuity.html">http://www.financeformulas.net/Future_Value_of_Annuity.html</a>
  */
 public final class FutureValueOfAnnuityWithContCompounding extends AbstractRateAndPeriodBasedOperator {
 
@@ -79,8 +75,8 @@ public final class FutureValueOfAnnuityWithContCompounding extends AbstractRateA
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

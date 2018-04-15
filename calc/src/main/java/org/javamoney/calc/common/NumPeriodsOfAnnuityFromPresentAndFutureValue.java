@@ -22,39 +22,43 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src=
- * "http://www.financeformulas.net/Formula%20Images/Solve%20for%20n%20-%20Annuity%20(PV)%201.gif"/>
- * </p>
- * <p>
  * The solve for n, or number of periods, formula shown above is used to determine the number of
  * periods on an annuity using the present value, periodic payment, and periodic rate. An example of
  * what the solve for n formula tries to answer is
  * "How long will it take me to pay off a balance of $a at a rate of b% by making periodic payments of $c."
- * </p>
- * <h3>Example of Solve for n on Annuity (PV) Formula</h3>
- * <p>
+ *
+ * <b>Example of Solve for n on Annuity (PV) Formula</b>
+ *
  * An individual is attempting to determine how many payments would be needed if they offered
  * someone $19660 at an effective rate of 1% per month. The periodic payment needed by the
  * individual is $1,000 per month.
- * <p>
+ *
  * When considering this formula, it is important that the period used for the rate and payments
  * match. For this example, the 1% rate and periodic payment is on a monthly basis. If the term and
  * rate do not match on a 'per period' basis, then the effective rate would need to be found that
  * matches how often the payments are received. The term "effective" in effective rate implies that
  * compounding is already factored in. For example, if payments are annual, then the effective
  * annual rate is used.
- * <p>
+ *
  * After solving, the number of $1,000 payments needed is 22.
- * 
- * @link http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Present-Value.html
+ *
  * @author Anatole Tresch
  * @author Werner Keil
+ * @see <a href="http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Present-Value.html">http://www.financeformulas.net/Number-of-Periods-of-Annuity-from-Present-Value.html</a>
  */
 public final class NumPeriodsOfAnnuityFromPresentAndFutureValue {
 
     private NumPeriodsOfAnnuityFromPresentAndFutureValue() {
     }
 
+    /**
+     * Calculate big decimal.
+     *
+     * @param annuity            the annuity
+     * @param paymentOrCashFlows the payment or cash flows
+     * @param rateAndPeriods     the rate and periods
+     * @return the big decimal
+     */
     public static BigDecimal calculate(MonetaryAmount annuity,
                                        MonetaryAmount paymentOrCashFlows,
                                        RateAndPeriods rateAndPeriods) {

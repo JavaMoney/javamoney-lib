@@ -23,13 +23,11 @@ import org.javamoney.calc.common.Rate;
 import java.math.BigDecimal;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/CAPM%201.gif" />
- * <p>
  * The capital asset pricing model provides a formula that calculates the expected return on a security based on its level of risk. The formula for the
  * capital asset pricing model is the risk free rate plus beta times the difference of the return on the market and the risk free rate.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Capital-Asset-Pricing-Model.html
+ * @see <a href="http://www.financeformulas.net/Capital-Asset-Pricing-Model.html">http://www.financeformulas.net/Capital-Asset-Pricing-Model.html</a>
  */
 public class CapitalAssetPricingModelFormula {
 

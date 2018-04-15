@@ -23,11 +23,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/Formula%20Images/Bond%20Equivalent%20Yield.gif" />
- * <p> The bond equivalent yield formula is used to determine the annual yield on a discount, or zero coupon, bond.
+ * The bond equivalent yield formula is used to determine the annual yield on a discount, or zero coupon, bond.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Bond_Equivalent_Yield.html
+ * @see <a href="http://www.financeformulas.net/Bond_Equivalent_Yield.html">http://www.financeformulas.net/Bond_Equivalent_Yield.html</a>
  */
 public final class BondEquivalentYield {
 

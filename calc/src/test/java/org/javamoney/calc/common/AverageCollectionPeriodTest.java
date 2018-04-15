@@ -26,26 +26,47 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by atsticks on 27.05.16.
- * @link http://www.financeformulas.net/Average-Collection-Period.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Average-Collection-Period.html#calcHeader
  */
 public class AverageCollectionPeriodTest {
 
+    /**
+     * Calculate positive.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_POSITIVE() throws Exception {
         assertEquals(99.23871669385536, AverageCollectionPeriod.calculate(BigDecimal.valueOf(3.678)).doubleValue(), 0.0000001d);
     }
 
+    /**
+     * Calculate negative.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_NEGATIVE() throws Exception {
         assertEquals(-99.23871669385536, AverageCollectionPeriod.calculate(BigDecimal.valueOf(-3.678)).doubleValue(), 0.0000001d);
     }
 
+    /**
+     * Calculate explicit.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_Explicit() throws Exception {
         assertEquals(BigDecimal.valueOf(1042.006525285481), AverageCollectionPeriod.calculate(Money.of(3.678, "CHF"),
                 BigDecimal.valueOf(10.5)));
     }
 
+    /**
+     * Receivable turnover.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void receivableTurnover() throws Exception {
         assertEquals(BigDecimal.valueOf(2.854812398042414), AverageCollectionPeriod.receivablesTurnover(

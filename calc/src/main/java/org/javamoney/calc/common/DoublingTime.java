@@ -37,7 +37,7 @@ import java.math.BigDecimal;
  * percentage yield, as r in the doubling time formula.
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Doubling_Time.html
+ * @see <a href="http://www.financeformulas.net/Doubling_Time.html">http://www.financeformulas.net/Doubling_Time.html</a>
  */
 public final class DoublingTime {
 
@@ -47,6 +47,9 @@ public final class DoublingTime {
     /**
      * This function returns the number of periods required to double an amount
      * with continuous compounding, given a rate.
+     *
+     * @param rate the rate
+     * @return the big decimal
      */
     public static BigDecimal calculate(Rate rate) {
         if(rate.get().signum()==0){

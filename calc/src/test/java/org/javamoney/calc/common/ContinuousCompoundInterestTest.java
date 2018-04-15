@@ -27,6 +27,11 @@ import static org.junit.Assert.*;
  */
 public class ContinuousCompoundInterestTest {
 
+    /**
+     * Of not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_notNull() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -35,6 +40,11 @@ public class ContinuousCompoundInterestTest {
         assertNotNull(ci);
     }
 
+    /**
+     * Of correct rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctRate() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -49,6 +59,11 @@ public class ContinuousCompoundInterestTest {
         assertEquals(ci.getRate(),  Rate.of(0.05));
     }
 
+    /**
+     * Of correct periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -61,6 +76,11 @@ public class ContinuousCompoundInterestTest {
         assertEquals(ci.getPeriods(),  234);
     }
 
+    /**
+     * Calculate zero periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_zeroPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -71,6 +91,11 @@ public class ContinuousCompoundInterestTest {
         assertEquals(Money.of(-20.45,"CHF").with(ci), Money.of(0,"CHF"));
     }
 
+    /**
+     * Calculate one periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_onePeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -84,6 +109,11 @@ public class ContinuousCompoundInterestTest {
                 -0.0512d, 0.0001d);
     }
 
+    /**
+     * Calculate two periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_twoPeriods() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -96,6 +126,11 @@ public class ContinuousCompoundInterestTest {
                 -0.10517064178387361, 0.000000001d);
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(
@@ -108,6 +143,11 @@ public class ContinuousCompoundInterestTest {
                 0.00d);
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void test_toString() throws Exception {
         ContinuousCompoundInterest ci = ContinuousCompoundInterest.of(

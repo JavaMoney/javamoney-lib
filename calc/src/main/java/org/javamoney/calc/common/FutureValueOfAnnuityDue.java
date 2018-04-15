@@ -23,13 +23,11 @@ import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 
 /**
- * <img src="http://www.financeformulas.net/Formula%20Images/Annuity%20Due%20-%20FV%201.gif" />
- * <p>
  * The future value of annuity due formula is used to calculate the ending value of a series of
  * payments or cash flows where the first payment is received immediately. The first cash flow
  * received immediately is what distinguishes an annuity due from an ordinary annuity. An annuity
  * due is sometimes referred to as an immediate annuity.
- * <p>
+ *
  * The future value of annuity due formula calculates the value at a future date. The use of the
  * future value of annuity due formula in real situations is different than that of the present
  * value for an annuity due. For example, suppose that an individual or company wants to buy an
@@ -40,7 +38,7 @@ import java.math.BigDecimal;
  * the future value of annuity due would be used.
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Future-Value-of-Annuity-Due.html
+ * @see <a href="http://www.financeformulas.net/Future-Value-of-Annuity-Due.html">http://www.financeformulas.net/Future-Value-of-Annuity-Due.html</a>
  */
 public final class FutureValueOfAnnuityDue extends AbstractRateAndPeriodBasedOperator {
 
@@ -66,8 +64,8 @@ public final class FutureValueOfAnnuityDue extends AbstractRateAndPeriodBasedOpe
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

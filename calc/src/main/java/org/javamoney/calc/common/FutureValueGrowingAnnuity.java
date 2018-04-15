@@ -27,33 +27,29 @@ import javax.money.MonetaryException;
 import javax.money.MonetaryOperator;
 
 /**
- * <p>
- * <img src="http://www.financeformulas.net/Formula%20Images/Growing%20Annuity%20-%20FV%201.gif"/>
- * <br>
- * <p>
  * The formula for the future value of a growing annuity is used to calculate the future amount of a
  * series of cash flows, or payments, that grow at a proportionate rate. A growing annuity may
  * sometimes be referred to as an increasing annuity.
- * <p>
- * <h3>Example of FV of Growing Annuity</h3>
- * <p>
+ *
+ * <b>Example of FV of Growing Annuity</b>
+ *
  * An example of the future value of a growing annuity formula would be an individual who is paid
  * biweekly and decides to save one of her extra paychecks per year. One of her net paychecks
  * amounts to $2,000 for the first year and she expects to receive a 5% raise on her net pay every
  * year. For this example, we will use 5% on her net pay and not involve taxes and other adjustments
  * in order to hold all other things constant. In an account that has a yield of 3% per year, she
  * would like to calculate her savings balance after 5 years.
- * <p>
+ *
  * The growth rate in this example would be the 5% increase per year, the initial cash flow or
  * payment would be $2,000, the number of periods would be 5 years, and rate per period would be 3%.
  * Using these variables in the future value of growing annuity formula would show
- * <p>
+ *
  * <i>Example</i>
- * <p>
+ *
  * After solving this equation, the amount after the 5th cash flow would be $11,700.75.
  *
  * @author Anatole Tresch
- * @link http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html
+ * @see <a href="http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html">http://www.financeformulas.net/Future-Value-of-Growing-Annuity.html</a>
  */
 public final class FutureValueGrowingAnnuity implements MonetaryOperator {
     /**
@@ -65,7 +61,7 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
      */
     private final Rate growthRate;
     /**
-     * the target periods, >= 0.
+     * the target periods, &gt;= 0.
      */
     private final int periods;
 
@@ -74,7 +70,7 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
      *
      * @param discountRate The discount rate, not null.
      * @param growthRate   The growth rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param periods      the target periods, &gt;= 0.
      */
     private FutureValueGrowingAnnuity(Rate discountRate, Rate growthRate, int periods) {
         this.discountRate = Objects.requireNonNull(discountRate);
@@ -88,14 +84,29 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
         this.periods = periods;
     }
 
+    /**
+     * Gets discount rate.
+     *
+     * @return the discount rate
+     */
     public Rate getDiscountRate() {
         return discountRate;
     }
 
+    /**
+     * Gets growth rate.
+     *
+     * @return the growth rate
+     */
     public Rate getGrowthRate() {
         return growthRate;
     }
 
+    /**
+     * Gets periods.
+     *
+     * @return the periods
+     */
     public int getPeriods() {
         return periods;
     }
@@ -105,7 +116,7 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
      *
      * @param discountRate The discount rate, not null.
      * @param growthRate   The growth rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param periods      the target periods, &gt;= 0.
      * @return the operator, never null.
      */
     public static FutureValueGrowingAnnuity of(Rate discountRate, Rate growthRate, int periods) {
@@ -118,7 +129,7 @@ public final class FutureValueGrowingAnnuity implements MonetaryOperator {
      * @param firstPayment the first payment
      * @param discountRate The rate perperiod, not null. If the rate is less than 0, the result will be zero.
      * @param growthRate   The growth rate, not null.
-     * @param periods      the target periods, >= 0.
+     * @param periods      the target periods, &gt;= 0.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount firstPayment, Rate discountRate, Rate growthRate,

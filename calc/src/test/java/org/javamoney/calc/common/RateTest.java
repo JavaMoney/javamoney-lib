@@ -29,23 +29,43 @@ import static org.junit.Assert.*;
  */
 public class RateTest {
 
+    /**
+     * Of bd.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_BD() throws Exception {
         Rate r = Rate.of(BigDecimal.valueOf(0.0567));
         assertNotNull(r);
     }
 
+    /**
+     * Of num.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_Num() throws Exception {
         Rate r = Rate.of(0.0567f);
         assertNotNull(r);
     }
 
+    /**
+     * Of null.
+     *
+     * @throws Exception the exception
+     */
     @Test(expected=NullPointerException.class)
     public void of_Null() throws Exception {
         Rate.of((Number)null);
     }
 
+    /**
+     * Test hash code.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testHashCode() throws Exception {
         Rate r1 = Rate.of(0.0567f);
@@ -55,6 +75,11 @@ public class RateTest {
         assertFalse(r1.hashCode()==r2.hashCode());
     }
 
+    /**
+     * Test equals.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testEquals() throws Exception {
         Rate r1 = Rate.of(0.0567f);
@@ -64,18 +89,33 @@ public class RateTest {
         assertNotSame(r1, r2);
     }
 
+    /**
+     * Get.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void get() throws Exception {
         Rate r1 = Rate.of(0.0567f);
         assertEquals(BigDecimal.valueOf(0.0567d), r1.get());
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testToString() throws Exception {
         Rate r1 = Rate.of(0.0567f);
         assertEquals("Rate[0.0567]", r1.toString());
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         Rate r1 = Rate.of(0.05);

@@ -31,7 +31,7 @@ import java.util.function.Predicate;
  * <ul>
  * <li>immutable</li>
  * <li>final</li>
- * <li>thread-safe/li>
+ * <li>thread-safe</li>
  * <li>serializable</li>
  * </ul>
  *
@@ -60,9 +60,9 @@ public final class ValidatedAmount {
      * Creates an predicated {@link MonetaryAmount} based on the given
      * {@link MonetaryAmount}.
      *
-     * @param amount The amount to decorated.
-     * @return a predicated instance, that ensures the given predicate is always
-     * ensured on all operations.
+     * @param amount    The amount to decorated.
+     * @param predicate the predicate
+     * @return a predicated instance, that ensures the given predicate is always ensured on all operations.
      */
     public static MonetaryAmount of(MonetaryAmount amount,
                                     Predicate<MonetaryAmount> predicate) {

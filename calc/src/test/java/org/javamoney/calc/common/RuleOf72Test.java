@@ -25,15 +25,26 @@ import static org.junit.Assert.*;
 
 /**
  * Created by atsticks on 27.05.16.
- * @link http://www.financeformulas.net/Rule_of_72.html
+ *
+ * @link http ://www.financeformulas.net/Rule_of_72.html
  */
 public class RuleOf72Test {
 
+    /**
+     * Calculate positive.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_POSITIVE() throws Exception {
         assertEquals(BigDecimal.valueOf(9.411764705882353), RuleOf72.calculate(Rate.of(0.0765)));
     }
 
+    /**
+     * Calculate negative.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_NEGATIVE() throws Exception {
         assertEquals(BigDecimal.valueOf(-9.411764705882353), RuleOf72.calculate(Rate.of(-0.0765)));

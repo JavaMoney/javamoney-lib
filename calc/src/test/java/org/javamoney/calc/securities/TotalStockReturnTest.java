@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ * The type Total stock return test.
+ *
  * @author Manuela Grindei
  */
 public class TotalStockReturnTest {
@@ -33,6 +35,9 @@ public class TotalStockReturnTest {
     private static final Money ENDING_PRICE = Money.of(1020, "GBP");
     private static final Money DIVIDENDS = Money.of(20, "GBP");
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(BigDecimal.valueOf(0.04), TotalStockReturn.calculate(INITIAL_PRICE, ENDING_PRICE, DIVIDENDS));

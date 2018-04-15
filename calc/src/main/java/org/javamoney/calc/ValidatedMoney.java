@@ -54,7 +54,8 @@ final class ValidatedMoney implements
     /**
      * Creates a new wrapper instance.
      *
-     * @param amount the underlying amount, not null and not negative.
+     * @param amount    the underlying amount, not null and not negative.
+     * @param predicate the predicate
      * @throws IllegalArgumentException if the amount passed is negative.
      */
     ValidatedMoney(MonetaryAmount amount,
@@ -74,7 +75,7 @@ final class ValidatedMoney implements
     }
 
     /**
-     * Access an {@link ValidatedMoney} based on the given
+     * Access an ValidatedMoney based on the given
      * {@link MonetaryAmount}.
      * @param predicate the validation function, not null.
      * @param amount the amount to decorate
@@ -406,6 +407,11 @@ final class ValidatedMoney implements
         private Predicate<MonetaryAmount> predicate;
         private MonetaryAmountFactory<?> factory = Monetary.getDefaultAmountFactory();
 
+        /**
+         * Instantiates a new Validated amount factory.
+         *
+         * @param amount the amount
+         */
         public ValidatedAmountFactory(ValidatedMoney amount){
             this.predicate = amount.predicate;
         }

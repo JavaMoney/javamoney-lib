@@ -26,12 +26,9 @@ import java.math.MathContext;
 import java.util.Objects;
 
 /**
- * <img src= "http://www.financeformulas.net/formulaimages/APY%201.gif" />
- * <p>
  * The Annual Percentage Yield (APY), referenced as the effective annual rate in finance,
  * is the rate of interest that is earned when taking into consideration the effect of
  * compounding.
- *
  *
  * There are various terms used when compounding is not considered including nominal interest
  * rate, stated annual interest rate, and annual percentage rate(APR).
@@ -45,7 +42,7 @@ import java.util.Objects;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @link http://www.financeformulas.net/Compound_Interest.html
+ * @see <a href="http://www.financeformulas.net/Compound_Interest.html">http://www.financeformulas.net/Compound_Interest.html</a>
  */
 public final class AnnualPercentageYield implements MonetaryOperator {
 
@@ -54,7 +51,7 @@ public final class AnnualPercentageYield implements MonetaryOperator {
      */
     private final Rate rate;
     /**
-     * the periods, >= 0.
+     * the periods, &gt;= 0.
      */
     private final int periods;
 
@@ -63,7 +60,7 @@ public final class AnnualPercentageYield implements MonetaryOperator {
      * Private constructor.
      *
      * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param periods the periods, &gt;= 0.
      */
     private AnnualPercentageYield(Rate rate, int periods) {
         this.rate = Objects.requireNonNull(rate);
@@ -73,10 +70,20 @@ public final class AnnualPercentageYield implements MonetaryOperator {
         this.periods = periods;
     }
 
+    /**
+     * Gets periods.
+     *
+     * @return the periods
+     */
     public int getPeriods() {
         return periods;
     }
 
+    /**
+     * Gets rate.
+     *
+     * @return the rate
+     */
     public Rate getRate() {
         return rate;
     }
@@ -86,7 +93,7 @@ public final class AnnualPercentageYield implements MonetaryOperator {
      * Access a MonetaryOperator for calculation.
      *
      * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param periods the periods, &gt;= 0.
      * @return the operator, never null.
      */
     public static AnnualPercentageYield of(Rate rate, int periods){
@@ -97,7 +104,7 @@ public final class AnnualPercentageYield implements MonetaryOperator {
      * Performs the calculation.
      *
      * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param periods the periods, &gt;= 0.
      * @return the resulting amount, never null.
      */
     public static Rate calculate(Rate rate, int periods) {
@@ -116,7 +123,7 @@ public final class AnnualPercentageYield implements MonetaryOperator {
      *
      * @param amount  the base amount, not null.
      * @param rate    the target rate, not null.
-     * @param periods the periods, >= 0.
+     * @param periods the periods, &gt;= 0.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, Rate rate, int periods) {

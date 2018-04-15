@@ -21,15 +21,13 @@ package org.javamoney.calc.securities;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src=http://www.financeformulas.net/formulaimages/Book%20Value%20per%20Share%201.gif />
- * <p>
  * The book value per share formula is used to calculate the per share value of a company based on its equity available to common shareholders. The term
  * "book value" is a company's assets minus its liabilities and is sometimes referred to as stockholder's equity, owner's equity, shareholder's equity, or
  * simply equity. Common stockholder's equity, or owner's equity, can be found on the balance sheet for the company. In the absence of preferred shares, the
  * total stockholder's equity is used.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Book-Value-per-Share.html
+ * @see <a href="http://www.financeformulas.net/Book-Value-per-Share.html">http://www.financeformulas.net/Book-Value-per-Share.html</a>
  */
 public class BookValuePerShare {
 

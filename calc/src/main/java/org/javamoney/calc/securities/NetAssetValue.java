@@ -21,13 +21,12 @@ package org.javamoney.calc.securities;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Net%20Asset%20Value%201.gif" />
- * <p> The net asset value formula is used to calculate a mutual fund's value per share. A mutual fund is a pool of investments that are divided
+ * The net asset value formula is used to calculate a mutual fund's value per share. A mutual fund is a pool of investments that are divided
  * into shares to be purchased by investors. Each share contains a weighted portion of each investment in the collective pool. The premise of
  * grouping in this manner is to minimize risk by diversifying.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Net_Asset_Value.html
+ * @see <a href="http://www.financeformulas.net/Net_Asset_Value.html">http://www.financeformulas.net/Net_Asset_Value.html</a>
  */
 public class NetAssetValue {
 

@@ -27,10 +27,16 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by atsticks on 15.05.16.
- * @link http://www.financeformulas.net/Present_Value_of_Annuity.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Present_Value_of_Annuity.html#calcHeader
  */
 public class PresentValueOfAnnuityTest {
 
+    /**
+     * Gets rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getRate() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(
@@ -39,6 +45,11 @@ public class PresentValueOfAnnuityTest {
         assertEquals(val.getRate(), Rate.of(0.03));
     }
 
+    /**
+     * Gets periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getPeriods() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(
@@ -47,6 +58,11 @@ public class PresentValueOfAnnuityTest {
         assertEquals(val.getPeriods(), 3654);
     }
 
+    /**
+     * Of period 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_Period1() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(
@@ -54,6 +70,12 @@ public class PresentValueOfAnnuityTest {
         );
         assertNotNull(val);
     }
+
+    /**
+     * Of period 0.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_Period0() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(
@@ -62,6 +84,11 @@ public class PresentValueOfAnnuityTest {
         assertNotNull(val);
     }
 
+    /**
+     * Calculate periods 0.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_Periods0() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -76,6 +103,11 @@ public class PresentValueOfAnnuityTest {
     }
 
 
+    /**
+     * Calculate periods 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_Periods1() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -91,6 +123,11 @@ public class PresentValueOfAnnuityTest {
                 m.with(val).getNumber().doubleValue(), 0.00001d);
     }
 
+    /**
+     * Calculate periods n.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_PeriodsN() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -107,6 +144,11 @@ public class PresentValueOfAnnuityTest {
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(
@@ -116,6 +158,11 @@ public class PresentValueOfAnnuityTest {
         assertEquals(val.apply(m), m.with(val));
     }
 
+    /**
+     * To string test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void toStringTest() throws Exception {
         PresentValueOfAnnuity val = PresentValueOfAnnuity.of(

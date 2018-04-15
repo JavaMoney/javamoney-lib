@@ -28,12 +28,11 @@ import org.javamoney.calc.CalculationContext;
 
 /**
  * This class allows to extract the BasisPoint of a {@link MonetaryAmount} instance.
- * 
- * @version 0.5
+ *
  * @author Anatole Tresch
  * @author Werner Keil
- * 
- * @see <a href="http://en.wikipedia.org/wiki/Per_mil">Wikipedia: Per mil</a>
+ * @version 0.5
+ * @see <a href="http://en.wikipedia.org/wiki/Per_mil">http://en.wikipedia.org/wiki/Per_mil</a>
  */
 public final class BasisPoint implements MonetaryOperator {
 
@@ -47,9 +46,10 @@ public final class BasisPoint implements MonetaryOperator {
 	}
 
 	/**
-	 * Factory method creating a new instance with the given {@code Number) permil value;
-	 * @param decimal the decimal value of the permil operator being created.
-	 * @return a new  {@code Permil} operator
+	 * Factory method creating a new instance with the given {@code Number} permil value.
+	 *
+	 * @param number  the number
+	 * @return the basis point
 	 */
 	public static BasisPoint of(Number number) {
 		return new BasisPoint(number);
@@ -62,8 +62,9 @@ public final class BasisPoint implements MonetaryOperator {
 	 * 2.35' will return 0.235.
 	 * <p>
 	 * This is returned as a {@code MonetaryAmount}.
-	 * 
-	 * @return the permil result of the amount, never {@code null}
+	 *
+	 * @param amount amount of the permil applied being created to.
+	 * @return the permil of the given amount, never {@code null}
 	 */
 	@Override
 	public MonetaryAmount apply(MonetaryAmount amount) {
@@ -93,6 +94,8 @@ public final class BasisPoint implements MonetaryOperator {
 	 * <p>
 	 * This is returned as a {@code MonetaryAmount}.
 	 *
+	 * @param amount      the amount
+	 * @param basisPoints the basis points
 	 * @return the permil result of the amount, never {@code null}
 	 */
 	public static MonetaryAmount calculate(MonetaryAmount amount, Number basisPoints) {

@@ -24,6 +24,8 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ * The type Net asset value test.
+ *
  * @author Manuela Grindei
  */
 public class NetAssetValueTest {
@@ -32,6 +34,9 @@ public class NetAssetValueTest {
     private static final Money FUND_LIABILITIES = Money.of(100_000, "GBP");
     private static final int OUTSTANDING_SHARES = 100_000;
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Money.of(9, "GBP"), NetAssetValue.calculate(ASSETS, FUND_LIABILITIES, OUTSTANDING_SHARES));

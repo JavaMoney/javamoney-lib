@@ -30,12 +30,15 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link org.javamoney.calc.common.FutureValue} formula.
- * @link http://www.financeformulas.net/Future_Value.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Future_Value.html#calcHeader
  */
 public class FutureValueTest {
 
     /**
      * Method: of(Rate ratePerPeriod, int periods).
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testOfAndApply() throws Exception {
@@ -49,6 +52,8 @@ public class FutureValueTest {
 
     /**
      * Method: calculate(MonetaryAmount amount, Rate rate, int periods)
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testCalculate() throws Exception {
@@ -62,6 +67,8 @@ public class FutureValueTest {
 
     /**
      * Method: toString()
+     *
+     * @throws Exception the exception
      */
     @Test
     public void testToString() throws Exception {
@@ -79,6 +86,9 @@ public class FutureValueTest {
                 "  periods=11}}", FutureValue.of(RateAndPeriods.of(0.07, 11)).toString());
     }
 
+    /**
+     * Test formula.
+     */
     @Test
     public void testFormula() {
         Money money = Money.of(100, "CHF");

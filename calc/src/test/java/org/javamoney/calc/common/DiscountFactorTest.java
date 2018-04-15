@@ -26,6 +26,9 @@ import org.junit.Test;
  */
 public class DiscountFactorTest {
 
+    /**
+     * Calculate negative.
+     */
     @Test
 	public void calculate_Negative() {
         assertEquals(1, DiscountFactor.calculate(RateAndPeriods.of(-0.05,0)).doubleValue(), 0.0d);
@@ -33,6 +36,9 @@ public class DiscountFactorTest {
         assertEquals(1.422382169222759, DiscountFactor.calculate(RateAndPeriods.of(-0.05,10)).doubleValue(), 0.0d);
     }
 
+    /**
+     * Calculate zero.
+     */
     @Test
 	public void calculate_Zero() {
         assertEquals(1, DiscountFactor.calculate(RateAndPeriods.of(0.00,0)).intValueExact());
@@ -40,14 +46,20 @@ public class DiscountFactorTest {
         assertEquals(1, DiscountFactor.calculate(RateAndPeriods.of(0.00,10)).intValueExact());
     }
 
+    /**
+     * Calculate positive.
+     */
     @Test
 	public void calculate_Positive() {
         assertEquals(1.0, DiscountFactor.calculate(RateAndPeriods.of(0.05,0)).doubleValue(), 0.0d);
         assertEquals(0.95, DiscountFactor.calculate(RateAndPeriods.of(0.05,1)).doubleValue(), 0.0d);
         assertEquals(0.37110537322255859375, DiscountFactor.calculate(RateAndPeriods.of(0.05,10)).doubleValue(), 0.0d);
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
+
+    /**
+     * Calculate negative periods.
+     */
+    @Test(expected = IllegalArgumentException.class)
 	public void calculate_negativePeriods() {
 		DiscountFactor.calculate(RateAndPeriods.of(-0.05, -1));
     }

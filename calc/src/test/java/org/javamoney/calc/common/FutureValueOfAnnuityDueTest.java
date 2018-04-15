@@ -27,10 +27,16 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by atsticks on 15.05.16.
- * @link http://www.financeformulas.net/Future-Value-of-Annuity-Due.html#calcHeader
+ *
+ * @link http ://www.financeformulas.net/Future-Value-of-Annuity-Due.html#calcHeader
  */
 public class FutureValueOfAnnuityDueTest {
 
+    /**
+     * Gets rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getRate() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(
@@ -39,6 +45,11 @@ public class FutureValueOfAnnuityDueTest {
         assertEquals(val.getRate(), Rate.of(0.03));
     }
 
+    /**
+     * Gets periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void getPeriods() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(
@@ -47,6 +58,11 @@ public class FutureValueOfAnnuityDueTest {
         assertEquals(val.getPeriods(), 3654);
     }
 
+    /**
+     * Of period 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_Period1() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(
@@ -54,6 +70,12 @@ public class FutureValueOfAnnuityDueTest {
         );
         assertNotNull(val);
     }
+
+    /**
+     * Of period 0.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_Period0() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(
@@ -62,6 +84,11 @@ public class FutureValueOfAnnuityDueTest {
         assertNotNull(val);
     }
 
+    /**
+     * Calculate periods 0.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_Periods0() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -76,6 +103,11 @@ public class FutureValueOfAnnuityDueTest {
     }
 
 
+    /**
+     * Calculate periods 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_Periods1() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -89,6 +121,11 @@ public class FutureValueOfAnnuityDueTest {
         assertEquals(Money.of(9.5,"CHF"), m.with(val));
     }
 
+    /**
+     * Calculate periods n.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_PeriodsN() throws Exception {
         Money m = Money.of(10, "CHF");
@@ -105,6 +142,11 @@ public class FutureValueOfAnnuityDueTest {
                 m.with(val).getNumber().numberValue(BigDecimal.class).doubleValue(), 0.000000000000001d);
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(
@@ -114,6 +156,11 @@ public class FutureValueOfAnnuityDueTest {
         assertEquals(val.apply(m), m.with(val));
     }
 
+    /**
+     * To string test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void toStringTest() throws Exception {
         FutureValueOfAnnuityDue val = FutureValueOfAnnuityDue.of(

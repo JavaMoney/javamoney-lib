@@ -22,8 +22,6 @@ import static org.javamoney.calc.CalculationContext.one;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20Payment%20(FV)%201.gif" />
- * <p>
  * The annuity payment formula shown above is used to calculate the cash flows of an annuity when
  * future value is known. An annuity is denoted as a series of periodic payments. The annuity
  * payment formula shown here is specifically used when the future value is known, as opposed to the
@@ -39,14 +37,14 @@ import javax.money.MonetaryAmount;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @link http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html
+ * @see <a href="http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html">http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html</a>
  */
 final class FutureValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      */
     FutureValueOfAnnuityPayment(RateAndPeriods rateAndPeriods) {
         super(rateAndPeriods);
@@ -65,8 +63,8 @@ final class FutureValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperat
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

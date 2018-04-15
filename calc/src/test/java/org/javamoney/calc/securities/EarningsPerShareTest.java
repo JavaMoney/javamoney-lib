@@ -24,6 +24,8 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ * The type Earnings per share test.
+ *
  * @author Manuela Grindei
  */
 public class EarningsPerShareTest {
@@ -31,6 +33,9 @@ public class EarningsPerShareTest {
     private static final Money NET_INCOME = Money.of(82, "GBP");
     private static final double WEIGHTED_AVERAGE_OF_OUTSTANDING_SHARES = 20.5;
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(Money.of(4, "GBP"), EarningsPerShare.calculate(NET_INCOME, WEIGHTED_AVERAGE_OF_OUTSTANDING_SHARES));

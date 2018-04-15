@@ -30,8 +30,6 @@ import java.util.Objects;
 import static org.javamoney.calc.CalculationContext.one;
 
 /**
- * <img src= "http://www.financeformulas.net/formulaimages/Balloon%20Loan%20Payment%201.gif" />
- * <p>
  * The balloon loan payment formula is used to calculate the payments on a loan that has a balance
  * remaining after all periodic payments are made. Examples of loans that may use the balloon loan
  * payment formula would be auto leases, balloon mortgages, and any other form of loan not paid
@@ -53,7 +51,7 @@ import static org.javamoney.calc.CalculationContext.one;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @link http://www.financeformulas.net/Compound_Interest.html
+ * @see <a href="http://www.financeformulas.net/Compound_Interest.html">http://www.financeformulas.net/Compound_Interest.html</a>
  */
 public final class BalloonLoanPayment extends AbstractRateAndPeriodBasedOperator{
 
@@ -84,6 +82,11 @@ public final class BalloonLoanPayment extends AbstractRateAndPeriodBasedOperator
         this.balloonAmount = Objects.requireNonNull(balloonAmount);
     }
 
+    /**
+     * Get balloon amount monetary amount.
+     *
+     * @return the monetary amount
+     */
     public MonetaryAmount getBalloonAmount(){
         return balloonAmount;
     }
@@ -91,7 +94,8 @@ public final class BalloonLoanPayment extends AbstractRateAndPeriodBasedOperator
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
+     * @param balloonAmount  the balloon amount
      * @return the operator, never null.
      */
     public static BalloonLoanPayment of(RateAndPeriods rateAndPeriods, MonetaryAmount balloonAmount){
@@ -118,9 +122,9 @@ public final class BalloonLoanPayment extends AbstractRateAndPeriodBasedOperator
     /**
      * Performs the calculation.
      *
-     * @param amountPV  the present value, not null.
-     * @param balloonAmount the balloon amount, not null and currency compatible with {@code amountPV}.
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param amountPV       the present value, not null.
+     * @param balloonAmount  the balloon amount, not null and currency compatible with {@code amountPV}.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amountPV, MonetaryAmount balloonAmount,

@@ -28,6 +28,11 @@ import static org.junit.Assert.assertNotNull;
  */
 public class SimpleInterestTest {
 
+    /**
+     * Of not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_notNull() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -36,6 +41,11 @@ public class SimpleInterestTest {
         assertNotNull(ci);
     }
 
+    /**
+     * Of correct rate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctRate() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -50,6 +60,11 @@ public class SimpleInterestTest {
         assertEquals(ci.getRate(),  Rate.of(0.05));
     }
 
+    /**
+     * Of correct periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void of_correctPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -62,6 +77,11 @@ public class SimpleInterestTest {
         assertEquals(ci.getPeriods(),  234);
     }
 
+    /**
+     * Calculate zero periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_zeroPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -72,6 +92,11 @@ public class SimpleInterestTest {
         assertEquals(Money.of(100,"CHF").with(ci), Money.of(0,"CHF"));
     }
 
+    /**
+     * Calculate one periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_onePeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -82,6 +107,11 @@ public class SimpleInterestTest {
         assertEquals(Money.of(-100,"CHF").with(ci),Money.of(-5,"CHF"));
     }
 
+    /**
+     * Calculate two periods.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_twoPeriods() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -92,6 +122,11 @@ public class SimpleInterestTest {
         assertEquals(Money.of(-100,"CHF").with(ci),Money.of(-10,"CHF"));
     }
 
+    /**
+     * Apply.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void apply() throws Exception {
         SimpleInterest ci = SimpleInterest.of(
@@ -100,6 +135,11 @@ public class SimpleInterestTest {
         assertEquals(ci.apply(Money.of(100,"CHF")),Money.of(35,"CHF"));
     }
 
+    /**
+     * Test to string.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void test_toString() throws Exception {
         SimpleInterest ci = SimpleInterest.of(

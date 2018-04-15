@@ -25,13 +25,11 @@ import java.util.Objects;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%201.gif" />
- * <p>
  * The annuity payment formula is used to calculate the periodic payment on an annuity. An annuity
  * is a series of periodic payments that are received at a future date. The present value portion of
  * the formula is the initial payout, with an example being the original payout on an amortized
  * loan.
- * <p>
+ *
  * The annuity payment formula shown is for ordinary annuities. This formula assumes that the rate
  * does not change, the payments stay the same, and that the first payment is one period away. An
  * annuity that grows at a proportionate rate would use the growing annuity payment formula.
@@ -39,18 +37,17 @@ import javax.money.MonetaryAmount;
  * change. An annuity that has its first payment due at the beginning would use the annuity due
  * payment formula and the deferred annuity payment formula would have a payment due at a later
  * date.
- * <p>
+ *
  * The annuity payment formula can be used for amortized loans, income annuities, structured
  * settlements, lottery payouts(see annuity due payment formula if first payment starts
  * immediately), and any other type of constant periodic payments.
- * <p>
- * This can be rewritten as:<br/>
- * http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%203.gif
- * 
- * @link http://www.financeformulas.net/Annuity_Payment_Formula.html
+ *
+ * This can be rewritten as:
+ * @see <a href="http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%203.gif">http://www.financeformulas.net/Formula%20Images/Annuity%20-%20Payment%203.gif</a>
+ *
  * @author Anatole Tresch
  * @author Werner Keil
- * 
+ * @see <a href="http://www.financeformulas.net/Annuity_Payment_Formula.html">http://www.financeformulas.net/Annuity_Payment_Formula.html</a>
  */
 public final class PresentValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
@@ -76,8 +73,8 @@ public final class PresentValueOfAnnuityPayment extends AbstractRateAndPeriodBas
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

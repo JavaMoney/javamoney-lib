@@ -24,12 +24,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * <img src="http://www.financeformulas.net/Formula%20Images/Geometric%20Mean%20Return%201.gif" />
- * <p>
  * The geometric mean return formula is used to calculate the average rate per period on an investment that is compounded over multiple periods.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Geometric_Mean_Return.html
+ * @see <a href="http://www.financeformulas.net/Geometric_Mean_Return.html">http://www.financeformulas.net/Geometric_Mean_Return.html</a>
  */
 public class GeometricMeanReturn {
 
@@ -42,7 +40,7 @@ public class GeometricMeanReturn {
     /**
      * Calculates geometric mean return.
      *
-     * @param ratesOfReturn   the rates of return
+     * @param ratesOfReturn the rates of return
      * @return the geometric mean return
      */
     public static double calculate(List<Rate> ratesOfReturn) {

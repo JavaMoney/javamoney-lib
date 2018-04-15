@@ -30,7 +30,8 @@ public class DoublingTimeTest {
 
     /**
      * Values are taken from: http://www.financeformulas.net/Doubling_Time.html#calcHeader
-     * @throws Exception
+     *
+     * @throws Exception the exception
      */
     @Test
     public void calculate() throws Exception {
@@ -40,6 +41,9 @@ public class DoublingTimeTest {
         assertEquals(15.74730183648559, DoublingTime.calculate(Rate.of(0.045)).doubleValue(), 0.0d);
     }
 
+    /**
+     * Calculate invalid.
+     */
     @Test(expected = MonetaryException.class)
     public void calculate_Invalid(){
         DoublingTime.calculate(Rate.of(0));

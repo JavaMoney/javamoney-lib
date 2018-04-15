@@ -35,7 +35,7 @@ public abstract class AbstractRateAndPeriodBasedOperator implements MonetaryOper
     /**
      * Constructor.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      */
     protected AbstractRateAndPeriodBasedOperator(RateAndPeriods rateAndPeriods) {
         this.rateAndPeriods = Objects.requireNonNull(rateAndPeriods);
@@ -43,6 +43,7 @@ public abstract class AbstractRateAndPeriodBasedOperator implements MonetaryOper
 
     /**
      * Get the rate and periods.
+     *
      * @return the rate and periods, never null.
      */
     public RateAndPeriods getRateAndPeriods() {
@@ -51,6 +52,7 @@ public abstract class AbstractRateAndPeriodBasedOperator implements MonetaryOper
 
     /**
      * Get the current rate.
+     *
      * @return the current rate, never null.
      */
     public Rate getRate(){
@@ -59,7 +61,8 @@ public abstract class AbstractRateAndPeriodBasedOperator implements MonetaryOper
 
     /**
      * Get the current periods, never null.
-     * @return the current periods, >= 0.
+     *
+     * @return the current periods, &gt;= 0.
      */
     public int getPeriods(){
         return rateAndPeriods.getPeriods();

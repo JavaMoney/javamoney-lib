@@ -24,6 +24,8 @@ import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**
+ * The type Stock present value test.
+ *
  * @author Manuela Grindei
  */
 public class StockPresentValueTest {
@@ -32,17 +34,26 @@ public class StockPresentValueTest {
     private static final Rate REQUIRED_RATE_OF_RETURN = Rate.of(0.05);
     private static final Rate GROWTH_RATE = Rate.of(0.03);
 
+    /**
+     * Test calculate for constant growth.
+     */
     @Test
     public void testCalculateForConstantGrowth() {
         assertEquals(Money.of(1700, "GBP"), StockPresentValue.calculateForConstantGrowth(ESTIMATED_DIVIDENDS, REQUIRED_RATE_OF_RETURN, GROWTH_RATE));
     }
 
+    /**
+     * Test calculate for zero growth.
+     */
     @Test
     public void testCalculateForZeroGrowth() {
         assertEquals(Money.of(680, "GBP"), StockPresentValue.calculateForZeroGrowth(ESTIMATED_DIVIDENDS, REQUIRED_RATE_OF_RETURN));
 	}
-	
-	@Test
+
+    /**
+     * Test apply.
+     */
+    @Test
 	public void testApply() {
 		assertEquals(Money.of(1700, "GBP"),
 		    ESTIMATED_DIVIDENDS.with(StockPresentValue.of(REQUIRED_RATE_OF_RETURN, GROWTH_RATE)));

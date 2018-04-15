@@ -29,7 +29,7 @@ import javax.money.MonetaryOperator;
  * When combined with a {@link MonetaryAmount} the according abosulte rate related to that amount is
  * returned, e.g. a 10 % interest rate is modeled as {@code 0.1}, whereas the absolute value given
  * an amount of {@code USD 100} will be {@code USD 10}.
- * 
+ *
  * @author Anatole Tresch
  */
 public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
@@ -38,7 +38,9 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	/** An optional rate info. */
 	private final String info;
 
-	/** A general zero rate. */
+	/**
+	 * A general zero rate.
+	 */
 	public static final Rate ZERO = new Rate(BigDecimal.ZERO, null);
 
     private Rate(BigDecimal rate, String info) {
@@ -49,8 +51,8 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 	/**
 	 * Creates a new zero rate instance.
 	 *
-	 * @param info
-	 *            the (optional) rate info.
+	 * @param info the (optional) rate info.
+	 * @return the rate
 	 */
 	public static Rate zero(String info){
 		return of(BigDecimal.ZERO, info);
@@ -58,19 +60,20 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 
 	/**
 	 * Creates a new rate instance.
-	 * 
-	 * @param rate
-	 *            the rate, not {@code null}.
+	 *
+	 * @param rate the rate, not {@code null}.
+	 * @return the rate
 	 */
-    public static Rate of(BigDecimal rate) {
+	public static Rate of(BigDecimal rate) {
         return new Rate(rate, null);
     }
 
 	/**
 	 * Creates a new rate instance.
+	 *
+	 * @param rate the rate, not {@code null}.
 	 * @param info the (optional) info String
-	 * @param rate
-	 *            the rate, not {@code null}.
+	 * @return the rate
 	 */
 	public static Rate of(BigDecimal rate, String info) {
 		return new Rate(rate, info);
@@ -78,19 +81,20 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 
 	/**
 	 * Creates a new rate instance.
-	 * 
-	 * @param rate
-	 *            the rate, not {@code null}.
+	 *
+	 * @param rate the rate, not {@code null}.
+	 * @return the rate
 	 */
-    public static Rate of(Number rate) {
+	public static Rate of(Number rate) {
         return new Rate(new BigDecimal(rate.toString()), null);
     }
 
 	/**
 	 * Creates a new rate instance.
 	 *
-	 * @param rate
-	 *            the rate, not {@code null}.
+	 * @param rate the rate, not {@code null}.
+	 * @param info the info
+	 * @return the rate
 	 */
 	public static Rate of(Number rate, String info) {
 		return new Rate(new BigDecimal(rate.toString()), info);
@@ -147,8 +151,9 @@ public final class Rate implements MonetaryOperator, Supplier<BigDecimal> {
 
 	/**
 	 * Access the additional rate info.
+	 *
 	 * @return the additional rate info, or null.
-     */
+	 */
 	public String getInfo(){
 		return info;
 	}

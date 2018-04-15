@@ -23,19 +23,13 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * <p>
- * <img
- * src="http://www.financeformulas.net/Formula%20Images/FV%20-%20Continuous%20Compounding%201.gif"
- * />
- * </p>
- * <p>
  * The future value with continuous compounding formula is used in calculating the later value of a
  * current sum of money. Use of the future value with continuous compounding formula requires
  * understanding of 3 general financial concepts, which are time value of money, future value as it
  * applies to the time value of money, and continuous compounding.
- * </p>
- * <h3>Time Value of Money, Future Value, and Continuous Compounding</h3>
- * <p>
+ *
+ * <b>Time Value of Money, Future Value, and Continuous Compounding</b>
+ *
  * <ul>
  * <li>Time Value of Money - The future value with continuous compounding formula relies on the
  * underlying concept of time value of money. Time value of money is the notion that a current sum
@@ -54,7 +48,6 @@ import java.util.Objects;
  * </ul>
  * Particularly the last 2 of these concepts lends to the actual formula for future value with
  * continuous compounding.
- * </p>
  *
  * @author Anatole Tresch
  */
@@ -82,8 +75,8 @@ public final class FutureValueWithContinuousCompounding extends AbstractRateAndP
     /**
      * Performs the calculation.
      *
-     * @param amount  the first payment
-     * @param rateAndPeriods    The rate and periods, not null.
+     * @param amount         the first payment
+     * @param rateAndPeriods The rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {

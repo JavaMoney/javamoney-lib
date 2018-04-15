@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * The type Price to book value test.
+ *
  * @author Manuela Grindei
  */
 public class PriceToBookValueTest {
@@ -33,6 +35,9 @@ public class PriceToBookValueTest {
     private static final Money MARKET_PRICE_PER_SHARE = Money.of(120, "GBP");
     private static final Money BOOK_VALUE_PER_SHARE = Money.of(240, "GBP");
 
+    /**
+     * Test calculate.
+     */
     @Test
     public void testCalculate() {
         assertEquals(BigDecimal.valueOf(0.5), PriceToBookValue.calculate(MARKET_PRICE_PER_SHARE, BOOK_VALUE_PER_SHARE));

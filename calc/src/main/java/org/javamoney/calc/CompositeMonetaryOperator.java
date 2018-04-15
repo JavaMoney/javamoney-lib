@@ -37,6 +37,11 @@ public class CompositeMonetaryOperator implements MonetaryOperator {
 
     private final List<MonetaryOperator> functions = new ArrayList<>();
 
+    /**
+     * Instantiates a new Composite monetary operator.
+     *
+     * @param operations the operations
+     */
     @SafeVarargs
     public CompositeMonetaryOperator(Iterable<MonetaryOperator>... operations) {
         if (operations != null) {
@@ -48,6 +53,12 @@ public class CompositeMonetaryOperator implements MonetaryOperator {
         }
     }
 
+    /**
+     * Instantiates a new Composite monetary operator.
+     *
+     * @param name       the name
+     * @param operations the operations
+     */
     public CompositeMonetaryOperator(String name, MonetaryOperator... operations) {
         Objects.requireNonNull(name);
         Collections.addAll(functions, operations);

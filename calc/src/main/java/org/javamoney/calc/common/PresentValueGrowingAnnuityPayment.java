@@ -25,25 +25,21 @@ import java.util.Objects;
 import javax.money.MonetaryAmount;
 
 /**
- * <p>
- * <img src="http://www.financeformulas.net/Formula%20Images/Growing%20Annuity%20Payment%201.gif"/>
- * <br/>
- * <p>
  * The growing annuity payment from present value formula shown above is used to calculate the
  * initial payment of a series of periodic payments that grow at a proportionate rate. This formula
  * is used specifically when present value is known.
- * <p>
+ *
  * A growing annuity is an annuity where the payments grow at a particular rate. For example, assume
  * that the initial payment is $100 and the payments are expected to grow each period at 10%. As
  * stated, the first payment is $100, then the second payment would be $110 ($100 x [1 + g]), and
  * the third payment would be $121 ($110 x [1 + g]).
- * <p>
+ *
  * It is important to keep in mind that the formula shown above will only calculate the first
  * payment.
- * 
- * @link http://www.financeformulas.net/Growing-Annuity-Payment.html
+ *
  * @author Anatole
  * @author Werner
+ * @see <a href="http://www.financeformulas.net/Growing-Annuity-Payment.html">http://www.financeformulas.net/Growing-Annuity-Payment.html</a>
  */
 public final class PresentValueGrowingAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
@@ -64,7 +60,7 @@ public final class PresentValueGrowingAnnuityPayment extends AbstractRateAndPeri
      * Access a MonetaryOperator for calculation.
      *
      * @param discountRateAndPeriods The discount rate and periods, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param growthRate             The growth rate, not null.
      * @return the operator, never null.
      */
     public static PresentValueGrowingAnnuityPayment of(RateAndPeriods discountRateAndPeriods, Rate growthRate) {
@@ -74,9 +70,9 @@ public final class PresentValueGrowingAnnuityPayment extends AbstractRateAndPeri
     /**
      * Performs the calculation.
      *
-     * @param amount     the dividend payment
+     * @param amount                 the dividend payment
      * @param discountRateAndPeriods The discount rate and periods, not null.
-     * @param growthRate   The growth rate, not null.
+     * @param growthRate             The growth rate, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods discountRateAndPeriods, Rate growthRate) {

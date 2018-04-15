@@ -22,10 +22,6 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 
 /**
- * <img
- * src="http://www.financeformulas.net/Formula%20Images/Number%20of%20Periods%20-%20FV-PV%201.gif"
- * /> <br/>
- * <p>
  * The formula for solving for the number of periods shown at the top of this page is used to
  * calculate the length of time required for a single cash flow(present value) to reach a certain
  * amount(future value) based on the time value of money. In other words, this formula is used to
@@ -38,34 +34,42 @@ import javax.money.MonetaryAmount;
  * that the number of periods and periodic rate should match one another. For example, if the rate
  * is compounded monthly, then the monthly rate would be used and the number of periods would
  * reflect the number of months.
- * </P>
- * <H3>Example of Solve for Number of Periods Formula (PV & FV)</H3>
- * <p>
+ *
+ * <b>Example of Solve for Number of Periods Formula (PV &amp; FV)</b>
+ *
  * An example of solving for the number of periods formula would be an individual who would like to
  * determine how long it would take for his $1500 balance in his account to reach $2000 in an
  * account that pays 6% interest, compounded monthly. Of course, for this example it is assumed that
  * there will be no deposits nor withdrawals within this timeframe.
- * <p>
+ *
  * As previously stated in the prior section, the number of periods and the periodic rate should
  * match one another. The 6% annual interest rate is compounded monthly, so .005(equal to .5%) would
  * be used for r as this is the monthly rate.
- * <p>
+ *
  * For this example, the equation to solve for the number of periods would result in 57.68 months.
  * Of course in real situations the fraction of a month may not be exact due to when the account is
  * credited, there may be charges to the account that must be accounted for, and so on.
- * <p>
+ *
  * This can be checked by putting these variables into the present value formula and confirming that
  * in fact there will be a $2000 balance after 57.68 months based on a monthly rate of .5%.
- * 
- * @link http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html
+ *
  * @author Anatole Tresch
  * @author Werner Keil
+ * @see <a href="http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html">http://www.financeformulas.net/Solve-for-Number-of-Periods-PV-and-FV.html</a>
  */
 public final class NumPeriodsFromPresentValue {
 
     private NumPeriodsFromPresentValue() {
     }
 
+    /**
+     * Calculate big decimal.
+     *
+     * @param presentValue the present value
+     * @param futureValue  the future value
+     * @param rate         the rate
+     * @return the big decimal
+     */
     public static BigDecimal calculate(MonetaryAmount presentValue,
                                        MonetaryAmount futureValue, Rate rate) {
 		double result = Math.log(futureValue.divide(presentValue.getNumber())

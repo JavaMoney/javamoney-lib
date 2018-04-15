@@ -25,24 +25,38 @@ import static org.junit.Assert.*;
 
 /**
  * Created by atsticks on 15.05.16.
- * @link http://www.mrzeno.com/Present-Value-Annuity-Factor-PVAF.php
- * Note: {@code http://www.financeformulas.net/Present-Value-Annuity-Factor.html#calcHeader}
- * shows incorrect values in this case.
+ *
+ * @link http ://www.mrzeno.com/Present-Value-Annuity-Factor-PVAF.php Note: {@code http://www.financeformulas.net/Present-Value-Annuity-Factor.html#calcHeader} shows incorrect values in this case.
  */
 public class PresentValueOfAnnuityPaymentFactorTest {
 
+    /**
+     * Calculate periods 0.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_periods0() throws Exception {
         assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(0.05, 0)));
         assertEquals(BigDecimal.valueOf(0), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(-0.05, 0)));
     }
 
+    /**
+     * Calculate periods 1.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_periods1() throws Exception {
         assertEquals(BigDecimal.valueOf(0.952380952380952), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(0.05, 1)));
         assertEquals(BigDecimal.valueOf(1.05263157894736), PresentValueOfAnnuityPaymentFactor.calculate(RateAndPeriods.of(-0.05, 1)));
     }
 
+    /**
+     * Calculate periods 10.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void calculate_periods10() throws Exception {
         // Values are correct due to

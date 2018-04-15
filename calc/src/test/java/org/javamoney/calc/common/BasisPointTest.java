@@ -28,16 +28,24 @@ import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**
+ * The type Basis point test.
+ *
  * @author Werner Keil
  */
 public class BasisPointTest {
 
+    /**
+     * Test of.
+     */
     @Test
     public void testOf() {
         BasisPoint perc = BasisPoint.of(BigDecimal.ONE);
         assertNotNull(perc);
     }
 
+    /**
+     * Test apply.
+     */
     @Test
     public void testApply() {
         Money m = Money.of(BigDecimal.valueOf(2.35d), "CHF");
@@ -45,6 +53,9 @@ public class BasisPointTest {
                 BasisPoint.of(BigDecimal.TEN).apply(m));
     }
 
+    /**
+     * Test apply 10.
+     */
     @Test
     public void testApply10() {
         Money m = Money.of(3, "CHF");
@@ -52,6 +63,9 @@ public class BasisPointTest {
                 BasisPoint.of(BigDecimal.TEN).apply(m));
     }
 
+    /**
+     * Test apply 20.
+     */
     @Test
     public void testApply20() {
         Money m = Money.of(12, "CHF");
@@ -59,6 +73,9 @@ public class BasisPointTest {
                 BasisPoint.of(BigDecimal.valueOf(20)).apply(m));
     }
 
+    /**
+     * Test apply 30.
+     */
     @Test
     public void testApply30() {
         Money m = Money.of(12, "CHF");
@@ -66,6 +83,9 @@ public class BasisPointTest {
                 BasisPoint.of(BigDecimal.valueOf(30)).apply(m));
     }
 
+    /**
+     * Test to string.
+     */
     @Test
     public void testToString() {
         assertEquals("15\u2031", BasisPoint.of(BigDecimal.valueOf(15))

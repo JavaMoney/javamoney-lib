@@ -30,7 +30,8 @@ public class DoublingTimeSimpleTest {
 
     /**
      * Values are taken from: {@code http://www.financeformulas.net/Doubling-Time-Simple-Interest.html#calcHeader}
-     * @throws Exception
+     *
+     * @throws Exception the exception
      */
     @Test
     public void calculate() throws Exception {
@@ -40,6 +41,9 @@ public class DoublingTimeSimpleTest {
         assertEquals(22.22222222222222, DoublingTimeSimple.calculate(Rate.of(0.045)).doubleValue(), 0.0d);
     }
 
+    /**
+     * Calculate invalid.
+     */
     @Test(expected = MonetaryException.class)
     public void calculate_Invalid(){
         DoublingTimeSimple.calculate(Rate.of(0));

@@ -23,6 +23,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
+ * The type Discount factor.
+ *
  * @author Anatole
  * @author Werner
  */
@@ -37,7 +39,7 @@ public final class DiscountFactor {
     /**
      * Calculates the discount factor.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the factor calculated.
      */
     public static BigDecimal calculate(RateAndPeriods rateAndPeriods) {

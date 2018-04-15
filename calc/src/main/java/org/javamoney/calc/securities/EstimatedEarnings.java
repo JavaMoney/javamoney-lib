@@ -22,14 +22,10 @@ import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Estimated%20Earnings%201.gif" />
- * <p>
- * <img src="http://www.financeformulas.net/formulaimages/Estimated%20Earnings%202.gif" />
- * <p>
- * <p> The formula for estimated earnings is forecasted sales minus forecasted expenses.
+ * The formula for estimated earnings is forecasted sales minus forecasted expenses.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Estimated-Earnings.html
+ * @see <a href="http://www.financeformulas.net/Estimated-Earnings.html">http://www.financeformulas.net/Estimated-Earnings.html</a>
  */
 public class EstimatedEarnings {
 

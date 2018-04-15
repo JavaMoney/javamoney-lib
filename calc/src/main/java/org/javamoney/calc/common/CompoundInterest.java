@@ -25,8 +25,6 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/Formula%20Images/Compound%20Interest%201.gif" />
- * <p>
  * The compound interest formula calculates the amount of interest earned on an account or
  * investment where the amount earned is reinvested. By reinvesting the amount earned, an investment
  * will earn money based on the effect of compounding. Compounding is the concept that any amount
@@ -37,7 +35,7 @@ import javax.money.MonetaryAmount;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @link http://www.financeformulas.net/Compound_Interest.html
+ * @see <a href="http://www.financeformulas.net/Compound_Interest.html">http://www.financeformulas.net/Compound_Interest.html</a>
  */
 public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
 
@@ -50,7 +48,7 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
      * Private constructor.
      *
      * @param rateAndPeriods    the target rate, not null.
-     * @param timesCompounded the times to be compunded, >= 0.
+     * @param timesCompounded the times to be compunded, &gt;= 0.
      */
     private CompoundInterest(RateAndPeriods rateAndPeriods, int timesCompounded) {
         super(rateAndPeriods);
@@ -61,6 +59,11 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
     }
 
 
+    /**
+     * Get times compounded int.
+     *
+     * @return the int
+     */
     public int getTimesCompounded(){
         return timesCompounded;
     }
@@ -68,7 +71,8 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
     /**
      * Access a MonetaryOperator for calculation.
      *
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param rateAndPeriods  the target rate and periods, not null.
+     * @param timesCompounded the times compounded
      * @return the operator, never null.
      */
     public static CompoundInterest of(RateAndPeriods rateAndPeriods, int timesCompounded) {
@@ -78,7 +82,7 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
     /**
      * Access a MonetaryOperator for calculation, assuming one time compounding per time period.
      *
-     * @param rateAndperiods    the target rate and periods, not null.
+     * @param rateAndperiods the target rate and periods, not null.
      * @return the operator, never null.
      */
     public static CompoundInterest of(RateAndPeriods rateAndperiods) {
@@ -88,8 +92,8 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
     /**
      * Performs the calculation, assuming timesCompounded/period = 1.
      *
-     * @param amount  the base amount, not null.
-     * @param rateAndPeriods    the target rate and periods, not null.
+     * @param amount         the base amount, not null.
+     * @param rateAndPeriods the target rate and periods, not null.
      * @return the resulting amount, never null.
      */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods) {
@@ -97,13 +101,14 @@ public final class CompoundInterest extends AbstractRateAndPeriodBasedOperator {
     }
 
 
-        /**
-         * Performs the calculation.
-         *
-         * @param amount  the base amount, not null.
-         * @param rateAndPeriods    the target rate and periods, not null.
-         * @return the resulting amount, never null.
-         */
+    /**
+     * Performs the calculation.
+     *
+     * @param amount          the base amount, not null.
+     * @param rateAndPeriods  the target rate and periods, not null.
+     * @param timesCompounded the times compounded
+     * @return the resulting amount, never null.
+     */
     public static MonetaryAmount calculate(MonetaryAmount amount, RateAndPeriods rateAndPeriods, int timesCompounded) {
         BigDecimal part2 = rateAndPeriods.getRate().get().divide(BigDecimal.valueOf(timesCompounded), mathContext());
         BigDecimal base = one().add(part2);

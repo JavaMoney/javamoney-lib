@@ -23,13 +23,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 /**
- * <img src="http://www.financeformulas.net/formulaimages/Current%20Yield%201.gif" />
- * <p>
- * <p> Current yield is a bond's annual return based on its annual coupon payments and current price (as opposed to its original price or face).
+ * Current yield is a bond's annual return based on its annual coupon payments and current price (as opposed to its original price or face).
  * The formula for current yield is a bond's annual coupons divided by its current price.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Current-Yield.html
+ * @see <a href="http://www.financeformulas.net/Current-Yield.html">http://www.financeformulas.net/Current-Yield.html</a>
  */
 public class CurrentYield {
 

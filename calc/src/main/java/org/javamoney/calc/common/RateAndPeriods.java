@@ -29,14 +29,14 @@ public class RateAndPeriods {
      */
     private final Rate rate;
     /**
-     * the periods, >= 0.
+     * the periods, &gt;= 0.
      */
     private final int periods;
 
     /**
      * Private constructor.
      * @param rate the rate, not null.
-     * @param periods the periods, >= 0.
+     * @param periods the periods, &gt;= 0.
      */
     private RateAndPeriods(Rate rate, int periods) {
         if(periods<0){
@@ -48,8 +48,9 @@ public class RateAndPeriods {
 
     /**
      * Get a new instance.
-     * @param rate the target rate, not null.
-     * @param periods the periods, >= 0.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, &gt;= 0.
      * @return a new instance.
      */
     public static RateAndPeriods of(Rate rate, int periods) {
@@ -58,8 +59,9 @@ public class RateAndPeriods {
 
     /**
      * Get a new instance.
-     * @param rate the target rate, not null.
-     * @param periods the periods, >= 0.
+     *
+     * @param rate    the target rate, not null.
+     * @param periods the periods, &gt;= 0.
      * @return a new instance.
      */
     public static RateAndPeriods of(double rate, int periods) {
@@ -68,6 +70,7 @@ public class RateAndPeriods {
 
     /**
      * Get the current target rate.
+     *
      * @return the target rate, never null.
      */
     public Rate getRate() {
@@ -75,7 +78,8 @@ public class RateAndPeriods {
     }
 
     /**
-     * The target periods, >= 0.
+     * The target periods, &gt;= 0.
+     *
      * @return the target periods.
      */
     public int getPeriods() {

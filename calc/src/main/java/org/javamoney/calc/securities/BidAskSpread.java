@@ -20,13 +20,12 @@ package org.javamoney.calc.securities;
 import javax.money.MonetaryAmount;
 
 /**
- * <img src= "http://www.financeformulas.net/formulaimages/Bid%20Ask%20Spread%201.gif" />
- * <p>
  * The bid ask spread formula is the difference between the asking price and bid price of a particular investment.
+ *
  * The bid ask spread may be used for various investments and is primarily used in investments that sell on an exchange.
  *
  * @author Manuela Grindei
- * @link http://www.financeformulas.net/Bid-Ask-Spread.html
+ * @see <a href="http://www.financeformulas.net/Bid-Ask-Spread.html">http://www.financeformulas.net/Bid-Ask-Spread.html</a>
  */
 public final class BidAskSpread {
 

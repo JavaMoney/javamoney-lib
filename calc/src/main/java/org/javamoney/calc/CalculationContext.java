@@ -37,12 +37,18 @@ public final class CalculationContext {
         init(MathContext.DECIMAL64);
     }
 
+    /**
+     * Math context math context.
+     *
+     * @return the math context
+     */
     public static MathContext mathContext(){
         return instance.mathContext;
     }
 
     /**
      * Accesses the number '1' initialized with the current {@link MathContext}.
+     *
      * @return the number instance, never null.
      */
     public static BigDecimal one() {
@@ -51,6 +57,7 @@ public final class CalculationContext {
 
     /**
      * Accesses the number '1' initialized with the current {@link MathContext}.
+     *
      * @return the number instance, never null.
      */
     public static BigDecimal zero() {
@@ -59,6 +66,7 @@ public final class CalculationContext {
 
     /**
      * Accesses the number '10' initialized with the current {@link MathContext}.
+     *
      * @return the number instance, never null.
      */
     public static BigDecimal ten() {
@@ -67,6 +75,7 @@ public final class CalculationContext {
 
     /**
      * Creates the given number initialized with the current {@link MathContext}.
+     *
      * @param num the number instance.
      * @return the number instance, never null.
      */
@@ -76,6 +85,7 @@ public final class CalculationContext {
 
     /**
      * Creates the given number initialized with the current {@link MathContext}.
+     *
      * @param num the number instance.
      * @return the number instance, never null.
      */
@@ -85,6 +95,7 @@ public final class CalculationContext {
 
     /**
      * Creates the given number initialized with the current {@link MathContext}.
+     *
      * @param num the number instance.
      * @return the number instance, never null.
      */
@@ -96,6 +107,7 @@ public final class CalculationContext {
     /**
      * This method allows o set the {@link MathContext} used for doing calculations.
      * Not te that this affects all calculations at all stages.
+     *
      * @param mathContext the new match context, not null.
      */
     public static void setMathContext(MathContext mathContext){
