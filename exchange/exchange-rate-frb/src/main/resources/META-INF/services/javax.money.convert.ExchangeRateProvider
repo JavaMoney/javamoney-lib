@@ -14,4 +14,4 @@
 #
 #
 # Contributors: @atsticks, @keilw, @otjava
-org.javamoney.moneta.convert.internal.frb.USFederalReserveRateProvider
+org.javamoney.moneta.convert.frb.USFederalReserveRateProvider

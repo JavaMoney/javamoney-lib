@@ -9,7 +9,7 @@ javac.target: 1.8
 Automatic-Module-Name: org.javamoney.moneta.convert.frb
 Bundle-Version: ${project.version}.${tstamp}
 Bundle-Name: JavaMoney Moneta FRB Conversion
-Bundle-Activator: org.javamoney.moneta.convert.internal.frb.OSGIActivator
+Bundle-Activator: org.javamoney.moneta.convert.frb.OSGIActivator
 Bundle-SymbolicName: org.javamoney.moneta.convert.frb
 Bundle-Description: JavaMoney - Moneta Reference Implementation - FRB Conversion
 Bundle-Category: Implementation

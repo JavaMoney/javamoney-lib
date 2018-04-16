@@ -9,7 +9,7 @@ javac.target: 1.8
 Automatic-Module-Name: org.javamoney.moneta.convert.yahoo
 Bundle-Version: ${project.version}.${tstamp}
 Bundle-Name: JavaMoney Moneta Yahoo Conversion
-Bundle-Activator: org.javamoney.moneta.convert.internal.yahoo.OSGIActivator
+Bundle-Activator: org.javamoney.moneta.convert.yahoo.OSGIActivator
 Bundle-SymbolicName: org.javamoney.moneta.convert.yahoo
 Bundle-Description: JavaMoney - Moneta Reference Implementation - Yahoo Conversion
 Bundle-Category: Implementation
