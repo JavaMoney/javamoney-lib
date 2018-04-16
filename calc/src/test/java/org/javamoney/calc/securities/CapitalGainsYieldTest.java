@@ -21,6 +21,8 @@ package org.javamoney.calc.securities;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
+import javax.money.MonetaryAmount;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -30,8 +32,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class CapitalGainsYieldTest {
 
-    private static final Money INITIAL_STOCK_PRICE = Money.of(123, "GBP");
-    private static final Money STOCK_PRICE_AFTER_FIRST_PERIOD = Money.of(223, "GBP");
+    private static final MonetaryAmount INITIAL_STOCK_PRICE = Money.of(123, "GBP");
+    private static final MonetaryAmount STOCK_PRICE_AFTER_FIRST_PERIOD = Money.of(223, "GBP");
 
     /**
      * Test calculate.

@@ -24,7 +24,7 @@
 		<artifactId>javamoney-exchange</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>javamoney-exchange-rate-yahoo</artifactId>
+	<artifactId>javamoney-exchange-yahoo</artifactId>
 	<packaging>jar</packaging>
 
 	<name>JavaMoney Exchange Yahoo Rate Provider</name>

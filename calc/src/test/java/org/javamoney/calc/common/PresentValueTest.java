@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import javax.money.*;
 
-import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 /**
@@ -40,19 +39,20 @@ public class PresentValueTest{
      */
     @Test
     public void testOfAndApply() throws Exception {
-        Money money = Money.of(100, "CHF");
+        MonetaryAmountFactory fact = Monetary.getDefaultAmountFactory();
+        MonetaryAmount money = fact.setCurrency("CHF").setNumber(100).create();
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(0.05, 1))).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(0.05, 2))).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(47.51), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(0.07, 11))).with(rounding));
+        assertEquals(fact.setNumber(95.24).create(), money.with(PresentValue.of(RateAndPeriods.of(0.05, 1))).with(rounding));
+        assertEquals(fact.setNumber(90.70).create(), money.with(PresentValue.of(RateAndPeriods.of(0.05, 2))).with(rounding));
+        assertEquals(fact.setNumber(47.51).create(), money.with(PresentValue.of(RateAndPeriods.of(0.07, 11))).with(rounding));
 
-        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(0.05, 0))).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(100.00), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 0))).with(rounding));
+        assertEquals(fact.setNumber(100.00).create(), money.with(PresentValue.of(RateAndPeriods.of(0.05, 0))).with(rounding));
+        assertEquals(fact.setNumber(100.00).create(), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 0))).with(rounding));
 
-        assertEquals(Money.of(BigDecimal.valueOf(105.26), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 1))).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(110.80), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 2))).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(222.17), "CHF"), money.with(PresentValue.of(RateAndPeriods.of(-0.07, 11))).with(rounding));
+        assertEquals(fact.setNumber(105.26).create(), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 1))).with(rounding));
+        assertEquals(fact.setNumber(110.80).create(), money.with(PresentValue.of(RateAndPeriods.of(-0.05, 2))).with(rounding));
+        assertEquals(fact.setNumber(222.17).create(), money.with(PresentValue.of(RateAndPeriods.of(-0.07, 11))).with(rounding));
     }
 
     /**
@@ -62,12 +62,13 @@ public class PresentValueTest{
      */
     @Test
     public void testCalculate() throws Exception {
-        Money money = Money.of(100, "CHF");
+        MonetaryAmountFactory fact = Monetary.getDefaultAmountFactory();
+        MonetaryAmount money = fact.setNumber(100).setCurrency("CHF").create();
         MonetaryOperator rounding = Monetary.getRounding(RoundingQueryBuilder.of().setScale(2).set(RoundingMode.HALF_EVEN)
                 .build());
-        assertEquals(Money.of(BigDecimal.valueOf(95.24), "CHF"), PresentValue.calculate(money, RateAndPeriods.of(0.05, 1)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(90.70), "CHF"), PresentValue.calculate(money, RateAndPeriods.of(0.05, 2)).with(rounding));
-        assertEquals(Money.of(BigDecimal.valueOf(47.51), "CHF"), PresentValue.calculate(money, RateAndPeriods.of(0.07, 11)).with(rounding));
+        assertEquals(fact.setNumber(95.24).create(), PresentValue.calculate(money, RateAndPeriods.of(0.05, 1)).with(rounding));
+        assertEquals(fact.setNumber(90.70).create(), PresentValue.calculate(money, RateAndPeriods.of(0.05, 2)).with(rounding));
+        assertEquals(fact.setNumber(47.51).create(), PresentValue.calculate(money, RateAndPeriods.of(0.07, 11)).with(rounding));
     }
 
     /**

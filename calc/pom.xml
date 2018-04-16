@@ -91,13 +91,14 @@
 			<groupId>javax.money</groupId>
 			<artifactId>money-api</artifactId>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>org.javamoney.moneta</groupId>-->
-			<!--<artifactId>moneta-core</artifactId>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney.moneta</groupId>
+			<artifactId>moneta-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

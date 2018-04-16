@@ -24,7 +24,7 @@
 		<artifactId>javamoney-exchange</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>javamoney-exchange-rate-frb</artifactId>
+	<artifactId>javamoney-exchange-frb</artifactId>
 	<packaging>jar</packaging>
 
 	<name>JavaMoney Exchange Federal Reserve Bank Rate Provider</name>
