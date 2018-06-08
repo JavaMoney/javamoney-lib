@@ -39,7 +39,7 @@ import javax.money.MonetaryAmount;
  * @author Werner Keil
  * @see <a href="http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html">http://www.financeformulas.net/Annuity-Payment-from-Future-Value.html</a>
  */
-final class FutureValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
+public final class FutureValueOfAnnuityPayment extends AbstractRateAndPeriodBasedOperator {
 
     /**
      * Private constructor.
