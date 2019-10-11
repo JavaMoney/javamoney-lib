@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 <!--
- Copyright (c) 2012, 2018, Werner Keil, Anatole Tresch and others.
+ Copyright (c) 2012, 2019, Werner Keil, Anatole Tresch and others.
 
  Licensed under the Apache License, Version 2.0 (the "License"); you may not
  use this file except in compliance with the License. You may obtain a copy of
@@ -19,7 +19,7 @@
 -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
     </parent>
@@ -31,8 +31,8 @@
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
-        <jsr.version>1.0.3</jsr.version>
-        <ri.version>1.2.1</ri.version>
+        <jsr.version>1.1-SNAPSHOT</jsr.version>
+        <ri.version>1.4-SNAPSHOT</ri.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.10</slf4j.version>
