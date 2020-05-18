@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018, Werner Keil, Anatole Tresch and others.
+ * Copyright (c) 2012, 2020, Werner Keil, Anatole Tresch and others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -52,8 +52,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
 import org.javamoney.moneta.spi.DefaultNumberValue;
-import org.javamoney.moneta.spi.LoaderService;
-import org.javamoney.moneta.spi.LoaderService.LoaderListener;
+import org.javamoney.moneta.spi.loader.LoaderService;
+import org.javamoney.moneta.spi.loader.LoaderService.LoaderListener;
 
 /**
 * <p>

@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-exchange</artifactId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>javamoney-exchange-frb</artifactId>
 	<packaging>jar</packaging>
@@ -70,9 +70,6 @@
 						<configuration>
 							<source>${maven.compile.sourceLevel}</source>
 							<target>${maven.compile.targetLevel}</target>
-							<excludes>
-								<exclude>org/javamoney/moneta/convert/frb/module-info.java</exclude>
-							</excludes>
 						</configuration>
 					</execution>
 				</executions>
@@ -86,13 +83,11 @@
 			<artifactId>money-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.javamoney.moneta</groupId>
-			<artifactId>moneta-core</artifactId>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+			<type>pom</type>
 		</dependency>
-		<dependency>
-			<groupId>org.javamoney.moneta</groupId>
-			<artifactId>moneta-convert</artifactId>
-		</dependency>
+
 		<!-- OSGI support -->
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -114,6 +109,15 @@
 			<version>${osgi.version}</version>
 			<scope>provided</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-bom</artifactId>
+			<type>pom</type>
 		</dependency>
 		<!-- testing -->
 		<dependency>

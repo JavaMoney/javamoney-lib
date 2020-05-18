@@ -1,39 +1,38 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <artifactId>javamoney-lib</artifactId>
-        <groupId>org.javamoney.lib</groupId>
-        <version>1.0</version>
+		<artifactId>javamoney-lib</artifactId>
+		<groupId>org.javamoney.lib</groupId>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
-    <artifactId>javamoney-cdi</artifactId>
-    <name>Money and Currency - JavaMoney CDI Integration</name>
-    <description>Implementation of JSR 354 Bootstrap mechanism that uses CDI in additiona to the ServiceLoader for
+	<artifactId>javamoney-cdi</artifactId>
+	<name>Money and Currency - JavaMoney CDI Integration</name>
+	<description>Implementation of JSR 354 Bootstrap mechanism that uses CDI in additiona to the ServiceLoader for
         locating components.
     </description>
 
-    <dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se</artifactId>
-            <version>2.2.4.Final</version>
-            <scope>provided</scope>
-        </dependency>
+			<artifactId>weld-se-core</artifactId>
+			<version>3.1.4.Final</version>
+		</dependency>
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.money</groupId>
-            <artifactId>money-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.javamoney.moneta</groupId>
-            <artifactId>moneta-core</artifactId>
-            <scope>test</scope>
-        </dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.money</groupId>
+			<artifactId>money-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javamoney.moneta</groupId>
+			<artifactId>moneta-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>
