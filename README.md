@@ -10,7 +10,7 @@ APIs and SPIs that were implemented during JSR development as a proof of concept
 * **Exchange** (javamoney-exchange) provides further conversion exchange resources such as FRD and Yahoo.
   * **FRB** (javamoney-exchange-frb) provides conversion exchange for US Federal Reserve Department FRD.
   * **Yahoo** (javamoney-exchange-yahoo) provides conversion exchange using Yahoo financial APIs.
-* **javamoney-cdi** (integration/javamoney-cdi) Integrates JavaMoney with CDI.
+* **javamoney-cdi** (javamoney-cdi) Integrates JavaMoney with Jakarta CDI (Java SE mode).
 
 To use the library you simply have to add the Maven dependency to your project:
 
