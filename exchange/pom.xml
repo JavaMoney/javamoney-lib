@@ -41,6 +41,11 @@
 					<artifactId>download-maven-plugin</artifactId>
 					<version>1.4.0</version>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -67,15 +72,15 @@
 
 			<!-- XML support -->
 			<dependency>
-				<groupId>jakarta.xml.bind</groupId>
-				<artifactId>jakarta.xml.bind-api</artifactId>
-				<version>2.3.2</version>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.3.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jaxb</groupId>
-				<artifactId>jaxb-bom</artifactId>
-				<type>pom</type>
-				<version>2.3.2</version>
+				<artifactId>jaxb-runtime</artifactId>
+				<version>2.3.1</version>
+				<scope>runtime</scope>
 			</dependency>
 
 			<!-- OSGI support -->

@@ -16,7 +16,7 @@
      License for the specific language governing permissions and limitations under
      the License.
 
-     Contributors: @atsticks, @keilw, @otjava, @manuela-grindei
+     Contributors: @atsticks, @keilw, @otaviojava, @manuela-grindei
     -->
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -52,35 +52,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
 				<configuration>
-					<source>9</source>
-					<target>9</target>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgs>
+						<arg>-Xlint:all</arg>
+					</compilerArgs>
 				</configuration>
-				<executions>
-					<execution>
-						<id>default-compile</id>
-						<configuration>
-							<!-- compile everything to ensure module-info contains right entries -->
-							<!-- required when JAVA_HOME is JDK 8 or below -->
-							<jdkToolchain>
-								<version>9</version>
-							</jdkToolchain>
-							<release>9</release>
-						</configuration>
-					</execution>
-					<execution>
-						<id>base-compile</id>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<!-- recompile everything for target VM except the module-info.java -->
-						<configuration>
-							<source>${maven.compile.sourceLevel}</source>
-							<target>${maven.compile.targetLevel}</target>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
         </plugins>
 	</build>
@@ -99,15 +77,13 @@
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.xml.bind</groupId>
-			<artifactId>jakarta.xml.bind-api</artifactId>
-			<version>2.3.2</version>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
-			<artifactId>jaxb-bom</artifactId>
-			<type>pom</type>
-			<version>2.3.2</version>
+			<artifactId>jaxb-runtime</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- OSGI support -->
@@ -139,4 +115,67 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>jdk9-setup</id>
+			<activation>
+				<jdk>[9,)</jdk>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-compiler-plugin</artifactId>
+							<configuration>
+								<release>8</release>
+							</configuration>
+							<executions>
+								<execution>
+									<id>default-compile</id>
+									<configuration>
+										<release>9</release>
+										<source>9</source>
+										<target>9</target>
+									</configuration>
+								</execution>
+								<execution>
+									<id>base-compile</id>
+									<goals>
+										<goal>compile</goal>
+									</goals>
+									<configuration>
+										<excludes>
+											<exclude>module-info.java</exclude>
+										</excludes>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>add-jdk9-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/main/jdk9</source>
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

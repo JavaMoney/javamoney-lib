@@ -18,7 +18,7 @@ module org.javamoney.moneta.convert.yahoo {
     requires static org.osgi.annotation;
     provides javax.money.convert.ExchangeRateProvider with
             YahooRateProvider;
-    uses org.javamoney.moneta.spi.LoaderService;
+    uses org.javamoney.moneta.spi.loader.LoaderService;
     uses org.javamoney.moneta.spi.MonetaryAmountProducer;
 
 }
