@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.javamoney.lib</groupId>
 		<artifactId>javamoney-exchange</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 	<artifactId>javamoney-exchange-yahoo</artifactId>
 	<packaging>jar</packaging>

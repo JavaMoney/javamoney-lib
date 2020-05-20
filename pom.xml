@@ -19,7 +19,7 @@
 -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
     </parent>
@@ -27,7 +27,7 @@
     <groupId>org.javamoney.lib</groupId>
     <name>Money and Currency - JavaMoney Libraries (parent)</name>
     <packaging>pom</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <properties>
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
@@ -36,7 +36,7 @@
         <ri.version>1.4</ri.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <slf4j.version>1.7.10</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
 
         <!-- OSGO support -->
         <osgi.version>5.0.0</osgi.version>
