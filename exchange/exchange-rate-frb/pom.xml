@@ -26,8 +26,30 @@
 	</parent>
 	<artifactId>javamoney-exchange-frb</artifactId>
 	<packaging>jar</packaging>
-
 	<name>JavaMoney Exchange Federal Reserve Bank Rate Provider</name>
+
+	<licenses>
+		<license>
+			<name>Apache License version 2.0</name>
+			<url>LICENSE.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>keilw</id>
+			<name>Werner Keil</name>
+			<email>werner@javamoney.org</email>
+			<organization>JavaMoney</organization>
+			<organizationUrl>http://www.javamoney.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>https://github.com/JavaMoney/javamoney-lib.git</connection>
+		<developerConnection>scm:git:ssh:github.com:JavaMoney/javamoney-lib.git</developerConnection>
+		<url>https://github.com/JavaMoney/javamoney-lib/tree/master/exchange/exchange-rate-frb</url>
+	</scm>
 
 	<build>
 		<plugins>

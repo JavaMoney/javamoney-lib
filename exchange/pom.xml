@@ -28,6 +28,29 @@
 	<name>JavaMoney Exchange Libraries </name>
 	<description>This parent has contains pluggable modules for JSR 354 like 3rd party exchange rate providers.</description>
 
+	<licenses>
+		<license>
+			<name>Apache License version 2.0</name>
+			<url>LICENSE.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>keilw</id>
+			<name>Werner Keil</name>
+			<email>werner@javamoney.org</email>
+			<organization>JavaMoney</organization>
+			<organizationUrl>http://www.javamoney.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>https://github.com/JavaMoney/javamoney-lib.git</connection>
+		<developerConnection>scm:git:ssh:github.com:JavaMoney/javamoney-lib.git</developerConnection>
+		<url>https://github.com/JavaMoney/javamoney-lib/tree/master/exchange</url>
+	</scm>
+
 	<modules>
 		<module>exchange-rate-frb</module>
 		<module>exchange-rate-yahoo</module>
