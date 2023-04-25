@@ -47,7 +47,7 @@ Having trouble with Pages? Check out [documentation](http://javamoney.org) or co
 
 Everything is licenced under [Apache 2 Licence](LICENSE.txt).
 
-[![Build Status](https://api.travis-ci.org/JavaMoney/javamoney-lib.png?branch=master)](https://travis-ci.org/JavaMoney/javamoney-lib)
+[![Build and Deploy Snapshot](https://github.com/JavaMoney/javamoney-lib/actions/workflows/maven-snapshot.yml/badge.svg)](https://github.com/JavaMoney/javamoney-lib/actions/workflows/maven-snapshot.yml)
 [![License](http://img.shields.io/badge/license-Apache2-red.svg)](http://opensource.org/licenses/apache-2.0) 
 
 [![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
