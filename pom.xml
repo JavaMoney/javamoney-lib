@@ -19,7 +19,7 @@
 -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <version>1.2</version>
+        <version>1.4-SNAPSHOT</version>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
     </parent>
@@ -27,13 +27,13 @@
     <groupId>org.javamoney.lib</groupId>
     <name>Money and Currency - JavaMoney Libraries (parent)</name>
     <packaging>pom</packaging>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <properties>
         <jdkVersion>1.8</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
         <jsr.version>1.1</jsr.version>
-        <ri.version>1.4</ri.version>
+        <ri.version>1.4.2</ri.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.30</slf4j.version>
@@ -56,23 +56,30 @@
         <module>javamoney-cdi</module>
         <module>exchange</module>
     </modules>
-    
+
+    <!-- Additional repositories -->
     <repositories>
         <repository>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
-            <id>release</id>
-            <name>jfrog-libs-release</name>
-            <url>http://oss.jfrog.org/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>jfrog-libs-snapshot</name>
-            <url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
+            <id>ossrh-snapshot</id>
+            <name>OSSRH Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <!-- Deployment to public servers -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
