@@ -34,7 +34,7 @@ Release Notes
 -------------
 
 * **1.0** First release of the libraries.
-
+* **1.1** Update release of the libraries.
 
 javamoney-shelter
 -----------------
